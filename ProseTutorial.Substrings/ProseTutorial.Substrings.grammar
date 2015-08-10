@@ -1,0 +1,14 @@
+﻿#reference 'file:ProseTutorial.Substrings.Internals.dll';
+
+using ProseTutorial.Substrings;
+using semantics ProseTutorial.Substrings.Semantics;
+using learners ProseTutorial.Substrings.WitnessFunctions;
+
+language ProseTutorial.Substrings;
+
+@start string sub := SubStr(v, posPair);
+Tuple<uint?, uint?> posPair := PosPair(pos, pos) = Pair(pos, pos);
+uint? pos := AbsPos(v, k);
+
+@input string v;
+int k;

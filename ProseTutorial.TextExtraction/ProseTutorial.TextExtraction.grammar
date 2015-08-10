@@ -1,0 +1,21 @@
+﻿reference 'ProseTutorial.Substrings.grammar.xml';
+reference 'ProseTutorial.TextExtraction.dll';
+reference 'Microsoft.ProgramSynthesis.Utils.dll';
+reference 'Microsoft.ProgramSynthesis.Extraction.Text.Semantics.dll';
+
+using System.Text.RegularExpressions;
+using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
+using semantics ProseTutorial.TextExtraction.Semantics;
+using learners ProseTutorial.TextExtraction.WitnessFunctions;
+
+language ProseTutorial_TextExtraction;
+
+@vardefault[VariableScore]
+feature double Score = ProseTutorial.TextExtraction.RankingScore;
+
+@start IEnumerable<StringRegion> spans := LinesMap(selection, lines) = Map(\line: StringRegion => selection, lines);
+StringRegion selection := @featuremap[Score=Score] @subst[v := line] ProseTutorial_Substrings.sub;
+
+IEnumerable<StringRegion> lines := SplitLines(document);
+
+@input StringRegion document;

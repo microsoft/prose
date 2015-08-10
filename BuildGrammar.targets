@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="SetProperties" DependsOnTargets="ResolveProjectReferences;ResolveAssemblyReferences">
+    <ItemGroup>
+      <GrammarDefinition Include="@(Content)"
+                         Condition="'%(Content.Label)' == 'GrammarDefinition' or '%(Content.Extension)' == '.grammar'"/>
+    </ItemGroup>
+    <ItemGroup>
+      <DslAssemblyReference Include="@(_ResolvedProjectReferencePaths)" />
+      <DslAssemblyReference Include="$(TargetDir)" />
+    </ItemGroup>
+    <ItemGroup>
+      <DslCompiler Include="$(SolutionDir)packages/Microsoft.ProgramSynthesis*/tools/dslc.exe"/>
+    </ItemGroup>
+    <PropertyGroup>
+      <InputGrammar>@(GrammarDefinition -> '%(FullPath)')</InputGrammar>
+      <DslName>@(GrammarDefinition -> '%(Filename)')</DslName>
+      <DslCompiler Condition="'$(OS)' == 'Windows_NT'">&quot;@(DslCompiler -> '%(FullPath)')&quot;</DslCompiler>
+      <DslCompiler Condition="'$(OS)' != 'Windows_NT'">mono &quot;@(DslCompiler -> '%(FullPath)')&quot;</DslCompiler>
+    </PropertyGroup>
+    <ItemGroup>
+      <AssemblyPaths Include="@(DslAssemblyReference -> '%(RootDir)%(Directory)')"/>
+      <!-- Fix the double-backslash-in-quoted-strings problem on Windows.
+      See http://weblogs.asp.net/jongalloway/_5B002E00_NET-Gotcha_5D00_-Commandline-args-ending-in-_5C002200_-are-subject-to-CommandLineToArgvW-whackiness -->
+      <AssemblyPathsFixedSlash Include="@(AssemblyPaths -> Replace('\', '/'))"/>
+      <OutputGrammar Include="@(GrammarDefinition -> '$(IntermediateOutputPath)%(Filename).Language.g.cs')"/>
+    </ItemGroup>
+  </Target>
+  <Target Name="CompileGrammar" DependsOnTargets="SetProperties"
+          Inputs="$(InputGrammar);@(DslAssemblyReference -> '%(FullPath)');" Outputs="@(OutputGrammar)">
+    <Message Importance="High" Text="Recompiling $(InputGrammar) using $(DSLCompiler)..."/>
+    <PropertyGroup>
+      <DslcCommand>$(DslCompiler) -p &quot;@(AssemblyPathsFixedSlash)&quot; -o &quot;@(OutputGrammar)&quot; -v verbose -- &quot;$(InputGrammar)&quot;</DslcCommand>
+    </PropertyGroup>
+    <Message Importance="High" Text="$(DslcCommand)"/>
+    <Exec Command="$(DslcCommand)"/>
+    <ItemGroup>
+        <Compile Include="@(OutputGrammar)" />
+    </ItemGroup>
+  </Target>
+  <PropertyGroup>
+      <CoreCompileDependsOn>CompileGrammar;$(CoreCompileDependsOn)</CoreCompileDependsOn>
+  </PropertyGroup>
+</Project>
