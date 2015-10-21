@@ -1,2 +1,2 @@
 # prose
-PROgram Synthesis by Examples
+PROgram Synthesis by Example
