@@ -6,8 +6,46 @@
     <description>Recent content on Microsoft Program Synthesis using Examples SDK</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Sep 2015 20:14:43 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2015 12:19:15 -0700</lastBuildDate>
     <atom:link href="https://microsoft.github.io/prose/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Microsoft Program Synthesis using Examples SDK FAQ</title>
+      <link>https://microsoft.github.io/prose/faq/</link>
+      <pubDate>Wed, 28 Oct 2015 12:19:15 -0700</pubDate>
+      
+      <guid>https://microsoft.github.io/prose/faq/</guid>
+      <description>
+
+&lt;h4 id=&#34;how-do-i-use-it&#34;&gt;How do I use it?&lt;/h4&gt;
+
+&lt;p&gt;The SDK is used through .NET APIs.
+See the &lt;a href=&#34;./documentation/prose/tutorial&#34;&gt;tutorial&lt;/a&gt; for how to get
+started and the documentation links on the sidebar for more details.&lt;/p&gt;
+
+&lt;p&gt;Also, the &lt;a href=&#34;./playground&#34;&gt;Playground&lt;/a&gt; provides a web interface for trying
+out the text and web extraction features.&lt;/p&gt;
+
+&lt;h4 id=&#34;how-do-i-install-it&#34;&gt;How do I install it?&lt;/h4&gt;
+
+&lt;p&gt;Use the NuGet package manager in Visual Studio.
+Check &amp;ldquo;Include prerelease&amp;rdquo; and search for &amp;ldquo;Microsoft.ProgramSynthesis&amp;rdquo;.
+If you run into issues installing System.Reflection.Metadata,
+follow &lt;a href=&#34;http://celticcodingsolutions.com/Blog/post/2015/08/19/visual-studio-2015-and-nuget-redirection-and-package-retrieval-errors.aspx&#34;&gt;these instructions&lt;/a&gt;
+to resolve them.&lt;/p&gt;
+
+&lt;h4 id=&#34;where-can-i-use-it&#34;&gt;Where can I use it?&lt;/h4&gt;
+
+&lt;p&gt;The SDK is released under a &lt;em&gt;non-commercial license&lt;/em&gt; for use in
+research, education, and non-commercial applications. See
+&lt;a href=&#34;https://prose-playground.cloudapp.net/data/SDKLicense.pdf&#34;&gt;the license&lt;/a&gt;
+for details.&lt;/p&gt;
+
+&lt;h4 id=&#34;where-can-i-find-sample-code&#34;&gt;Where can I find sample code?&lt;/h4&gt;
+
+&lt;p&gt;Our samples are located in the &lt;a href=&#34;https://github.com/microsoft/prose&#34;&gt;PROSE GitHub repository&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Getting Started</title>
