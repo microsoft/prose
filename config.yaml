@@ -1,0 +1,14 @@
+baseURL: "https://microsoft.github.io/prose/"
+languageCode: "en-us"
+title: "Microsoft Program Synthesis using Examples SDK"
+theme: "hugo-bootswatch"
+metaDataFormat: "yaml"
+buildDrafts: true
+
+canonifyURLs: true
+relativeURLs: true
+footnoteReturnLinkContents: "↩"
+
+blackfriday:
+    plainIdAnchors: true
+    extensions: ["laxHtmlBlocks", "footnotes", "autolink", "fencedCode"]

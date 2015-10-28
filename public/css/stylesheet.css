@@ -1,0 +1,478 @@
+/*******************************************************************************
+Slate Theme for GitHub Pages
+by Jason Costello, @jsncostello
+*******************************************************************************/
+
+@import url(github-light.css);
+
+/*******************************************************************************
+MeyerWeb Reset
+*******************************************************************************/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+div {
+	font: inherit; margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; vertical-align: baseline; font-size-adjust: inherit; font-stretch: inherit;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+
+
+/*******************************************************************************
+Theme Styles
+*******************************************************************************/
+
+body {
+  box-sizing: border-box;
+  color:#373737;
+  background: #212121;
+  font-size: 16px;
+  line-height: 1.5em;
+  font-family: 'Segoe UI', 'Segoe WP Light', 'Segoe WP', Tahoma, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 10px 0;
+  font-weight: 700;
+  color:#222222;
+  font-family: "Segoe UI Light", "Segoe WP Light", "Segoe UI", "Segoe WP", "Open Sans", Tahoma, Arial, sans-serif;
+}
+
+header {
+  font-size: 30px;
+  padding-left: 10px;
+}
+
+h1 {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  font-size: 38px;
+  font-weight: 700;
+}
+
+h2 {
+  padding-bottom: 20px;
+  font-size: 30px;
+  background: url('../images/bg_hr.png') repeat-x bottom;
+}
+
+h3 {
+  font-size: 24px;
+  color: darkslategray;
+}
+
+h3 a{
+    font-size: 24px;
+    color: darkslategray;
+}
+
+h4 {
+  font-size: 21px;
+}
+
+h5 {
+  font-size: 18px;
+  color: slategray;
+}
+
+h6 {
+  font-size: 16px;
+}
+
+p {
+  margin: 10px 0 15px 0;
+}
+
+footer p {
+  color: #f2f2f2;
+}
+
+a {
+  text-decoration: none;
+  color: steelblue;
+  text-shadow: none;
+
+  transition: color 0.5s ease;
+  transition: text-shadow 0.5s ease;
+  -webkit-transition: color 0.5s ease;
+  -webkit-transition: text-shadow 0.5s ease;
+  -moz-transition: color 0.5s ease;
+  -moz-transition: text-shadow 0.5s ease;
+  -o-transition: color 0.5s ease;
+  -o-transition: text-shadow 0.5s ease;
+  -ms-transition: color 0.5s ease;
+  -ms-transition: text-shadow 0.5s ease;
+}
+
+a:hover, a:focus {text-decoration: underline;}
+
+footer a {
+  color: #F2F2F2;
+  text-decoration: none;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: bold;
+}
+
+img {
+  position: relative;
+  margin: 0 auto;
+  max-width: 739px;
+  padding: 5px;
+  margin: 10px 0 10px 0;
+
+}
+
+p img {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  text-align: center;
+  border: none;
+}
+
+pre, code {
+  width: 100%;
+  color: #222;
+  background-color: #fff;
+
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  font-size: 14px;
+  line-height: 1.4em !important;
+
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+
+pre {
+  width: 100%;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
+  overflow: auto;
+}
+
+code {
+  padding: 3px;
+  margin: 0 3px;
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
+
+pre code {
+  display: block;
+  box-shadow: none;
+}
+
+blockquote {
+  color: #666;
+  margin-bottom: 20px;
+  padding: 0 0 0 20px;
+  border-left: 3px solid #bbb;
+}
+
+
+ul, ol, dl {
+  margin-bottom: 15px
+}
+
+ul {
+  list-style-position: inside;
+  list-style: disc;
+  padding-left: 20px;
+}
+
+ol {
+  list-style-position: inside;
+  list-style: decimal;
+  padding-left: 20px;
+}
+
+dl dt {
+  font-weight: bold;
+}
+
+dl dd {
+  padding-left: 20px;
+  font-style: italic;
+}
+
+dl p {
+  padding-left: 20px;
+  font-style: italic;
+}
+
+hr {
+  height: 1px;
+  margin-bottom: 5px;
+  border: none;
+  background: url('../images/bg_hr.png') repeat-x center;
+}
+
+table {
+  border: none;
+  margin-bottom: 20px;
+  text-align: left;
+ }
+
+th {
+  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 10px;
+  background: #373737;
+  color: #fff;
+ }
+
+
+
+form {
+  background: #f2f2f2;
+  padding: 20px;
+}
+
+/*******************************************************************************
+Full-Width Styles
+*******************************************************************************/
+
+.outer {
+  width: 100%;
+}
+
+.inner {
+  position: relative;
+  max-width: 800px;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+.innerTemplate {
+  position: relative;
+  padding: 20px 10px;
+  margin: 0 auto;
+}
+
+
+#header_wrap {
+  color: #F2F2F2;
+  background: #212121;
+  background: -moz-linear-gradient(top, #373737, #212121);
+  background: -webkit-linear-gradient(top, #373737, #212121);
+  background: -ms-linear-gradient(top, #373737, #212121);
+  background: -o-linear-gradient(top, #373737, #212121);
+  background: linear-gradient(top, #373737, #212121);
+}
+
+#header_wrap .inner {
+  padding: 50px 10px 30px 20px;
+}
+
+#header_wrap .inner-content {
+  padding: 0px 0px 0px 0px;
+}
+
+#project_title {
+  margin: 0;
+  color: #fff;
+  font-size: 35px;
+  font-weight: 700;
+  text-shadow: #111 0px 0px 10px;
+}
+
+#project_tagline {
+  color: #fff;
+
+  font-weight: 200;
+  font-size: 20px;
+  background: none;
+  text-shadow: #111 0px 0px 10px;
+}
+
+.leftNav{
+  clear: left;
+  float: left;
+  width: 200px;
+  padding-left: 5px;
+  line-height: normal;
+  font-size: 20px;
+  font-family: "Segoe UI Light", "Segoe WP Light", "Segoe UI", "Segoe WP", "Open Sans", Tahoma, Arial, sans-serif;
+}
+
+.leftNav a {
+  color: darkslategray;
+}
+
+.topicContent{
+  clear: right;
+  overflow: hidden;
+  padding: 0 20px;
+}
+
+.zip_download_link {
+  display: block;
+  float: right;
+  width: 90px;
+  height:70px;
+  text-indent: -5000px;
+  overflow: hidden;
+  background: url(../images/sprite_download.png) no-repeat bottom left;
+}
+
+.tar_download_link {
+  display: block;
+  float: right;
+  width: 90px;
+  height:70px;
+  text-indent: -5000px;
+  overflow: hidden;
+  background: url(../images/sprite_download.png) no-repeat bottom right;
+  margin-left: 10px;
+}
+
+.zip_download_link:hover {
+  background: url(../images/sprite_download.png) no-repeat top left;
+}
+
+.tar_download_link:hover {
+  background: url(../images/sprite_download.png) no-repeat top right;
+}
+
+.container {
+  max-width: 740px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.col-left {
+  float:left;
+  width: 46%;
+  padding-right: 15px;
+  clear:left;
+}
+
+.col-right {
+  float:right;
+  width:47%;
+  padding-left: 25px;
+  border-left-width: 1px;
+  border-left-style: outset;
+  border-left-color: lightslategray;
+  clear:right;
+}
+
+.col-right-no-border{
+  float:right;
+  width:47%;
+  padding-left: 25px;
+}
+
+#main_content_wrap {
+  background: #f2f2f2;
+  border-top: 1px solid #111;
+  border-bottom: 1px solid #111;
+}
+
+#main_content {
+  padding-top: 20px;
+}
+
+.end-main{
+  clear:both;
+}
+
+#footer_wrap {
+  clear:both;
+  background: #212121;
+}
+
+footer td {
+  color: #f2f2f2;
+  padding: 0 20px;
+  border: none;
+ }
+ 
+.foot-table {
+   border: none;
+ }
+
+
+/*******************************************************************************
+Small Device Styles
+*******************************************************************************/
+
+@media screen and (max-width: 480px) {
+  body {
+    font-size:14px;
+  }
+
+  #downloads {
+    display: none;
+  }
+
+  .inner {
+    min-width: 320px;
+    max-width: 480px;
+  }
+
+  #project_title {
+  font-size: 32px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 21px;
+  }
+
+  h4 {
+    font-size: 18px;
+  }
+
+  h5 {
+    font-size: 14px;
+  }
+
+  h6 {
+    font-size: 12px;
+  }
+
+}

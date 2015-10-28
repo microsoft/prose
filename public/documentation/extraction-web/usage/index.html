@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Microsoft Program Synthesis using Examples SDK &ndash; Web Extraction - Usage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="Microsoft Program Synthesis using Examples SDK Samples :  The PROSE SDK is a set of technologies for the automatic generation of programs from input-output examples. This repo includes samples and sample data for the Microsoft Program Synthesis using Examples SDK.">
+	
+	<script type="text/javascript">
+		var vanity_domains = ["programbyexample.com","flashm.azurewebsites.net"];
+		var canonical_path = "https:\/\/microsoft.github.io\/prose\/";
+		for(var i = 0; i < vanity_domains.length; i++) {
+			var vanity_domain = vanity_domains[i];
+			var loc = window.location.toString();
+			if (loc.indexOf(vanity_domain) != -1) {
+				var new_loc = loc
+					.replace("http://www." + vanity_domain + "/", canonical_path)
+					.replace("http://" + vanity_domain + "/", canonical_path);
+				window.location.replace(new_loc);
+			}
+		}
+	</script>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300,300italic,700,700italic'
+          rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://microsoft.github.io/prose/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.js" data-main="https://microsoft.github.io/prose/js/requires.js"></script>
+
+    <link rel="stylesheet" href="https://microsoft.github.io/prose/css/hugo-bootswatch.css">
+    <link href="https://microsoft.github.io/prose/css/bootstrap-flat.min.css" rel="stylesheet">
+    <link href="https://microsoft.github.io/prose/css/bootstrap-flat-extras.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://microsoft.github.io/prose/css/prism.css"/>
+    <link href="https://microsoft.github.io/prose/css/prism-ghcolors.css" rel="stylesheet"/>
+    <script src="https://microsoft.github.io/prose/js/prism.js"></script>
+
+    <script type="text/javascript"
+            src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$']],
+        displayMath: [['$$','$$'], ['\\[','\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        TeX: { equationNumbers: { autoNumber: "AMS" },
+             extensions: ["AMSmath.js", "AMSsymbols.js"] }
+      },
+      TeX: {
+        Macros: {
+            llbracket: "[\\![",
+            rrbracket: "]\\!]"
+        }
+      }
+    });
+
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        
+        
+        
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+
+    </script>
+
+    <link rel="stylesheet" href="https://microsoft.github.io/prose/css/main.css">
+
+    <link rel="stylesheet" href="https://microsoft.github.io/prose/css/github-light.css">
+    <link rel="stylesheet" href="https://microsoft.github.io/prose/css/stylesheet.css">
+</head>
+
+
+<body id="bootstrap-overrides">
+
+<script src="../../../js/lightbox.js"></script>
+<div class="modal fade modal-profile" tabindex="-1" role="dialog" aria-labelledby="modalProfile" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <p></p>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <div id="header_wrap" class="outer">
+        <header class="innerTemplate">
+           Web Extraction - Usage
+
+        </header>
+    </div>
+
+    <div id="main_content_wrap" class="outer">
+      <div id="main_content" class="innerTemplate">
+          
+          <div class="leftNav">
+              
+<p><a href="https://microsoft.github.io/prose/">Home</a></p>
+<p><a href="https://microsoft.github.io/prose/playground">Playground</a></p>
+
+<p>
+	Tutorials
+<ul>
+	<li><a href="https://microsoft.github.io/prose/documentation/prose/tutorial">Getting Started</a></li>
+</ul>
+</p>
+<p>
+	Documentation
+	<ul>
+		<li><a href="https://microsoft.github.io/prose/documentation/prose/usage">Framework</a></li>
+		<li><a href="https://microsoft.github.io/prose/documentation/extraction-text/intro">Text Extraction</a></li>
+		<li><a href="https://microsoft.github.io/prose/documentation/extraction-web/intro">Web Extraction</a></li>
+		<li><a href="https://microsoft.github.io/prose/documentation/flashfill/intro">Flash Fill</a></li>
+		<li><a href="https://microsoft.github.io/prose/documentation/api">APIs</a></li>
+	</ul>
+</p>
+<p><a href="https://microsoft.github.io/prose/team/">About Us</a></p>
+<p><a href="https://microsoft.github.io/prose/faq/">FAQ</a></p>
+
+          </div>
+          <div class="topicContent" id="TopicContent">            
+            
+            <div id="toc" class="well well-sm col-md-4 col-sm-12 pull-right">
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#htmldoc-and-webregion">HtmlDoc and WebRegion</a></li>
+<li><a href="#learning-a-program-to-extract-a-single-region">Learning a program to extract a single region</a></li>
+<li><a href="#learning-a-program-to-extract-a-sequence-of-regions">Learning a program to extract a sequence of regions</a></li>
+<li><a href="#serializing-and-deserializing-programs">Serializing and deserializing programs</a></li>
+<li><a href="#executing-programs">Executing programs</a></li>
+</ul>
+</nav>
+            </div>
+            
+            
+
+<p>The Extraction.Web learning APIs are accessed through the <code>Extraction.Web.Learner</code> class. The two primary methods are <code>LearnRegion()</code> and <code>LearnSequence()</code> which take a set of examples
+and learn a Extraction.Web program consistent with those examples.</p>
+
+<p>The Extraction.Web program is defined in <code>Extraction.Web.Program</code> class.
+A program is either a region extraction program or a sequence extraction program.
+The key method is <code>Run()</code> to execute the program on some input region to obtain the extracted output.
+Other important methods include serialization (<code>Serialize()</code>) and deserialization (<code>Load()</code>) of a program.</p>
+
+<p>In order to use
+Extraction.Web, you need assembly references to <code>Microsoft.ProgramSynthesis.Extraction.dll</code>, <code>Microsoft.ProgramSynthesis.Extraction.Web.Learner.dll</code>
+and <code>Microsoft.ProgramSynthesis.Extraction.Web.Semantics.dll</code>. Again, the sample project <code>Extraction.Web.Sample</code> illustrates our API usage and contains the sample HTML documents discussed in this tutorial.</p>
+
+<h1 id="htmldoc-and-webregion">HtmlDoc and WebRegion</h1>
+
+<p>Extraction.Web operates on regions of HTML documents. An HTML document is represented by the class <code>HtmlDoc</code>. These can be created from the HTML markup of a document as follows:</p>
+
+<pre><code class="language-csharp">string s = File.ReadAllText(@&quot;..\..\SampleDocuments\sample-document-1.html&quot;);
+HtmlDoc doc = HtmlDoc.Create(s);
+</code></pre>
+
+<p>A region within a document is represented by the <code>WebRegion</code> class which refers to a specific node in the HTML document, such as a table node, paragraph node, or the root node representing the whole document. Web regions can be created using the <code>GetRegion</code> function, by specifying a CSS selector that determines a unique node within a given HTML document. For example, the following code generates a region that refers to the second cell in the first row of the table in the document (containing the surname &ldquo;Briggs&rdquo;).</p>
+
+<pre><code class="language-csharp">WebRegion region = doc.GetRegion(&quot;tr:nth-child(1) td:nth-child(2)&quot;)
+</code></pre>
+
+<h1 id="learning-a-program-to-extract-a-single-region">Learning a program to extract a single region</h1>
+
+<p>Extraction.Web learns programs from examples of regions that it is given. A <code>ExampleSpec</code> is a pair consisting of the example region and a “reference” region which is some ancestor of the example region, which may be a whole document or a part of the document from which the example is extracted. Extraction.Web learns programs for the example region using the reference region as the anchor point. The reference region can be any ancestor node of the example region in the HTML document. For instance, in our running example, to extract a surname from a given table row, we may specify an example with the table row as a reference region:</p>
+
+<pre><code class="language-csharp">WebRegion referenceRegion = doc.GetRegion(&quot;tr:nth-child(1)&quot;);  //1st table row
+WebRegion exampleRegion = doc.GetRegion(&quot;tr:nth-child(1) td:nth-child(2)&quot;);  //2nd cell in 1st table row
+ExampleSpec&lt;WebRegion&gt; exampleSpec = new ExampleSpec&lt;WebRegion&gt;(referenceRegion, exampleRegion);
+</code></pre>
+
+<p>The reference region represents some knowledge that we have on splitting the file, which we leverage to learn a new field. In the example above, we may perform an extraction with respect to the table row as we may already know how to extract table rows from the document. If we do not have any such information (for instance, when we learn the first field), then we can use the entire document region as the reference.</p>
+
+<p>We next illustrate how we learn the first surname in a document from  a single positive example.</p>
+
+<pre><code class="language-csharp">WebRegion referenceRegion = new WebRegion(doc);
+WebRegion exampleRegion = doc.GetRegion(&quot;tr:nth-child(1) td:nth-child(2)&quot;);  //2nd cell in 1st table row
+ExampleSpec&lt;WebRegion&gt; exampleSpec = new ExampleSpec&lt;WebRegion&gt;(referenceRegion, exampleRegion);
+Extraction.Web.Program prog = Learner.Instance.LearnRegion(new[] { exampleSpec }, Enumerable.Empty&lt;ExampleSpec&lt;WebRegion&gt;&gt;());
+</code></pre>
+
+<p><strong>Multiple Positive Examples:</strong> The API takes multiple positive examples because we allow users to give examples that come from multiple documents, or multiple regions in a document. For example, here is how we learn the first surname in a document using two examples in two different documents.</p>
+
+<pre><code class="language-csharp">WebRegion referenceRegion1 = new WebRegion(doc1);
+WebRegion referenceRegion2 = new WebRegion(doc2);
+WebRegion exampleRegion1 = doc1.GetRegion(&quot;tr:nth-child(1) td:nth-child(2)&quot;);  //2nd cell in 1st table row of doc1
+WebRegion exampleRegion2 = doc2.GetRegion(&quot;tr:nth-child(1) td:nth-child(2)&quot;);  //2nd cell in 1st table row of doc2
+ExampleSpec&lt;WebRegion&gt; exampleSpec1 = new ExampleSpec&lt;WebRegion&gt;(referenceRegion1, exampleRegion1);
+ExampleSpec&lt;WebRegion&gt; exampleSpec2 = new ExampleSpec&lt;WebRegion&gt;(referenceRegion2, exampleRegion2);
+
+Extraction.Web.Program prog = Learner.Instance.LearnRegion(new[] { exampleSpec1, exampleSpec2 }, Enumerable.Empty&lt;ExampleSpec&lt;WebRegion&gt;&gt;());
+</code></pre>
+
+<p>If we know a way to separate the document into multiple regions, we may learn a program for each of the separated regions. For instance, suppose we can split the document into table rows. We can learn the surname with respect to the table row, so that given any table row, our program will return the surname contained in the row.</p>
+
+<pre><code class="language-csharp">WebRegion referenceRegion1 = doc.GetRegion(&quot;tr:nth-child(1)&quot;);  //1st table row
+WebRegion exampleRegion1 = doc.GetRegion(&quot;tr:nth-child(1) td:nth-child(2)&quot;);  //2nd cell in 1st table row
+WebRegion referenceRegion2 = doc.GetRegion(&quot;tr:nth-child(2)&quot;);  //2nd table row
+WebRegion exampleRegion2 = doc.GetRegion(&quot;tr:nth-child(2) td:nth-child(2)&quot;);  //2nd cell in 2nd table row
+ExampleSpec&lt;WebRegion&gt; exampleSpec1 = new ExampleSpec&lt;WebRegion&gt;(referenceRegion1, exampleRegion1);
+ExampleSpec&lt;WebRegion&gt; exampleSpec2 = new ExampleSpec&lt;WebRegion&gt;(referenceRegion2, exampleRegion2);
+
+Extraction.Web.Program prog = Learner.Instance.LearnRegion(new[] { exampleSpec1, exampleSpec2 }, Enumerable.Empty&lt;ExampleSpec&lt;WebRegion&gt;&gt;());
+</code></pre>
+
+<h1 id="learning-a-program-to-extract-a-sequence-of-regions">Learning a program to extract a sequence of regions</h1>
+
+<p>We can use Extraction.Web to learn programs that extract a sequence of WebRegions within a given WebRegion. For example, here is how we learn the list of all surnames in a document.</p>
+
+<pre><code class="language-csharp">WebRegion referenceRegion = new WebRegion(doc);
+WebRegion exampleRegion1 = doc.GetRegion(&quot;tr:nth-child(1) td:nth-child(2)&quot;);  //2nd cell in 1st table row of doc
+WebRegion exampleRegion2 = doc.GetRegion(&quot;tr:nth-child(2) td:nth-child(2)&quot;);  //2nd cell in 2nd table row of doc
+ExampleSpec&lt;WebRegion&gt; exampleSpec1 = new ExampleSpec&lt;WebRegion&gt;(referenceRegion, exampleRegion1);
+ExampleSpec&lt;WebRegion&gt; exampleSpec2 = new ExampleSpec&lt;WebRegion&gt;(referenceRegion, exampleRegion2);
+
+Extraction.Web.Program prog = Learner.Instance.LearnSequence(new[] { exampleSpec1, exampleSpec2 }, Enumerable.Empty&lt;ExampleSpec&lt;WebRegion&gt;&gt;());
+</code></pre>
+
+<p>Similar to the single WebRegion extraction API, it is possible to give examples from different documents or different regions within documents. We just need to specify the reference field accordingly. The negative examples also work similarly to the single WebRegion case.</p>
+
+<h1 id="serializing-and-deserializing-programs">Serializing and deserializing programs</h1>
+
+<p>We can serialize our program to an XML file using the <code>Serialize()</code> method, and the <code>Load()</code> method to create a program from serialized XML.</p>
+
+<pre><code class="language-csharp">Extraction.Web.Program program = …; // learn extraction program
+string progText = prog.Serialize();   //serialize the program to XML
+Extraction.Web.Program loadProg = Extraction.Web.Program.Load(progText); //deserialize
+</code></pre>
+
+<h1 id="executing-programs">Executing programs</h1>
+
+<p>Once we learn an extraction program, we can execute it on any new inputs to perform extractions using the <code>Run()</code> method:</p>
+
+<pre><code class="language-csharp">Extraction.Web.Program program = …; // learn an extraction program
+WebRegion region = …; //define the input region to perform the extraction on
+IEnumerable&lt;WebRegion&gt; executionResult = program.Run(region);  //execute the program on the input region
+</code></pre>
+            
+          </div>    
+          
+          <div class="end-main">
+          <p>&nbsp;</p>
+        </div>
+      </div>
+    </div>
+    
+<div id="footer_wrap" class="outer">
+    <footer class="inner">
+        <p class="copyright">
+        <table class="foot-table center-block">
+            <tr>
+                <td><a href="https://microsoft.github.io/prose/team/">About Us</a></td>
+                <td><a href="https://www.microsoft.com/en-us/privacystatement/default.aspx">Privacy & Cookies</a></td>
+                <td>
+                    <a href="http://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/en-us.aspx">Trademark</a>
+                </td>
+                <td><a href="http://www.microsoft.com/en-us/legal/intellectualproperty/copyright/default.aspx">Terms of
+                    Use</a></td>
+                <td>&copy; Microsoft</td>
+            </tr>
+        </table>
+        </p>
+    </footer>
+</div>
+
+
+</body>
+</html>

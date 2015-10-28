@@ -1,0 +1,2621 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Microsoft Program Synthesis using Examples SDK</title>
+    <link>https://microsoft.github.io/prose/</link>
+    <description>Recent content on Microsoft Program Synthesis using Examples SDK</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 02 Sep 2015 20:14:43 -0700</lastBuildDate>
+    <atom:link href="https://microsoft.github.io/prose/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Getting Started</title>
+      <link>https://microsoft.github.io/prose/documentation/prose/tutorial/</link>
+      <pubDate>Wed, 02 Sep 2015 20:14:43 -0700</pubDate>
+      
+      <guid>https://microsoft.github.io/prose/documentation/prose/tutorial/</guid>
+      <description>
+
+&lt;h1 id=&#34;synthesis-framework&#34;&gt;Synthesis Framework&lt;/h1&gt;
+
+&lt;p&gt;The core component of the PROSE SDK is its program synthesis framework for custom domain-specific languages (DSLs).
+It allows you to define a DSL that describes a typical space of tasks in your application domain, and automatically provides parsing, execution, and synthesis technologies for this DSL.
+&lt;a href=&#34;./documentation/flashfill/intro&#34;&gt;FlashFill&lt;/a&gt; and &lt;a href=&#34;./documentation/extraction-text/intro&#34;&gt;text&lt;/a&gt;/&lt;a href=&#34;./documentation/extraction-web/intro&#34;&gt;Web&lt;/a&gt; extraction DSLs are programming-by-example technologies that have been developed on top of the PROSE core synthesis framework.&lt;/p&gt;
+
+&lt;p&gt;A DSL consists of several components:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Syntax&lt;/strong&gt; &amp;ndash; a &lt;em&gt;context-free grammar&lt;/em&gt; describing a space of possible programs in a DSL.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Semantics&lt;/strong&gt; &amp;ndash; an executable function for each user-defined DSL operator.&lt;/li&gt;
+&lt;li&gt;[optional] &lt;strong&gt;Properties&lt;/strong&gt; &amp;ndash; computed attributes on individual programs in the DSL (for instance, a syntactic score of a program for ranking purposes).&lt;/li&gt;
+&lt;li&gt;[optional] &lt;strong&gt;Witness functions&lt;/strong&gt; &amp;ndash; small &amp;ldquo;inverse semantics&amp;rdquo; functions that enable &lt;a href=&#34;./documentation/prose/d4&#34;&gt;$D^4$ synthesis strategy&lt;/a&gt;, the main synthesis technology provided in the PROSE framework.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Below, we illustrate the usage of all 4 components on a small example DSL &amp;ndash; a portion of FlashFill.&lt;/p&gt;
+
+&lt;h1 id=&#34;tutorial&#34;&gt;Tutorial&lt;/h1&gt;
+
+&lt;h2 id=&#34;syntax&#34;&gt;Syntax&lt;/h2&gt;
+
+&lt;p&gt;Our example DSL describes a space of programs that extract a substring from a given string. They can do it in two possible ways &amp;ndash; either extract a substring based on absolute position indices, or based on matches of regular expressions.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s the first version of the grammar of our DSL:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; the syntax below will be improved and simplified in the upcoming v0.2 preview.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dsl&#34;&gt;reference &#39;SubstringExtraction.dll&#39;;
+using semantics SubstringExtraction.Semantics;
+language SubstringExtraction;
+
+@input string in;
+
+// Extract a substring from &#39;in&#39; between positions &#39;posPair&#39;
+@start string out := Substring(in, posPair);
+Tuple&amp;lt;int?, int?&amp;gt; posPair := PositionPair(pos, pos)
+                             = Pair(pos, pos);
+int? pos := // A position at index &#39;k&#39; (from the left if k &amp;gt;= 0, or from the right if k &amp;lt; 0)
+            AbsolutePosition(in, k)
+            // A position where two regexes &#39;positionBoundaries&#39; match to left and to the right,
+            // respectively, and it is the &#39;k&#39;-th such position
+          | RegexPosition(in, positionBoundaries, k);
+Tuple&amp;lt;Regex, Regex&amp;gt; positionBoundaries := RegexPair(r, r)
+                                          = Pair(r, r);
+
+Regex r;
+int k;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here are some possible extraction programs contained in the &lt;code&gt;SubstringExtraction&lt;/code&gt; DSL:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;First 5 characters: &lt;code&gt;Substring(in, PosPair(AbsolutePosition(in, 0), AbsolutePosition(in, 5)))&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Last character: &lt;code&gt;Substring(in, PosPair(AbsolutePosition(in, -2), AbsolutePosition(in, -1)))&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A substring from the start until (but not including) the last number&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:regex&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:regex&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;:
+&lt;code&gt;Substring(in, PosPair(AbsolutePosition(in, -2), RegexPosition(in, RegexPair(//, /\d+/), -1))&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A substring between the first pair of parentheses: &lt;code&gt;Substring(in, PosPair(RegexPosition(in, RegexPair(/\(/, //), 0), RegexPosition(in, RegexPair(//, /\)/), 0)))&lt;/code&gt;.
+Note that this program will not extract the desired content if &lt;code&gt;in&lt;/code&gt; contains unbalanced parentheses (for instance, &lt;code&gt;in == &amp;quot;A) Bread ($2.00)&amp;quot;&lt;/code&gt;). This problem can be addresses by a language extension.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In general, a DSL consists of &lt;strong&gt;symbols&lt;/strong&gt; and &lt;strong&gt;operators&lt;/strong&gt; upon
+these symbols. In a context-free grammar, a DSL is represented as a
+set of &lt;em&gt;rules&lt;/em&gt;, where each symbol on the left-hand side is bound to a set
+of possible operators on the right-hand side that represent this symbol.
+Every operator of a DSL must be &lt;strong&gt;pure&lt;/strong&gt; – it should not have observable side effects. In other words, PROSE DSLs are functional &amp;ndash; they operate upon immutable states.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;program&lt;/strong&gt; in a DSL transforms &lt;strong&gt;input&lt;/strong&gt; data into &lt;strong&gt;output&lt;/strong&gt; data.
+One terminal symbol in a DSL should be marked as &lt;code&gt;@input&lt;/code&gt; &amp;ndash; this is the input variable to all programs in this DSL.
+One nonterminal symbol in a DSL should be marked as &lt;code&gt;@start&lt;/code&gt; &amp;ndash; this is the root symbol for all programs in the DSL.&lt;/p&gt;
+
+&lt;p&gt;A program is represented as an &lt;strong&gt;abstract syntax tree (AST)&lt;/strong&gt; of the DSL
+operators. Each node in this tree (similarly, each DSL operator) has
+some invocation semantics. More formally, each AST node has a method
+&lt;code&gt;Invoke&lt;/code&gt;.
+It takes as input a &lt;strong&gt;state&lt;/strong&gt; $\mathbf{\sigma}$ and
+returns some output. A state is a mapping from DSL variables to their
+values. Initially, the topmost AST node invoked on a state with a single variable binding for the DSL&amp;rsquo;s &lt;em&gt;input variable&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s how you can parse and execute a program in our &lt;code&gt;SubstringExtraction&lt;/code&gt; DSL:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;using Microsoft.ProgramSynthesis;
+using Microsoft.ProgramSynthesis.AST;
+using Microsoft.ProgramSynthesis.Compiler;
+
+// Parse the DSL grammar above, saved in a .grammar file
+var grammar = DSLCompiler.LoadGrammarFromFile(&amp;quot;SubstringExtraction.grammar&amp;quot;).Value;
+// Parse a program in this grammar. PROSE supports two serialization formats:
+// &amp;quot;human-readable&amp;quot; expression format, used in this tutorial, and machine-readable XML.
+var ast = grammar.ParseAST(&amp;quot;Substring(in, PosPair(AbsolutePosition(in, 0), AbsolutePosition(in, 5)))&amp;quot;,
+                           ASTSerializationFormat.HumanReadable);
+// Create an input state to the program. It contains one binding: a variable &#39;in&#39; (DSL input)
+// is bound to the string &amp;quot;PROSE Rocks&amp;quot;.
+var input = State.Create(grammar.InputSymbol, &amp;quot;PROSE Rocks&amp;quot;);
+// Execute the program on the input state.
+var output = (string) ast.Invoke(state);
+Assert(output == &amp;quot;PROSE&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, at this moment grammar parsing will fail since we haven&amp;rsquo;t defined any execution semantics for the operators in our DSL, only its syntax.
+Let&amp;rsquo;s fix that.&lt;/p&gt;
+
+&lt;h2 id=&#34;semantics&#34;&gt;Semantics&lt;/h2&gt;
+
+&lt;p&gt;An &lt;em&gt;executable semantics&lt;/em&gt; for an operator $F$ in PROSE is a .NET function that matches the signature of $F$.
+You need to provide it for every operator in your DSL that is not imported from the standard library of PROSE or another language.
+In our example, such operators are &lt;code&gt;Substring&lt;/code&gt;, &lt;code&gt;AbsolutePosition&lt;/code&gt;, and &lt;code&gt;RegexPosition&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;All semantics functions should be defined as static methods. Static classes where PROSE searches for such functions (called &lt;em&gt;semantics holders&lt;/em&gt;) are indicated in the grammar with a &lt;code&gt;using semantics&lt;/code&gt; declaration.
+A DSL may contain multiple &lt;code&gt;using semantics&lt;/code&gt; declarations, but each operator should correspond to exactly one semantics function with the same name and signature in one of semantics holders.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;static class Semantics
+{
+    static string Substring(string in, Tuple&amp;lt;int?, int?&amp;gt; posPair)
+    {
+        if (posPair.Item1 == null || posPair.Item2 == null)
+            return null;
+        int start = posPair.Item1.Value;
+        int end = posPair.Item2.Value;
+        if (start &amp;lt; 0 || start &amp;gt;= in.Length ||
+            end &amp;lt; 0 || end &amp;gt;= in.Length || end &amp;lt; start)
+            return null;
+        return in.Substring(start, end - start);
+    }
+
+    static int? AbsolutePosition(string in, int k)
+    {
+        if (k &amp;gt; in.Length || k &amp;lt; -in.Length - 1)
+            return null;
+        return k &amp;gt;= 0 ? k : (in.Length + k + 1);
+    }
+
+    static int? RegexPosition(string in, Tuple&amp;lt;Regex, Regex&amp;gt; regexPair, int occurrence)
+    {
+        if (regexPair.Item1 == null || regexPair.Item2 == null)
+            return null;
+        Regex left = regexPair.Item1;
+        Regex right = regexPair.Item2;
+        var rightMatches = right.Matches(in).ToDictionary(m =&amp;gt; m.Index);
+        var matchPositions = new List&amp;lt;int&amp;gt;();
+        foreach (Match m in left.Matches(in))
+            if (rightMatches.ContainsKey(m.Right))
+                matchPositions.Add(m.Right);
+        if (occurrence &amp;gt;= matchPositions.Count ||
+            occurrence &amp;lt; -matchPositions.Count)
+            return null;
+        return occurrence &amp;gt;= 0
+            ? matchPositions[occurrence]
+            : matchPositions[matchPositions.Count + occurrence];
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These examples illustrate several important points that you should keep in mind when designing a DSL:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;DSL operators must be &lt;em&gt;total&lt;/em&gt; (return a value for each possible combination of inputs) and &lt;em&gt;pure&lt;/em&gt; (deterministic without observable side effects). A invalid input or any other exceptional situation should be handled not by throwing an exception, but by returning &lt;code&gt;null&lt;/code&gt; instead. In PROSE, &lt;code&gt;null&lt;/code&gt; is a valid value with a meaning &amp;ldquo;computation failed&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;Semantics functions should have the same name and signature as their corresponding DSL operators. They don&amp;rsquo;t have access to the current input state &amp;ndash; if you need to access a DSL variable in scope, include it explicitly as a parameter. In our example, &lt;code&gt;in&lt;/code&gt; is a parameter for both &lt;code&gt;AbsolutePosition&lt;/code&gt; and &lt;code&gt;RegexPosition&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; The &lt;code&gt;dslc&lt;/code&gt; grammar compiler uses reflection to find definitions of external components of a grammar, such as semantics functions. It searches over the assemblies specified with &lt;code&gt;reference&lt;/code&gt; statements in the grammar. Those assemblies must be built and present at given locations when you execute &lt;code&gt;dslc&lt;/code&gt; (in a command-line or API form). If you build your semantics functions and your grammar definition in the same solution, make sure to separate them into different projects and make the grammar project depend on the semantics project, so that the latter one is built first.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Syntax and semantics above constitute a minimal DSL definition.
+They are sufficient for our little parsing/execution sample to work.
+Let&amp;rsquo;s proceed now to synthesizing programs in this DSL.&lt;/p&gt;
+
+&lt;h2 id=&#34;synthesis&#34;&gt;Synthesis&lt;/h2&gt;
+
+&lt;p&gt;PROSE comes with a default synthesis strategy which we call &lt;a href=&#34;./documentation/prose/d4&#34;&gt;$D^4$&lt;/a&gt;. It also enables researches in the field of synthesis to develop their own strategies on top of its common API.
+However, in this tutorial we explain how to leverage $D^4$ for synthesis of programs in our &lt;code&gt;SubstringExtraction&lt;/code&gt; DSL.&lt;/p&gt;
+
+&lt;p&gt;Program synthesis starts with a specification: what do we want from a desired program?
+In PROSE, specifications are &lt;em&gt;inductive&lt;/em&gt;: they specify an output of a desired program on some input state, or, more generally, some property of this output.
+In this tutorial, we start with the simplest form of such a spec &amp;ndash; &lt;code&gt;ExampleSpecification&lt;/code&gt;, an input-output example.
+Given a spec, we invoke a learning session on it, generating a set of programs in the DSL that are consistent with the input-output examples in the spec.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;using Microsoft.ProgramSynthesis.Specifications;
+using Microsoft.ProgramSynthesis.Learning;
+
+var input = State.Create(grammar.InputSymbol, &amp;quot;PROSE Rocks&amp;quot;);
+string desiredOutput = &amp;quot;PROSE&amp;quot;;
+var spec = new ExampleSpecification(input, desiredOutput);
+var engine = new SynthesisEngine(grammar);
+ProgramSet learned = engine.LearnGrammar(spec);
+Assert(learned?.Size &amp;gt; 0);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At this moment the learning result will be empty.
+The reason for this is that PROSE does not have information about your DSL to perform any kind of reasoning over it.
+For instance, terminal symbols &lt;code&gt;k&lt;/code&gt; and &lt;code&gt;r&lt;/code&gt;  should be replaced with literal &lt;code&gt;int&lt;/code&gt; or &lt;code&gt;Regex&lt;/code&gt; constants, respectively, in each generated program.
+However, they are seemingly unbounded: any integer or regular expression on Earth could possibly be present in a desired program, thus our search space is effectively infinite.&lt;/p&gt;
+
+&lt;p&gt;What about the specification, then?
+An input-output example that we provided drastically restricts the search space size.
+For instance, the input string &lt;code&gt;&amp;quot;PROSE Rocks&amp;quot;&lt;/code&gt; is 11 characters long, hence any absolute position extraction logic &lt;code&gt;AbsolutePosition(in, k)&lt;/code&gt; with $k &amp;gt; 12$ or $k &amp;lt; -11$ cannot be consistent with the spec.
+What we just did was backwards reasoning over the DSL structure: we deduced a constraint on &lt;code&gt;k&lt;/code&gt; in a desired program from a constraint on the entire program.
+To do that, we essentially &lt;em&gt;inverted the semantics of &lt;code&gt;AbsolutePosition&lt;/code&gt;&lt;/em&gt;, deducing its inputs (or their properties) given the output.
+In PROSE, such a procedure is called a &lt;em&gt;witness function&lt;/em&gt;, and it is a surprisingly simple way to specify immensely powerful hints for the learning process.&lt;/p&gt;
+
+&lt;h3 id=&#34;witness-functions&#34;&gt;Witness Functions&lt;/h3&gt;
+
+&lt;p&gt;A witness function is defined for a &lt;em&gt;parameter&lt;/em&gt; of a DSL operator.
+In its simplest form a witness function deduces a specification on that parameter given a specification on the entire operator.
+A witness function does not by itself constitute a learning algorithm (or even a substantial portion of it), it is simply a domain-specific property of some operator in your language &amp;ndash; its inverse semantics.&lt;/p&gt;
+
+&lt;p&gt;For instance, the first witness function we&amp;rsquo;ll write in this tutorial is defined for the parameter &lt;code&gt;posPair&lt;/code&gt; of the rule &lt;code&gt;Substring(in, posPair)&lt;/code&gt; of our &lt;code&gt;SubstringExtraction&lt;/code&gt; DSL.
+It takes as input an &lt;code&gt;ExampleSpecification&lt;/code&gt; $\phi$ on an output of &lt;code&gt;Substring(in, posPair)&lt;/code&gt;, and deduces a spec $\phi&amp;rsquo;$ on an output of &lt;code&gt;posPair&lt;/code&gt; subexpression that is necessary (or even better, necessary and sufficient) for the entire expression to satisfy $\phi$.&lt;/p&gt;
+
+&lt;p&gt;Consider a program &lt;code&gt;Substring(in, posPair)&lt;/code&gt; that outputs &lt;code&gt;&amp;quot;PROSE&amp;quot;&lt;/code&gt; on a given input state $\{$ &lt;code&gt;in&lt;/code&gt; $:=$ &lt;code&gt;&amp;quot;PROSE Rocks&amp;quot;&lt;/code&gt; $\}$. What could be a possible spec on &lt;code&gt;posPair&lt;/code&gt;? Clearly, we know it precisely for the given example: &lt;code&gt;posPair&lt;/code&gt;, whatever this program is, must have evaluated to &lt;code&gt;(0, 5)&lt;/code&gt; because this is the only occurrence of the string &lt;code&gt;&amp;quot;Rocks&amp;quot;&lt;/code&gt; in the given input &lt;code&gt;&amp;quot;PROSE Rocks&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In a more complex example, however, there is no single answer.
+For instance, suppose &lt;code&gt;in == &amp;quot;(206) 279-6261&amp;quot;&lt;/code&gt;, and the corresponding desired output in a spec is &lt;code&gt;&amp;quot;2&amp;quot;&lt;/code&gt;. In this case, the substring &lt;code&gt;&amp;quot;2&amp;quot;&lt;/code&gt; could have been extracted from 3 different places in the input string.
+Therefore, instead of &lt;em&gt;witnessing&lt;/em&gt; a single output value for &lt;code&gt;posPair&lt;/code&gt; on a given input, in this case we witness a &lt;em&gt;disjunction&lt;/em&gt; of three possible output values.
+A disjunction of possible outputs has its own representative spec type in PROSE &amp;ndash; &lt;code&gt;DisjunctiveExamplesSpecification&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The two cases above lead us to a general definition of a witness function for &lt;code&gt;posPair&lt;/code&gt;: find all occurrences of the desired output string in the input, and return a disjunction of them. In PROSE, you express it in the following way:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;using Microsoft.ProgramSynthesis;
+using Microsoft.ProgramSynthesis.Specifications;
+using Microsoft.ProgramSynthesis.Learning;
+
+static class WitnessFunctions
+{
+    [WitnessFunction(&amp;quot;Substring&amp;quot;, parameterIndex: 1)]
+    static DisjunctiveExamplesSpecification WitnessPositionPair(GrammarRule rule, int parameter, ExampleSpecification spec)
+    {
+        var result = new Dictionary&amp;lt;State, IEnumerable&amp;lt;object&amp;gt;&amp;gt;();
+        foreach (var example in spec.Examples)
+        {
+            State inputState = example.Key;
+            // the first parameter of Substring is the variable symbol &#39;in&#39;
+            // we extract its current bound value from the given input state
+            var in = (string) inputState[rule.Body[0]];
+            var substring = (string) example.Value;
+            var occurrences = new List&amp;lt;Tuple&amp;lt;int?, int?&amp;gt;&amp;gt;();
+            // Iterate over all occurrences of &#39;substring&#39; in &#39;in&#39;, and add their position boundaries
+            // to the list of possible outputs for posPair.
+            for (int i = in.IndexOf(substring);
+                 i &amp;gt;= 0;
+                 i = in.IndexOf(substring, i + 1))
+            {
+                occurrences.Add(Tuple.Create((int?) i, (int?) i + substring.Length));
+            }
+            if (occurrences.Count == 0) return null;
+            result[inputState] = occurrences;
+        }
+        return new DisjunctiveExamplesSpecification(result);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We put this witness function in a different static class called, for instance, &lt;code&gt;SubstringExtraction.WitnessFunctions&lt;/code&gt;.
+Such a class is called a &lt;em&gt;learning holder&lt;/em&gt;, and it contains all hints and annotations that a DSL designer wants to provide to help the PROSE synthesis engine.
+A learning holder is specified in the grammar file similarly to a semantics holder, with its own statement:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dsl&#34;&gt;using learners SubstringExtraction.WitnessFunctions;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Just like with semantics holders, a grammar may contain multiple learning holders.&lt;/p&gt;
+
+&lt;p&gt;Some important points on writing witness functions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A witness function is defined for one parameter of an operator, not the entire operator.&lt;/li&gt;
+&lt;li&gt;A witness function takes as input a spec on the output of &lt;em&gt;the entire operator expression&lt;/em&gt;, and outputs a spec on the output of &lt;em&gt;one parameter program in that expression&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Ideally, the spec produced by a witness function is necessary and sufficient to satisfy the given outer spec. You can also write an &lt;em&gt;imprecise&lt;/em&gt; witness function, whose produced spec is only necessary for the outer spec to hold (in other words, it is an &lt;em&gt;overapproximation&lt;/em&gt;). Such a witness function says &amp;ldquo;I cannot constrain this parameter precisely, but I can narrow down the space of possibilities. All valid parameter programs should satisfy my produced spec, but there may be some invalid ones that also satisfy it.&amp;rdquo; To mark a witness function as imprecise, add a property &lt;code&gt;Precise = false&lt;/code&gt; to its &lt;code&gt;[WitnessFunction]&lt;/code&gt; attribute.&lt;/li&gt;
+&lt;li&gt;You don&amp;rsquo;t need to define witness functions for parameters that are grammar variables in a state (such as &lt;code&gt;in&lt;/code&gt;). More generally, you don&amp;rsquo;t need to define witness functions for a parameter $p$ if all DSL programs that may derive from $p$ do not include any literals.&lt;/li&gt;
+&lt;li&gt;You don&amp;rsquo;t need to define witness functions for operators from the standard library (with some exceptions).&lt;/li&gt;
+&lt;li&gt;Returning &lt;code&gt;null&lt;/code&gt; from a witness function means &amp;ldquo;The given spec is inconsistent, no program can possibly satisfy it.&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;absolute-positions&#34;&gt;Absolute positions&lt;/h4&gt;
+
+&lt;p&gt;Covering more DSL operators with witness functions is straightforward.
+The next one witnesses &lt;code&gt;k&lt;/code&gt; in the &lt;code&gt;AbsolutePosition&lt;/code&gt; operator.
+Given an example of position $\ell$ that &lt;code&gt;AbsolutePosition(in, k)&lt;/code&gt; produced, &lt;code&gt;k&lt;/code&gt; must have been one of two options: the offset of $\ell$ from the left or from the right in &lt;code&gt;in&lt;/code&gt;.
+We can apply similar logic if we are given not one position $\ell$ but a disjunction of them: the witness function just enumerates over each option, collecting all possible $k$s.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;[WitnessFunction(&amp;quot;AbsolutePosition&amp;quot;, 1)
+static DisjunctiveExamplesSpecification WitnessK(GrammarRule rule, int parameter, DisjunctiveExamplesSpecification spec)
+{
+    var result = new Dictionary&amp;lt;State, IEnumerable&amp;lt;object&amp;gt;&amp;gt;();
+    foreach (var example in spec.DisjunctiveExamples)
+    {
+        State inputState = example.Key;
+        var ks = new HashSet&amp;lt;int?&amp;gt;();
+        var in = (string) inputState[rule.Body[0]];
+        foreach (int? pos in example.Value)
+        {
+            ks.Add(pos);
+            ks.Add(pos - in.Length - 1);
+        }
+        if (ks.Count == 0) return null;
+        result[inputState] = ks;
+    }
+    return new DisjunctiveExamplesSpecification(result);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;regex-based-positions&#34;&gt;Regex-based positions&lt;/h4&gt;
+
+&lt;p&gt;Operator &lt;code&gt;RegexPosition&lt;/code&gt; needs 2 witness functions: one for its &lt;code&gt;rr&lt;/code&gt; parameter and one for its &lt;code&gt;k&lt;/code&gt; parameter.
+For the first one, we need to learn a list of regular expressions that match to the left and to the right of given position.
+There are many techniques for doing that; in this tutorial, we will assume that we have a predefined list of &amp;ldquo;common&amp;rdquo; regexes like &lt;code&gt;/[0-9]+/&lt;/code&gt;, and enumerate them exhaustively at a given position.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; to make the semantics of &lt;code&gt;RegexPosition(in, rr, k)&lt;/code&gt; and its witness functions consistent, we need to agree on what does it mean for a regex to &amp;ldquo;match&amp;rdquo; at a given position.
+If we take a standard definition of &amp;ldquo;matching&amp;rdquo;, and simply test each regex at each position, we will later run into problems when determining the corresponding &lt;code&gt;k&lt;/code&gt; for each regex.&lt;/p&gt;
+
+&lt;p&gt;Consider a string &lt;code&gt;in = &amp;quot;abc def&amp;quot;&lt;/code&gt;. We would like a program &lt;code&gt;RegexPosition(in, RegexPair(//, /[a-z]+/), 1)&lt;/code&gt; to match before a second word in &lt;code&gt;in&lt;/code&gt; &amp;ndash; in this case, at position #4.
+However, for that we need to assume &lt;em&gt;non-overlapping&lt;/em&gt; semantics of regex matches, since the regex &lt;code&gt;/[a-z]+/&lt;/code&gt; also matches at positions #0, #1, and #2.
+In fact, there are 6 matches of this regex in &lt;code&gt;in&lt;/code&gt;, but only two &amp;ldquo;words&amp;rdquo;, by a &amp;ldquo;common sense&amp;rdquo; definition.
+Therefore, instead of testing a regex at each position, we need to first run it against the entire string, record a list of non-overlapping matches, and only then test a position for a match in that list.&lt;/p&gt;
+
+&lt;p&gt;For computational efficiency, ideally we should &lt;em&gt;cache&lt;/em&gt; the run of each predefined regex against each input string in the examples before the learning session starts.
+That way, we avoid recomputing it in each call of &lt;code&gt;RegexPosition&lt;/code&gt; semantics and its witness functions.
+We avoid such caching in this tutorial for simplicity of presentation.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Here&amp;rsquo;s a witness function for &lt;code&gt;rr&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;Regex[] UsefulRegexes = {
+    new Regex(@&amp;quot;\w+&amp;quot;),  // Word
+    new Regex(@&amp;quot;\d+&amp;quot;),  // Number
+    // ...
+};
+
+// For efficiency, this function should be invoked only once for each input string before the learning session starts
+void BuildStringMatches(string in, out Dictionary&amp;lt;int, List&amp;lt;Match&amp;gt;&amp;gt; leftMatches,
+                        out Dictionary&amp;lt;int, List&amp;lt;Match&amp;gt;&amp;gt; rightMatches)
+{
+    leftMatches = new Dictionary&amp;lt;int, List&amp;lt;Match&amp;gt;&amp;gt;();
+    rightMatches = new Dictionary&amp;lt;int, List&amp;lt;Match&amp;gt;&amp;gt;();
+    for (int p = 0; p &amp;lt;= in.Length; ++p)
+    {
+        leftMatches[p] = new List&amp;lt;Match&amp;gt;();
+        rightMatches[p] = new List&amp;lt;Match&amp;gt;();
+    }
+    foreach (Regex r in UsefulRegexes)
+    {
+        foreach (Match m in r.Matches(in))
+        {
+            leftMatches[m.Right].Add(m);
+            rightMatches[m.Index].Add(m);
+        }
+    }
+}
+
+[WitnessFunction(&amp;quot;RegexPosition&amp;quot;, 1)]
+static DisjunctiveExamplesSpecification WitnessRegexPair(GrammarRule rule, int parameter, DisjunctiveExamplesSpecification spec)
+{
+    var result = new Dictionary&amp;lt;State, IEnumerable&amp;lt;object&amp;gt;&amp;gt;();
+    foreach (var example in spec.DisjunctiveExamples)
+    {
+        State inputState = example.Key;
+        var in = (string) inputState[rule.Body[0]];
+        Dictionary&amp;lt;int, List&amp;lt;Match&amp;gt;&amp;gt; leftMatches, rightMatches;
+        BuildStringMatches(in, out leftMatches, out rightMatches);
+        var regexes = new List&amp;lt;Tuple&amp;lt;Regex, Regex&amp;gt;&amp;gt;();
+        foreach (int? pos in example.Value)
+            regexes.AddRange(from l in leftMatches[pos.Value]
+                             from r in rightMatches[pos.Value]
+                             select Tuple.Create(l, r));
+        if (regexes.Count == 0) return null;
+        result[inputState] = regexes;
+    }
+    return new DisjunctiveExamplesSpecification(result);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;conditional-witness-functions&#34;&gt;Conditional witness functions&lt;/h4&gt;
+
+&lt;p&gt;The last witness function in this tutorial witnesses a match index &lt;code&gt;k&lt;/code&gt; for each regex pair in &lt;code&gt;RegexPosition&lt;/code&gt;.
+To write such a witness function, an outer spec on &lt;code&gt;RegexPosition&lt;/code&gt; alone is insufficient: we can only write it for each individual regex pair, but not for all possible regex pairs at once.
+Reducing reasoning over all possible values to reasoning assuming a single fixed value is called &lt;a href=&#34;https://en.wikipedia.org/wiki/Skolem_normal_form&#34;&gt;skolemization&lt;/a&gt;.
+After inversion of semantics, skolemization is the second powerful idea that makes $D^4$ able to perform program synthesis efficiently.&lt;/p&gt;
+
+&lt;p&gt;Our witness function for &lt;code&gt;k&lt;/code&gt; is &lt;em&gt;conditional&lt;/em&gt; on &lt;code&gt;rr&lt;/code&gt;: in addition to an outer spec, it takes an additional input &amp;ndash; a spec on its &lt;em&gt;prerequisite parameter&lt;/em&gt; &lt;code&gt;rr&lt;/code&gt;.
+In general, it can be any spec that provides your witness function any useful information.
+Typically, an &lt;code&gt;ExampleSpecification&lt;/code&gt; (i.e., a concrete value of prerequisite &amp;ndash; in this case &lt;code&gt;rr&lt;/code&gt;) is the most useful and common prerequisite spec.
+We use &lt;code&gt;ExampleSpecification&lt;/code&gt; here to deduce possible indices &lt;code&gt;k&lt;/code&gt; for each regex pair in a manner similar to deducing absolute positions above.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;[WitnessFunction(&amp;quot;RegexPosition&amp;quot;, 2, DependsOnParameters = new[] { 1 }]
+static DisjunctiveExamplesSpecification WitnessKForRegexPair(Grammar rule, int parameter, DisjunctiveExamplesSpecification spec,
+                                                             ExampleSpecification rrSpec)
+{
+    var result = new Dictionary&amp;lt;State, IEnumerable&amp;lt;object&amp;gt;&amp;gt;();
+    foreach (var example in spec.DisjunctiveExamples)
+    {
+        State inputState = example.Key;
+        var in = (string) inputState[rule.Body[0]];
+        var regexPair = (Tuple&amp;lt;Regex, Regex&amp;gt;) rrSpec.Examples[inputState];
+        Regex left = regexPair.Item1;
+        Regex right = regexPair.Item2;
+        var rightMatches = right.Matches(in).ToDictionary(m =&amp;gt; m.Index);
+        var matchPositions = new List&amp;lt;int&amp;gt;();
+        foreach (Match m in left.Matches(in))
+            if (rightMatches.ContainsKey(m.Right))
+                matchPositions.Add(m.Right);
+        var ks = new HashSet&amp;lt;int?&amp;gt;();
+        foreach (int? pos in example.Value)
+        {
+            int occurrence = matchPositions.BinarySearch(pos.Value);
+            if (occurrence &amp;lt; 0) continue;
+            ks.Add(occurrence);
+            ks.Add(occurrence - matchPositions.Count);
+        }
+        if (ks.Count == 0) return null;
+        result[inputState] = ks;
+    }
+    return new DisjunctiveExamplesSpecification(result);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After adding these 4 witness functions to &lt;code&gt;SubstringExtraction.WitnessFunctions&lt;/code&gt;, our &lt;code&gt;SynthesisEngine.LearnGrammar&lt;/code&gt; call succeeds, and we get back a set of several dozens possible consistent programs!&lt;/p&gt;
+
+&lt;h2 id=&#34;ranking&#34;&gt;Ranking&lt;/h2&gt;
+
+&lt;p&gt;Example are inherently an ambiguous form of specification.
+A user-provided spec of several input-output examples usually produces a huge set of DSL programs that are consistent with it (often billions of them!).
+To build a useful application, a synthesis-based technology has to somehow pick one &amp;ldquo;most likely&amp;rdquo; program from such a set.
+Many disambiguation techniques exist; in this tutorial, we show the most common one &amp;ndash; ranking.&lt;/p&gt;
+
+&lt;p&gt;Ranking assigns each program a &lt;em&gt;score&lt;/em&gt; &amp;ndash; an approximation to its &amp;ldquo;prior probability&amp;rdquo; of being a desired program.
+For instance, string extraction based on absolute indices is less common than extraction based on regular expressions, therefore the former should be assigned a smaller score than the latter.&lt;/p&gt;
+
+&lt;p&gt;In PROSE, scores are represented using &lt;em&gt;computed properties&lt;/em&gt;.
+A property is a named attribute on a program AST, computed using provided &lt;em&gt;property calculator&lt;/em&gt; functions.
+A property can be &lt;em&gt;complete&lt;/em&gt;, which means that it must be defined with some value for each possible DSL program, or &lt;em&gt;incomplete&lt;/em&gt; if it only exists on some DSL programs.&lt;/p&gt;
+
+&lt;p&gt;A property is defined in a DSL as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dsl&#34;&gt;@complete double property Score = SubstringExtraction.ScoreCalculator;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here &lt;code&gt;Score&lt;/code&gt; is its name, &lt;code&gt;double&lt;/code&gt; is its type, and &lt;code&gt;ScoreCalculator&lt;/code&gt; is a static class that holds calculator functions.
+Given a program AST &lt;code&gt;p&lt;/code&gt;, you can access the value of &lt;code&gt;Score&lt;/code&gt; on this AST as &lt;code&gt;p[&amp;quot;Score&amp;quot;]&lt;/code&gt; (converted to &lt;code&gt;double&lt;/code&gt;).&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; by default, variable ASTs such as &lt;code&gt;in&lt;/code&gt; are automatically assigned a property value of &lt;code&gt;default(T)&lt;/code&gt; &amp;ndash; in case of &lt;code&gt;Score&lt;/code&gt;, it&amp;rsquo;s &lt;code&gt;0.0&lt;/code&gt;.
+To override this behavior, put a &lt;code&gt;@vardefault[VarCalc]&lt;/code&gt; annotation on the property definition, where &lt;code&gt;VarCalc&lt;/code&gt; is a member of the same static class with calculators.
+This member may be a (constant) field, a .NET property, or a parameterless method.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;property-calculators&#34;&gt;Property calculators&lt;/h3&gt;
+
+&lt;p&gt;A property calculator is defined for a grammar rule.
+There are three ways to define a calculator: based on &lt;em&gt;recursive property values&lt;/em&gt;, based on &lt;em&gt;program syntax&lt;/em&gt;, or based on &lt;em&gt;literal values&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h4 id=&#34;calculation-from-recursive-values&#34;&gt;Calculation from recursive values&lt;/h4&gt;
+
+&lt;p&gt;The most common property definitions are inductive, recursively defined over the grammar.
+For instance, a score for &lt;code&gt;RegPos(in, rr, k)&lt;/code&gt; would be defined as a formula over a score for &lt;code&gt;rr&lt;/code&gt; and a score for &lt;code&gt;k&lt;/code&gt;.
+Such property calculators take as input recursively computed values of the same property on parameters of a current program AST:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;[PropertyCalculator(&amp;quot;RegexPosition&amp;quot;, Method = CalculationMethod.FromRecursivePropertyValues)]
+static double ScoreRegexPosition(double inScore, double rrScore, double kScore) =&amp;gt; rrScore * kScore;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;calculation-from-syntax-nodes&#34;&gt;Calculation from syntax nodes&lt;/h4&gt;
+
+&lt;p&gt;When recursively computed property values are insufficient, you can take into account the entire syntax of a program AST.
+Such a calculator takes as input &lt;code&gt;ProgramNode&lt;/code&gt; instances representing ASTs of parameter programs.
+You can specify specific subclasses of &lt;code&gt;ProgramNode&lt;/code&gt; instead as parameters, if you know that your grammar structure only allows some specific AST kinds at this place.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;[PropertyCalculator(&amp;quot;AbsolutePosition&amp;quot;, Method = CalculationMethod.FromChildrenNodes]
+static double ScoreAbsolutePosition(VariableNode in, LiteralNode k)
+{
+    double score = (double) in[&amp;quot;Score&amp;quot;] + (double) k[&amp;quot;Score&amp;quot;];
+    int kValue = (int) k.Value;
+    if (Math.Abs(k) &amp;lt;= 1)
+        score *= 10;
+    return score;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;calculation-from-literals&#34;&gt;Calculation from literals&lt;/h4&gt;
+
+&lt;p&gt;An inductively defined computed property needs a basic case &amp;ndash; its value on literal program ASTs.
+Property calculators on terminal rules can take as input simply the value of a literal in a &lt;code&gt;LiteralNode&lt;/code&gt; currently being scored.&lt;/p&gt;
+
+&lt;p&gt;Since terminal rules do not have names, you cannot associate a calculator with a rule simply by putting its name in a first parameter of the &lt;code&gt;[PropertyCalculator]&lt;/code&gt; attribute.
+Instead, you can annotate the rule itself with a &lt;code&gt;@property&lt;/code&gt; annotation, which specifies a calculator for each relevant property.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dsl&#34;&gt;@property[Score=KScore] int k;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;[PropertyCalculator(Method = CalculationMethod.FromLiteral)]
+static double KScore(int k) =&amp;gt; 1.0 / (1 + Math.Abs(k));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;learning-top-programs&#34;&gt;Learning top programs&lt;/h3&gt;
+
+&lt;p&gt;Our &lt;code&gt;SubstringExtraction&lt;/code&gt; grammar needs a &lt;code&gt;Score&lt;/code&gt; calculator for each rule (including standard library rules like &lt;code&gt;PositionPair&lt;/code&gt;).
+After you define all of them, you can now extract $k$ topmost-ranked programs out of the set of candidates returned by learning:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;ProgramSet learned = engine.LearnGrammar(spec);
+IEnumerable&amp;lt;ProgramNode&amp;gt; best = learned.TopK(&amp;quot;Score&amp;quot;, k: 1);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The method &lt;code&gt;TopK&lt;/code&gt; assumes that your property has a numerical type (convertible to &lt;code&gt;double&lt;/code&gt;).
+It returns an descendingly ordered sequence of programs (greater score values are better).
+If several programs have the same score, they are all returned in the sequence, thus it may hold more programs than the requested value of &lt;code&gt;k&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Instead of ordering a learned set of programs, you can instead learn only $k$ topmost-ranked programs in the first place, if you are not interested in the entire set of candidates.
+Such a request significantly improves learning performance, since PROSE can perform aggressive filtering in the middle of the learning process.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;IEnumerable&amp;lt;ProgramNode&amp;gt; bestLearned = engine.LearnGrammarTopK(spec, &amp;quot;Score&amp;quot;, k: 1);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Important:&lt;/strong&gt; in order for both &lt;code&gt;TopK&lt;/code&gt; methods to work soundly, your property must be &lt;em&gt;monotonic&lt;/em&gt; over the grammar structure. In other words, greater-scored subexpressions should produce greater-scored expressions.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We can now take the best program and apply it on new user-provided data.
+Assuming scoring functions similar to FlashFill, this program will be &amp;ldquo;Extract the first word&amp;rdquo;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;ProgramNode p = bestLearned.First();
+Console.WriteLine(p);
+/* Substring(in, PositionPair(RegexPosition(in, RegexPair(//, /\w+/), 0), RegexPosition(in, RegexPair(/\w+/, //), 0)) */
+State input = State.Create(grammar.InputSymbol, &amp;quot;Program Synthesis&amp;quot;);
+Console.WriteLine(p.Invoke(input));
+/* Program */
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:regex&#34;&gt;PROSE uses JavaScript/Perl syntax for regular expression literals.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:regex&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>FAQ</title>
+      <link>https://microsoft.github.io/prose/documentation/flashfill/faq/</link>
+      <pubDate>Wed, 02 Sep 2015 20:00:30 -0700</pubDate>
+      
+      <guid>https://microsoft.github.io/prose/documentation/flashfill/faq/</guid>
+      <description>
+
+&lt;h3 id=&#34;what-is-flashfill&#34;&gt;What is FlashFill?&lt;/h3&gt;
+
+&lt;p&gt;FlashFill is a system for performing string transformation operations.
+When you have a number of similar strings which you need to rewrite or extract
+data from, FlashFill can perform the operation given the correct output on
+just a few (often only one) examples.&lt;/p&gt;
+
+&lt;h3 id=&#34;is-this-the-same-as-the-flashfill-feature-in-excel&#34;&gt;Is this the same as the FlashFill feature in Excel?&lt;/h3&gt;
+
+&lt;p&gt;No. Both are based on the same research, but the implementations are
+independent and have differing feature sets. Our goal is to have this
+implementation exceed the capabilities of the Excel implementation,
+but that is not the case at the moment.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Web Extraction - Usage</title>
+      <link>https://microsoft.github.io/prose/documentation/extraction-web/usage/</link>
+      <pubDate>Wed, 02 Sep 2015 20:00:16 -0700</pubDate>
+      
+      <guid>https://microsoft.github.io/prose/documentation/extraction-web/usage/</guid>
+      <description>
+
+&lt;p&gt;The Extraction.Web learning APIs are accessed through the &lt;code&gt;Extraction.Web.Learner&lt;/code&gt; class. The two primary methods are &lt;code&gt;LearnRegion()&lt;/code&gt; and &lt;code&gt;LearnSequence()&lt;/code&gt; which take a set of examples
+and learn a Extraction.Web program consistent with those examples.&lt;/p&gt;
+
+&lt;p&gt;The Extraction.Web program is defined in &lt;code&gt;Extraction.Web.Program&lt;/code&gt; class.
+A program is either a region extraction program or a sequence extraction program.
+The key method is &lt;code&gt;Run()&lt;/code&gt; to execute the program on some input region to obtain the extracted output.
+Other important methods include serialization (&lt;code&gt;Serialize()&lt;/code&gt;) and deserialization (&lt;code&gt;Load()&lt;/code&gt;) of a program.&lt;/p&gt;
+
+&lt;p&gt;In order to use
+Extraction.Web, you need assembly references to &lt;code&gt;Microsoft.ProgramSynthesis.Extraction.dll&lt;/code&gt;, &lt;code&gt;Microsoft.ProgramSynthesis.Extraction.Web.Learner.dll&lt;/code&gt;
+and &lt;code&gt;Microsoft.ProgramSynthesis.Extraction.Web.Semantics.dll&lt;/code&gt;. Again, the sample project &lt;code&gt;Extraction.Web.Sample&lt;/code&gt; illustrates our API usage and contains the sample HTML documents discussed in this tutorial.&lt;/p&gt;
+
+&lt;h1 id=&#34;htmldoc-and-webregion&#34;&gt;HtmlDoc and WebRegion&lt;/h1&gt;
+
+&lt;p&gt;Extraction.Web operates on regions of HTML documents. An HTML document is represented by the class &lt;code&gt;HtmlDoc&lt;/code&gt;. These can be created from the HTML markup of a document as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;string s = File.ReadAllText(@&amp;quot;..\..\SampleDocuments\sample-document-1.html&amp;quot;);
+HtmlDoc doc = HtmlDoc.Create(s);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A region within a document is represented by the &lt;code&gt;WebRegion&lt;/code&gt; class which refers to a specific node in the HTML document, such as a table node, paragraph node, or the root node representing the whole document. Web regions can be created using the &lt;code&gt;GetRegion&lt;/code&gt; function, by specifying a CSS selector that determines a unique node within a given HTML document. For example, the following code generates a region that refers to the second cell in the first row of the table in the document (containing the surname &amp;ldquo;Briggs&amp;rdquo;).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;WebRegion region = doc.GetRegion(&amp;quot;tr:nth-child(1) td:nth-child(2)&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;learning-a-program-to-extract-a-single-region&#34;&gt;Learning a program to extract a single region&lt;/h1&gt;
+
+&lt;p&gt;Extraction.Web learns programs from examples of regions that it is given. A &lt;code&gt;ExampleSpec&lt;/code&gt; is a pair consisting of the example region and a “reference” region which is some ancestor of the example region, which may be a whole document or a part of the document from which the example is extracted. Extraction.Web learns programs for the example region using the reference region as the anchor point. The reference region can be any ancestor node of the example region in the HTML document. For instance, in our running example, to extract a surname from a given table row, we may specify an example with the table row as a reference region:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;WebRegion referenceRegion = doc.GetRegion(&amp;quot;tr:nth-child(1)&amp;quot;);  //1st table row
+WebRegion exampleRegion = doc.GetRegion(&amp;quot;tr:nth-child(1) td:nth-child(2)&amp;quot;);  //2nd cell in 1st table row
+ExampleSpec&amp;lt;WebRegion&amp;gt; exampleSpec = new ExampleSpec&amp;lt;WebRegion&amp;gt;(referenceRegion, exampleRegion);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The reference region represents some knowledge that we have on splitting the file, which we leverage to learn a new field. In the example above, we may perform an extraction with respect to the table row as we may already know how to extract table rows from the document. If we do not have any such information (for instance, when we learn the first field), then we can use the entire document region as the reference.&lt;/p&gt;
+
+&lt;p&gt;We next illustrate how we learn the first surname in a document from  a single positive example.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;WebRegion referenceRegion = new WebRegion(doc);
+WebRegion exampleRegion = doc.GetRegion(&amp;quot;tr:nth-child(1) td:nth-child(2)&amp;quot;);  //2nd cell in 1st table row
+ExampleSpec&amp;lt;WebRegion&amp;gt; exampleSpec = new ExampleSpec&amp;lt;WebRegion&amp;gt;(referenceRegion, exampleRegion);
+Extraction.Web.Program prog = Learner.Instance.LearnRegion(new[] { exampleSpec }, Enumerable.Empty&amp;lt;ExampleSpec&amp;lt;WebRegion&amp;gt;&amp;gt;());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Multiple Positive Examples:&lt;/strong&gt; The API takes multiple positive examples because we allow users to give examples that come from multiple documents, or multiple regions in a document. For example, here is how we learn the first surname in a document using two examples in two different documents.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;WebRegion referenceRegion1 = new WebRegion(doc1);
+WebRegion referenceRegion2 = new WebRegion(doc2);
+WebRegion exampleRegion1 = doc1.GetRegion(&amp;quot;tr:nth-child(1) td:nth-child(2)&amp;quot;);  //2nd cell in 1st table row of doc1
+WebRegion exampleRegion2 = doc2.GetRegion(&amp;quot;tr:nth-child(1) td:nth-child(2)&amp;quot;);  //2nd cell in 1st table row of doc2
+ExampleSpec&amp;lt;WebRegion&amp;gt; exampleSpec1 = new ExampleSpec&amp;lt;WebRegion&amp;gt;(referenceRegion1, exampleRegion1);
+ExampleSpec&amp;lt;WebRegion&amp;gt; exampleSpec2 = new ExampleSpec&amp;lt;WebRegion&amp;gt;(referenceRegion2, exampleRegion2);
+
+Extraction.Web.Program prog = Learner.Instance.LearnRegion(new[] { exampleSpec1, exampleSpec2 }, Enumerable.Empty&amp;lt;ExampleSpec&amp;lt;WebRegion&amp;gt;&amp;gt;());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If we know a way to separate the document into multiple regions, we may learn a program for each of the separated regions. For instance, suppose we can split the document into table rows. We can learn the surname with respect to the table row, so that given any table row, our program will return the surname contained in the row.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;WebRegion referenceRegion1 = doc.GetRegion(&amp;quot;tr:nth-child(1)&amp;quot;);  //1st table row
+WebRegion exampleRegion1 = doc.GetRegion(&amp;quot;tr:nth-child(1) td:nth-child(2)&amp;quot;);  //2nd cell in 1st table row
+WebRegion referenceRegion2 = doc.GetRegion(&amp;quot;tr:nth-child(2)&amp;quot;);  //2nd table row
+WebRegion exampleRegion2 = doc.GetRegion(&amp;quot;tr:nth-child(2) td:nth-child(2)&amp;quot;);  //2nd cell in 2nd table row
+ExampleSpec&amp;lt;WebRegion&amp;gt; exampleSpec1 = new ExampleSpec&amp;lt;WebRegion&amp;gt;(referenceRegion1, exampleRegion1);
+ExampleSpec&amp;lt;WebRegion&amp;gt; exampleSpec2 = new ExampleSpec&amp;lt;WebRegion&amp;gt;(referenceRegion2, exampleRegion2);
+
+Extraction.Web.Program prog = Learner.Instance.LearnRegion(new[] { exampleSpec1, exampleSpec2 }, Enumerable.Empty&amp;lt;ExampleSpec&amp;lt;WebRegion&amp;gt;&amp;gt;());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;learning-a-program-to-extract-a-sequence-of-regions&#34;&gt;Learning a program to extract a sequence of regions&lt;/h1&gt;
+
+&lt;p&gt;We can use Extraction.Web to learn programs that extract a sequence of WebRegions within a given WebRegion. For example, here is how we learn the list of all surnames in a document.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;WebRegion referenceRegion = new WebRegion(doc);
+WebRegion exampleRegion1 = doc.GetRegion(&amp;quot;tr:nth-child(1) td:nth-child(2)&amp;quot;);  //2nd cell in 1st table row of doc
+WebRegion exampleRegion2 = doc.GetRegion(&amp;quot;tr:nth-child(2) td:nth-child(2)&amp;quot;);  //2nd cell in 2nd table row of doc
+ExampleSpec&amp;lt;WebRegion&amp;gt; exampleSpec1 = new ExampleSpec&amp;lt;WebRegion&amp;gt;(referenceRegion, exampleRegion1);
+ExampleSpec&amp;lt;WebRegion&amp;gt; exampleSpec2 = new ExampleSpec&amp;lt;WebRegion&amp;gt;(referenceRegion, exampleRegion2);
+
+Extraction.Web.Program prog = Learner.Instance.LearnSequence(new[] { exampleSpec1, exampleSpec2 }, Enumerable.Empty&amp;lt;ExampleSpec&amp;lt;WebRegion&amp;gt;&amp;gt;());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Similar to the single WebRegion extraction API, it is possible to give examples from different documents or different regions within documents. We just need to specify the reference field accordingly. The negative examples also work similarly to the single WebRegion case.&lt;/p&gt;
+
+&lt;h1 id=&#34;serializing-and-deserializing-programs&#34;&gt;Serializing and deserializing programs&lt;/h1&gt;
+
+&lt;p&gt;We can serialize our program to an XML file using the &lt;code&gt;Serialize()&lt;/code&gt; method, and the &lt;code&gt;Load()&lt;/code&gt; method to create a program from serialized XML.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;Extraction.Web.Program program = …; // learn extraction program
+string progText = prog.Serialize();   //serialize the program to XML
+Extraction.Web.Program loadProg = Extraction.Web.Program.Load(progText); //deserialize
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;executing-programs&#34;&gt;Executing programs&lt;/h1&gt;
+
+&lt;p&gt;Once we learn an extraction program, we can execute it on any new inputs to perform extractions using the &lt;code&gt;Run()&lt;/code&gt; method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;Extraction.Web.Program program = …; // learn an extraction program
+WebRegion region = …; //define the input region to perform the extraction on
+IEnumerable&amp;lt;WebRegion&amp;gt; executionResult = program.Run(region);  //execute the program on the input region
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Text Extraction - Usage</title>
+      <link>https://microsoft.github.io/prose/documentation/extraction-text/usage/</link>
+      <pubDate>Wed, 02 Sep 2015 20:00:16 -0700</pubDate>
+      
+      <guid>https://microsoft.github.io/prose/documentation/extraction-text/usage/</guid>
+      <description>
+
+&lt;p&gt;The Extraction.Text learning APIs are accessed through the &lt;code&gt;Extraction.Text.Learner&lt;/code&gt; class.
+The two primary methods are &lt;code&gt;LearnRegion()&lt;/code&gt; and &lt;code&gt;LearnSequence()&lt;/code&gt; which take a set of examples
+and learn a Extraction.Text program consistent with those examples.&lt;/p&gt;
+
+&lt;p&gt;The Extraction.Text program is defined in &lt;code&gt;Extraction.Text.Program&lt;/code&gt; class.
+A program is either a substring program or a sequence program.
+The key method is &lt;code&gt;Run()&lt;/code&gt; to execute the program on some input string(s) to obtain the extracted output.
+Other important methods include serialization (&lt;code&gt;Serialize()&lt;/code&gt;) and deserialization (&lt;code&gt;Load()&lt;/code&gt;) of a program.&lt;/p&gt;
+
+&lt;p&gt;In order to use
+Extraction.Text, you need assembly references to &lt;code&gt;Microsoft.ProgramSynthesis.Extraction.Text.dll&lt;/code&gt;, &lt;code&gt;Microsoft.ProgramSynthesis.Extraction.Text.Learner.dll&lt;/code&gt;
+and &lt;code&gt;Microsoft.ProgramSynthesis.Extraction.Text.Semantics.dll&lt;/code&gt;. Again, the sample project &lt;code&gt;Extraction.Text.Sample&lt;/code&gt; illustrates our API usage.&lt;/p&gt;
+
+&lt;h1 id=&#34;stringregion&#34;&gt;StringRegion&lt;/h1&gt;
+
+&lt;p&gt;A substring in Extraction.Text is called &lt;code&gt;StringRegion&lt;/code&gt;.
+A &lt;code&gt;StringRegion&lt;/code&gt; is a triple &lt;code&gt;(S, Start, End)&lt;/code&gt;, where &lt;code&gt;S&lt;/code&gt; is the input string, &lt;code&gt;Start&lt;/code&gt; and &lt;code&gt;End&lt;/code&gt; are the starting/ending positions within &lt;code&gt;S&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;A position specifies the location between two characters in &lt;code&gt;S&lt;/code&gt;, and is zero-based.
+For example, the position at the beginning of &lt;code&gt;S&lt;/code&gt; is 0, the one between the first and second character is 1, and so on.&lt;/p&gt;
+
+&lt;p&gt;We can create a &lt;code&gt;StringRegion&lt;/code&gt; from a string using the following method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;StringRegion StringRegion.Create(string s);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Notes:&lt;/strong&gt; We should &lt;strong&gt;NOT&lt;/strong&gt; use &lt;code&gt;Create()&lt;/code&gt; method to create sub-regions within a &lt;code&gt;StringRegion&lt;/code&gt;. That is, we should not use &lt;code&gt;StringRegion.Create(region.S.substring(_))&lt;/code&gt;.
+It is because during learning, we build a matching cache for the input string.
+Creating &lt;code&gt;StringRegion&lt;/code&gt;s for substrings forces us to calculate new caches for these substrings, which is not necessary because the cache for entire parent string exists.&lt;/p&gt;
+
+&lt;p&gt;Instead, we should use the &lt;code&gt;Slice&lt;/code&gt; method to create sub-regions from the input &lt;code&gt;StringRegion&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;StringRegion Slice(uint start, uint end);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For example, we can create two sub-regions within a &lt;code&gt;StringRegion&lt;/code&gt; as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;StringRegion record = new StringRegion(&amp;quot;Carrie Dodson 100&amp;quot;);
+StringRegion name = record.Slice(0u, 13u); // &amp;quot;Carrie Dodson&amp;quot;&amp;quot;
+StringRegion number = record.Slice(14u, 17u); // &amp;quot;100&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;examplespec&#34;&gt;ExampleSpec&lt;/h1&gt;
+
+&lt;p&gt;A &lt;code&gt;ExampleSpec&lt;/code&gt; is a pair of a referencing &lt;code&gt;StringRegion&lt;/code&gt; and its corresponding output &lt;code&gt;StringRegion&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The referencing &lt;code&gt;StringRegion&lt;/code&gt; can be one of the following kinds:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Parent:&lt;/strong&gt; The referencing &lt;code&gt;StringRegion&lt;/code&gt; &lt;em&gt;contains&lt;/em&gt; the example.
+For instance,&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;ExampleSpec nameRefRecExample = new ExampleSpec&amp;lt;StringRegion&amp;gt;(record /* Carrie Dodson 100 */, name /* Carrie Dodson */);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Preceding Sibling:&lt;/strong&gt; The referencing &lt;code&gt;StringRegion&lt;/code&gt; is a sibling that appears &lt;em&gt;before&lt;/em&gt; the example.
+For instance,&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;ExampleSpec numRefNameExample = new ExampleSpec&amp;lt;StringRegion&amp;gt;(name /* Carrie Dodson */, number /* 100 */);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Succeeding Sibling:&lt;/strong&gt; The referencing &lt;code&gt;StringRegion&lt;/code&gt; is a sibling that appears &lt;em&gt;after&lt;/em&gt; the example.
+For instance,&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;ExampleSpec nameRefNumExample = new ExampleSpec&amp;lt;StringRegion&amp;gt;(number /* 100 */, name /* Carrie Dodson */);
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The referencing &lt;code&gt;StringRegion&lt;/code&gt; represents some existing knowledge on the structure of the input &lt;code&gt;StringRegion&lt;/code&gt;.
+Extraction.Text learns a new region/sequence program using referencing &lt;code&gt;StringRegion&lt;/code&gt; as clues.
+If we do not have such clues (for instance, when we learn the first program), we can use the entire input &lt;code&gt;StringRegion&lt;/code&gt; as the referencing &lt;code&gt;StringRegion&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;positive-negative-example&#34;&gt;Positive &amp;amp; Negative Example&lt;/h2&gt;
+
+&lt;p&gt;An example is either positive or negative in Extraction.Text.&lt;/p&gt;
+
+&lt;p&gt;The examples must be consistent.
+Positive examples must not overlap with each other.
+Negative example must not overlap with positive examples.&lt;/p&gt;
+
+&lt;p&gt;Extraction.Text guarantees that the learnt program is consistent with the provided positive examples.
+That is, the output of this program on the training &lt;code&gt;StringRegion&lt;/code&gt; should &lt;em&gt;match&lt;/em&gt; at least these positive examples.&lt;/p&gt;
+
+&lt;p&gt;The program should also be consistent with the provided negative examples.
+Specifically, the output of this program should not &lt;em&gt;overlap&lt;/em&gt; with any negative examples.&lt;/p&gt;
+
+&lt;h1 id=&#34;extracting-a-stringregion&#34;&gt;Extracting a StringRegion&lt;/h1&gt;
+
+&lt;h2 id=&#34;basic-usage&#34;&gt;Basic Usage&lt;/h2&gt;
+
+&lt;p&gt;Extraction.Text may take &lt;em&gt;one or more&lt;/em&gt; examples to learn a region program.
+It accepts multiple examples that come from different regions in a file, or from different files.
+Note that positive examples should &lt;em&gt;not&lt;/em&gt; share the same referencing region, or we have duplicating/conflicting examples.&lt;/p&gt;
+
+&lt;p&gt;The below example illustrates a learning session with 2 positive examples.
+Note that Extraction.Text can learn the intended program with just 1 example.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;var input1 = StringRegion.Create(&amp;quot;Carrie Dodson 100&amp;quot;);
+var input2 = StringRegion.Create(&amp;quot;Leonard Robledo 75&amp;quot;);
+
+var positiveExamples = new[] {
+    new ExampleSpec&amp;lt;StringRegion&amp;gt;(input1, input1.Slice(7, 13)), // &amp;quot;Carrie Dodson 100&amp;quot; =&amp;gt; &amp;quot;Dodson&amp;quot;
+    new ExampleSpec&amp;lt;StringRegion&amp;gt;(input2, input2.Slice(8, 15)) // &amp;quot;Leonard Robledo 75&amp;quot; =&amp;gt; &amp;quot;Robledo&amp;quot;
+};
+var negativeExamples = Enumerable.Empty&amp;lt;ExampleSpec&amp;lt;StringRegion&amp;gt;&amp;gt;();
+
+Program topRankedProg = Learner.Instance.LearnRegion(positiveExamples, negativeExamples);
+
+var testInput = StringRegion.Create(&amp;quot;Margaret Cook 320&amp;quot;); // expect &amp;quot;Cook&amp;quot;
+IEnumerable&amp;lt;StringRegion&amp;gt; run = topRankedProg.Run(testInput);
+// Retrieve the first element because this is a region textProgram
+var output = run.FirstOrDefault();
+Console.WriteLine(&amp;quot;\&amp;quot;{0}\&amp;quot; =&amp;gt; \&amp;quot;{1}\&amp;quot;&amp;quot;, testInput, output);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We use similar set up to learn a program where the number references the word,
+and to learn a program where the word references the number.&lt;/p&gt;
+
+&lt;h2 id=&#34;learning-with-negative-examples&#34;&gt;Learning With Negative Examples&lt;/h2&gt;
+
+&lt;p&gt;We specify negative examples to rule out programs whose outputs overlap with at least one of our negative examples.&lt;/p&gt;
+
+&lt;p&gt;The below example illustrates the usage of negative examples.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;var input = StringRegion.Create(&amp;quot;Carrie Dodson 100\nLeonard Robledo NA\nMargaret Cook 320&amp;quot;);
+StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
+
+// Suppose we want to extract &amp;quot;100&amp;quot;, &amp;quot;320&amp;quot;.
+var positiveExamples = new[] {
+    new ExampleSpec&amp;lt;StringRegion&amp;gt;(records[0], records[0].Slice(14, 17)) // &amp;quot;Carrie Dodson 100&amp;quot; =&amp;gt; &amp;quot;100&amp;quot;
+};
+var negativeExamples = new[] {
+    new ExampleSpec&amp;lt;StringRegion&amp;gt;(records[1], records[1]) // no extraction in &amp;quot;Leonard Robledo NA&amp;quot;
+};
+
+// Extraction.Text will find a program whose output does not OVERLAP with any of the negative examples.
+Program topRankedProg = Learner.Instance.LearnRegion(positiveExamples, negativeExamples);
+
+foreach (var r in topRankedProg.Run(records))
+{
+    var output = r.Output != null ? r.Output.Value : &amp;quot;null&amp;quot;;
+    Console.WriteLine(&amp;quot;\&amp;quot;{0}\&amp;quot; =&amp;gt; \&amp;quot;{1}\&amp;quot;&amp;quot;, r.Reference, output);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;learning-with-additional-references&#34;&gt;Learning With Additional References&lt;/h2&gt;
+
+&lt;p&gt;We may provide additional references (which may come from the same file or different files) to Extraction.Text.
+Extraction.Text observes the behavior of the learnt programs on these additional references, and uses this observation to better rank programs.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TIPS&lt;/strong&gt;: It is always a good idea to provide additional references.
+Extraction.Text will be more likely to identify the desired program.
+The only drawback is the learning time will increase (because Extraction.Text has to evaluate the learnt programs on these additional references),
+but it is often marginal.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;var input = StringRegion.Create(&amp;quot;Carrie Dodson 100\nLeonard Robledo 75\nMargaret Cook ***&amp;quot;);
+StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
+
+// Suppose we want to extract &amp;quot;100&amp;quot;, &amp;quot;75&amp;quot;, and &amp;quot;***&amp;quot;.
+var positiveExamples = new[] {
+    new ExampleSpec&amp;lt;StringRegion&amp;gt;(records[0], records[0].Slice(14, 17)) // &amp;quot;Carrie Dodson 100&amp;quot; =&amp;gt; &amp;quot;100&amp;quot;
+};
+var negativeExamples = Enumerable.Empty&amp;lt;ExampleSpec&amp;lt;StringRegion&amp;gt;&amp;gt;();
+
+// Additional references help Extraction.Text observe the behavior of the learnt programs on unseen data.
+// In this example, if we do not use additional references, Extraction.Text may learn a program that extracts the first number.
+// On the contrary, if other references are present, it knows that this program is not applicable on the third record &amp;quot;Margaret Cook ***&amp;quot;,
+// and promotes a more applicable program.
+Program topRankedProg =
+    Learner.Instance.LearnRegion(positiveExamples, negativeExamples, records.Skip(1));
+
+foreach (var r in topRankedProg.Run(records))
+{
+    var output = r.Output != null ? r.Output.Value : &amp;quot;null&amp;quot;;
+    Console.WriteLine(&amp;quot;\&amp;quot;{0}\&amp;quot; =&amp;gt; \&amp;quot;{1}\&amp;quot;&amp;quot;, r.Reference, output);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;learning-with-regular-expressions&#34;&gt;Learning With Regular Expressions&lt;/h2&gt;
+
+&lt;p&gt;Users also have an option to provide 3 regular expressions for the extracted region: the lookbehind regex, the matching regex, and the lookahead regex.
+All 3 regular expressions are optional.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;var input = StringRegion.Create(&amp;quot;Carrie Dodson 100\nLeonard Robledo NA\nMargaret Cook 320&amp;quot;);
+StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
+
+// Suppose we want to extract the number out of a record
+var positiveExamples = new[] {
+    new ExampleSpec&amp;lt;StringRegion&amp;gt;(records[0], records[0].Slice(14, 17)), // &amp;quot;Carrie Dodson 100&amp;quot; =&amp;gt; &amp;quot;100&amp;quot;
+};
+var negativeExamples = Enumerable.Empty&amp;lt;ExampleSpec&amp;lt;StringRegion&amp;gt;&amp;gt;();
+
+Regex lookBehindRegex = new Regex(&amp;quot;\\s&amp;quot;);
+Regex lookAheadRegex = null;
+Regex matchingRegex = new Regex(&amp;quot;\\d+&amp;quot;);
+
+IEnumerable&amp;lt;Program&amp;gt; topRankedPrograms =
+    Learner.Instance.LearnTopKRegion(positiveExamples, negativeExamples, null, 1, lookBehindRegex, matchingRegex, lookAheadRegex);
+
+Program topRankedProg = topRankedPrograms.FirstOrDefault();
+
+foreach (var r in topRankedProg.Run(records))
+{
+    var output = r.Output != null ? r.Output.Value : &amp;quot;null&amp;quot;;
+    Console.WriteLine(&amp;quot;\&amp;quot;{0}\&amp;quot; =&amp;gt; \&amp;quot;{1}\&amp;quot;&amp;quot;, r.Reference, output);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;extracting-a-sequence-of-stringregions&#34;&gt;Extracting a Sequence of StringRegions&lt;/h1&gt;
+
+&lt;p&gt;Learning a program to extract a sequence of &lt;code&gt;StringRegion&lt;/code&gt; is similar to learning a program to extract a &lt;code&gt;StringRegion&lt;/code&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;IMPORTANT:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Give at least 2 examples because generalizing a sequence from a single element is hard.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Give positive examples continuously (i.e., we cannot skip any positive examples).
+Extraction.Text assumes that all the text prior to the last example that are not selected are negative examples.
+For instance, in extracting {&amp;ldquo;A&amp;rdquo;, &amp;ldquo;C&amp;rdquo;} from &amp;ldquo;A B C&amp;rdquo;, Extraction.Text assumes that &amp;ldquo; B &amp;rdquo; is a negative example.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;extracting-from-a-parent-region&#34;&gt;Extracting from a Parent Region&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;var input = StringRegion.Create(&amp;quot;United States\nCarrie Dodson 100\nLeonard Robledo 75\nMargaret Cook 320\n&amp;quot; +
+                                &amp;quot;Canada\nConcetta Beck 350\nNicholas Sayers 90\nFrancis Terrill 2430\n&amp;quot; +
+                                &amp;quot;Great Britain\nNettie Pope 50\nMack Beeson 1070&amp;quot;);
+// Suppose we want to extract all last names from the input string.
+var positiveExamples = new[] {
+    new ExampleSpec&amp;lt;StringRegion&amp;gt;(input, input.Slice(14, 20)), // input =&amp;gt; &amp;quot;Carrie&amp;quot;
+    new ExampleSpec&amp;lt;StringRegion&amp;gt;(input, input.Slice(32, 39)) // input =&amp;gt; &amp;quot;Leonard&amp;quot;
+};
+var negativeExamples = Enumerable.Empty&amp;lt;ExampleSpec&amp;lt;StringRegion&amp;gt;&amp;gt;();
+
+Program topRankedProg = Learner.Instance.LearnSequence(positiveExamples, negativeExamples);
+
+foreach (var r in topRankedProg.Run(input))
+{
+    var output = r != null ? r.Value : &amp;quot;null&amp;quot;;
+    Console.WriteLine(output);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;extracting-from-a-sequence-of-referencing-regions&#34;&gt;Extracting from a Sequence of Referencing Regions&lt;/h2&gt;
+
+&lt;p&gt;The examples (if any) in each referencing region have to be continous.
+However, we do not need to provide all examples in previous regions before providing examples in the current region.&lt;/p&gt;
+
+&lt;p&gt;For instance, this set of examples is wrong { &amp;ldquo;Dodson&amp;rdquo;, &amp;ldquo;Cook&amp;rdquo;} (missing &amp;ldquo;Robledo&amp;rdquo;), but
+this set is valid { &amp;ldquo;Dodson&amp;rdquo;, &amp;ldquo;Robledo&amp;rdquo;, &amp;ldquo;Beck&amp;rdquo;}. Note that we do not need to include &amp;ldquo;Cook&amp;rdquo; to
+include &amp;ldquo;Beck&amp;rdquo;, because &amp;ldquo;Beck&amp;rdquo; belongs to a different referencing region.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;var input = StringRegion.Create(&amp;quot;United States\nCarrie Dodson 100\nLeonard Robledo 75\nMargaret Cook 320\n&amp;quot; +
+                                &amp;quot;Canada\nConcetta Beck 350\nNicholas Sayers 90\nFrancis Terrill 2430\n&amp;quot; +
+                                &amp;quot;Great Britain\nNettie Pope 50\nMack Beeson 1070&amp;quot;);
+StringRegion[] countries = { input.Slice(0, 13), input.Slice(69, 75), input.Slice(134, 147) };
+
+// Suppose we want to extract all last names from the input string.
+var positiveExamples = new[] {
+    new ExampleSpec&amp;lt;StringRegion&amp;gt;(countries[0], input.Slice(14, 20)), // &amp;quot;United States&amp;quot; =&amp;gt; &amp;quot;Carrie&amp;quot;
+    new ExampleSpec&amp;lt;StringRegion&amp;gt;(countries[0], input.Slice(32, 39)), // &amp;quot;United States&amp;quot; =&amp;gt; &amp;quot;Leonard&amp;quot;
+};
+var negativeExamples = Enumerable.Empty&amp;lt;ExampleSpec&amp;lt;StringRegion&amp;gt;&amp;gt;();
+
+Program topRankedProg = Learner.Instance.LearnSequence(positiveExamples, negativeExamples);
+
+foreach (var r in topRankedProg.Run(countries))
+{
+    var output = r.Output != null ? r.Output.Value : &amp;quot;null&amp;quot;;
+    Console.WriteLine(&amp;quot;\&amp;quot;{0}\&amp;quot; =&amp;gt; \&amp;quot;{1}\&amp;quot;&amp;quot;, r.Reference, output);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The other APIs for learning a sequence program are similar to their region learning counterparts.&lt;/p&gt;
+
+&lt;h1 id=&#34;learning-multiple-programs&#34;&gt;Learning multiple programs&lt;/h1&gt;
+
+&lt;p&gt;There are usually a large number of programs consistent with any given set of
+examples. Extraction.Text has a ranking scheme which it uses to return the most
+likely program for the examples it has seen, but in some cases this may not
+be the desired program.&lt;/p&gt;
+
+&lt;h2 id=&#34;learn-top-k-programs&#34;&gt;Learn Top k Programs&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;LearnTopKRegion&lt;/code&gt; and &lt;code&gt;LearnTopKSequence&lt;/code&gt; have a parameter &lt;code&gt;k&lt;/code&gt; which specifies how many programs
+they should try to learn; they return the top &lt;code&gt;k&lt;/code&gt; ranked programs (or programs with
+the top &lt;code&gt;k&lt;/code&gt; ranks if there are ties).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;var input = StringRegion.Create(&amp;quot;Carrie Dodson 100&amp;quot;);
+
+var positiveExamples = new[] {
+    new ExampleSpec&amp;lt;StringRegion&amp;gt;(input, input.Slice(14, 17)) // &amp;quot;Carrie Dodson 100&amp;quot; =&amp;gt; &amp;quot;Dodson&amp;quot;
+};
+var negativeExamples = Enumerable.Empty&amp;lt;ExampleSpec&amp;lt;StringRegion&amp;gt;&amp;gt;();
+
+IEnumerable&amp;lt;Program&amp;gt; topKPrograms = Learner.Instance.LearnTopKRegion(positiveExamples, negativeExamples, 3);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;learn-all-programs&#34;&gt;Learn All Programs&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;LearnAllRegion&lt;/code&gt; and &lt;code&gt;LearnAllSequence&lt;/code&gt; return a set of all programs consistent with the examples.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;var input = StringRegion.Create(&amp;quot;Carrie Dodson 100&amp;quot;);
+
+var positiveExamples = new[] {
+    new ExampleSpec&amp;lt;StringRegion&amp;gt;(input, input.Slice(14, 17)) // &amp;quot;Carrie Dodson 100&amp;quot; =&amp;gt; &amp;quot;Dodson&amp;quot;
+};
+var negativeExamples = Enumerable.Empty&amp;lt;ExampleSpec&amp;lt;StringRegion&amp;gt;&amp;gt;();
+
+ProgramSet allPrograms = Learner.Instance.LearnAllRegion(positiveExamples, negativeExamples);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;serializing-deserializing-a-program&#34;&gt;Serializing/Deserializing a Program&lt;/h1&gt;
+
+&lt;p&gt;The &lt;code&gt;Extraction.Text.Program.Serialize()&lt;/code&gt; method serializes the learnt program to a string.
+The &lt;code&gt;Extraction.Text.Program.Load()&lt;/code&gt; method deserializes the program text to a program.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;// program was learnt previously
+string progText = program.Serialize();
+Program loadProg = Program.Load(progText);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;executing-a-program&#34;&gt;Executing a Program&lt;/h1&gt;
+
+&lt;p&gt;The following APIs execute the learnt program on the referencing &lt;code&gt;StringRegion&lt;/code&gt;(s) to obtain the output result.
+Note that the result may contain &lt;code&gt;null&lt;/code&gt; (on some referencing &lt;code&gt;StringRegion&lt;/code&gt;s) because the learnt program may not be general enough
+to cover these &lt;code&gt;StringRegion&lt;/code&gt;s.
+To avoid this problem, provide additional references during learning so Extraction.Text has more information
+on the structure of the file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;public IEnumerable&amp;lt;StringRegion&amp;gt; Run(StringRegion reference);
+public IEnumerable&amp;lt;ExampleSpec&amp;lt;StringRegion&amp;gt;&amp;gt; Run(IEnumerable&amp;lt;StringRegion&amp;gt; references);
+public IEnumerable&amp;lt;StringRegion&amp;gt; OutputRun(IEnumerable&amp;lt;StringRegion&amp;gt; references);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;run-stringregion&#34;&gt;Run(StringRegion)&lt;/h2&gt;
+
+&lt;p&gt;The output of the sequence program is the entire returned list.
+The output of the region program is the first element in the returned list (since it only extracts a &lt;code&gt;StringRegion&lt;/code&gt; from a reference).&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;IMPORTANT:&lt;/strong&gt; If you have multiple references and the referencing &lt;code&gt;StringRegion&lt;/code&gt;s are (preceding or succeeding) siblings, do &lt;em&gt;NOT&lt;/em&gt; use this method.
+Instead, use &lt;code&gt;Run(IEnumerable&amp;lt;StringRegion&amp;gt; references)&lt;/code&gt; or &lt;code&gt;OutputRun(IEnumerable&amp;lt;StringRegion&amp;gt; references)&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;It is because &lt;code&gt;references.SelectMany(r =&amp;gt; new ExampleSpec&amp;lt;StringRegion&amp;gt;(r, program.Run(r))&lt;/code&gt; is &lt;em&gt;NOT&lt;/em&gt; equivalent to &lt;code&gt;program.Run(references)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In these sibling referencing scenarios, Extraction.Text seeks for the output in the &lt;code&gt;StringRegion&lt;/code&gt; formed by two contiguous siblings.
+If only one referencing sibling is provided, Extraction.Text will search for the output until it reaches end of file (in case of preceding siblings)
+or begin of file (in case of succeeding siblings).&lt;/p&gt;
+
+&lt;p&gt;For example, consider the task of extracting {&amp;ldquo;11&amp;rdquo;, &amp;ldquo;33&amp;rdquo;} from &amp;ldquo;AA-11\nBB-bb\nCC-33&amp;rdquo;.
+Suppose the referencing (preceding) siblings are {&amp;ldquo;AA&amp;rdquo;, &amp;ldquo;BB&amp;rdquo;, &amp;ldquo;CC&amp;rdquo;}.&lt;/p&gt;
+
+&lt;p&gt;If we use only &amp;ldquo;BB&amp;rdquo; as the reference, Extraction.Text will search for the first number in &amp;ldquo;BB-bb\nCC-33&amp;rdquo;, which is 33. This is clearly not intended.
+On the other hand, if we pass the list {&amp;ldquo;AA&amp;rdquo;, &amp;ldquo;BB&amp;rdquo;, &amp;ldquo;CC&amp;rdquo;} as references, Extraction.Text will not find a number for &amp;ldquo;BB&amp;rdquo; (the search range is &amp;ldquo;BB-bb\n&amp;rdquo;).
+This is the intended behavior of this program.&lt;/p&gt;
+
+&lt;p&gt;Parent referencing scenario is not affected because Extraction.Text searches for the match &lt;em&gt;within&lt;/em&gt; the parent.&lt;/p&gt;
+
+&lt;h2 id=&#34;run-ienumerable-stringregion&#34;&gt;Run(IEnumerable&amp;lt;StringRegion&amp;gt;)&lt;/h2&gt;
+
+&lt;p&gt;This method returns a sequence of (reference, output) pairs.
+Use this method if the application needs to maintain the relationship between the referencing &lt;code&gt;StringRegion&lt;/code&gt;s and the output &lt;code&gt;StringRegion&lt;/code&gt;s.&lt;/p&gt;
+
+&lt;h2 id=&#34;outputrun-ienumerable-stringregion&#34;&gt;OutputRun(IEnumerable&amp;lt;StringRegion&amp;gt;)&lt;/h2&gt;
+
+&lt;p&gt;Use this method if the application only needs the output &lt;code&gt;StringRegion&lt;/code&gt;s.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Usage</title>
+      <link>https://microsoft.github.io/prose/documentation/flashfill/usage/</link>
+      <pubDate>Wed, 02 Sep 2015 20:00:16 -0700</pubDate>
+      
+      <guid>https://microsoft.github.io/prose/documentation/flashfill/usage/</guid>
+      <description>
+
+&lt;p&gt;The FlashFill API is accessed through the &lt;code&gt;FlashFill.FlashFillProgram&lt;/code&gt; class.
+The primary method is &lt;code&gt;Learn()&lt;/code&gt; which takes a set of examples
+and learns a FlashFill program consistent with those examples. In order to use
+FlashFill, you need assembly references to &lt;code&gt;FlashFill.dll&lt;/code&gt; and
+&lt;code&gt;FlashFill.Semantics.dll&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;basic-usage&#34;&gt;Basic usage&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;IEnumerable&amp;lt;FlashFillExample&amp;gt; examples = new[]
+{
+    new FlashFillExample(&amp;quot;Greta Hermansson&amp;quot;, &amp;quot;Hermansson, G.&amp;quot;)
+};
+var program = FlashFillProgram.Learn(examples);
+var output = program.Run(&amp;quot;Kettil Hansson&amp;quot;); // output is &amp;quot;Hansson, K.&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The examples are given as an &lt;code&gt;IEnumerable&amp;lt;FlashFillExample&amp;gt;&lt;/code&gt; with the input and
+the correct output. They may also be provided as an
+&lt;code&gt;IDictionary&amp;lt;string, string&amp;gt;&lt;/code&gt; or &lt;code&gt;IDictionary&amp;lt;IEnumerable&amp;lt;string, string&amp;gt;&amp;gt;&lt;/code&gt;.
+Note that the number of strings must be the same for all inputs.&lt;/p&gt;
+
+&lt;h4 id=&#34;one-example-with-multiple-strings&#34;&gt;One example with multiple strings&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;var examples = new[]
+{
+    new FlashFillExample(new FlashFillInput(&amp;quot;Greta&amp;quot;, &amp;quot;Hermansson&amp;quot;), &amp;quot;Hermansson, G.&amp;quot;)
+};
+FlashFillProgram program = FlashFillProgram.Learn(examples);
+string output = program.Run(&amp;quot;Kettil&amp;quot;, &amp;quot;Hansson&amp;quot;); // output is &amp;quot;Hansson, K.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;multiple-examples&#34;&gt;Multiple examples&lt;/h4&gt;
+
+&lt;p&gt;FlashFill can be given multiple examples in order to generate a program that
+will generalize over differently formatted inputs. In this example, we give
+FlashFill a phone number to normalized in two different formats and it is able
+to take a phone number in a third similar format and normalize it as well.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;var examples = new[]
+{
+    new FlashFillExample(&amp;quot;212-555-0183&amp;quot;, &amp;quot;212-555-0183&amp;quot;),
+    new FlashFillExample(&amp;quot;(212) 555 0183&amp;quot;, &amp;quot;212-555-0183&amp;quot;)
+};
+FlashFillProgram program = FlashFillProgram.Learn(examples);
+string output = program.Run(&amp;quot;425 311 1234&amp;quot;); // output is &amp;quot;425-311-1234&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If your input data is in multiple formats, you will likely have to provide
+more than one example. A common workflow is to have the user give a small
+number of examples and then inspect the output and have the option of
+providing additional examples if they discover an undesired result.
+Note that there is no special API for amending a program given new examples,
+just call &lt;code&gt;Learn()&lt;/code&gt; again with all of the examples.&lt;/p&gt;
+
+&lt;h1 id=&#34;inputs-without-known-outputs&#34;&gt;Inputs without known outputs&lt;/h1&gt;
+
+&lt;p&gt;Most likely, when learning a program, you will have some idea of other inputs
+you intend to run the program on in the future. FlashFill can take those inputs
+and use them to help decide which program to return.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;var examples = new Dictionary&amp;lt;string, string&amp;gt;
+{
+    { &amp;quot;02/04/1953&amp;quot;, &amp;quot;1953-04-02&amp;quot; }
+};
+var additionalInputs = new[]
+{
+    &amp;quot;04/02/1962&amp;quot;,
+    &amp;quot;27/08/1998&amp;quot;
+};
+FlashFillProgram program = FlashFillProgram.Learn(examples, additionalInputs);
+string output = program.Run(&amp;quot;31/01/1983&amp;quot;); // output is &amp;quot;1983-01-31&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;learning-multiple-programs&#34;&gt;Learning multiple programs&lt;/h1&gt;
+
+&lt;p&gt;There are usually a large number of programs consistent with any given set of
+examples. FlashFill has a ranking scheme which it uses to return the most
+likely program for the examples it has seen, but in some cases this may not
+be the desired program.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;LearnTopK&lt;/code&gt; has a parameter &lt;code&gt;k&lt;/code&gt; which specifies how many programs
+it should try to learn; it returns the top &lt;code&gt;k&lt;/code&gt; ranked programs (or programs with
+the top &lt;code&gt;k&lt;/code&gt; ranks if there are ties).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;var examples = new[]
+{
+    new FlashFillExample(&amp;quot;Greta Hermansson&amp;quot;, &amp;quot;Hermansson, G.&amp;quot;)
+};
+// Learn top 10 programs instead of just the single top program.
+IEnumerable&amp;lt;FlashFillProgram&amp;gt; programs = FlashFillProgram.LearnTopK(examples, k: 10);
+foreach (FlashFillProgram program in programs)
+{
+    Console.WriteLine(program.Run(&amp;quot;Kettil hansson&amp;quot;)); // note &amp;quot;hansson&amp;quot; is lowercase
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first several programs output &amp;ldquo;doe, J.&amp;rdquo;, but after that one outputs
+&amp;ldquo;Doe, J.&amp;rdquo;. This could be used to ask the user which they meant or to do
+automated reranking of the top results based on some logic other than
+FlashFill&amp;rsquo;s internal ranking system.&lt;/p&gt;
+
+&lt;h1 id=&#34;serializing-programs&#34;&gt;Serializing programs&lt;/h1&gt;
+
+&lt;p&gt;Sometimes you will want to learn a program in one session and run it on other
+data in a future session or transfer learned programs between computers.
+In order to do so, FlashFill supports serializing programs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;IEnumerable&amp;lt;FlashFillExample&amp;gt; examples = new[]
+{
+    new FlashFillExample(&amp;quot;Kettil Hansson&amp;quot;, &amp;quot;Hansson, K.&amp;quot;)
+};
+FlashFillProgram program = FlashFillProgram.Learn(examples);
+// FlashFillPrograms can be serialized using .ToString().
+string serializedProgram = program.ToString();
+// Serialized programs can be loaded in another program using the FlashFill API using .Load():
+FlashFillProgram parsedProgram = FlashFillProgram.Load(serializedProgram);
+// The program can then be run on new inputs:
+Console.WriteLine(parsedProgram.Run(&amp;quot;Etelka Bala&amp;quot;)); // outputs &amp;quot;Bala, E.&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;api&#34;&gt;API&lt;/h1&gt;
+
+&lt;p&gt;See &lt;a href=&#34;./documentation/api&#34;&gt;Documentation&lt;/a&gt; for the full API documentation.&lt;/p&gt;
+
+&lt;h2 id=&#34;flashfillinput-and-flashfillexample-types&#34;&gt;&lt;code&gt;FlashFillInput&lt;/code&gt; and &lt;code&gt;FlashFillExample&lt;/code&gt; types&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;FlashFillInput&lt;/code&gt; wraps a single input of one or more strings and
+&lt;code&gt;FlashFillExample&lt;/code&gt; wraps a &lt;code&gt;FlashFillInput&lt;/code&gt; and a corresponding output &lt;code&gt;string&lt;/code&gt;.
+The FlashFill API methods all have helpers that take &lt;code&gt;string&lt;/code&gt; based types
+in addition to those types.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;var input1 = new FlashFillInput(&amp;quot;one string&amp;quot;);
+var input2 = new FlashFillInput(&amp;quot;two&amp;quot;, &amp;quot;strings&amp;quot;);
+var input3 = new FlashFillInput(new List&amp;lt;string&amp;gt;() { &amp;quot;a&amp;quot;, &amp;quot;b&amp;quot; });
+string[] strs = input3.InputStrings;
+
+var example1 = new FlashFillExample(input1, &amp;quot;out&amp;quot;);
+var example2 = new FlashFillExample(&amp;quot;in&amp;quot;, &amp;quot;out&amp;quot;);
+var example3 = new FlashFillExample(new List&amp;lt;string&amp;gt;() { &amp;quot;a&amp;quot;, &amp;quot;b&amp;quot; }, &amp;quot;out&amp;quot;);
+FlashFillInput ex3Input = example3.Input;
+string ex3Output = example3.Output;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;learning-flashfill-programs&#34;&gt;Learning FlashFill programs&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;FlashFillProgram&lt;/code&gt; has three different methods for learning:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Learn()&lt;/code&gt; returns the single top-ranked program as a &lt;code&gt;FlashFillProgram&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;LearnTopK()&lt;/code&gt; takes an integer &lt;code&gt;k&lt;/code&gt; and returns the top-&lt;code&gt;k&lt;/code&gt; ranked
+programs as an &lt;code&gt;IEnumerable&amp;lt;FlashFillProgram&amp;gt;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;LearnAll()&lt;/code&gt; learns all programs consistent with the examples, giving
+the result compactly as a &lt;code&gt;ProgramSet&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All three have variants that take the examples as an
+&lt;code&gt;IEnumerable&amp;lt;FlashFillExample&amp;gt;&lt;/code&gt;, &lt;code&gt;IDictionary&amp;lt;string, string&amp;gt;&lt;/code&gt;,
+or &lt;code&gt;IDictionary&amp;lt;IEnumerable&amp;lt;string&amp;gt;, string&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To run a &lt;code&gt;FlashFillProgram&lt;/code&gt;, use its &lt;code&gt;Run()&lt;/code&gt; method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;public string Run(FlashFillInput input)
+
+public string Run(IEnumerable&amp;lt;string&amp;gt; input)
+
+public string Run(params string[] input)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Text Extraction</title>
+      <link>https://microsoft.github.io/prose/documentation/extraction-text/intro/</link>
+      <pubDate>Wed, 02 Sep 2015 20:00:06 -0700</pubDate>
+      
+      <guid>https://microsoft.github.io/prose/documentation/extraction-text/intro/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;Extraction.Text&lt;/strong&gt; is a system that extracts data from semi-structured text files using &lt;em&gt;examples&lt;/em&gt;.
+The &lt;a href=&#34;./documentation/extraction-text/usage&#34;&gt;Usage&lt;/a&gt; page and the &lt;code&gt;Extraction.Text.Sample&lt;/code&gt; project show examples of how to use the Extraction.Text API.&lt;/p&gt;
+
+&lt;p&gt;Extraction.Text supports two kinds of extraction: (1) extract a substring from an input string, and (2) extract a sequence of substrings from an input string.&lt;/p&gt;
+
+&lt;h4 id=&#34;substring-extraction&#34;&gt;Substring Extraction&lt;/h4&gt;
+
+&lt;p&gt;Given an example like&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;Input&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Example output&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Carrie Dodson 100&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Dodson&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Extraction.Text will generate a program to extract the last name given any other similar strings:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;Input&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Program output&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Leonard Robledo 75&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Robledo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&#34;sequence-extraction&#34;&gt;Sequence Extraction&lt;/h4&gt;
+
+&lt;p&gt;Given an example like&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;Input&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Example output&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;United States&lt;br/&gt;Carrie Dodson 100&lt;br/&gt;Leonard Robledo 75&lt;br/&gt;Margaret Cook 320&lt;br/&gt;Canada&lt;br/&gt;Concetta Beck 350&lt;br/&gt;Nicholas Sayers 90&lt;br/&gt;Francis Terrill 2430&lt;br/&gt;Great Britain&lt;br/&gt;Nettie Pope 50&lt;br/&gt;Mack Beeson 1070&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Carrie&lt;br/&gt; Leonard&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Extraction.Text will generate a program to extract the sequence of all first names in this string or in other similar strings:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;Input&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Program output&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;United States&lt;br/&gt;Carrie Dodson 100&lt;br/&gt;Leonard Robledo 75&lt;br/&gt;Margaret Cook 320&lt;br/&gt;Canada&lt;br/&gt;Concetta Beck 350&lt;br/&gt;Nicholas Sayers 90&lt;br/&gt;Francis Terrill 2430&lt;br/&gt;Great Britain&lt;br/&gt;Nettie Pope 50&lt;br/&gt;Mack Beeson 1070&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Carrie&lt;br/&gt; Leonard&lt;br/&gt; Margaret&lt;br/&gt;Concetta &lt;br/&gt;Nicholas &lt;br/&gt;Francis &lt;br/&gt;Nettie &lt;br/&gt;Mack&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Web Extraction</title>
+      <link>https://microsoft.github.io/prose/documentation/extraction-web/intro/</link>
+      <pubDate>Wed, 02 Sep 2015 20:00:06 -0700</pubDate>
+      
+      <guid>https://microsoft.github.io/prose/documentation/extraction-web/intro/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;Extraction.Web&lt;/strong&gt; is a system that extracts data from web pages (HTML documents) using &lt;em&gt;examples&lt;/em&gt;. The &lt;a href=&#34;./documentation/extraction-web/usage&#34;&gt;Usage&lt;/a&gt; page and the &lt;code&gt;Extraction.Web.Sample&lt;/code&gt; project show examples of how to use the Extraction.Web API.&lt;/p&gt;
+
+&lt;h4 id=&#34;supported-extractions&#34;&gt;Supported Extractions&lt;/h4&gt;
+
+&lt;p&gt;Extraction.Web supports two kinds of extractions: (1) extract a single region from a web page, and (2) extract a sequence of regions from a web page.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Extract a single region&lt;/strong&gt;. For example, given a web page such as the one shown in Figure 1, we may want to only extract the first name in the table on the page. To do this we can give the example of the document node containing “Harriet” in this particular document. The program learnt by Extraction.Web can then be applied to a different document such as the one in Figure 2 in which it will extract the node containing the first name “Brandan”.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Extract a sequence of regions&lt;/strong&gt;. For example, for the page in Figure 1 we may want to extract all surnames. To do this we can give a few examples, such as the document nodes containing the names { “Briggs”, “Parsons” }. Extraction.Web may then generate a program which can extract all the surnames { “Briggs”, “Parsons”, “Cameron”, “Owens”, “Garner”, “Booth”, “Dobson”, “Perry” } from this document or other similarly formatted documents such as in Figure 2.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&#34;javascript:;&#34; class=&#34;thumb&#34;&gt;
+    &lt;img src=&#34;./img/extraction-web/ex1.jpg&#34;
+         data-toggle=&#34;modal&#34; data-target=&#34;.modal-profile-lg&#34;
+         class=&#34;img-responsive center-block &#34;
+         /&gt;
+&lt;/a&gt;
+
+&lt;em&gt;Figure 1. Sample document available at Extraction.Web\Sample\SampleDocuments\sample-document-1.html&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;javascript:;&#34; class=&#34;thumb&#34;&gt;
+    &lt;img src=&#34;./img/extraction-web/ex2.jpg&#34;
+         data-toggle=&#34;modal&#34; data-target=&#34;.modal-profile-lg&#34;
+         class=&#34;img-responsive center-block &#34;
+         /&gt;
+&lt;/a&gt;
+
+&lt;em&gt;Figure 2. Sample document available at Extraction.Web\Sample\SampleDocuments\sample-document-2.html&lt;/em&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Introduction</title>
+      <link>https://microsoft.github.io/prose/documentation/flashfill/intro/</link>
+      <pubDate>Wed, 02 Sep 2015 20:00:06 -0700</pubDate>
+      
+      <guid>https://microsoft.github.io/prose/documentation/flashfill/intro/</guid>
+      <description>
+
+&lt;p&gt;FlashFill is a system that performs string transformations using examples
+allowing for many tasks involving strings to be performed automatically.
+The &lt;a href=&#34;./documentation/flashfill/usage&#34;&gt;Usage&lt;/a&gt; page and the
+&lt;code&gt;FlashFill.Sample&lt;/code&gt; project show examples of how to use the FlashFill API.&lt;/p&gt;
+
+&lt;h2 id=&#34;example-transformation&#34;&gt;Example Transformation&lt;/h2&gt;
+
+&lt;p&gt;Given an example like&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;Input1&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Input2&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Example output&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Greta&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Hermansson&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Hermansson, G.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;FlashFill will generate a program to perform the same transformation given any
+other first name, last name pair:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;Input1&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Input2&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Program output&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Kettil&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Hansson&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Hansson, K.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;Etelka&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Bala&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Bala, E.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;&amp;hellip;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&amp;hellip;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&amp;hellip;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Usage</title>
+      <link>https://microsoft.github.io/prose/documentation/prose/usage/</link>
+      <pubDate>Mon, 31 Aug 2015 15:02:56 -0700</pubDate>
+      
+      <guid>https://microsoft.github.io/prose/documentation/prose/usage/</guid>
+      <description>
+
+&lt;h1 id=&#34;terminology&#34;&gt;Terminology&lt;/h1&gt;
+
+&lt;p&gt;A &lt;strong&gt;domain-specific language (DSL)&lt;/strong&gt; is a context-free programming
+language, created for a specific purpose, which can express tasks from a
+certain domain. A DSL consists of &lt;strong&gt;symbols&lt;/strong&gt; and &lt;strong&gt;operators&lt;/strong&gt; upon
+these symbols. A DSL is described as a context-free grammar – i.e., as a
+set of rules, where each symbol on the left-hand side is bound to a set
+of possible operators on the right-hand side that represent this symbol.
+Every operator of a DSL is &lt;strong&gt;pure&lt;/strong&gt; – it does not have side effects.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;program&lt;/strong&gt; in a DSL transforms &lt;strong&gt;input&lt;/strong&gt; data into &lt;strong&gt;output&lt;/strong&gt; data.
+A program is represented as an &lt;strong&gt;abstract syntax tree (AST)&lt;/strong&gt; of the DSL
+operators. Each node in this tree (similarly, each DSL operator) has
+some invocation semantics. More formally, each AST node has a method
+&lt;code&gt;Invoke&lt;/code&gt;. It takes as input a &lt;strong&gt;state&lt;/strong&gt; $\mathbf{\sigma}$ and
+returns some output. A state is a mapping from DSL variables to their
+values. Initially, the topmost AST node invoked on a state
+&lt;code&gt;$\sigma = \left\{ v \mapsto i \right\}$&lt;/code&gt;, where $v$ is the DSL variable
+that represents program input, and $i$ is the value of the input data on
+which the program is invoked. AST nodes can modify this state (add new
+variable bindings in scope) and pass it down to children nodes in
+recursive invocations of &lt;code&gt;Invoke&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;architecture&#34;&gt;Architecture&lt;/h1&gt;
+
+&lt;p&gt;The Microsoft.ProgramSynthesis solution unites the core pieces of the meta-synthesizer.
+Here are the included projects:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Microsoft.ProgramSynthesis&lt;/strong&gt; includes the core functionality for manipulating
+ASTs, validating DSLs, maintain a DSL and a set of its operators,
+and core infrastructure for the synthesis algorithms.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dslc.exe&lt;/strong&gt; is a DSL compiler. This is the executable that
+takes a language definition, parses it, validates it, potentially
+emits some diagnostics (warnings and/or errors), and serializes the
+parsed language representation into a portable file.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Microsoft.ProgramSynthesis.Learning&lt;/strong&gt; is a core library of synthesis algorithms,
+standard operators and strategies.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SynthesisLib.NLGenerator&lt;/strong&gt; is a library for paraphrasing ASTs in
+natural language and building ASTs from keywords or phrases.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Microsoft.ProgramSynthesis.Tests&lt;/strong&gt; and &lt;strong&gt;TestSemantics&lt;/strong&gt; contain a set of unit
+tests and supporting infrastructure.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Microsoft.ProgramSynthesis.Utils&lt;/strong&gt; is a collection of utility methods that are used
+in different parts of the project.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A typical workflow of a DSL designer consists of the following steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Define a DSL in a separate file (usually has a *.grammar
+extension).&lt;/li&gt;
+&lt;li&gt;Define the semantics and all the supporting infrastructure for the
+DSL in a separate .NET assembly (see Section 4 below).&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Use one of the two options below to compile the DSL definition into
+a &lt;code&gt;Grammar&lt;/code&gt; object:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;At compile-time, invoke the DSL compiler &lt;strong&gt;dslc.exe&lt;/strong&gt;
+manually on a *.grammar file with a DSL definition. Deploy the
+resulting serialized *.grammar.xml file with your application.
+At run-time, deserialize it using &lt;code&gt;Grammar.Deserialize&lt;/code&gt; method.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Deploy the &lt;strong&gt;dslc.exe&lt;/strong&gt; and the *.grammar file with your
+application. At run-time, compile your DSL definition in memory
+using &lt;code&gt;DSLCompiler.Compile&lt;/code&gt; method.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;language-definition&#34;&gt;Language definition&lt;/h1&gt;
+
+&lt;p&gt;The main class &lt;code&gt;Grammar&lt;/code&gt; represents a context-free grammar as a
+set of DSL rules and a list of references to operators’ semantics and/or
+custom operator learners, implemented in C# in a separate assembly. The
+method &lt;code&gt;DSLCompiler.LoadGrammar&lt;/code&gt; loads a grammar definition from
+a string. Multiple examples of its usage can be found in
+&lt;code&gt;Microsof.ProgramSynthesis.Tests&lt;/code&gt;; the semantics for the test languages in there
+are defined in the assembly &lt;code&gt;TestSemantics&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here’s a typical language definition:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dsl&#34;&gt;reference &#39;TestSemantics.dll&#39;;
+using TestSemantics;
+using semantics TestSemantics.FlashFill;
+using learners TestSemantics.FlashFill.Learners;
+
+language FlashFill;
+
+@start string f := ConstStr(s) | let x = v in SubStr(x, P, P);
+int P := CPos(k) | Pos(x, r, r, k);
+int k;
+@values[StringGen] string s;
+Regex r;
+@input string v;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;NOTE: The operators &lt;code&gt;ConstStr&lt;/code&gt;, &lt;code&gt;SubStr&lt;/code&gt;, &lt;code&gt;CPos&lt;/code&gt; and &lt;code&gt;Pos&lt;/code&gt; are defined in
+&lt;a href=&#34;#black-box-operators&#34;&gt;Black-box operators&lt;/a&gt; below.&lt;/p&gt;
+
+&lt;p&gt;First, we reference external assemblies with our implementation of
+operators’ semantics and/or custom operator learners. Second, we
+reference any namespaces for external typename lookup. Finally, we
+specify the static classes for semantics and learners. There may be
+several &lt;strong&gt;reference&lt;/strong&gt;, &lt;strong&gt;using&lt;/strong&gt;, &lt;strong&gt;using semantics&lt;/strong&gt;, and &lt;strong&gt;using learners&lt;/strong&gt; instructions. In this example,
+&lt;code&gt;TestSemantics.FlashFill&lt;/code&gt; is a static class defined in the
+assembly “TestSemantics.dll”, as is
+&lt;code&gt;TestSemantics.FlashFill.Learners&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Next, we specify the language name and its rules in a form of a
+context-free grammar (BNF). Each &lt;strong&gt;nonterminal&lt;/strong&gt; rule has a symbol on
+the left-hand side and a list of operators on the right-hand side,
+separated by “|”. Each &lt;strong&gt;terminal&lt;/strong&gt; rule has only the left-hand side.
+Each symbol has its type, specified on the LHS. The supported types are:
+any of the standard C# types, including classes from
+&lt;code&gt;System.Collection.Generic&lt;/code&gt;, &lt;code&gt;System.Text.RegularExpressions&lt;/code&gt;, etc.,
+or your own custom types, defined in the same semantics assembly. In the
+latter case, the framework searches for the type name in the namespaces
+referenced in &lt;strong&gt;using&lt;/strong&gt; instructions.&lt;/p&gt;
+
+&lt;p&gt;Exactly one nonterminal rule should be annotated as “&lt;strong&gt;@start&lt;/strong&gt;” – this
+is a start symbol of the grammar (i.e., the topmost node of every AST).
+Exactly one terminal rule should be annotated as “&lt;strong&gt;@input&lt;/strong&gt;” – this is
+the input data to the program.&lt;/p&gt;
+
+&lt;h2 id=&#34;terminals&#34;&gt;Terminals&lt;/h2&gt;
+
+&lt;p&gt;Terminal rules specify the leaf symbols that will be replaced with
+literal constants or variables in the AST. For example:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A terminal rule &lt;code&gt;int k;&lt;/code&gt; specifies a symbol $k$ that represents a
+literal integer constant.&lt;/li&gt;
+&lt;li&gt;A terminal rule &lt;code&gt;@input string v;&lt;/code&gt; specifies a &lt;em&gt;variable&lt;/em&gt; symbol $v$
+that will be replaced with program input data &lt;em&gt;at runtime.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A user can specify the list of possible values that a literal symbol can
+be set to. This is done with a &lt;strong&gt;@values[&lt;/strong&gt;$G$&lt;strong&gt;]&lt;/strong&gt; annotation,
+where $G$ is a &lt;strong&gt;value generator&lt;/strong&gt; – a reference to a user-defined
+static field, property, or method. $G$ should evaluate to
+&lt;code&gt;IEnumerable&lt;/code&gt; (thus, it can be any standard .NET collection, such
+as an array or a list, or a user-defined collection type). The framework
+searches for the definition of $G$ in the &lt;em&gt;learner classes,&lt;/em&gt; specified
+by a &lt;strong&gt;using learners&lt;/strong&gt; instruction. For our example grammar, any of the
+following definition can serve as a value generator for $s$:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;public static class FlashFill
+{
+    public static class Learners
+    {
+        public static string[] StringGen = {&amp;quot;&amp;quot;, &amp;quot;123&amp;quot;, &amp;quot;Gates, B.&amp;quot;, &amp;quot;ABRACADABRA&amp;quot;};
+        public static string[] StringGen
+        {
+            get { return new[] {&amp;quot;&amp;quot;, &amp;quot;123&amp;quot;, &amp;quot;Gates, B.&amp;quot;, &amp;quot;ABRACADABRA&amp;quot;}; }
+        }
+        public static string[] StringGen()
+        {
+            return new[] { &amp;quot;&amp;quot;, &amp;quot;123&amp;quot;, &amp;quot;Gates, B.&amp;quot;, &amp;quot;ABRACADABRA&amp;quot; };
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If no value generator is provided, the framework can either pick a
+standard generator for some common types (such as &lt;code&gt;byte&lt;/code&gt;), or
+assume that the literal can be set to any value. This can impact the
+performance of some synthesis strategies or even make them inapplicable.&lt;/p&gt;
+
+&lt;h2 id=&#34;black-box-operators&#34;&gt;Black-box operators&lt;/h2&gt;
+
+&lt;p&gt;A &lt;strong&gt;black-box&lt;/strong&gt; operator is an operator that does not refer to any
+standard concepts, and its invocation semantics do not modify the
+state $\sigma$ that has been passed to it. In the example above
+&lt;code&gt;ConstStr&lt;/code&gt;, &lt;code&gt;SubStr&lt;/code&gt;, &lt;code&gt;CPos&lt;/code&gt;, &lt;code&gt;Pos&lt;/code&gt; are
+black-box operators. Note that &lt;code&gt;SubStr&lt;/code&gt; is a black-box operator,
+even though the &lt;code&gt;Let&lt;/code&gt; concept surrounding it isn’t.
+&lt;code&gt;SubStr&lt;/code&gt;’s semantics don’t modify $\sigma$, they just pass it
+on to parameter symbols. &lt;code&gt;Let&lt;/code&gt;’s semantics change the state
+$\sigma$ by extending it with a new variable binding $x \mapsto v$.&lt;/p&gt;
+
+&lt;p&gt;The semantics of every black-box operator should be defined in the
+semantics assembly with the same name as a public static method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;public static class Semantics
+{
+    public static int CPos(string s, int k)
+    {
+        return k &amp;lt; 0 ? s.Length + 1 + k : k;
+    }
+
+    public static int? Pos(string s, Tuple&amp;lt;Regex, Regex&amp;gt; boundaryPair,
+                            int occurrence)
+    {
+        Regex leftRegex = boundaryPair.Item1;
+        Regex rightRegex = boundaryPair.Item2;
+        var boundaryRegex =  new Regex(&amp;quot;(?&amp;lt;={0}){1}&amp;quot;.FormatWith(leftRegex, rightRegex));
+        var matches = boundaryRegex.Matches(s);
+        int index = occurrence &amp;gt; 0 ? occurrence - 1 : matches.Count + occurrence;
+        if (index &amp;lt; 0 || index &amp;gt;= matches.Count)
+        {
+            return null;
+        }
+        return matches[index].Index;
+    }
+
+    public static string ConstStr(string s)
+    {
+        return s;
+    }
+
+    public static string SubStr(string s, Tuple&amp;lt;int, int&amp;gt; positionPair)
+    {
+        int left = positionPair.Item1;
+        int right = positionPair.Item2;
+        if (left &amp;lt; 0 || right &amp;gt; s.Length || right &amp;lt; left)
+        {
+            return null;
+        }
+        return s.Slice(left, right);
+    }
+
+    public static string Concat(string s, string t)
+    {
+        return s + t;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is important to note that the learning process requires that semantic
+functions are &lt;em&gt;total&lt;/em&gt;.  If the function is inapplicable for the current
+choice of arguments or if for any other reason it would throw an exception,
+it must return &lt;strong&gt;null&lt;/strong&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. In such a case, if the return type of a
+function is a .NET value type, it should be made nullable.&lt;/p&gt;
+
+&lt;p&gt;Every grammar operator should be pure, and its &lt;em&gt;formal&lt;/em&gt; signature should
+be $\sigma \rightarrow T$ (where $T$ is the type of the corresponding
+LHS symbol). The &lt;em&gt;actual&lt;/em&gt; signature of the semantics function that
+implements a black-box operator is
+&lt;code&gt;$\left( T_{1},T_{2},\ldots,T_{k} \right) \rightarrow T$&lt;/code&gt;, where $T_{j}$
+is the type of $j^{\mathrm{\text{th}}}$ parameter symbol, and $T$ is the
+return type of the LHS symbol. Consequently, if one needs to invoke
+their operators on anything other than the program input data, they have
+to introduce additional variables using &lt;code&gt;Let&lt;/code&gt; construct and/or
+lambda functions.&lt;/p&gt;
+
+&lt;h2 id=&#34;let-construct&#34;&gt;Let construct&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;Let&lt;/code&gt; construct is a standard concept with the following syntax:&lt;/p&gt;
+
+&lt;div&gt; $$
+\text{let } x_{1} = v_{1},\,\ldots,\,x_{k} = v_{k}\text{ in } RHS
+$$ &lt;/div&gt;
+
+&lt;p&gt;where $RHS$ is any standard rule RHS (a black-box operator, a grammar symbol, etc.).
+The RHS and any of the symbols it (indirectly) references can make use of the
+variables $x_1,\ldots,x_k$ Grammar symbols $v_1,\ldots,v_k$ are parameters of the
+rule; at runtime, each variable $x_j$ is bound to some value of the corresponding
+symbol $v_j$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The running grammar definition FlashFill contains the following rule:
+&lt;code&gt;dsl
+@start string f := let x = v in SubStr(x, P, P)
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The formal signature of this rule has three free parameters:
+$v,\ P,\ P.$ At runtime, the &lt;code&gt;Let&lt;/code&gt; construct, when given a state
+$\sigma$, executes the following operations:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;$\vartheta := \llbracket v \rrbracket \sigma$ &lt;br /&gt;
+(Execute the parameter symbol $v$ on the state and save the value as $\vartheta$)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$\sigma^{&#39;} := \sigma \cup \left\{ x \mapsto \vartheta \right\}$&lt;/code&gt; &lt;br /&gt;
+(Add a new variable $x$ to the state, bind it to the value $\vartheta$)&lt;/li&gt;
+&lt;li&gt;$\mathrm{\text{return }} \llbracket SubStr(x,P,P) \rrbracket \sigma&amp;rsquo;$ &lt;br /&gt;
+(Invoke the RHS – the black-box operator &lt;code&gt;SubStr&lt;/code&gt; – on the new state)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The RHS indirectly references the variable $x$ further in the grammar
+through the symbol $P$. Namely, the grammar further contains the
+following rule:
+&lt;code&gt;dsl
+int P := Pos(x, r, r, k)
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Pos&lt;/code&gt; is a simple black-box operator, just like &lt;code&gt;SubStr&lt;/code&gt;.
+When given a state $\sigma&amp;rsquo;$, it passes it on to its parameter symbols
+$x,r,r,k$. The latter three symbols are terminals; they will be
+represented as literal constants of the corresponding types in any final
+program (AST). The first symbol is a variable $x$; when executed on a
+state $\sigma&amp;rsquo;$, it will just extract the binding $x \mapsto \vartheta$
+from it, and return $\vartheta$.&lt;/p&gt;
+
+&lt;h2 id=&#34;standard-concepts&#34;&gt;Standard concepts&lt;/h2&gt;
+
+&lt;p&gt;There exists a range of concepts that are common for many DSLs and
+implement standard functionality. In particular, many list/set
+processing concepts (&lt;code&gt;Map&lt;/code&gt;, &lt;code&gt;Filter&lt;/code&gt;, &lt;code&gt;TakeWhile&lt;/code&gt;, etc.) encode various forms of loops that arise in many
+DSLs for different purposes. The synthesizer treats many such concepts
+as first-class citizens and is aware of many efficient strategies for
+synthesizing such concepts from example specifications. Consequently, we
+encourage framework users to use &lt;strong&gt;standard concepts&lt;/strong&gt; for &lt;em&gt;any&lt;/em&gt; loop
+form that arises in their DSLs, instead of encoding it as a black-box
+operator. In our experience, most loop forms commonly used in DSLs can
+be expressed as combinations of standard concepts.&lt;/p&gt;
+
+&lt;p&gt;The current list of supported concepts can be found in the
+&lt;code&gt;Microsoft.ProgramSynthesis.Rules.Concepts&lt;/code&gt; namespace.&lt;/p&gt;
+
+&lt;p&gt;Most standard loop concepts express some form of list/set processing
+with lambda functions. We explain their usage here on a simple
+&lt;code&gt;Filter&lt;/code&gt; example.&lt;/p&gt;
+
+&lt;p&gt;A $Filter(p,\ s)$ concept is an operator that takes as input a
+predicate symbol $p$ and a set symbol $s$. It evaluates $s$ on a state $\sigma$ to
+some set $S$ of objects. It also evaluates $p$ on a state $\sigma$ to
+some lambda function $L = \lambda x:e$. Finally, it filters the set $S$
+using $L$ as a predicate, and returns the result.
+Essentially, $Filter$ is equivalent to &lt;a href=&#34;https://msdn.microsoft.com/en-us/library/vstudio/bb548891(v=vs.110).aspx&#34;&gt;Select in LINQ&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Consider the following grammar for various filters of an array of
+strings:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dsl&#34;&gt;reference &#39;TestSemantics.dll&#39;;
+using TestSemantics;
+using semantics TestSemantics.Flare;
+using learners TestSemantics.Flare.Learners;
+
+language Flare;
+
+@input string[] v;
+Regex r;
+StringFilter f := Match(r) | FTrue();
+@start string[] P := Selected(f, v) = Filter(f, v);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The input string array $v$ is filtered with a filter $f$. A filter $f$
+can filter elements either according to a regular expression $r$, or
+trivially (by returning &lt;code&gt;true&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;The main rule of the grammar is &lt;code&gt;string[] P := Selected(f, v)&lt;/code&gt;. Here
+&lt;code&gt;Selected(f, v)&lt;/code&gt; is a &lt;em&gt;formal&lt;/em&gt; operator signature: this is how it would
+look like if it was implemented as a black-box operator. However, the
+&lt;em&gt;actual&lt;/em&gt; implementation of &lt;code&gt;Selected(f, v)&lt;/code&gt; refers to the standard
+&lt;code&gt;Filter&lt;/code&gt; concept instead of a black-box semantics implementation.
+The &lt;em&gt;arguments&lt;/em&gt; of the &lt;code&gt;Filter&lt;/code&gt; concept are in this case the
+&lt;em&gt;parameters&lt;/em&gt; of a &lt;code&gt;Selected&lt;/code&gt; operator – the symbols $f$ and $v$.
+At runtime, the framework interprets a &lt;code&gt;Selected&lt;/code&gt; AST node by
+executing the standard &lt;code&gt;Filter&lt;/code&gt; semantics with the corresponding
+arguments.&lt;/p&gt;
+
+&lt;p&gt;For a valid execution, the runtime types of the symbols $f$ and $v$
+should satisfy the following contract:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;The type of $v$ should implement &lt;code&gt;IEnumerable&lt;/code&gt;. It can be a
+standard .NET collection (array,
+&lt;code&gt;List&amp;lt;T&amp;gt;&lt;/code&gt;, etc.), or a user-defined
+custom type that implements &lt;code&gt;IEnumerable&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The type of $f$ should have &lt;em&gt;functional semantics&lt;/em&gt;. In other words,
+it should behave like a lambda function, because at runtime it will
+be “invoked” with array elements as arguments. Moreover, for the
+&lt;code&gt;Filter&lt;/code&gt; concept specifically, the return type of this
+“function” should be assignable to &lt;code&gt;bool&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;lambda-functions&#34;&gt;Lambda functions&lt;/h3&gt;
+
+&lt;p&gt;One can capture functional semantics in an explicit
+lambda function in the grammar:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dsl&#34;&gt;reference &#39;TestSemantics.dll&#39;;
+using semantics TestSemantics.Flare;
+using learners TestSemantics.Flare.Learners;
+
+language Flare;
+
+@input string[] v;
+Regex r;
+bool f := Match(x, r) | True();
+@start string[] P := Selected(f, v) = Filter(\x: string =&amp;gt; f, v);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first argument of the &lt;code&gt;Filter&lt;/code&gt; concept is a
+lambda function $\lambda x:f$. In our syntax, it is represented as
+&lt;code&gt;\x: string =&amp;gt; f&lt;/code&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;. Here $x$ is a freshly bound variable (lambda
+function parameter), and $f$ is a grammar symbol that represents
+function body. The runtime type of $x$ should be specified explicitly
+after a colon.&lt;/p&gt;
+
+&lt;p&gt;Just as with &lt;code&gt;Let&lt;/code&gt; constructs, the lambda function body symbol
+and all its indirect descendants can now reference the variable symbol
+$x$. At runtime, it will be successively bound to every element of the
+input string array. Since this binding introduces a new variable in the
+state $\sigma$, a lambda definition cannot be expressed as a black-box
+rule. Instead, it is a special rule kind with first-class treatment in
+the framework (again, just as &lt;code&gt;Let&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;The corresponding semantics implementation is now much simpler:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;public static class Flare
+{
+    public static bool Match(string x, Regex r)
+    {
+        return r.IsMatch(x);
+    }
+
+    public static bool True()
+    {
+        return true;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that a lambda function body is a free symbol on the RHS of the “=”
+sign. In other words, the set of free symbols on the RHS includes the
+direct parameters of the concept (in the example above, $v$) and the
+lambda function bodies (in the example above, $f$). To make the concept
+rule well-defined, this set should be exactly the same as the set of
+free symbols on the LHS of the “=” sign (i.e. the set of formal
+parameters of the rule). However, they should only be equivalent as
+&lt;em&gt;sets&lt;/em&gt;, the order of parameters does not matter. In case of multiple
+usages of the same symbol among parameters, the correspondence between
+the LHS and the RHS is resolved in a left-to-right order.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Consider the following concept rule:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dsl&#34;&gt;int S := F(v, P, P) = G(\x: string =&amp;gt; P, v, P);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here $G$ is some standard concept, and $S,\ v,P$ are grammar symbols.
+The correspondence between formal parameters on the LHS and free symbols
+on the RHS is resolved as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The first parameter $v$ on the LHS corresponds to the second
+argument $v$ on the RHS.&lt;/li&gt;
+&lt;li&gt;The second parameter $P$ on the LHS corresponds to the body of the
+first argument $\lambda x:P$ on the RHS.&lt;/li&gt;
+&lt;li&gt;The third parameter $P$ on the LHS corresponds to the third argument
+$P$ on the RHS.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Two usages of the same symbol $P$ among parameters were resolved in a
+left-to-right order.&lt;/p&gt;
+
+&lt;h1 id=&#34;language-usage&#34;&gt;Language usage&lt;/h1&gt;
+
+&lt;p&gt;Definition and usage of custom DSLs starts with the following steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Define a string representation of your DSL grammar in our syntax.&lt;/li&gt;
+&lt;li&gt;Implement your black-box operator semantics, custom types, and value
+generators in a separate assembly. Make sure that it is accessible
+at a path specified in the grammar string&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:4&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:4&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
+&lt;li&gt;Load the grammar into a &lt;code&gt;Grammar&lt;/code&gt; object:
+
+&lt;ul&gt;
+&lt;li&gt;Either programmatically using &lt;code&gt;DSLCompiler.LoadGrammar&lt;/code&gt;
+or &lt;code&gt;DSLCompiler.LoadGrammarFromFile&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Or in two steps, with manual DSL compilation using
+&lt;strong&gt;dslc.exe&lt;/strong&gt; and loading the serialized &lt;code&gt;Grammar&lt;/code&gt;
+object using &lt;code&gt;Grammar.Deserialize&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Use this &lt;code&gt;Grammar&lt;/code&gt; object to parse specific AST strings into
+ASTs and invoke these ASTs on states.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;ast-parsing-and-printing&#34;&gt;AST parsing and printing&lt;/h2&gt;
+
+&lt;p&gt;The example below shows the last steps, assuming loading the grammar
+programmatically (option “a”):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt; const string TestFlareGrammar = @&amp;quot;
+         reference &#39;TestSemantics.dll&#39;;
+         using TestSemantics;
+         using semantics TestSemantics.Flare;
+         language Flare;
+         @input string[] v;
+         Regex r;
+         StringFilter f := Match(r) | FTrue();
+         @start string[] P := Selected(f, v) = Filter(f, v);&amp;quot;;
+var grammar = DSLCompiler.LoadGrammar(TestFlareGrammar).Value;
+var ast = grammar.ParseAST(&amp;quot;Selected(Match(new Regex(\&amp;quot;[a-z]+\&amp;quot;)), v)&amp;quot;,
+    ASTSerializationFormat.HumanReadable);
+var state = new State(grammar.InputSymbol, new[] {&amp;quot;1&amp;quot;, &amp;quot;ab&amp;quot;, &amp;quot;&amp;quot;});
+Assert.That(ast.Invoke(state), Is.EqualTo(new[] {&amp;quot;ab&amp;quot;}).AsCollection);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The second (optional) parameter of the &lt;code&gt;ParseAST&lt;/code&gt; method
+specifies the serialized format of the program. As of now, two formats
+are supported: XML and human-readable AST syntax (shown above), with XML
+being the default. Parsing human-readable AST syntax requires ANTLR, so
+it is not supported if no third-party dependencies are allowed at
+runtime. If you want to build &lt;strong&gt;Microsoft.ProgramSynthesis&lt;/strong&gt; &lt;em&gt;without&lt;/em&gt; support for
+human-readable AST (and, consequently, without ANTLR dependency), use
+the build configuration “ReleaseNoHumanReadableAsts” for this project
+instead of “Release”.&lt;/p&gt;
+
+&lt;p&gt;To serialize the AST $p$ into a string representation, call
+&lt;code&gt;p.PrintAST&lt;/code&gt;. This method also accepts an optional &lt;strong&gt;format&lt;/strong&gt;
+parameter, with XML being the default.&lt;/p&gt;
+
+&lt;p&gt;Note that explicit lambda functions are part of the implementation of a
+concept rule. The AST that is being parsed should reflect its formal
+interface, not the implementation. In other words, your final ASTs
+should only use the terms from the left-hand side of an “=” sign, and
+nothing from the right-hand side. Here’s an example of AST parsing for a
+grammar with explicit lambda functions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;const string TestFlareGrammar = @&amp;quot;
+   reference &#39;TestSemantics.dll&#39;;
+   using semantics TestSemantics.Flare;
+   using learners TestSemantics.Flare.Learners;
+   language Flare;
+   @input string[] v;
+   Regex r;
+   bool f := Match(x, r) | True();
+   @start string[] P := Selected(v, f) = Filter(\x: string =&amp;gt; f, v);
+&amp;quot;;
+var grammar = DSLCompiler.LoadGrammar(TestFlareGrammar).Value;
+var ast = grammar.ParseAST(&amp;quot;Selected(v, Match(x, new Regex(\&amp;quot;[a-z]+\&amp;quot;)))&amp;quot;)&amp;quot;,
+    ASTSerializationFormat.HumanReadable);
+var state = new State(grammar.InputSymbol, new[] {&amp;quot;1&amp;quot;, &amp;quot;ab&amp;quot;, &amp;quot;&amp;quot;});
+Assert.That(ast.Invoke(state), Is.EqualTo(new[] {&amp;quot;ab&amp;quot;}).AsCollection);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also parse ASTs with arbitrary symbols as roots, not only the
+start symbol of the grammar. To do so, call &lt;code&gt;p.ParseAST&lt;/code&gt; where
+$p$ is a root &lt;code&gt;Symbol&lt;/code&gt; variable. The call &lt;code&gt;grammar.ParseAST(s)&lt;/code&gt;
+is equivalent to &lt;code&gt;grammar.StartSymbol.ParseAST(s)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;dsl-compiler&#34;&gt;DSL Compiler&lt;/h2&gt;
+
+&lt;p&gt;The DSL compiler &lt;strong&gt;dslc.exe&lt;/strong&gt; is a command-line tool that takes a
+grammar definition file, and compiles it into a serialized format,
+potentially emitting any warnings/errors on the way. The command-line
+usage is shown below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nohighlight&#34;&gt;Microsoft Program Synthesis using Examples DSL Compiler 0.5.0.180-9c4db2d
+Created by Microsoft Program Synthesis using Examples team (prose-contact@microsoft.com), 2014-2015.
+Usage: dslc.exe [options] INPUT_GRAMMAR
+
+  -p, --path               Additional directories to locate assembly
+                           references, separated by semicolons.
+
+  -o, --output           (Default: &amp;quot;&amp;lt;DSLName&amp;gt;.grammar.xml&amp;quot;) Output file for
+                           the serialized grammar object.
+
+  -v, --verbosity         (Default: Normal) Define verbosity level of
+                           messages printed by the compiler. Possible values:
+                           Silent=0, Errors=1, Warnings=2,
+                           Normal (Errors | Warnings), Debug=4,
+                           Verbose (Normal | Debug).
+
+  -w, --warn-categories (Default: All) Define categories of warnings/errors
+                           that should be validated, separated by semicolons.
+                           Possible values: None, Core, Syntax, Semantics,
+                           Learning, Features, All.
+
+  --indent               Indent the XML in the serialized grammar file.
+
+  --help                   Display this help screen.
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;partial-programs&#34;&gt;Partial programs&lt;/h2&gt;
+
+&lt;p&gt;In many applications there is need to manipulate &lt;strong&gt;partial programs&lt;/strong&gt; –
+ASTs where some tree nodes are replaced with &lt;strong&gt;holes&lt;/strong&gt;. A hole is a
+special type of an AST node: it’s an unfilled placeholder for some
+instantiation of a corresponding grammar symbol. In the AST node class
+hierarchy it is represented as &lt;code&gt;Microsoft.ProgramSynthesis.AST.Hole&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To get a list of descendant holes in a program $p$, call
+&lt;code&gt;p.Holes&lt;/code&gt;. Note that in current architecture AST nodes do not
+maintain any references to their parents. Consequently, to enable
+practical usages, the &lt;code&gt;Holes&lt;/code&gt; property returns not the
+&lt;code&gt;Hole&lt;/code&gt; nodes themselves, but their &lt;em&gt;positions&lt;/em&gt; instead. A
+position is represented as a tuple $(P,\ k,\ H)$, where $P$ is a parent
+AST node of a hole, $k$ is the hole’s index in the list of $P$’s
+children, and $H$ is the hole itself.&lt;/p&gt;
+
+&lt;p&gt;A string representation of a hole of symbol $S$ is &lt;strong&gt;“?S”.&lt;/strong&gt; The
+framework supports parsing AST strings that contain holes.&lt;/p&gt;
+
+&lt;h1 id=&#34;synthesis&#34;&gt;Synthesis&lt;/h1&gt;
+
+&lt;h2 id=&#34;specifications&#34;&gt;Specifications&lt;/h2&gt;
+
+&lt;p&gt;Program synthesis in the PROSE SDK is defined as a process of
+generating a &lt;strong&gt;set of programs&lt;/strong&gt; $\tilde{P}$ that start with a
+&lt;strong&gt;root symbol&lt;/strong&gt; $P$, given a &lt;strong&gt;specification&lt;/strong&gt;
+$\varphi$&lt;strong&gt;.&lt;/strong&gt; A specification is a way of defining the desired
+behavior of every program in $\tilde{P}$. Different synthesis
+applications have different &lt;em&gt;kinds&lt;/em&gt; of specifications to specify the
+desired program behavior. Some of the examples from prior work include:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;In FlashFill, $\varphi$ is an &lt;em&gt;example specification&lt;/em&gt;: for every given
+input state $\sigma$, the desired program output should be equal to
+the given string $\varphi\lbrack\sigma\rbrack$.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In Extraction.Text, $\varphi$ is a &lt;em&gt;subset specification&lt;/em&gt;. It assumes that
+the runtime type of a root symbol $P$ is some sequence
+&lt;code&gt;IEnumerable&amp;lt;T&amp;gt;&lt;/code&gt;. The specification $\varphi$ expresses
+the following property: for every given input state $\varphi$, the
+desired program output should be a &lt;em&gt;superset&lt;/em&gt; of the given subset
+$\varphi\lbrack\sigma\rbrack$. In terms of Extraction.Text,
+$\varphi\lbrack\sigma\rbrack$ are the substrings highlighted by the
+user, and the program output includes them and the rest of the
+substrings that should be highlighted.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The supported specification kinds are located in the namespace
+&lt;code&gt;Microsoft.ProgramSynthesis.Specifications&lt;/code&gt;. All of them inherit
+the base abstract class &lt;code&gt;Specification&lt;/code&gt;. This class has a single
+abstract method &lt;code&gt;Valid&lt;/code&gt;$\colon$ &lt;code&gt;(State, object)&lt;/code&gt; $\to$ &lt;code&gt;bool&lt;/code&gt;,
+which returns &lt;code&gt;true&lt;/code&gt; if and only if the program output on the
+given input state satisfies the constraint that the specification
+expresses.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Spec&lt;/code&gt; is the main abstract base class for all
+&lt;em&gt;inductive specifications&lt;/em&gt;, i.e. those that constraint the program
+behavior on a set of provided input states $\varphi$.&lt;code&gt;ProvidedInputs&lt;/code&gt;.
+Some of the main inductive specification kinds are described below:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;InductiveConstraint&lt;/code&gt; specifies an arbitrary constraint
+&lt;code&gt;Constraint&lt;/code&gt;$\colon$ &lt;code&gt;(State, object)&lt;/code&gt; $\to$ &lt;code&gt;bool&lt;/code&gt; on the
+set of provided input states.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SubsequenceSpec&lt;/code&gt; specifies a
+subsequence of the desired output sequence for each provided input
+state in the dictionary
+&lt;code&gt;Examples&lt;/code&gt;$\colon$ &lt;code&gt;State&lt;/code&gt; $\mapsto$ &lt;code&gt;IEnumerable&amp;lt;object&amp;gt;&lt;/code&gt;.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;PrefixSpec&lt;/code&gt; is a subclass of
+&lt;code&gt;SubsequenceSpec&lt;/code&gt; where the desired
+subsequence of a program output is also required to be its
+prefix.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;FunctionalOutputSpec&lt;/code&gt; describes the behavior of the
+program whose output type is a lambda function or a functional
+symbol. For each input state, it specifies a set of input/output
+pairs. These pairs are the behavior examples for the function &lt;em&gt;that
+is the output of a desired program on a given state&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DisjunctiveExamplesSpec&lt;/code&gt; specifies a set of
+possible desired outputs for each provided input state. On a given
+state $\sigma$, the program output is allowed to equal &lt;em&gt;any of&lt;/em&gt; the
+given possible outputs
+$\varphi$.&lt;code&gt;DisjunctiveExamples&lt;/code&gt;$\lbrack\sigma\rbrack$.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ExampleSpec&lt;/code&gt; is a subclass of
+&lt;code&gt;DisjunctiveExamplesSpec&lt;/code&gt; where the size of
+$\varphi$.&lt;code&gt;DisjunctiveExamples&lt;/code&gt;$\lbrack\sigma\rbrack$ is constrained to 1.
+In other words, this is the simplest specification
+that specifies the single desired program output for each
+provided input state.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;strategies&#34;&gt;Strategies&lt;/h2&gt;
+
+&lt;p&gt;The main point of program synthesis in the framework is the
+&lt;code&gt;SynthesisEngine&lt;/code&gt; class. Its function is to execute different
+&lt;strong&gt;synthesis strategies&lt;/strong&gt; for synthesizing parts of the resulting
+program. The synthesis process starts with an
+&lt;code&gt;engine.LearnGrammar(&lt;/code&gt;$\varphi$&lt;code&gt;)&lt;/code&gt; call to synthesize a program that starts
+with a start symbol of the grammar, or, more generally,
+&lt;code&gt;engine.LearnSymbol(&lt;/code&gt;$P$, $\varphi$&lt;code&gt;)&lt;/code&gt; call to synthesize a program that starts
+with a given grammar symbol $P$.&lt;/p&gt;
+
+&lt;p&gt;Given a &lt;strong&gt;learning task&lt;/strong&gt; $\left\langle P,\varphi \right\rangle$
+to synthesize a program that starts with a symbol $P$ and satisfies the
+specification $\varphi$, the engine can assign this task to any of the
+available &lt;strong&gt;synthesis strategies&lt;/strong&gt;. A synthesis strategy represents a
+specific &lt;em&gt;algorithm&lt;/em&gt; that can synthesize a program set $\tilde{P}$ for a
+particular kind of a learning task $\left\langle P,\varphi\right\rangle$.
+In other words, a synthesis strategy is parameterized by its supported
+&lt;em&gt;specification type&lt;/em&gt;, takes a learning task
+$\left\langle P,\varphi\right\rangle$ where $\varphi$ should be an instance
+of this specification type, and learns a set of programs  $\tilde{P}$
+that are consistent with $\varphi$.&lt;/p&gt;
+
+&lt;p&gt;A synthesis strategy is represented as a class inheriting
+&lt;code&gt;Microsoft.ProgramSynthesis.Learning.SynthesisStrategy&amp;lt;TSpec, TConfig&amp;gt;&lt;/code&gt;,
+which specifies the following contract:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;public abstract class SynthesisStrategy&amp;lt;TSpec, TConfig&amp;gt; : ISynthesisStrategy
+        where TSpec : Spec where TConfig : StrategyConfig, new()
+{
+    void Initialize(SynthesisEngine engine);
+    abstract Optional&amp;lt;ProgramSet&amp;gt; LearnSymbol(SynthesisEngine engine, LearningTask&amp;lt;TSpec&amp;gt; task, CancellationToken cancel);
+    bool CanCall(Spec spec);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here &lt;code&gt;TSpec&lt;/code&gt; is a supported specification type, &lt;code&gt;TConfig&lt;/code&gt; is a type of
+a configuration that will be passed to the strategy constructor, &lt;code&gt;LearnSymbol&lt;/code&gt;
+is the main learning method, and &lt;code&gt;CanCall&lt;/code&gt; is the function that determines
+whether this synthesis strategy supports learning for a given
+specification &lt;code&gt;spec&lt;/code&gt; (in the default implementation, the result is
+&lt;code&gt;true&lt;/code&gt; if and only if &lt;code&gt;spec&lt;/code&gt; is an instance of &lt;code&gt;TSpec&lt;/code&gt;).&lt;/p&gt;
+
+&lt;h2 id=&#34;version-space-algebra&#34;&gt;Version space algebra&lt;/h2&gt;
+
+&lt;p&gt;The return type of &lt;code&gt;Learn&lt;/code&gt; in &lt;code&gt;SynthesisStrategy&lt;/code&gt; is
+&lt;code&gt;Microsoft.ProgramSynthesis.VersionSpace.ProgramSet&lt;/code&gt;. This is an
+abstract base class for our representation for the sets of programs. A
+&lt;strong&gt;version space&lt;/strong&gt;, defined by Mitchell  and Lau , is a succinct
+representation of a program set (&lt;em&gt;hypothesis space&lt;/em&gt; in machine learning
+community), consistent with a specification. A version space can be
+defined explicitly (as a set of programs), or composed from smaller
+version spaces using standard set operators. The latter property is a
+key to succinctness of version spaces: representing exponential sets of
+programs using composition operators requires only polynomial space.
+Such a structure defines an &lt;em&gt;algebra&lt;/em&gt; over primitive version spaces,
+hence the name.&lt;/p&gt;
+
+&lt;p&gt;An abstract &lt;code&gt;ProgramSet&lt;/code&gt; class defines the following contract:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;public abstract class ProgramSet
+{
+    protected ProgramSet(Symbol symbol)
+    {
+        Symbol = symbol;
+    }
+
+    public Symbol Symbol { get; private set; }
+
+    public abstract IEnumerable&amp;lt;ProgramNode&amp;gt; RealizedPrograms { get; }
+
+    public abstract ulong Size { get; }
+
+    public virtual bool IsEmpty
+    {
+        get { return RealizedPrograms.IsEmpty(); }
+    }
+
+    public abstract ProgramSet Intersect(ProgramSet other);
+
+    public Dictionary&amp;lt;object, ProgramSet&amp;gt; ClusterOnInput(State input);
+
+    public Dictionary&amp;lt;object[], ProgramSet&amp;gt; ClusterOnInputs(IEnumerable&amp;lt;State&amp;gt; input);
+
+    public abstract XElement ToXML();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The property &lt;code&gt;RealizedPrograms&lt;/code&gt; calculates the set of programs
+stored in the version space.&lt;/p&gt;
+
+&lt;h3 id=&#34;direct-version-space&#34;&gt;Direct version space&lt;/h3&gt;
+
+&lt;p&gt;Direct version space is a primitive version space
+that represents a set of programs explicitly, by storing a reference to
+&lt;code&gt;IEnumerable&amp;lt;ProgramSet&amp;gt;&lt;/code&gt;. Since
+&lt;code&gt;IEnumerable&amp;lt;T&amp;gt;&lt;/code&gt; in .NET is lazy,
+storing it in a version space does not by itself enumerate it into an
+explicit set. This allows you to implement a synthesis strategy as an
+&lt;em&gt;iterator&lt;/em&gt; in C# (with &lt;strong&gt;yield return&lt;/strong&gt; statements), which calculates
+the required number of consistent programs on the fly, as needed.
+Moreover, such an iterator can even be theoretically infinite, as long
+as the end-user requests only a finite number of consistent programs.&lt;/p&gt;
+
+&lt;h3 id=&#34;union-version-space&#34;&gt;Union version space&lt;/h3&gt;
+
+&lt;p&gt;A union of $k$ version spaces is a version space
+that contains those and only those programs that belong to at least one
+of the given $k$ spaces. Such a version space naturally arises when we
+want to learn a set of programs that start with a certain grammar symbol
+by learning each of its possible RHS rules automatically. For example:&lt;/p&gt;
+
+&lt;div&gt; $$
+    P\ : = F\left( A,\ B \right) \mid G\left( C, D \right)
+$$ &lt;/div&gt;
+
+&lt;p&gt;Here $P,A,B,C,D$ are grammar symbols, and $F,G$ are black-box operators.
+Given a learning task $\left\langle P,\varphi \right\rangle$, one way to
+resolve it is to independently learn a set of programs $\tilde{F}$ of
+form $F(?A,\ \ ?B)$, and a set of programs $\tilde{G}$ of form
+$G(?C,\ \ ?D)$. If all the programs in $\tilde{F}$ and $\tilde{G}$ are
+consistent with $\varphi$, then $\tilde{F} \cup \tilde{G}$ is a valid
+answer to the outer learning task $\left\langle P,\varphi \right\rangle$.&lt;/p&gt;
+
+&lt;h3 id=&#34;join-version-space&#34;&gt;Join version space&lt;/h3&gt;
+
+&lt;p&gt;A join version space is defined for a single
+operator &lt;code&gt;$P := F\left( E_{1},\ldots,E_{k} \right)$&lt;/code&gt;. It represents a set of
+programs $\tilde{P}$ formed by a Cartesian product of parameter version
+spaces &lt;code&gt;$\tilde{E_{1}},\ldots,\tilde{E_{k}\ }$&lt;/code&gt;. In general, not every
+combination of the parameter programs from this Cartesian product is a
+valid sequence of parameters for the operator $F$, thus join version
+space depends on the operator logic to filter out the invalid
+combinations.&lt;/p&gt;
+
+&lt;p&gt;The table below outlines the APIs for building version spaces in the
+Microsoft Program Synthesis using Examples framework:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Version space&lt;/th&gt;
+&lt;th&gt;Given&lt;/th&gt;
+&lt;th&gt;Builder code&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Empty&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Symbol s&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ProgramSet.Empty(s)&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Explicit list of programs&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Symbol s&lt;/code&gt; &lt;br/&gt; &lt;code&gt;ProgramNode p1, …, pk&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ProgramSet.List(s, p1, …, pk)&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Lazy stream of programs&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Symbol s&lt;/code&gt; &lt;br /&gt; &lt;code&gt;IEnumerable&amp;lt;ProgramNode&amp;gt; stream&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;new DirectProgramSet(s, stream)&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Union of version spaces for the rules&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Symbol s&lt;/code&gt; &lt;br/&gt; &lt;code&gt;ProgramSet v1, …, vk&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;new UnionProgramSet(s, v1, …, vk)&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Join of version spaces for the parameters&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Symbol s&lt;/code&gt; &lt;br/&gt; &lt;code&gt;GrammarRule r // r.Head == s&lt;/code&gt; &lt;br/&gt; &lt;code&gt;ProgramSet v1, …, vk&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;new JoinProgramSet(r, v1, …, vk)&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;&lt;p&gt;Null is used to indicate to the learning system that an operator is
+inapplicable for a particular set of parameters.  This replaces the special
+value $\bot$ typically used in the formal definition of a language.&lt;/p&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+
+&lt;li id=&#34;fn:3&#34;&gt;&lt;p&gt;Following Haskell syntax, we start our lambda functions with the
+“\” character, which is supposed to approximately represent the
+letter $\lambda$.&lt;/p&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+
+&lt;li id=&#34;fn:4&#34;&gt;&lt;p&gt;The common recipe that we use in our development is to reference
+the semantics DLL from the main project in a Visual Studio solution.
+This way, the semantics DLL is automatically copied to the target
+subdirectory on each build next to the main executable, and you can
+refer to it in the grammar string by simply using its filename.
+Alternatively, you can specify additional library paths as extra
+parameters to the &lt;code&gt;LoadGrammar&lt;/code&gt; method.&lt;/p&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:4&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://microsoft.github.io/prose/documentation/prose/d4/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://microsoft.github.io/prose/documentation/prose/d4/</guid>
+      <description>
+
+&lt;p&gt;Deductive strategy ($D^4$) is the main synthesis algorithm used by the PROSE SDK.
+It relies on external annotations, provided by the DSL designer for the language operators &amp;ndash; &lt;a href=&#34;#witness-functions&#34;&gt;witness functions&lt;/a&gt;.
+Our &lt;a href=&#34;./documentation/prose/tutorial&#34;&gt;tutorial&lt;/a&gt; and samples show many use cases for specific witness functions.&lt;/p&gt;
+
+&lt;h1 id=&#34;witness-functions&#34;&gt;Witness Functions&lt;/h1&gt;
+
+&lt;p&gt;A witness function is a domain-specific deductive procedure for a parameter $k$ of an operator $F$, that, given an outer spec $\phi$ on $F$, answer a question: &amp;ldquo;What should a program used as this parameter satisfy in order for the entire $F$ expression to satisfy $\phi$?&amp;rdquo;
+In other words, witness functions propagate specifications from expressions to their subexpressions.&lt;/p&gt;
+
+&lt;p&gt;There are two kinds of witness functions: non-conditional and conditional.&lt;/p&gt;
+
+&lt;h2 id=&#34;non-conditional&#34;&gt;Non-conditional&lt;/h2&gt;
+
+&lt;p&gt;Non-conditional witness functions have the following signature:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;[WitnessFunction(&amp;quot;OperatorName&amp;quot;, paramIndex)]
+static Spec Witness(GrammarRule rule, int parameter, Spec outerSpec);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Since PROSE uses .NET reflection to extract information about witness functions, you should make the actual types in your signature as precise as possible.
+In particular, the &lt;code&gt;outerSpec&lt;/code&gt; parameter specifies what kind of spec for $F$ your witness function can handle.
+Typically a different witness function is written for each spec kind: it takes a different requirement to satisfy a &lt;code&gt;PrefixSpec&lt;/code&gt; that an &lt;code&gt;ExampleSpec&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;A witness function may produce an &lt;em&gt;overapproximation&lt;/em&gt; to the required spec instead of a necessary and sufficient spec for the parameter #$k$.
+PROSE can still use such a witness function, but it should be marked with &lt;code&gt;Verify = true&lt;/code&gt; in its &lt;code&gt;[WitnessFunction]&lt;/code&gt; metadata attribute.&lt;/p&gt;
+
+&lt;p&gt;If &lt;code&gt;outerSpec&lt;/code&gt; is inconsistent (no program can possibly satisfy it), witness function should return &lt;code&gt;null&lt;/code&gt;.
+&lt;code&gt;null&lt;/code&gt; in PROSE is a placeholder for an &amp;ldquo;always false&amp;rdquo; spec.
+(An &amp;ldquo;always true&amp;rdquo; spec is called &lt;code&gt;TopSpec&lt;/code&gt;).&lt;/p&gt;
+
+&lt;h2 id=&#34;conditional&#34;&gt;Conditional&lt;/h2&gt;
+
+&lt;p&gt;Conditional witness functions depend not only on an outer spec on their operator, but also possibly on some other parameters of that operator.
+They have the following signature:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;[WitnessFunction(&amp;quot;OperatorName&amp;quot;, paramIndex, DependsOnParameters = new[] { prereqParam1, prereqParam2, ... }]
+static Spec Witness(GrammarRule rule, int parameter, Spec outerSpec, Spec prereqSpec1, Spec prereqSpec2, ...);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As with non-conditional witness functions, prerequisite specs in the signature should be as precise as possible.
+Typically they will be &lt;code&gt;ExampleSpec&lt;/code&gt;s: deductive reasoning is easiest when you know precisely some fixed value of a prerequisite on the same input state.&lt;/p&gt;
+
+&lt;p&gt;You can use &lt;code&gt;DependsOnSymbols = new[] { prereqName1, prereqName2, ... }&lt;/code&gt; in the attribute, referring to parameter names instead of their indices (if that&amp;rsquo;s unambiguous).&lt;/p&gt;
+
+&lt;h2 id=&#34;annotations&#34;&gt;Annotations&lt;/h2&gt;
+
+&lt;p&gt;If a target grammar rule does not have a name (for instance, it is a &lt;code&gt;let&lt;/code&gt; rule or a conversion rule &lt;code&gt;A := B&lt;/code&gt;), you can use an &lt;code&gt;@witnesses&lt;/code&gt; annotation in the grammar file to specify a designated holder class with witness functions for this rule.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-dsl&#34;&gt;string expr := @witnesses[WitnessesForSubstrLet] let x = ChooseInput(inputs, k) in SubStr(x, posPair);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;static class WitnessesForSubstrLet
+{
+    [WitnessFunction(0)]
+    static Spec Witness(LetRule rule, int parameter, Spec outerSpec);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You don&amp;rsquo;t need to mention a rule name in the &lt;code&gt;[WitnessFunction]&lt;/code&gt; attribute (the rule doesn&amp;rsquo;t have one anyway).
+You still have to specify the target parameter index.
+In case of a &lt;code&gt;let&lt;/code&gt; rule, it has two parameters: its &amp;ldquo;binding&amp;rdquo; expression (the part on the right-hand side of an equal sign) and its &amp;ldquo;body&amp;rdquo; expression (the part after **&lt;code&gt;in&lt;/code&gt;**).
+PROSE provides an automatic witness function for the body parameter, so you only to write one for the binding parameter (whose index in the containing &lt;code&gt;let&lt;/code&gt; rule is $0$).&lt;/p&gt;
+
+&lt;h1 id=&#34;rule-learners&#34;&gt;Rule Learners&lt;/h1&gt;
+
+&lt;p&gt;&lt;em&gt;Rule learners&lt;/em&gt; are designed for use cases when you cannot express you deductive logic in terms of witness functions on individual parameters.
+They are mini-strategies: search algorithms for one grammar rule.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Usage of rule learners is generally discouraged: if you can describe deductive reasoning as a witness function, PROSE framework can do a more aggressive optimization of its search process.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A rule learner has the following signature:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csharp&#34;&gt;[RuleLearner(&amp;quot;OperatorName&amp;quot;)]
+static ProgramSet Learn(SynthesisEngine engine, GrammarRule rule, Spec spec, CancellationToken token);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can make recursive calls to &lt;code&gt;engine.LearnSymbol&lt;/code&gt; in your rule learner to solve deductive subproblems.
+The final result should be constructed as a &lt;code&gt;ProgramSet&lt;/code&gt; out of such subproblem results.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; it is a good .NET practice to check on the given &lt;code&gt;CancellationToken&lt;/code&gt; regularly and throw a &lt;code&gt;TaskCancelledException&lt;/code&gt; when you detect a cancellation request.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>About us</title>
+      <link>https://microsoft.github.io/prose/team/</link>
+      <pubDate>Wed, 02 Sep 2015 20:26:18 -0700</pubDate>
+      
+      <guid>https://microsoft.github.io/prose/team/</guid>
+      <description>
+
+&lt;h1 id=&#34;about-us&#34;&gt;About Us&lt;/h1&gt;
+
+&lt;p&gt;We are a team of researchers and engineers working to create state-of-the-art
+programming-by-example and other technologies for data wrangling and other application domains of program synthesis.
+This is a revolutionary charter since 99% of computer users lack programming skills, and data
+scientists spend 80% of their time wrangling with data. The team includes:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;row center-block about-row&#34;&gt;
+    &lt;div class=&#34;col-xs-10 col-md-3&#34;&gt;
+        &lt;p&gt;
+            &lt;img class=&#34;about-image center-block&#34; src=&#34;./img/team/Sumit-Gulwani.jpg&#34; &gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;h4 class=&#34;text-center&#34;&gt;&lt;a href=&#34;http://research.microsoft.com/en-us/um/people/sumitg/publications.html&#34;&gt;Sumit Gulwani&lt;/a&gt;&lt;/h4&gt;
+        &lt;p&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-xs-10 col-md-8 text-justify&#34;&gt;
+        &lt;p&gt;Sumit has been an MSR veteran
+for the past 10 years, working on program synthesis (developing technologies for
+&lt;em&gt;programming-by-examples&lt;/em&gt; and &lt;em&gt;programming-by-natural-language&lt;/em&gt;) and computer-aided education
+(developing technologies for automated grading and automated problem generation in
+various subject domains like programming, algebra, geometry, and language learning). His
+programming-by-example work has shipped in Excel 2013, and more recently in Azure OMS and
+Powershell 2015, while his automated grading work has been deployed at 10+ Universities
+for grading of programming and automata construction exercises. He is an
+inter-disciplinary prolific researcher who has co-authored 100+ research articles, most
+of which have been published in top-tier conferences across various areas including
+Programming Languages, Software Engineering, AI, ML, HCI, and Databases. He has been
+regularly invited to give keynotes and talks at conferences, workshops, and colloquiums.
+He is a recipient of the prestigious &lt;em&gt;Robin Milner Young Researcher Award&lt;/em&gt; for the year
+2014 for outstanding contributions (made in the first twenty years of one&amp;rsquo;s research career)
+to the field of programming languages. He obtained his PhD in Computer Science from
+UC-Berkeley in 2005, and was awarded the &lt;em&gt;ACM SIGPLAN Outstanding Doctoral Dissertation
+Award&lt;/em&gt;. He obtained his Bachelors in Computer Science and Engineering from IIT Kanpur
+(India) in 2000, and was awarded the President&amp;rsquo;s Gold Medal for best academic performance.&lt;/p&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;row center-block about-row&#34;&gt;
+    &lt;div class=&#34;col-xs-10 col-md-3&#34;&gt;
+        &lt;p&gt;
+            &lt;img class=&#34;about-image center-block&#34; src=&#34;./img/team/Vu-Le.jpg&#34; &gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;h4 class=&#34;text-center&#34;&gt;&lt;a href=&#34;http://vuminhle.com/&#34;&gt;Vu Le&lt;/a&gt;&lt;/h4&gt;
+        &lt;p&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-xs-10 col-md-8 text-justify&#34;&gt;
+        &lt;p&gt;Vu is a Research Software Engineer at
+Microsoft. He obtained his PhD at the University of California, Davis in 2015, and his BEng at
+Vietnam National University in 2006. His research focuses on automatic program generation to
+help improve the quality of critical software and make programming more accessible to end
+users. His work has led to important shipped features in commercial products (such as Windows)
+and hundreds of bug reports/fixes in widely used, critical open-source software (such as GCC and LLVM).&lt;/p&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;row center-block about-row&#34;&gt;
+    &lt;div class=&#34;col-xs-10 col-md-3&#34;&gt;
+        &lt;p&gt;
+            &lt;img class=&#34;about-image center-block&#34; src=&#34;./img/team/Daniel-Perelman.jpg&#34; &gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;h4 class=&#34;text-center&#34;&gt;&lt;a href=&#34;https://homes.cs.washington.edu/~perelman/&#34;&gt;Daniel Perelman&lt;/a&gt;&lt;/h4&gt;
+        &lt;p&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-xs-10 col-md-8 text-justify&#34;&gt;
+        &lt;p&gt;Daniel recently completed his
+PhD at the University of Washington working with Dan Grossman and Sumit Gulwani on program
+synthesis and is now a Research Software Engineer in the PROSE team. In addition to work on
+programming by example, his code has been deployed as the hint mechanism in MSR&amp;rsquo;s
+&lt;a href=&#34;https://www.codehunt.com/&#34;&gt;Code Hunt programming game&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;row center-block about-row&#34;&gt;
+    &lt;div class=&#34;col-xs-10 col-md-3&#34;&gt;
+        &lt;p&gt;
+            &lt;img class=&#34;about-image center-block&#34; src=&#34;./img/team/Alex-Polozov.jpg&#34; &gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;h4 class=&#34;text-center&#34;&gt;&lt;a href=&#34;http://alexpolozov.com&#34;&gt;Alex Polozov&lt;/a&gt;&lt;/h4&gt;
+        &lt;p&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-xs-10 col-md-8 text-justify&#34;&gt;
+        &lt;p&gt;Alex is a PhD student at University
+of Washington, Seattle, USA, and a researcher/software engineer at Microsoft. His passion lies
+in research and implementation of solutions that automate repetitive programming tasks for
+engineers, consumers, and educators. Alex initiated the program synthesis framework that forms
+the core of Microsoft PROSE SDK, and continues to lead its development.
+Before joining the team, he worked on automatic problem
+generation for intelligent tutoring systems in &lt;a href=&#34;http://centerforgamescience.org/&#34;&gt;Center for Game Science&lt;/a&gt;, programming languages for data wrangling, and linguistic algorithms for &lt;a href=&#34;https://www.yandex.com/&#34;&gt;Yandex&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;row center-block about-row&#34;&gt;
+    &lt;div class=&#34;col-xs-10 col-md-3&#34;&gt;
+        &lt;p&gt;
+            &lt;img class=&#34;about-image center-block&#34; src=&#34;./img/team/Mohammad-Raza.jpg&#34; &gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;h4 class=&#34;text-center&#34;&gt;&lt;a href=&#34;http://research.microsoft.com/en-us/people/moraza&#34;&gt;Mohammad Raza&lt;/a&gt;&lt;/h4&gt;
+        &lt;p&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-xs-10 col-md-8 text-justify&#34;&gt;
+        &lt;p&gt;Mohammad&amp;rsquo;s background and interests
+are in formal methods for reasoning about computer programs. He holds a PhD in Computer Science from Imperial College London and a Masters in Mathematics from the University of Cambridge. He works on the development of
+techniques and tools for program synthesis through natural
+interaction paradigms such as programming by examples, natural language, or a combination
+of such approaches. In particular, he is interested in the applications of these techniques
+for data wrangling tasks such as extraction, formatting, cleaning, or transformations in
+various data formats including spreadsheets, text documents, and richly formatted documents.
+In the PROSE Team his current focus is on developing examples-based and fully automated
+synthesis technologies for information extraction from web pages.&lt;/p&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;row center-block about-row&#34;&gt;
+    &lt;div class=&#34;col-xs-10 col-md-3&#34;&gt;
+        &lt;p&gt;
+            &lt;img class=&#34;about-image center-block&#34; src=&#34;./img/team/Danny-Simmons.jpg&#34; &gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;h4 class=&#34;text-center&#34;&gt;&lt;a href=&#34;http://blogs.msdn.com/dsimmons&#34;&gt;Danny Simmons&lt;/a&gt;&lt;/h4&gt;
+        &lt;p&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-xs-10 col-md-8 text-justify&#34;&gt;
+        &lt;p&gt;Danny has worked in the software
+industry (both inside Microsoft and out) for over 25 years.  He first started at Microsoft in
+1997 working on the Outlook team, and then spent nearly 15 years alternating between shipping
+products like Excel, Live Meeting and the Entity Framework and participating in incubation
+efforts for very interesting technologies which usually didn&amp;rsquo;t ship in the form originally
+targeted.  Outside of Microsoft he has worked as a Unix System Admin in the Idaho State
+University computer center, founded an early Internet Service Provider, helped INRIX with
+their traffic data web services, and served as CTO of a startup building RFID-based inventory
+tracking systems for small businesses, among other endeavors.&lt;/p&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;row center-block about-row&#34;&gt;
+    &lt;div class=&#34;col-xs-10 col-md-3&#34;&gt;
+        &lt;p&gt;
+            &lt;img class=&#34;about-image center-block&#34; src=&#34;./img/team/Adam-Smith.jpg&#34; &gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;h4 class=&#34;text-center&#34;&gt;&lt;a href=&#34;https://adamsmith.as/&#34;&gt;Adam Smith&lt;/a&gt;&lt;/h4&gt;
+        &lt;p&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-xs-10 col-md-8 text-justify&#34;&gt;
+        &lt;p&gt;Adam is an artificial intelligence researcher interested in technologies that augment the
+creativity and productivity of designer-programmers. He received a PhD in computer science
+from UC Santa Cruz in 2012 and was later a postdoc at University of Washington. He has utilized
+symbolic and probabilistic knowledge representation techniques in the development of game
+content generation and gameplay verification systems. In his teaching practice, he has
+advocated discovering new roles for assistive AI in creative domains. Now at Microsoft, he&amp;rsquo;s
+excited to build program synthesis technology that, even programmers have to admit, seems to
+work by magic.&lt;/p&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

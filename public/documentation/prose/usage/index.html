@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Microsoft Program Synthesis using Examples SDK &ndash; Usage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="Microsoft Program Synthesis using Examples SDK Samples :  The PROSE SDK is a set of technologies for the automatic generation of programs from input-output examples. This repo includes samples and sample data for the Microsoft Program Synthesis using Examples SDK.">
+	
+	<script type="text/javascript">
+		var vanity_domains = ["programbyexample.com","flashm.azurewebsites.net"];
+		var canonical_path = "https:\/\/microsoft.github.io\/prose\/";
+		for(var i = 0; i < vanity_domains.length; i++) {
+			var vanity_domain = vanity_domains[i];
+			var loc = window.location.toString();
+			if (loc.indexOf(vanity_domain) != -1) {
+				var new_loc = loc
+					.replace("http://www." + vanity_domain + "/", canonical_path)
+					.replace("http://" + vanity_domain + "/", canonical_path);
+				window.location.replace(new_loc);
+			}
+		}
+	</script>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300,300italic,700,700italic'
+          rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://microsoft.github.io/prose/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.js" data-main="https://microsoft.github.io/prose/js/requires.js"></script>
+
+    <link rel="stylesheet" href="https://microsoft.github.io/prose/css/hugo-bootswatch.css">
+    <link href="https://microsoft.github.io/prose/css/bootstrap-flat.min.css" rel="stylesheet">
+    <link href="https://microsoft.github.io/prose/css/bootstrap-flat-extras.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://microsoft.github.io/prose/css/prism.css"/>
+    <link href="https://microsoft.github.io/prose/css/prism-ghcolors.css" rel="stylesheet"/>
+    <script src="https://microsoft.github.io/prose/js/prism.js"></script>
+
+    <script type="text/javascript"
+            src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$']],
+        displayMath: [['$$','$$'], ['\\[','\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        TeX: { equationNumbers: { autoNumber: "AMS" },
+             extensions: ["AMSmath.js", "AMSsymbols.js"] }
+      },
+      TeX: {
+        Macros: {
+            llbracket: "[\\![",
+            rrbracket: "]\\!]"
+        }
+      }
+    });
+
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        
+        
+        
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i = 0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+
+    </script>
+
+    <link rel="stylesheet" href="https://microsoft.github.io/prose/css/main.css">
+
+    <link rel="stylesheet" href="https://microsoft.github.io/prose/css/github-light.css">
+    <link rel="stylesheet" href="https://microsoft.github.io/prose/css/stylesheet.css">
+</head>
+
+
+<body id="bootstrap-overrides">
+
+<script src="../../../js/lightbox.js"></script>
+<div class="modal fade modal-profile" tabindex="-1" role="dialog" aria-labelledby="modalProfile" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                <p></p>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <div id="header_wrap" class="outer">
+        <header class="innerTemplate">
+           Usage
+
+        </header>
+    </div>
+
+    <div id="main_content_wrap" class="outer">
+      <div id="main_content" class="innerTemplate">
+          
+          <div class="leftNav">
+              
+<p><a href="https://microsoft.github.io/prose/">Home</a></p>
+<p><a href="https://microsoft.github.io/prose/playground">Playground</a></p>
+
+<p>
+	Tutorials
+<ul>
+	<li><a href="https://microsoft.github.io/prose/documentation/prose/tutorial">Getting Started</a></li>
+</ul>
+</p>
+<p>
+	Documentation
+	<ul>
+		<li><a href="https://microsoft.github.io/prose/documentation/prose/usage">Framework</a></li>
+		<li><a href="https://microsoft.github.io/prose/documentation/extraction-text/intro">Text Extraction</a></li>
+		<li><a href="https://microsoft.github.io/prose/documentation/extraction-web/intro">Web Extraction</a></li>
+		<li><a href="https://microsoft.github.io/prose/documentation/flashfill/intro">Flash Fill</a></li>
+		<li><a href="https://microsoft.github.io/prose/documentation/api">APIs</a></li>
+	</ul>
+</p>
+<p><a href="https://microsoft.github.io/prose/team/">About Us</a></p>
+<p><a href="https://microsoft.github.io/prose/faq/">FAQ</a></p>
+
+          </div>
+          <div class="topicContent" id="TopicContent">            
+            
+            <div id="toc" class="well well-sm col-md-4 col-sm-12 pull-right">
+                <nav id="TableOfContents">
+<ul>
+<li><a href="#terminology">Terminology</a></li>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#language-definition">Language definition</a>
+<ul>
+<li><a href="#terminals">Terminals</a></li>
+<li><a href="#black-box-operators">Black-box operators</a></li>
+<li><a href="#let-construct">Let construct</a></li>
+<li><a href="#standard-concepts">Standard concepts</a>
+<ul>
+<li><a href="#lambda-functions">Lambda functions</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#language-usage">Language usage</a>
+<ul>
+<li><a href="#ast-parsing-and-printing">AST parsing and printing</a></li>
+<li><a href="#dsl-compiler">DSL Compiler</a></li>
+<li><a href="#partial-programs">Partial programs</a></li>
+</ul></li>
+<li><a href="#synthesis">Synthesis</a>
+<ul>
+<li><a href="#specifications">Specifications</a></li>
+<li><a href="#strategies">Strategies</a></li>
+<li><a href="#version-space-algebra">Version space algebra</a>
+<ul>
+<li><a href="#direct-version-space">Direct version space</a></li>
+<li><a href="#union-version-space">Union version space</a></li>
+<li><a href="#join-version-space">Join version space</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+            </div>
+            
+            
+
+<h1 id="terminology">Terminology</h1>
+
+<p>A <strong>domain-specific language (DSL)</strong> is a context-free programming
+language, created for a specific purpose, which can express tasks from a
+certain domain. A DSL consists of <strong>symbols</strong> and <strong>operators</strong> upon
+these symbols. A DSL is described as a context-free grammar – i.e., as a
+set of rules, where each symbol on the left-hand side is bound to a set
+of possible operators on the right-hand side that represent this symbol.
+Every operator of a DSL is <strong>pure</strong> – it does not have side effects.</p>
+
+<p>A <strong>program</strong> in a DSL transforms <strong>input</strong> data into <strong>output</strong> data.
+A program is represented as an <strong>abstract syntax tree (AST)</strong> of the DSL
+operators. Each node in this tree (similarly, each DSL operator) has
+some invocation semantics. More formally, each AST node has a method
+<code>Invoke</code>. It takes as input a <strong>state</strong> $\mathbf{\sigma}$ and
+returns some output. A state is a mapping from DSL variables to their
+values. Initially, the topmost AST node invoked on a state
+<code>$\sigma = \left\{ v \mapsto i \right\}$</code>, where $v$ is the DSL variable
+that represents program input, and $i$ is the value of the input data on
+which the program is invoked. AST nodes can modify this state (add new
+variable bindings in scope) and pass it down to children nodes in
+recursive invocations of <code>Invoke</code>.</p>
+
+<h1 id="architecture">Architecture</h1>
+
+<p>The Microsoft.ProgramSynthesis solution unites the core pieces of the meta-synthesizer.
+Here are the included projects:</p>
+
+<ul>
+<li><strong>Microsoft.ProgramSynthesis</strong> includes the core functionality for manipulating
+ASTs, validating DSLs, maintain a DSL and a set of its operators,
+and core infrastructure for the synthesis algorithms.</li>
+<li><strong>dslc.exe</strong> is a DSL compiler. This is the executable that
+takes a language definition, parses it, validates it, potentially
+emits some diagnostics (warnings and/or errors), and serializes the
+parsed language representation into a portable file.</li>
+<li><strong>Microsoft.ProgramSynthesis.Learning</strong> is a core library of synthesis algorithms,
+standard operators and strategies.</li>
+<li><strong>SynthesisLib.NLGenerator</strong> is a library for paraphrasing ASTs in
+natural language and building ASTs from keywords or phrases.</li>
+<li><strong>Microsoft.ProgramSynthesis.Tests</strong> and <strong>TestSemantics</strong> contain a set of unit
+tests and supporting infrastructure.</li>
+<li><strong>Microsoft.ProgramSynthesis.Utils</strong> is a collection of utility methods that are used
+in different parts of the project.</li>
+</ul>
+
+<p>A typical workflow of a DSL designer consists of the following steps:</p>
+
+<ol>
+<li>Define a DSL in a separate file (usually has a *.grammar
+extension).</li>
+<li>Define the semantics and all the supporting infrastructure for the
+DSL in a separate .NET assembly (see Section 4 below).</li>
+
+<li><p>Use one of the two options below to compile the DSL definition into
+a <code>Grammar</code> object:</p>
+
+<ul>
+<li><p>At compile-time, invoke the DSL compiler <strong>dslc.exe</strong>
+manually on a *.grammar file with a DSL definition. Deploy the
+resulting serialized *.grammar.xml file with your application.
+At run-time, deserialize it using <code>Grammar.Deserialize</code> method.</p></li>
+
+<li><p>Deploy the <strong>dslc.exe</strong> and the *.grammar file with your
+application. At run-time, compile your DSL definition in memory
+using <code>DSLCompiler.Compile</code> method.</p></li>
+</ul></li>
+</ol>
+
+<h1 id="language-definition">Language definition</h1>
+
+<p>The main class <code>Grammar</code> represents a context-free grammar as a
+set of DSL rules and a list of references to operators’ semantics and/or
+custom operator learners, implemented in C# in a separate assembly. The
+method <code>DSLCompiler.LoadGrammar</code> loads a grammar definition from
+a string. Multiple examples of its usage can be found in
+<code>Microsof.ProgramSynthesis.Tests</code>; the semantics for the test languages in there
+are defined in the assembly <code>TestSemantics</code>.</p>
+
+<p>Here’s a typical language definition:</p>
+
+<pre><code class="language-dsl">reference 'TestSemantics.dll';
+using TestSemantics;
+using semantics TestSemantics.FlashFill;
+using learners TestSemantics.FlashFill.Learners;
+
+language FlashFill;
+
+@start string f := ConstStr(s) | let x = v in SubStr(x, P, P);
+int P := CPos(k) | Pos(x, r, r, k);
+int k;
+@values[StringGen] string s;
+Regex r;
+@input string v;
+</code></pre>
+
+<p>NOTE: The operators <code>ConstStr</code>, <code>SubStr</code>, <code>CPos</code> and <code>Pos</code> are defined in
+<a href="#black-box-operators">Black-box operators</a> below.</p>
+
+<p>First, we reference external assemblies with our implementation of
+operators’ semantics and/or custom operator learners. Second, we
+reference any namespaces for external typename lookup. Finally, we
+specify the static classes for semantics and learners. There may be
+several <strong>reference</strong>, <strong>using</strong>, <strong>using semantics</strong>, and <strong>using learners</strong> instructions. In this example,
+<code>TestSemantics.FlashFill</code> is a static class defined in the
+assembly “TestSemantics.dll”, as is
+<code>TestSemantics.FlashFill.Learners</code>.</p>
+
+<p>Next, we specify the language name and its rules in a form of a
+context-free grammar (BNF). Each <strong>nonterminal</strong> rule has a symbol on
+the left-hand side and a list of operators on the right-hand side,
+separated by “|”. Each <strong>terminal</strong> rule has only the left-hand side.
+Each symbol has its type, specified on the LHS. The supported types are:
+any of the standard C# types, including classes from
+<code>System.Collection.Generic</code>, <code>System.Text.RegularExpressions</code>, etc.,
+or your own custom types, defined in the same semantics assembly. In the
+latter case, the framework searches for the type name in the namespaces
+referenced in <strong>using</strong> instructions.</p>
+
+<p>Exactly one nonterminal rule should be annotated as “<strong>@start</strong>” – this
+is a start symbol of the grammar (i.e., the topmost node of every AST).
+Exactly one terminal rule should be annotated as “<strong>@input</strong>” – this is
+the input data to the program.</p>
+
+<h2 id="terminals">Terminals</h2>
+
+<p>Terminal rules specify the leaf symbols that will be replaced with
+literal constants or variables in the AST. For example:</p>
+
+<ul>
+<li>A terminal rule <code>int k;</code> specifies a symbol $k$ that represents a
+literal integer constant.</li>
+<li>A terminal rule <code>@input string v;</code> specifies a <em>variable</em> symbol $v$
+that will be replaced with program input data <em>at runtime.</em></li>
+</ul>
+
+<p>A user can specify the list of possible values that a literal symbol can
+be set to. This is done with a <strong>@values[</strong>$G$<strong>]</strong> annotation,
+where $G$ is a <strong>value generator</strong> – a reference to a user-defined
+static field, property, or method. $G$ should evaluate to
+<code>IEnumerable</code> (thus, it can be any standard .NET collection, such
+as an array or a list, or a user-defined collection type). The framework
+searches for the definition of $G$ in the <em>learner classes,</em> specified
+by a <strong>using learners</strong> instruction. For our example grammar, any of the
+following definition can serve as a value generator for $s$:</p>
+
+<pre><code class="language-csharp">public static class FlashFill
+{
+    public static class Learners
+    {
+        public static string[] StringGen = {&quot;&quot;, &quot;123&quot;, &quot;Gates, B.&quot;, &quot;ABRACADABRA&quot;};
+        public static string[] StringGen
+        {
+            get { return new[] {&quot;&quot;, &quot;123&quot;, &quot;Gates, B.&quot;, &quot;ABRACADABRA&quot;}; }
+        }
+        public static string[] StringGen()
+        {
+            return new[] { &quot;&quot;, &quot;123&quot;, &quot;Gates, B.&quot;, &quot;ABRACADABRA&quot; };
+        }
+    }
+}
+</code></pre>
+
+<p>If no value generator is provided, the framework can either pick a
+standard generator for some common types (such as <code>byte</code>), or
+assume that the literal can be set to any value. This can impact the
+performance of some synthesis strategies or even make them inapplicable.</p>
+
+<h2 id="black-box-operators">Black-box operators</h2>
+
+<p>A <strong>black-box</strong> operator is an operator that does not refer to any
+standard concepts, and its invocation semantics do not modify the
+state $\sigma$ that has been passed to it. In the example above
+<code>ConstStr</code>, <code>SubStr</code>, <code>CPos</code>, <code>Pos</code> are
+black-box operators. Note that <code>SubStr</code> is a black-box operator,
+even though the <code>Let</code> concept surrounding it isn’t.
+<code>SubStr</code>’s semantics don’t modify $\sigma$, they just pass it
+on to parameter symbols. <code>Let</code>’s semantics change the state
+$\sigma$ by extending it with a new variable binding $x \mapsto v$.</p>
+
+<p>The semantics of every black-box operator should be defined in the
+semantics assembly with the same name as a public static method:</p>
+
+<pre><code class="language-csharp">public static class Semantics
+{
+    public static int CPos(string s, int k)
+    {
+        return k &lt; 0 ? s.Length + 1 + k : k;
+    }
+
+    public static int? Pos(string s, Tuple&lt;Regex, Regex&gt; boundaryPair,
+                            int occurrence)
+    {
+        Regex leftRegex = boundaryPair.Item1;
+        Regex rightRegex = boundaryPair.Item2;
+        var boundaryRegex =  new Regex(&quot;(?&lt;={0}){1}&quot;.FormatWith(leftRegex, rightRegex));
+        var matches = boundaryRegex.Matches(s);
+        int index = occurrence &gt; 0 ? occurrence - 1 : matches.Count + occurrence;
+        if (index &lt; 0 || index &gt;= matches.Count)
+        {
+            return null;
+        }
+        return matches[index].Index;
+    }
+
+    public static string ConstStr(string s)
+    {
+        return s;
+    }
+
+    public static string SubStr(string s, Tuple&lt;int, int&gt; positionPair)
+    {
+        int left = positionPair.Item1;
+        int right = positionPair.Item2;
+        if (left &lt; 0 || right &gt; s.Length || right &lt; left)
+        {
+            return null;
+        }
+        return s.Slice(left, right);
+    }
+
+    public static string Concat(string s, string t)
+    {
+        return s + t;
+    }
+}
+</code></pre>
+
+<p>It is important to note that the learning process requires that semantic
+functions are <em>total</em>.  If the function is inapplicable for the current
+choice of arguments or if for any other reason it would throw an exception,
+it must return <strong>null</strong><sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>. In such a case, if the return type of a
+function is a .NET value type, it should be made nullable.</p>
+
+<p>Every grammar operator should be pure, and its <em>formal</em> signature should
+be $\sigma \rightarrow T$ (where $T$ is the type of the corresponding
+LHS symbol). The <em>actual</em> signature of the semantics function that
+implements a black-box operator is
+<code>$\left( T_{1},T_{2},\ldots,T_{k} \right) \rightarrow T$</code>, where $T_{j}$
+is the type of $j^{\mathrm{\text{th}}}$ parameter symbol, and $T$ is the
+return type of the LHS symbol. Consequently, if one needs to invoke
+their operators on anything other than the program input data, they have
+to introduce additional variables using <code>Let</code> construct and/or
+lambda functions.</p>
+
+<h2 id="let-construct">Let construct</h2>
+
+<p><code>Let</code> construct is a standard concept with the following syntax:</p>
+
+<div> $$
+\text{let } x_{1} = v_{1},\,\ldots,\,x_{k} = v_{k}\text{ in } RHS
+$$ </div>
+
+<p>where $RHS$ is any standard rule RHS (a black-box operator, a grammar symbol, etc.).
+The RHS and any of the symbols it (indirectly) references can make use of the
+variables $x_1,\ldots,x_k$ Grammar symbols $v_1,\ldots,v_k$ are parameters of the
+rule; at runtime, each variable $x_j$ is bound to some value of the corresponding
+symbol $v_j$.</p>
+
+<p><strong>Example:</strong></p>
+
+<p>The running grammar definition FlashFill contains the following rule:
+<code>dsl
+@start string f := let x = v in SubStr(x, P, P)
+</code></p>
+
+<p>The formal signature of this rule has three free parameters:
+$v,\ P,\ P.$ At runtime, the <code>Let</code> construct, when given a state
+$\sigma$, executes the following operations:</p>
+
+<ul>
+<li>$\vartheta := \llbracket v \rrbracket \sigma$ <br />
+(Execute the parameter symbol $v$ on the state and save the value as $\vartheta$)</li>
+<li><code>$\sigma^{'} := \sigma \cup \left\{ x \mapsto \vartheta \right\}$</code> <br />
+(Add a new variable $x$ to the state, bind it to the value $\vartheta$)</li>
+<li>$\mathrm{\text{return }} \llbracket SubStr(x,P,P) \rrbracket \sigma&rsquo;$ <br />
+(Invoke the RHS – the black-box operator <code>SubStr</code> – on the new state)</li>
+</ul>
+
+<p>The RHS indirectly references the variable $x$ further in the grammar
+through the symbol $P$. Namely, the grammar further contains the
+following rule:
+<code>dsl
+int P := Pos(x, r, r, k)
+</code></p>
+
+<p><code>Pos</code> is a simple black-box operator, just like <code>SubStr</code>.
+When given a state $\sigma&rsquo;$, it passes it on to its parameter symbols
+$x,r,r,k$. The latter three symbols are terminals; they will be
+represented as literal constants of the corresponding types in any final
+program (AST). The first symbol is a variable $x$; when executed on a
+state $\sigma&rsquo;$, it will just extract the binding $x \mapsto \vartheta$
+from it, and return $\vartheta$.</p>
+
+<h2 id="standard-concepts">Standard concepts</h2>
+
+<p>There exists a range of concepts that are common for many DSLs and
+implement standard functionality. In particular, many list/set
+processing concepts (<code>Map</code>, <code>Filter</code>, <code>TakeWhile</code>, etc.) encode various forms of loops that arise in many
+DSLs for different purposes. The synthesizer treats many such concepts
+as first-class citizens and is aware of many efficient strategies for
+synthesizing such concepts from example specifications. Consequently, we
+encourage framework users to use <strong>standard concepts</strong> for <em>any</em> loop
+form that arises in their DSLs, instead of encoding it as a black-box
+operator. In our experience, most loop forms commonly used in DSLs can
+be expressed as combinations of standard concepts.</p>
+
+<p>The current list of supported concepts can be found in the
+<code>Microsoft.ProgramSynthesis.Rules.Concepts</code> namespace.</p>
+
+<p>Most standard loop concepts express some form of list/set processing
+with lambda functions. We explain their usage here on a simple
+<code>Filter</code> example.</p>
+
+<p>A $Filter(p,\ s)$ concept is an operator that takes as input a
+predicate symbol $p$ and a set symbol $s$. It evaluates $s$ on a state $\sigma$ to
+some set $S$ of objects. It also evaluates $p$ on a state $\sigma$ to
+some lambda function $L = \lambda x:e$. Finally, it filters the set $S$
+using $L$ as a predicate, and returns the result.
+Essentially, $Filter$ is equivalent to <a href="https://msdn.microsoft.com/en-us/library/vstudio/bb548891(v=vs.110).aspx">Select in LINQ</a>.</p>
+
+<p>Consider the following grammar for various filters of an array of
+strings:</p>
+
+<pre><code class="language-dsl">reference 'TestSemantics.dll';
+using TestSemantics;
+using semantics TestSemantics.Flare;
+using learners TestSemantics.Flare.Learners;
+
+language Flare;
+
+@input string[] v;
+Regex r;
+StringFilter f := Match(r) | FTrue();
+@start string[] P := Selected(f, v) = Filter(f, v);
+</code></pre>
+
+<p>The input string array $v$ is filtered with a filter $f$. A filter $f$
+can filter elements either according to a regular expression $r$, or
+trivially (by returning <code>true</code>).</p>
+
+<p>The main rule of the grammar is <code>string[] P := Selected(f, v)</code>. Here
+<code>Selected(f, v)</code> is a <em>formal</em> operator signature: this is how it would
+look like if it was implemented as a black-box operator. However, the
+<em>actual</em> implementation of <code>Selected(f, v)</code> refers to the standard
+<code>Filter</code> concept instead of a black-box semantics implementation.
+The <em>arguments</em> of the <code>Filter</code> concept are in this case the
+<em>parameters</em> of a <code>Selected</code> operator – the symbols $f$ and $v$.
+At runtime, the framework interprets a <code>Selected</code> AST node by
+executing the standard <code>Filter</code> semantics with the corresponding
+arguments.</p>
+
+<p>For a valid execution, the runtime types of the symbols $f$ and $v$
+should satisfy the following contract:</p>
+
+<ol>
+<li><p>The type of $v$ should implement <code>IEnumerable</code>. It can be a
+standard .NET collection (array,
+<code>List&lt;T&gt;</code>, etc.), or a user-defined
+custom type that implements <code>IEnumerable</code>.</p></li>
+
+<li><p>The type of $f$ should have <em>functional semantics</em>. In other words,
+it should behave like a lambda function, because at runtime it will
+be “invoked” with array elements as arguments. Moreover, for the
+<code>Filter</code> concept specifically, the return type of this
+“function” should be assignable to <code>bool</code>.</p></li>
+</ol>
+
+<h3 id="lambda-functions">Lambda functions</h3>
+
+<p>One can capture functional semantics in an explicit
+lambda function in the grammar:</p>
+
+<pre><code class="language-dsl">reference 'TestSemantics.dll';
+using semantics TestSemantics.Flare;
+using learners TestSemantics.Flare.Learners;
+
+language Flare;
+
+@input string[] v;
+Regex r;
+bool f := Match(x, r) | True();
+@start string[] P := Selected(f, v) = Filter(\x: string =&gt; f, v);
+</code></pre>
+
+<p>The first argument of the <code>Filter</code> concept is a
+lambda function $\lambda x:f$. In our syntax, it is represented as
+<code>\x: string =&gt; f</code><sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">2</a></sup>. Here $x$ is a freshly bound variable (lambda
+function parameter), and $f$ is a grammar symbol that represents
+function body. The runtime type of $x$ should be specified explicitly
+after a colon.</p>
+
+<p>Just as with <code>Let</code> constructs, the lambda function body symbol
+and all its indirect descendants can now reference the variable symbol
+$x$. At runtime, it will be successively bound to every element of the
+input string array. Since this binding introduces a new variable in the
+state $\sigma$, a lambda definition cannot be expressed as a black-box
+rule. Instead, it is a special rule kind with first-class treatment in
+the framework (again, just as <code>Let</code>).</p>
+
+<p>The corresponding semantics implementation is now much simpler:</p>
+
+<pre><code class="language-csharp">public static class Flare
+{
+    public static bool Match(string x, Regex r)
+    {
+        return r.IsMatch(x);
+    }
+
+    public static bool True()
+    {
+        return true;
+    }
+}
+</code></pre>
+
+<p>Note that a lambda function body is a free symbol on the RHS of the “=”
+sign. In other words, the set of free symbols on the RHS includes the
+direct parameters of the concept (in the example above, $v$) and the
+lambda function bodies (in the example above, $f$). To make the concept
+rule well-defined, this set should be exactly the same as the set of
+free symbols on the LHS of the “=” sign (i.e. the set of formal
+parameters of the rule). However, they should only be equivalent as
+<em>sets</em>, the order of parameters does not matter. In case of multiple
+usages of the same symbol among parameters, the correspondence between
+the LHS and the RHS is resolved in a left-to-right order.</p>
+
+<p><strong>Example:</strong></p>
+
+<p>Consider the following concept rule:</p>
+
+<pre><code class="language-dsl">int S := F(v, P, P) = G(\x: string =&gt; P, v, P);
+</code></pre>
+
+<p>Here $G$ is some standard concept, and $S,\ v,P$ are grammar symbols.
+The correspondence between formal parameters on the LHS and free symbols
+on the RHS is resolved as follows:</p>
+
+<ul>
+<li>The first parameter $v$ on the LHS corresponds to the second
+argument $v$ on the RHS.</li>
+<li>The second parameter $P$ on the LHS corresponds to the body of the
+first argument $\lambda x:P$ on the RHS.</li>
+<li>The third parameter $P$ on the LHS corresponds to the third argument
+$P$ on the RHS.</li>
+</ul>
+
+<p>Two usages of the same symbol $P$ among parameters were resolved in a
+left-to-right order.</p>
+
+<h1 id="language-usage">Language usage</h1>
+
+<p>Definition and usage of custom DSLs starts with the following steps:</p>
+
+<ol>
+<li>Define a string representation of your DSL grammar in our syntax.</li>
+<li>Implement your black-box operator semantics, custom types, and value
+generators in a separate assembly. Make sure that it is accessible
+at a path specified in the grammar string<sup class="footnote-ref" id="fnref:4"><a rel="footnote" href="#fn:4">3</a></sup>.</li>
+<li>Load the grammar into a <code>Grammar</code> object:
+
+<ul>
+<li>Either programmatically using <code>DSLCompiler.LoadGrammar</code>
+or <code>DSLCompiler.LoadGrammarFromFile</code>.</li>
+<li>Or in two steps, with manual DSL compilation using
+<strong>dslc.exe</strong> and loading the serialized <code>Grammar</code>
+object using <code>Grammar.Deserialize</code>.</li>
+</ul></li>
+<li>Use this <code>Grammar</code> object to parse specific AST strings into
+ASTs and invoke these ASTs on states.</li>
+</ol>
+
+<h2 id="ast-parsing-and-printing">AST parsing and printing</h2>
+
+<p>The example below shows the last steps, assuming loading the grammar
+programmatically (option “a”):</p>
+
+<pre><code class="language-csharp"> const string TestFlareGrammar = @&quot;
+         reference 'TestSemantics.dll';
+         using TestSemantics;
+         using semantics TestSemantics.Flare;
+         language Flare;
+         @input string[] v;
+         Regex r;
+         StringFilter f := Match(r) | FTrue();
+         @start string[] P := Selected(f, v) = Filter(f, v);&quot;;
+var grammar = DSLCompiler.LoadGrammar(TestFlareGrammar).Value;
+var ast = grammar.ParseAST(&quot;Selected(Match(new Regex(\&quot;[a-z]+\&quot;)), v)&quot;,
+    ASTSerializationFormat.HumanReadable);
+var state = new State(grammar.InputSymbol, new[] {&quot;1&quot;, &quot;ab&quot;, &quot;&quot;});
+Assert.That(ast.Invoke(state), Is.EqualTo(new[] {&quot;ab&quot;}).AsCollection);
+</code></pre>
+
+<p>The second (optional) parameter of the <code>ParseAST</code> method
+specifies the serialized format of the program. As of now, two formats
+are supported: XML and human-readable AST syntax (shown above), with XML
+being the default. Parsing human-readable AST syntax requires ANTLR, so
+it is not supported if no third-party dependencies are allowed at
+runtime. If you want to build <strong>Microsoft.ProgramSynthesis</strong> <em>without</em> support for
+human-readable AST (and, consequently, without ANTLR dependency), use
+the build configuration “ReleaseNoHumanReadableAsts” for this project
+instead of “Release”.</p>
+
+<p>To serialize the AST $p$ into a string representation, call
+<code>p.PrintAST</code>. This method also accepts an optional <strong>format</strong>
+parameter, with XML being the default.</p>
+
+<p>Note that explicit lambda functions are part of the implementation of a
+concept rule. The AST that is being parsed should reflect its formal
+interface, not the implementation. In other words, your final ASTs
+should only use the terms from the left-hand side of an “=” sign, and
+nothing from the right-hand side. Here’s an example of AST parsing for a
+grammar with explicit lambda functions:</p>
+
+<pre><code class="language-csharp">const string TestFlareGrammar = @&quot;
+   reference 'TestSemantics.dll';
+   using semantics TestSemantics.Flare;
+   using learners TestSemantics.Flare.Learners;
+   language Flare;
+   @input string[] v;
+   Regex r;
+   bool f := Match(x, r) | True();
+   @start string[] P := Selected(v, f) = Filter(\x: string =&gt; f, v);
+&quot;;
+var grammar = DSLCompiler.LoadGrammar(TestFlareGrammar).Value;
+var ast = grammar.ParseAST(&quot;Selected(v, Match(x, new Regex(\&quot;[a-z]+\&quot;)))&quot;)&quot;,
+    ASTSerializationFormat.HumanReadable);
+var state = new State(grammar.InputSymbol, new[] {&quot;1&quot;, &quot;ab&quot;, &quot;&quot;});
+Assert.That(ast.Invoke(state), Is.EqualTo(new[] {&quot;ab&quot;}).AsCollection);
+</code></pre>
+
+<p>You can also parse ASTs with arbitrary symbols as roots, not only the
+start symbol of the grammar. To do so, call <code>p.ParseAST</code> where
+$p$ is a root <code>Symbol</code> variable. The call <code>grammar.ParseAST(s)</code>
+is equivalent to <code>grammar.StartSymbol.ParseAST(s)</code>.</p>
+
+<h2 id="dsl-compiler">DSL Compiler</h2>
+
+<p>The DSL compiler <strong>dslc.exe</strong> is a command-line tool that takes a
+grammar definition file, and compiles it into a serialized format,
+potentially emitting any warnings/errors on the way. The command-line
+usage is shown below:</p>
+
+<pre><code class="language-nohighlight">Microsoft Program Synthesis using Examples DSL Compiler 0.5.0.180-9c4db2d
+Created by Microsoft Program Synthesis using Examples team (prose-contact@microsoft.com), 2014-2015.
+Usage: dslc.exe [options] INPUT_GRAMMAR
+
+  -p, --path               Additional directories to locate assembly
+                           references, separated by semicolons.
+
+  -o, --output           (Default: &quot;&lt;DSLName&gt;.grammar.xml&quot;) Output file for
+                           the serialized grammar object.
+
+  -v, --verbosity         (Default: Normal) Define verbosity level of
+                           messages printed by the compiler. Possible values:
+                           Silent=0, Errors=1, Warnings=2,
+                           Normal (Errors | Warnings), Debug=4,
+                           Verbose (Normal | Debug).
+
+  -w, --warn-categories (Default: All) Define categories of warnings/errors
+                           that should be validated, separated by semicolons.
+                           Possible values: None, Core, Syntax, Semantics,
+                           Learning, Features, All.
+
+  --indent               Indent the XML in the serialized grammar file.
+
+  --help                   Display this help screen.
+
+</code></pre>
+
+<h2 id="partial-programs">Partial programs</h2>
+
+<p>In many applications there is need to manipulate <strong>partial programs</strong> –
+ASTs where some tree nodes are replaced with <strong>holes</strong>. A hole is a
+special type of an AST node: it’s an unfilled placeholder for some
+instantiation of a corresponding grammar symbol. In the AST node class
+hierarchy it is represented as <code>Microsoft.ProgramSynthesis.AST.Hole</code>.</p>
+
+<p>To get a list of descendant holes in a program $p$, call
+<code>p.Holes</code>. Note that in current architecture AST nodes do not
+maintain any references to their parents. Consequently, to enable
+practical usages, the <code>Holes</code> property returns not the
+<code>Hole</code> nodes themselves, but their <em>positions</em> instead. A
+position is represented as a tuple $(P,\ k,\ H)$, where $P$ is a parent
+AST node of a hole, $k$ is the hole’s index in the list of $P$’s
+children, and $H$ is the hole itself.</p>
+
+<p>A string representation of a hole of symbol $S$ is <strong>“?S”.</strong> The
+framework supports parsing AST strings that contain holes.</p>
+
+<h1 id="synthesis">Synthesis</h1>
+
+<h2 id="specifications">Specifications</h2>
+
+<p>Program synthesis in the PROSE SDK is defined as a process of
+generating a <strong>set of programs</strong> $\tilde{P}$ that start with a
+<strong>root symbol</strong> $P$, given a <strong>specification</strong>
+$\varphi$<strong>.</strong> A specification is a way of defining the desired
+behavior of every program in $\tilde{P}$. Different synthesis
+applications have different <em>kinds</em> of specifications to specify the
+desired program behavior. Some of the examples from prior work include:</p>
+
+<ul>
+<li><p>In FlashFill, $\varphi$ is an <em>example specification</em>: for every given
+input state $\sigma$, the desired program output should be equal to
+the given string $\varphi\lbrack\sigma\rbrack$.</p></li>
+
+<li><p>In Extraction.Text, $\varphi$ is a <em>subset specification</em>. It assumes that
+the runtime type of a root symbol $P$ is some sequence
+<code>IEnumerable&lt;T&gt;</code>. The specification $\varphi$ expresses
+the following property: for every given input state $\varphi$, the
+desired program output should be a <em>superset</em> of the given subset
+$\varphi\lbrack\sigma\rbrack$. In terms of Extraction.Text,
+$\varphi\lbrack\sigma\rbrack$ are the substrings highlighted by the
+user, and the program output includes them and the rest of the
+substrings that should be highlighted.</p></li>
+</ul>
+
+<p>The supported specification kinds are located in the namespace
+<code>Microsoft.ProgramSynthesis.Specifications</code>. All of them inherit
+the base abstract class <code>Specification</code>. This class has a single
+abstract method <code>Valid</code>$\colon$ <code>(State, object)</code> $\to$ <code>bool</code>,
+which returns <code>true</code> if and only if the program output on the
+given input state satisfies the constraint that the specification
+expresses.</p>
+
+<p><code>Spec</code> is the main abstract base class for all
+<em>inductive specifications</em>, i.e. those that constraint the program
+behavior on a set of provided input states $\varphi$.<code>ProvidedInputs</code>.
+Some of the main inductive specification kinds are described below:</p>
+
+<ul>
+<li><code>InductiveConstraint</code> specifies an arbitrary constraint
+<code>Constraint</code>$\colon$ <code>(State, object)</code> $\to$ <code>bool</code> on the
+set of provided input states.</li>
+<li><code>SubsequenceSpec</code> specifies a
+subsequence of the desired output sequence for each provided input
+state in the dictionary
+<code>Examples</code>$\colon$ <code>State</code> $\mapsto$ <code>IEnumerable&lt;object&gt;</code>.
+
+<ul>
+<li><code>PrefixSpec</code> is a subclass of
+<code>SubsequenceSpec</code> where the desired
+subsequence of a program output is also required to be its
+prefix.</li>
+</ul></li>
+<li><code>FunctionalOutputSpec</code> describes the behavior of the
+program whose output type is a lambda function or a functional
+symbol. For each input state, it specifies a set of input/output
+pairs. These pairs are the behavior examples for the function <em>that
+is the output of a desired program on a given state</em>.</li>
+<li><code>DisjunctiveExamplesSpec</code> specifies a set of
+possible desired outputs for each provided input state. On a given
+state $\sigma$, the program output is allowed to equal <em>any of</em> the
+given possible outputs
+$\varphi$.<code>DisjunctiveExamples</code>$\lbrack\sigma\rbrack$.
+
+<ul>
+<li><code>ExampleSpec</code> is a subclass of
+<code>DisjunctiveExamplesSpec</code> where the size of
+$\varphi$.<code>DisjunctiveExamples</code>$\lbrack\sigma\rbrack$ is constrained to 1.
+In other words, this is the simplest specification
+that specifies the single desired program output for each
+provided input state.</li>
+</ul></li>
+</ul>
+
+<h2 id="strategies">Strategies</h2>
+
+<p>The main point of program synthesis in the framework is the
+<code>SynthesisEngine</code> class. Its function is to execute different
+<strong>synthesis strategies</strong> for synthesizing parts of the resulting
+program. The synthesis process starts with an
+<code>engine.LearnGrammar(</code>$\varphi$<code>)</code> call to synthesize a program that starts
+with a start symbol of the grammar, or, more generally,
+<code>engine.LearnSymbol(</code>$P$, $\varphi$<code>)</code> call to synthesize a program that starts
+with a given grammar symbol $P$.</p>
+
+<p>Given a <strong>learning task</strong> $\left\langle P,\varphi \right\rangle$
+to synthesize a program that starts with a symbol $P$ and satisfies the
+specification $\varphi$, the engine can assign this task to any of the
+available <strong>synthesis strategies</strong>. A synthesis strategy represents a
+specific <em>algorithm</em> that can synthesize a program set $\tilde{P}$ for a
+particular kind of a learning task $\left\langle P,\varphi\right\rangle$.
+In other words, a synthesis strategy is parameterized by its supported
+<em>specification type</em>, takes a learning task
+$\left\langle P,\varphi\right\rangle$ where $\varphi$ should be an instance
+of this specification type, and learns a set of programs  $\tilde{P}$
+that are consistent with $\varphi$.</p>
+
+<p>A synthesis strategy is represented as a class inheriting
+<code>Microsoft.ProgramSynthesis.Learning.SynthesisStrategy&lt;TSpec, TConfig&gt;</code>,
+which specifies the following contract:</p>
+
+<pre><code class="language-csharp">public abstract class SynthesisStrategy&lt;TSpec, TConfig&gt; : ISynthesisStrategy
+        where TSpec : Spec where TConfig : StrategyConfig, new()
+{
+    void Initialize(SynthesisEngine engine);
+    abstract Optional&lt;ProgramSet&gt; LearnSymbol(SynthesisEngine engine, LearningTask&lt;TSpec&gt; task, CancellationToken cancel);
+    bool CanCall(Spec spec);
+}
+</code></pre>
+
+<p>Here <code>TSpec</code> is a supported specification type, <code>TConfig</code> is a type of
+a configuration that will be passed to the strategy constructor, <code>LearnSymbol</code>
+is the main learning method, and <code>CanCall</code> is the function that determines
+whether this synthesis strategy supports learning for a given
+specification <code>spec</code> (in the default implementation, the result is
+<code>true</code> if and only if <code>spec</code> is an instance of <code>TSpec</code>).</p>
+
+<h2 id="version-space-algebra">Version space algebra</h2>
+
+<p>The return type of <code>Learn</code> in <code>SynthesisStrategy</code> is
+<code>Microsoft.ProgramSynthesis.VersionSpace.ProgramSet</code>. This is an
+abstract base class for our representation for the sets of programs. A
+<strong>version space</strong>, defined by Mitchell  and Lau , is a succinct
+representation of a program set (<em>hypothesis space</em> in machine learning
+community), consistent with a specification. A version space can be
+defined explicitly (as a set of programs), or composed from smaller
+version spaces using standard set operators. The latter property is a
+key to succinctness of version spaces: representing exponential sets of
+programs using composition operators requires only polynomial space.
+Such a structure defines an <em>algebra</em> over primitive version spaces,
+hence the name.</p>
+
+<p>An abstract <code>ProgramSet</code> class defines the following contract:</p>
+
+<pre><code class="language-csharp">public abstract class ProgramSet
+{
+    protected ProgramSet(Symbol symbol)
+    {
+        Symbol = symbol;
+    }
+
+    public Symbol Symbol { get; private set; }
+
+    public abstract IEnumerable&lt;ProgramNode&gt; RealizedPrograms { get; }
+
+    public abstract ulong Size { get; }
+
+    public virtual bool IsEmpty
+    {
+        get { return RealizedPrograms.IsEmpty(); }
+    }
+
+    public abstract ProgramSet Intersect(ProgramSet other);
+
+    public Dictionary&lt;object, ProgramSet&gt; ClusterOnInput(State input);
+
+    public Dictionary&lt;object[], ProgramSet&gt; ClusterOnInputs(IEnumerable&lt;State&gt; input);
+
+    public abstract XElement ToXML();
+}
+</code></pre>
+
+<p>The property <code>RealizedPrograms</code> calculates the set of programs
+stored in the version space.</p>
+
+<h3 id="direct-version-space">Direct version space</h3>
+
+<p>Direct version space is a primitive version space
+that represents a set of programs explicitly, by storing a reference to
+<code>IEnumerable&lt;ProgramSet&gt;</code>. Since
+<code>IEnumerable&lt;T&gt;</code> in .NET is lazy,
+storing it in a version space does not by itself enumerate it into an
+explicit set. This allows you to implement a synthesis strategy as an
+<em>iterator</em> in C# (with <strong>yield return</strong> statements), which calculates
+the required number of consistent programs on the fly, as needed.
+Moreover, such an iterator can even be theoretically infinite, as long
+as the end-user requests only a finite number of consistent programs.</p>
+
+<h3 id="union-version-space">Union version space</h3>
+
+<p>A union of $k$ version spaces is a version space
+that contains those and only those programs that belong to at least one
+of the given $k$ spaces. Such a version space naturally arises when we
+want to learn a set of programs that start with a certain grammar symbol
+by learning each of its possible RHS rules automatically. For example:</p>
+
+<div> $$
+    P\ : = F\left( A,\ B \right) \mid G\left( C, D \right)
+$$ </div>
+
+<p>Here $P,A,B,C,D$ are grammar symbols, and $F,G$ are black-box operators.
+Given a learning task $\left\langle P,\varphi \right\rangle$, one way to
+resolve it is to independently learn a set of programs $\tilde{F}$ of
+form $F(?A,\ \ ?B)$, and a set of programs $\tilde{G}$ of form
+$G(?C,\ \ ?D)$. If all the programs in $\tilde{F}$ and $\tilde{G}$ are
+consistent with $\varphi$, then $\tilde{F} \cup \tilde{G}$ is a valid
+answer to the outer learning task $\left\langle P,\varphi \right\rangle$.</p>
+
+<h3 id="join-version-space">Join version space</h3>
+
+<p>A join version space is defined for a single
+operator <code>$P := F\left( E_{1},\ldots,E_{k} \right)$</code>. It represents a set of
+programs $\tilde{P}$ formed by a Cartesian product of parameter version
+spaces <code>$\tilde{E_{1}},\ldots,\tilde{E_{k}\ }$</code>. In general, not every
+combination of the parameter programs from this Cartesian product is a
+valid sequence of parameters for the operator $F$, thus join version
+space depends on the operator logic to filter out the invalid
+combinations.</p>
+
+<p>The table below outlines the APIs for building version spaces in the
+Microsoft Program Synthesis using Examples framework:</p>
+
+<table>
+<thead>
+<tr>
+<th>Version space</th>
+<th>Given</th>
+<th>Builder code</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Empty</td>
+<td><code>Symbol s</code></td>
+<td><code>ProgramSet.Empty(s)</code></td>
+</tr>
+
+<tr>
+<td>Explicit list of programs</td>
+<td><code>Symbol s</code> <br/> <code>ProgramNode p1, …, pk</code></td>
+<td><code>ProgramSet.List(s, p1, …, pk)</code></td>
+</tr>
+
+<tr>
+<td>Lazy stream of programs</td>
+<td><code>Symbol s</code> <br /> <code>IEnumerable&lt;ProgramNode&gt; stream</code></td>
+<td><code>new DirectProgramSet(s, stream)</code></td>
+</tr>
+
+<tr>
+<td>Union of version spaces for the rules</td>
+<td><code>Symbol s</code> <br/> <code>ProgramSet v1, …, vk</code></td>
+<td><code>new UnionProgramSet(s, v1, …, vk)</code></td>
+</tr>
+
+<tr>
+<td>Join of version spaces for the parameters</td>
+<td><code>Symbol s</code> <br/> <code>GrammarRule r // r.Head == s</code> <br/> <code>ProgramSet v1, …, vk</code></td>
+<td><code>new JoinProgramSet(r, v1, …, vk)</code></td>
+</tr>
+</tbody>
+</table>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1"><p>Null is used to indicate to the learning system that an operator is
+inapplicable for a particular set of parameters.  This replaces the special
+value $\bot$ typically used in the formal definition of a language.</p>
+ <a class="footnote-return" href="#fnref:1">↩</a></li>
+
+<li id="fn:3"><p>Following Haskell syntax, we start our lambda functions with the
+“\” character, which is supposed to approximately represent the
+letter $\lambda$.</p>
+ <a class="footnote-return" href="#fnref:3">↩</a></li>
+
+<li id="fn:4"><p>The common recipe that we use in our development is to reference
+the semantics DLL from the main project in a Visual Studio solution.
+This way, the semantics DLL is automatically copied to the target
+subdirectory on each build next to the main executable, and you can
+refer to it in the grammar string by simply using its filename.
+Alternatively, you can specify additional library paths as extra
+parameters to the <code>LoadGrammar</code> method.</p>
+ <a class="footnote-return" href="#fnref:4">↩</a></li>
+</ol>
+</div>
+            
+          </div>    
+          
+          <div class="end-main">
+          <p>&nbsp;</p>
+        </div>
+      </div>
+    </div>
+    
+<div id="footer_wrap" class="outer">
+    <footer class="inner">
+        <p class="copyright">
+        <table class="foot-table center-block">
+            <tr>
+                <td><a href="https://microsoft.github.io/prose/team/">About Us</a></td>
+                <td><a href="https://www.microsoft.com/en-us/privacystatement/default.aspx">Privacy & Cookies</a></td>
+                <td>
+                    <a href="http://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/en-us.aspx">Trademark</a>
+                </td>
+                <td><a href="http://www.microsoft.com/en-us/legal/intellectualproperty/copyright/default.aspx">Terms of
+                    Use</a></td>
+                <td>&copy; Microsoft</td>
+            </tr>
+        </table>
+        </p>
+    </footer>
+</div>
+
+
+</body>
+</html>

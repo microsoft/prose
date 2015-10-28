@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+{{ partial "header.html" . }}
+
+<body id="bootstrap-overrides">
+{{ partial "hidden.html" . }}
+
+<!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="innerTemplate">
+           {{ .Title | markdownify }}
+
+        </header>
+    </div>
+<!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <div id="main_content" class="innerTemplate">
+          
+          <div class="leftNav">
+              {{ partial "navbar.html" . }}
+          </div>
+          <div class="topicContent" id="TopicContent">            
+            {{ if .Params.toc }}
+            <div id="toc" class="well well-sm col-md-4 col-sm-12 pull-right">
+                {{ .TableOfContents }}
+            </div>
+            {{ end }}
+            {{ .Content }}            
+          </div>    
+          
+          <div class="end-main">
+          <p>&nbsp;</p>
+        </div>
+      </div>
+    </div>
+    
+{{ partial "footer.html" . }}
+
+</body>
+</html>
