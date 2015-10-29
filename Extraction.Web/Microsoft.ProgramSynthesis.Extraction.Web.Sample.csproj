@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D24046B6-4E7C-4112-B88C-D360695D1E66}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.ProgramSynthesis.Extraction.Web.Sample</RootNamespace>
+    <AssemblyName>Microsoft.ProgramSynthesis.Extraction.Web.Sample</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr4.Runtime.net45, Version=4.3.0.0, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr4.Runtime.4.3.0\lib\net45\Antlr4.Runtime.net45.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CsQuery, Version=1.3.5.124, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsQuery.1.3.5-beta5\lib\net40\CsQuery.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Experimental.Collections, Version=1.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Experimental.Collections.1.0.3-alpha\lib\portable-net45+win8+wp8\Microsoft.Experimental.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis, Version=0.1.1.2395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.0.1.1-preview\lib\net45\Microsoft.ProgramSynthesis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.Extraction, Version=0.1.1.2395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.0.1.1-preview\lib\net45\Microsoft.ProgramSynthesis.Extraction.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.Extraction.Text, Version=0.1.1.2395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.0.1.1-preview\lib\net45\Microsoft.ProgramSynthesis.Extraction.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.Extraction.Text.Learning, Version=0.1.1.2395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.0.1.1-preview\lib\net45\Microsoft.ProgramSynthesis.Extraction.Text.Learning.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.Extraction.Text.Semantics, Version=0.1.1.2395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.0.1.1-preview\lib\net45\Microsoft.ProgramSynthesis.Extraction.Text.Semantics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.Extraction.Web, Version=0.1.1.2395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.0.1.1-preview\lib\net45\Microsoft.ProgramSynthesis.Extraction.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.Extraction.Web.Learning, Version=0.1.1.2395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.0.1.1-preview\lib\net45\Microsoft.ProgramSynthesis.Extraction.Web.Learning.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.Extraction.Web.Semantics, Version=0.1.1.2395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.0.1.1-preview\lib\net45\Microsoft.ProgramSynthesis.Extraction.Web.Semantics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.FlashFill, Version=0.1.1.2395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.0.1.1-preview\lib\net45\Microsoft.ProgramSynthesis.FlashFill.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.FlashFill.Semantics, Version=0.1.1.2395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.0.1.1-preview\lib\net45\Microsoft.ProgramSynthesis.FlashFill.Semantics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.Learning, Version=0.1.1.2395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.0.1.1-preview\lib\net45\Microsoft.ProgramSynthesis.Learning.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.Paraphrasing, Version=0.1.1.2395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.0.1.1-preview\lib\net45\Microsoft.ProgramSynthesis.Paraphrasing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.Utils, Version=0.1.1.2395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.0.1.1-preview\lib\net45\Microsoft.ProgramSynthesis.Utils.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.1.36.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.1.36\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Interactive, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ix-Main.1.2.5\lib\net45\System.Interactive.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=1.0.21.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.0.21\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SampleProgram.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
