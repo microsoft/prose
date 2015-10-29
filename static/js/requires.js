@@ -1,3 +1,0 @@
-require.config({
-    deps: ["main"]
-});

@@ -1,0 +1,22 @@
+---
+layout:
+---
+{% include header.html %}
+{% include navbar.html %}
+
+    <div class="container">
+
+        <h1>404 Error</h1>
+        <p>Maybe you want one of these?</p>
+
+        {{ range site.pages }}
+        <ul>
+            <li><a href="{{ .Permalink }}">{{ .Title }}</a><span class="lead">({{ .Date.Format "Mon, Jan 2, 2006" }})</span></li>
+        </ul>
+        {{ end }}
+
+        {{ partial "container-footer.html" . }}
+
+    </div>
+
+{% include footer.html %}

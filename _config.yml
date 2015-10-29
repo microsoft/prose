@@ -1,1 +1,26 @@
-source: public
+markdown: redcarpet
+redcarpet:
+        extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data", "footnotes"]
+permalink: pretty
+defaults:
+        -
+          scope:
+                path: ""
+          values:
+                layout: default
+exclude: 
+        - config.yaml
+        - CNAME
+        - Gemfile
+        - Properties
+        - Shim.sln
+        - Shim.csproj
+        - README.md
+        - deploy.cmd
+        - packages
+        - packages.config
+        - web.config
+        - public
+        - Scripts
+baseurl: https://microsoft.github.io/prose
+Title: Microsoft Program Synthesis using Examples SDK
