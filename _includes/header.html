@@ -1,4 +1,4 @@
-<head>
+﻿<head>
 
     <meta charset="utf-8">
     <title>{{ site.Title }}{% if page.title %} &ndash; {{ page.title }}{% endif %}</title>
@@ -7,18 +7,20 @@
     <meta name="description" content="Microsoft Program Synthesis using Examples SDK Samples :  The PROSE SDK is a set of technologies for the automatic generation of programs from input-output examples. This repo includes samples and sample data for the Microsoft Program Synthesis using Examples SDK.">
 	
 	<script type="text/javascript">
-		var vanity_domains = ["programbyexample.com","flashm.azurewebsites.net"];
-		var canonical_path = "{{ site.baseurl }}/";
-		for(var i = 0; i < vanity_domains.length; i++) {
-			var vanity_domain = vanity_domains[i];
-			var loc = window.location.toString();
-			if (loc.indexOf(vanity_domain) != -1) {
-				var new_loc = loc
-					.replace("http://www." + vanity_domain + "/", canonical_path)
-					.replace("http://" + vanity_domain + "/", canonical_path);
-				window.location.replace(new_loc);
-			}
-		}
+        var loc = window.location.toString();
+	    if (loc.indexOf("http://") === 0) {
+	        var redirect_from_http_domains = ["programbyexample.com", "flashm.azurewebsites.net", "microsoft.github.io/prose"];
+	        var canonical_path = "{{ site.baseurl }}/";
+	        for (var i = 0; i < redirect_from_http_domains.length; i++) {
+	            var domain = redirect_from_http_domains[i];
+	            if (loc.indexOf(domain) != -1) {
+	                var new_loc = loc
+	                    .replace("http://www." + domain + "/", canonical_path)
+	                    .replace("http://" + domain + "/", canonical_path);
+	                window.location.replace(new_loc);
+	            }
+	        }
+	    }
 	</script>
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300,300italic,700,700italic'
