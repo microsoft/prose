@@ -21,7 +21,10 @@ function setupPrism() {
         'keyword': /\b(reference|@start|@input|feature|property|language|@values|@feature|@property|@complete|semantics|learners|@witnesses|let|in|using|bool|byte|char|string|int|uint|sbyte|long|ulong|decimal|float|double|short)\b/,
         'property': /@\b\w+/
     });
-    $(".language-dsl pre").each(function () {
+    $(".language-text").each(function () {
+        $(this).addClass("language-dsl");
+    });
+    $(".language-dsl").each(function () {
         Prism.highlightElement($(this)[0]);
     });
 }
