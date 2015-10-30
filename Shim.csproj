@@ -68,43 +68,34 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="layouts\index.html" />
-    <Content Include="layouts\partials\footer.html" />
-    <Content Include="layouts\partials\header.html" />
-    <Content Include="layouts\partials\hidden.html" />
-    <Content Include="layouts\partials\navbar.html" />
-    <Content Include="layouts\shortcodes\image.html" />
-    <Content Include="layouts\_default\single.html" />
+    <Content Include="index.html" />
+    <Content Include="_includes\footer.html" />
+    <Content Include="_includes\header.html" />
+    <Content Include="_includes\hidden.html" />
+    <Content Include="_includes\navbar.html" />
+    <Content Include="_includes\about-row-start.html" />
+    <Content Include="_includes\about-row-end.html" />
+    <Content Include="_layouts\default.html" />
     <Content Include="packages.config" />
-    <Content Include="content\home.md" />
-    <Content Include="content\installation.md" />
-    <Content Include="config.yaml" />
-    <Content Include="content\faq.md" />
-    <Content Include="content\flashprog.md" />
-    <Content Include="content\dsls\fetext\about.md" />
-    <Content Include="content\dsls\fetext\documentation.md" />
-    <Content Include="content\dsls\fetext\faq.md" />
-    <Content Include="content\dsls\fetext\usage.md" />
-    <Content Include="content\dsls\feweb\about.md" />
-    <Content Include="content\dsls\feweb\documentation.md" />
-    <Content Include="content\dsls\feweb\faq.md" />
-    <Content Include="content\dsls\feweb\usage.md" />
-    <Content Include="content\dsls\flashfill\about.md" />
-    <Content Include="content\dsls\flashfill\documentation.md" />
-    <Content Include="content\dsls\flashfill\faq.md" />
-    <Content Include="content\dsls\flashfill\usage.md" />
-    <Content Include="content\FlashMeta\about.md" />
-    <Content Include="content\FlashMeta\documentation.md" />
-    <Content Include="content\FlashMeta\faq.md" />
-    <Content Include="content\FlashMeta\usage.md" />
-    <Content Include="content\public\products.md" />
-    <Content Include="content\public\research.md" />
-    <Content Include="content\hiring.md" />
-    <Content Include="content\team.md" />    
+    <Content Include="_config.yml" />
+    <Content Include="faq.md" />
+    <Content Include="playground\index.html" />
+    <Content Include="demo\index.html" />
+    <Content Include="documentation\extraction-text\intro.md" />
+    <Content Include="documentation\extraction-text\usage.md" />
+    <Content Include="documentation\extraction-web\intro.md" />
+    <Content Include="documentation\extraction-web\usage.md" />
+    <Content Include="documentation\flashfill\intro.md" />
+    <Content Include="documentation\flashfill\faq.md" />
+    <Content Include="documentation\flashfill\usage.md" />
+    <Content Include="documentation\prose\d4.md" />
+    <Content Include="documentation\prose\tutorial.md" />
+    <Content Include="documentation\prose\usage.md" />
+    <Content Include="team.md" />    
   </ItemGroup>
   <ItemGroup>
-    <Content Include="static\css\main.css" />
-    <Content Include="static\js\requires.js" />
+    <Content Include="css\main.css" />
+    <Content Include="js\requires.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -118,9 +109,9 @@
     <TypeScriptCompile Include="Scripts\typings\bootstrap\bootstrap.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\requirejs\require.d.ts" />
-    <TypeScriptCompile Include="static\js\lightbox.ts" />
-    <TypeScriptCompile Include="static\js\main.ts" />
-    <TypeScriptCompile Include="static\js\prism.d.ts" />
+    <TypeScriptCompile Include="js\lightbox.ts" />
+    <TypeScriptCompile Include="js\main.ts" />
+    <TypeScriptCompile Include="js\prism.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -200,14 +191,6 @@
     <Error Condition="!Exists('packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>cd $(SolutionDir)
-hugo -v</PostBuildEvent>
-  </PropertyGroup>
   <Target Name="TypeScript" AfterTargets="Afterbuild">
     <Exec Command="&quot;$(PROGRAMFILES)\Microsoft SDKs\TypeScript\$(TypeScriptToolsVersion)\tsc.exe&quot; --module amd --sourcemap  --target ES5  @(TypeScriptCompile ->'&quot;%(fullpath)&quot;' , ' ')" Condition="'@(TypeScriptCompile)'!=''" />
   </Target>

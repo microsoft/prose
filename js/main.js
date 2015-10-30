@@ -1,4 +1,4 @@
-/// <reference path="../../Scripts/typings/jquery/jquery.d.ts" />
+/// <reference path="../Scripts/typings/jquery/jquery.d.ts" />
 /// <reference path="./prism.d.ts" />
 function jqEscape(id) {
     return id.replace(/(:|\.|\[|\]|,)/g, "\\$1");
@@ -17,7 +17,7 @@ function setupPrism() {
         'keyword': /\b(reference|@start|@input|feature|property|language|@values|@feature|@property|@complete|semantics|learners|@witnesses|let|in|using|bool|byte|char|string|int|uint|sbyte|long|ulong|decimal|float|double|short)\b/,
         'property': /@\b\w+/
     });
-    $("pre.language-text").each(function () {
+    $(".language-dsl pre").each(function () {
         Prism.highlightElement($(this)[0]);
     });
 }

@@ -1,6 +1,0 @@
-<a href="javascript:;" class="thumb">
-    <img src="{{ .Get "src" }}"
-         data-toggle="modal" data-target=".modal-profile-lg"
-         class="img-responsive center-block {{ with .Get "class" }}{{.}}{{end}}"
-         {{ if or (.Get "alt") (.Get "caption") }} alt="{{ with .Get "alt"}}{{.}}{{else}}{{ .Get "caption" }}{{ end }}" {{ end }}/>
-</a>
