@@ -1,6 +1,10 @@
-_site
 Gemfile.lock
 .jekyll-metadata
-bin
-obj
-packages
+
+bin/
+obj/
+packages/
+.idea/
+.vs/
+_site/
+public/
