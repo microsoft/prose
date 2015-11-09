@@ -14,10 +14,7 @@ Extraction.Web supports two kinds of extractions: (1) extract a single region fr
 
 - **Extract a sequence of regions**. For example, for the page in Figure 1 we may want to extract all surnames. To do this we can give a few examples, such as the document nodes containing the names { “Briggs”, “Parsons” }. Extraction.Web may then generate a program which can extract all the surnames { “Briggs”, “Parsons”, “Cameron”, “Owens”, “Garner”, “Booth”, “Dobson”, “Perry” } from this document or other similarly formatted documents such as in Figure 2.
 
+{% include image.html src='img/extraction-web/ex1.jpg' caption='Figure 1. Sample document available at Extraction.Web\Sample\SampleDocuments\sample-document-1.html' %}
 
-<image src="{{ site.baseurl }}/img/extraction-web/ex1.jpg" style="float: left;">
-*Figure 1. Sample document available at Extraction.Web\Sample\SampleDocuments\sample-document-1.html*
-
-<image src="{{ site.baseurl }}/img/extraction-web/ex2.jpg" style="float: left;">
-*Figure 2. Sample document available at Extraction.Web\Sample\SampleDocuments\sample-document-2.html*
+{% include image.html src='img/extraction-web/ex2.jpg' caption='Figure 1. Sample document available at Extraction.Web\Sample\SampleDocuments\sample-document-1.html' %}
 
