@@ -5,34 +5,35 @@
 <body id="bootstrap-overrides">
 
 <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="innerTemplate">
-           {{ page.title }}
+<div id="header_wrap" class="outer">
+    <header class="innerTemplate">
+        {{ page.title }}
 
-        </header>
-    </div>
+    </header>
+</div>
 <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <div id="main_content" class="innerTemplate">
-          
-          <div class="leftNav">
-              {% include navbar.html %}
-          </div>
-          <div class="topicContent" id="TopicContent">            
+<div id="main_content_wrap" class="outer">
+    <div id="main_content" class="innerTemplate">
+
+        <div class="leftNav">
+            {% include navbar.html %}
+        </div>
+        <div class="topicContent" id="TopicContent">
             {% if page.toc %}
             <script type="text/javascript" src="{{ site.baseurl }}/js/generated_toc.js"></script>
-            <div id="toc" class="well well-sm col-md-4 col-sm-12 pull-right list_type_ul back_to_top_off generate_to_h3">
+            <div id="toc"
+                 class="well well-sm col-md-4 col-sm-12 pull-right list_type_ul back_to_top_off generate_to_h3">
             </div>
             {% endif %}
-            {{ content }}            
-          </div>    
-          
-          <div class="end-main">
-          <p>&nbsp;</p>
+            {{ content }}
         </div>
-      </div>
+
+        <div class="end-main">
+            <p>&nbsp;</p>
+        </div>
     </div>
-    
+</div>
+
 {% include footer.html %}
 
 </body>

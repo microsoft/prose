@@ -4,24 +4,25 @@
     <title>{{ site.Title }}{% if page.title %} &ndash; {{ page.title }}{% endif %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="description" content="Microsoft Program Synthesis using Examples SDK Samples :  The PROSE SDK is a set of technologies for the automatic generation of programs from input-output examples. This repo includes samples and sample data for the Microsoft Program Synthesis using Examples SDK.">
-	
-	<script type="text/javascript">
+    <meta name="description"
+          content="Microsoft Program Synthesis using Examples SDK Samples :  The PROSE SDK is a set of technologies for the automatic generation of programs from input-output examples. This repo includes samples and sample data for the Microsoft Program Synthesis using Examples SDK.">
+
+    <script type="text/javascript">
         var loc = window.location.toString();
-	    if (loc.indexOf("http://") === 0) {
-	        var redirect_from_http_domains = ["programbyexample.com", "flashm.azurewebsites.net", "microsoft.github.io/prose"];
-	        var canonical_path = "{{ site.baseurl }}/";
-	        for (var i = 0; i < redirect_from_http_domains.length; i++) {
-	            var domain = redirect_from_http_domains[i];
-	            if (loc.indexOf(domain) != -1) {
-	                var new_loc = loc
-	                    .replace("http://www." + domain + "/", canonical_path)
-	                    .replace("http://" + domain + "/", canonical_path);
-	                window.location.replace(new_loc);
-	            }
-	        }
-	    }
-	</script>
+        if (loc.indexOf("http://") === 0) {
+            var redirect_from_http_domains = ["programbyexample.com", "flashm.azurewebsites.net", "microsoft.github.io/prose"];
+            var canonical_path = "{{ site.baseurl }}/";
+            for (var i = 0; i < redirect_from_http_domains.length; i++) {
+                var domain = redirect_from_http_domains[i];
+                if (loc.indexOf(domain) != -1) {
+                    var new_loc = loc
+                            .replace("http://www." + domain + "/", canonical_path)
+                            .replace("http://" + domain + "/", canonical_path);
+                    window.location.replace(new_loc);
+                }
+            }
+        }
+    </script>
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300,300italic,700,700italic'
           rel='stylesheet' type='text/css'>
@@ -31,7 +32,8 @@
 
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.js" data-main="{{ site.baseurl }}/js/requires.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.js"
+            data-main="{{ site.baseurl }}/js/requires.js"></script>
 
     <link rel="stylesheet" href="{{ site.baseurl }}/css/hugo-bootswatch.css">
     <link href="{{ site.baseurl }}/css/bootstrap-flat.min.css" rel="stylesheet">
@@ -47,36 +49,38 @@
     <script type="text/javascript"
             src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [['$','$']],
-        displayMath: [['$$','$$'], ['\\[','\\]']],
-        processEscapes: true,
-        processEnvironments: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-        TeX: { equationNumbers: { autoNumber: "AMS" },
-             extensions: ["AMSmath.js", "AMSsymbols.js"] }
-      },
-      TeX: {
-        Macros: {
-            llbracket: "[\\![",
-            rrbracket: "]\\!]"
-        }
-      }
-    });
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                TeX: {
+                    equationNumbers: {autoNumber: "AMS"},
+                    extensions: ["AMSmath.js", "AMSsymbols.js"]
+                }
+            },
+            TeX: {
+                Macros: {
+                    llbracket: "[\\![",
+                    rrbracket: "]\\!]"
+                }
+            }
+        });
 
     </script>
 
     <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        // Fix <code> tags after MathJax finishes running. This is a
-        // hack to overcome a shortcoming of Markdown. Discussion at
-        // https://github.com/mojombo/jekyll/issues/199
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i = 0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
+        MathJax.Hub.Queue(function () {
+            // Fix <code> tags after MathJax finishes running. This is a
+            // hack to overcome a shortcoming of Markdown. Discussion at
+            // https://github.com/mojombo/jekyll/issues/199
+            var all = MathJax.Hub.getAllJax(), i;
+            for (i = 0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
 
     </script>
 
