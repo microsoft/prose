@@ -11,7 +11,7 @@ One-time setup to install Jekyll (based on [these instructions](https://ntotten.
 Steps to run while locally iterating on a website change:
 
  * Make your change (likely to a markdown file in `/documentation`)
- * Build `Shim.sln` in Visual Studio (only required if you made any TypeScript changes, commit compiled JS if you do)
+ * Run `build.ps1` in PowerShell (only required if you made any TypeScript changes, commit compiled JS if you do)
  * `jekyll serve --baseurl ''` (overriding the `baseURL` like this required for local viewing)
  * Open and monitor http://localhost:4000/ in your browser (will auto-refresh for most changes)
 
