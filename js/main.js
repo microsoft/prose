@@ -1,5 +1,5 @@
-/// <reference path="../Scripts/typings/jquery/jquery.d.ts" />
-/// <reference path="./prism.d.ts" />
+/// <reference path="./typings/jquery/jquery.d.ts" />
+/// <reference path="./typings/prism.d.ts" />
 function jqEscape(id) {
     return id.replace(/(:|\.|\[|\]|,)/g, "\\$1");
 }
