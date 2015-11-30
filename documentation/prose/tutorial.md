@@ -210,7 +210,7 @@ Consider a program `Substring(in, posPair)` that outputs `"PROSE"` on a given in
 In a more complex example, however, there is no single answer.
 For instance, suppose `in == "(206) 279-6261"`, and the corresponding desired output in a spec is `"2"`. In this case, the substring `"2"` could have been extracted from 3 different places in the input string.
 Therefore, instead of *witnessing* a single output value for `posPair` on a given input, in this case we witness a *disjunction* of three possible output values.
-A disjunction of possible outputs has its own representative spec type in PROSE -- `DisjunctiveExamplesSpecification`.
+A disjunction of possible outputs has its own representative spec type in PROSE -- `DisjunctiveExamplesSpec`.
 
 The two cases above lead us to a general definition of a witness function for `posPair`: find all occurrences of the desired output string in the input, and return a disjunction of them. In PROSE, you express it in the following way:
 
@@ -222,7 +222,7 @@ using Microsoft.ProgramSynthesis.Learning;
 static class WitnessFunctions
 {
 	[WitnessFunction("Substring", parameterIndex: 1)]
-	static DisjunctiveExamplesSpecification WitnessPositionPair(GrammarRule rule, int parameter, ExampleSpecification spec)
+	static DisjunctiveExamplesSpec WitnessPositionPair(GrammarRule rule, int parameter, ExampleSpecification spec)
 	{
 		var result = new Dictionary<State, IEnumerable<object>>();
 		foreach (var example in spec.Examples)
@@ -244,7 +244,7 @@ static class WitnessFunctions
 		    if (occurrences.Count == 0) return null;
 		    result[inputState] = occurrences;
 		}
-	    return new DisjunctiveExamplesSpecification(result);
+	    return new DisjunctiveExamplesSpec(result);
 	}
 }
 ```
@@ -275,7 +275,7 @@ We can apply similar logic if we are given not one position $\ell$ but a disjunc
 
 ``` csharp
 [WitnessFunction("AbsolutePosition", 1)
-static DisjunctiveExamplesSpecification WitnessK(GrammarRule rule, int parameter, DisjunctiveExamplesSpecification spec)
+static DisjunctiveExamplesSpec WitnessK(GrammarRule rule, int parameter, DisjunctiveExamplesSpec spec)
 {
 	var result = new Dictionary<State, IEnumerable<object>>();
 	foreach (var example in spec.DisjunctiveExamples)
@@ -291,7 +291,7 @@ static DisjunctiveExamplesSpecification WitnessK(GrammarRule rule, int parameter
 		if (ks.Count == 0) return null;
 		result[inputState] = ks;
 	}
-	return new DisjunctiveExamplesSpecification(result);
+	return new DisjunctiveExamplesSpec(result);
 }
 ```
 
@@ -343,7 +343,7 @@ void BuildStringMatches(string in, out Dictionary<int, List<Match>> leftMatches,
 }
 
 [WitnessFunction("RegexPosition", 1)]
-static DisjunctiveExamplesSpecification WitnessRegexPair(GrammarRule rule, int parameter, DisjunctiveExamplesSpecification spec)
+static DisjunctiveExamplesSpec WitnessRegexPair(GrammarRule rule, int parameter, DisjunctiveExamplesSpec spec)
 {
 	var result = new Dictionary<State, IEnumerable<object>>();
 	foreach (var example in spec.DisjunctiveExamples)
@@ -360,7 +360,7 @@ static DisjunctiveExamplesSpecification WitnessRegexPair(GrammarRule rule, int p
 		if (regexes.Count == 0) return null;
 		result[inputState] = regexes;
 	}
-	return new DisjunctiveExamplesSpecification(result);
+	return new DisjunctiveExamplesSpec(result);
 }
 ```
 
@@ -377,8 +377,8 @@ We use `ExampleSpecification` here to deduce possible indices `k` for each regex
 
 ``` csharp
 [WitnessFunction("RegexPosition", 2, DependsOnParameters = new[] { 1 }]
-static DisjunctiveExamplesSpecification WitnessKForRegexPair(Grammar rule, int parameter, DisjunctiveExamplesSpecification spec,
-                                                             ExampleSpecification rrSpec)
+static DisjunctiveExamplesSpec WitnessKForRegexPair(Grammar rule, int parameter, DisjunctiveExamplesSpec spec,
+                                                    ExampleSpecification rrSpec)
 {
 	var result = new Dictionary<State, IEnumerable<object>>();
 	foreach (var example in spec.DisjunctiveExamples)
@@ -404,7 +404,7 @@ static DisjunctiveExamplesSpecification WitnessKForRegexPair(Grammar rule, int p
 	    if (ks.Count == 0) return null;
 	    result[inputState] = ks;
 	}
-    return new DisjunctiveExamplesSpecification(result);
+    return new DisjunctiveExamplesSpec(result);
 }
 ```
 
