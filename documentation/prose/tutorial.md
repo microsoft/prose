@@ -441,7 +441,7 @@ There are three ways to define a calculator: based on *recursive property values
 
 #### Calculation from recursive values
 The most common property definitions are inductive, recursively defined over the grammar.
-For instance, a score for `RegPos(inp, rr, k)` would be defined as a formula over a score for `rr` and a score for `k`.
+For instance, a score for `RegexPosition(inp, rr, k)` would be defined as a formula over a score for `rr` and a score for `k`.
 Such property calculators take as input recursively computed values of the same property on parameters of a current program AST:
 
 ``` csharp
