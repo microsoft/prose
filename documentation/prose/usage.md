@@ -84,7 +84,7 @@ using learners TestSemantics.FlashFill.Learners;
 
 language FlashFill;
 
-@start string f := ConstStr(s) | let x = v in SubStr(x, P, P);
+@start string f := ConstStr(s) | let x: string = v in SubStr(x, P, P);
 int P := CPos(k) | Pos(x, r, r, k);
 int k;
 @values[StringGen] string s;
@@ -245,7 +245,7 @@ lambda functions.
 `Let` construct is a standard concept with the following syntax:
 
 <div> $$
-\text{let } x_{1} = v_{1},\,\ldots,\,x_{k} = v_{k}\text{ in } RHS
+\text{let } x_{1}\colon \tau_1 = v_{1},\,\ldots,\,x_{k}\colon \tau_k = v_{k}\text{ in } RHS
 $$ </div>
 
 where $RHS$ is any standard rule RHS (a black-box operator, a grammar symbol, etc.).
@@ -258,7 +258,7 @@ symbol $v_j$.
 
 The running grammar definition FlashFill contains the following rule:
 ```
-@start string f := let x = v in SubStr(x, P, P)
+@start string f := let x: string = v in SubStr(x, P, P)
 ```
 
 The formal signature of this rule has three free parameters:
