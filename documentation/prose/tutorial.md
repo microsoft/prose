@@ -33,17 +33,17 @@ reference 'SubstringExtraction.dll';
 using semantics SubstringExtraction.Semantics;
 language SubstringExtraction;
 
-@input string in;
+@input string inp;
 
-// Extract a substring from 'in' between positions 'posPair'
-@start string out := Substring(in, posPair);
+// Extract a substring from 'inp' between positions 'posPair'
+@start string out := Substring(inp, posPair);
 Tuple<int?, int?> posPair := PositionPair(pos, pos)
                              = Pair(pos, pos);
 int? pos := // A position at index 'k' (from the left if k >= 0, or from the right if k < 0)
-            AbsolutePosition(in, k)
+            AbsolutePosition(inp, k)
             // A position where two regexes 'positionBoundaries' match to left and to the right,
             // respectively, and it is the 'k'-th such position
-          | RegexPosition(in, positionBoundaries, k);
+          | RegexPosition(inp, positionBoundaries, k);
 Tuple<Regex, Regex> positionBoundaries := RegexPair(r, r)
                                           = Pair(r, r);
 
@@ -53,12 +53,12 @@ int k;
 
 Here are some possible extraction programs contained in the `SubstringExtraction` DSL:
 
- - First 5 characters: `Substring(in, PosPair(AbsolutePosition(in, 0), AbsolutePosition(in, 5)))`
- - Last character: `Substring(in, PosPair(AbsolutePosition(in, -2), AbsolutePosition(in, -1)))`
+ - First 5 characters: `Substring(inp, PosPair(AbsolutePosition(inp, 0), AbsolutePosition(inp, 5)))`
+ - Last character: `Substring(inp, PosPair(AbsolutePosition(inp, -2), AbsolutePosition(inp, -1)))`
  - A substring from the start until (but not including) the last number[^regex]:
-`Substring(in, PosPair(AbsolutePosition(in, -2), RegexPosition(in, RegexPair(//, /\d+/), -1))`
- - A substring between the first pair of parentheses: `Substring(in, PosPair(RegexPosition(in, RegexPair(/\(/, //), 0), RegexPosition(in, RegexPair(//, /\)/), 0)))`.
-   Note that this program will not extract the desired content if `in` contains unbalanced parentheses (for instance, `in == "A) Bread ($2.00)"`). This problem can be addresses by a language extension.
+`Substring(inp, PosPair(AbsolutePosition(inp, -2), RegexPosition(inp, RegexPair(//, /\d+/), -1))`
+ - A substring between the first pair of parentheses: `Substring(inp, PosPair(RegexPosition(inp, RegexPair(/\(/, //), 0), RegexPosition(inp, RegexPair(//, /\)/), 0)))`.
+   Note that this program will not extract the desired content if `inp` contains unbalanced parentheses (for instance, `inp == "A) Bread ($2.00)"`). This problem can be addresses by a language extension.
 
 In general, a DSL consists of **symbols** and **operators** upon
 these symbols. In a context-free grammar, a DSL is represented as a
@@ -89,9 +89,9 @@ using Microsoft.ProgramSynthesis.Compiler;
 var grammar = DSLCompiler.LoadGrammarFromFile("SubstringExtraction.grammar").Value;
 // Parse a program in this grammar. PROSE supports two serialization formats:
 // "human-readable" expression format, used in this tutorial, and machine-readable XML.
-var ast = grammar.ParseAST("Substring(in, PosPair(AbsolutePosition(in, 0), AbsolutePosition(in, 5)))",
+var ast = grammar.ParseAST("Substring(inp, PosPair(AbsolutePosition(inp, 0), AbsolutePosition(inp, 5)))",
                            ASTSerializationFormat.HumanReadable);
-// Create an input state to the program. It contains one binding: a variable 'in' (DSL input)
+// Create an input state to the program. It contains one binding: a variable 'inp' (DSL input)
 // is bound to the string "PROSE Rocks".
 var input = State.Create(grammar.InputSymbol, "PROSE Rocks");
 // Execute the program on the input state.
@@ -113,34 +113,34 @@ A DSL may contain multiple `using semantics` declarations, but each operator sho
 ``` csharp
 static class Semantics
 {
-	static string Substring(string in, Tuple<int?, int?> posPair)
+	static string Substring(string inp, Tuple<int?, int?> posPair)
 	{
 		if (posPair.Item1 == null || posPair.Item2 == null)
 			return null;
 		int start = posPair.Item1.Value;
 		int end = posPair.Item2.Value;
-		if (start < 0 || start >= in.Length ||
-		    end < 0 || end >= in.Length || end < start)
+		if (start < 0 || start >= inp.Length ||
+		    end < 0 || end >= inp.Length || end < start)
 		    return null;
-		return in.Substring(start, end - start);
+		return inp.Substring(start, end - start);
 	}
 
-	static int? AbsolutePosition(string in, int k)
+	static int? AbsolutePosition(string inp, int k)
 	{
-		if (k > in.Length || k < -in.Length - 1)
+		if (k > inp.Length || k < -inp.Length - 1)
 			return null;
-		return k >= 0 ? k : (in.Length + k + 1);
+		return k >= 0 ? k : (inp.Length + k + 1);
 	}
 
-	static int? RegexPosition(string in, Tuple<Regex, Regex> regexPair, int occurrence)
+	static int? RegexPosition(string inp, Tuple<Regex, Regex> regexPair, int occurrence)
 	{
 		if (regexPair.Item1 == null || regexPair.Item2 == null)
 			return null;
 		Regex left = regexPair.Item1;
 		Regex right = regexPair.Item2;
-		var rightMatches = right.Matches(in).ToDictionary(m => m.Index);
+		var rightMatches = right.Matches(inp).ToDictionary(m => m.Index);
 		var matchPositions = new List<int>();
-		foreach (Match m in left.Matches(in))
+		foreach (Match m in left.Matches(inp))
 		    if (rightMatches.ContainsKey(m.Right))
 			    matchPositions.Add(m.Right);
 	    if (occurrence >= matchPositions.Count ||
@@ -156,7 +156,7 @@ static class Semantics
 These examples illustrate several important points that you should keep in mind when designing a DSL:
 
  - DSL operators must be *total* (return a value for each possible combination of inputs) and *pure* (deterministic without observable side effects). A invalid input or any other exceptional situation should be handled not by throwing an exception, but by returning `null` instead. In PROSE, `null` is a valid value with a meaning "computation failed".
- - Semantics functions should have the same name and signature as their corresponding DSL operators. They don't have access to the current input state -- if you need to access a DSL variable in scope, include it explicitly as a parameter. In our example, `in` is a parameter for both `AbsolutePosition` and `RegexPosition`.
+ - Semantics functions should have the same name and signature as their corresponding DSL operators. They don't have access to the current input state -- if you need to access a DSL variable in scope, include it explicitly as a parameter. In our example, `inp` is a parameter for both `AbsolutePosition` and `RegexPosition`.
 
 > **Note:** The `dslc` grammar compiler uses reflection to find definitions of external components of a grammar, such as semantics functions. It searches over the assemblies specified with `reference` statements in the grammar. Those assemblies must be built and present at given locations when you execute `dslc` (in a command-line or API form). If you build your semantics functions and your grammar definition in the same solution, make sure to separate them into different projects and make the grammar project depend on the semantics project, so that the latter one is built first.
 
@@ -192,7 +192,7 @@ However, they are seemingly unbounded: any integer or regular expression on Eart
 
 What about the specification, then?
 An input-output example that we provided drastically restricts the search space size.
-For instance, the input string `"PROSE Rocks"` is 11 characters long, hence any absolute position extraction logic `AbsolutePosition(in, k)` with $k > 12$ or $k < -11$ cannot be consistent with the spec.
+For instance, the input string `"PROSE Rocks"` is 11 characters long, hence any absolute position extraction logic `AbsolutePosition(inp, k)` with $k > 12$ or $k < -11$ cannot be consistent with the spec.
 What we just did was backwards reasoning over the DSL structure: we deduced a constraint on `k` in a desired program from a constraint on the entire program.
 To do that, we essentially *inverted the semantics of `AbsolutePosition`*, deducing its inputs (or their properties) given the output.
 In PROSE, such a procedure is called a *witness function*, and it is a surprisingly simple way to specify immensely powerful hints for the learning process.
@@ -202,13 +202,13 @@ A witness function is defined for a *parameter* of a DSL operator.
 In its simplest form a witness function deduces a specification on that parameter given a specification on the entire operator.
 A witness function does not by itself constitute a learning algorithm (or even a substantial portion of it), it is simply a domain-specific property of some operator in your language -- its inverse semantics.
 
-For instance, the first witness function we'll write in this tutorial is defined for the parameter `posPair` of the rule `Substring(in, posPair)` of our `SubstringExtraction` DSL.
-It takes as input an `ExampleSpecification` $\phi$ on an output of `Substring(in, posPair)`, and deduces a spec $\phi'$ on an output of `posPair` subexpression that is necessary (or even better, necessary and sufficient) for the entire expression to satisfy $\phi$.
+For instance, the first witness function we'll write in this tutorial is defined for the parameter `posPair` of the rule `Substring(inp, posPair)` of our `SubstringExtraction` DSL.
+It takes as input an `ExampleSpecification` $\phi$ on an output of `Substring(inp, posPair)`, and deduces a spec $\phi'$ on an output of `posPair` subexpression that is necessary (or even better, necessary and sufficient) for the entire expression to satisfy $\phi$.
 
-Consider a program `Substring(in, posPair)` that outputs `"PROSE"` on a given input state $\\{$ `in` $:=$ `"PROSE Rocks"` $\\}$. What could be a possible spec on `posPair`? Clearly, we know it precisely for the given example: `posPair`, whatever this program is, must have evaluated to `(0, 5)` because this is the only occurrence of the string `"Rocks"` in the given input `"PROSE Rocks"`.
+Consider a program `Substring(inp, posPair)` that outputs `"PROSE"` on a given input state $\\{$ `inp` $:=$ `"PROSE Rocks"` $\\}$. What could be a possible spec on `posPair`? Clearly, we know it precisely for the given example: `posPair`, whatever this program is, must have evaluated to `(0, 5)` because this is the only occurrence of the string `"Rocks"` in the given input `"PROSE Rocks"`.
 
 In a more complex example, however, there is no single answer.
-For instance, suppose `in == "(206) 279-6261"`, and the corresponding desired output in a spec is `"2"`. In this case, the substring `"2"` could have been extracted from 3 different places in the input string.
+For instance, suppose `inp == "(206) 279-6261"`, and the corresponding desired output in a spec is `"2"`. In this case, the substring `"2"` could have been extracted from 3 different places in the input string.
 Therefore, instead of *witnessing* a single output value for `posPair` on a given input, in this case we witness a *disjunction* of three possible output values.
 A disjunction of possible outputs has its own representative spec type in PROSE -- `DisjunctiveExamplesSpec`.
 
@@ -228,16 +228,16 @@ static class WitnessFunctions
 		foreach (var example in spec.Examples)
 		{
 			State inputState = example.Key;
-			// the first parameter of Substring is the variable symbol 'in'
+			// the first parameter of Substring is the variable symbol 'inp'
 			// we extract its current bound value from the given input state
-			var in = (string) inputState[rule.Body[0]];
+			var inp = (string) inputState[rule.Body[0]];
 			var substring = (string) example.Value;
 			var occurrences = new List<Tuple<int?, int?>>();
-			// Iterate over all occurrences of 'substring' in 'in', and add their position boundaries
+			// Iterate over all occurrences of 'substring' in 'inp', and add their position boundaries
 			// to the list of possible outputs for posPair.
-			for (int i = in.IndexOf(substring);
+			for (int i = inp.IndexOf(substring);
 			     i >= 0;
-			     i = in.IndexOf(substring, i + 1))
+			     i = inp.IndexOf(substring, i + 1))
 		    {
 			    occurrences.Add(Tuple.Create((int?) i, (int?) i + substring.Length));
 		    }
@@ -263,14 +263,14 @@ Some important points on writing witness functions:
  - A witness function is defined for one parameter of an operator, not the entire operator.
  - A witness function takes as input a spec on the output of *the entire operator expression*, and outputs a spec on the output of *one parameter program in that expression*.
  - Ideally, the spec produced by a witness function is necessary and sufficient to satisfy the given outer spec. You can also write an *imprecise* witness function, whose produced spec is only necessary for the outer spec to hold (in other words, it is an *overapproximation*). Such a witness function says "I cannot constrain this parameter precisely, but I can narrow down the space of possibilities. All valid parameter programs should satisfy my produced spec, but there may be some invalid ones that also satisfy it." To mark a witness function as imprecise, add a property `Precise = false` to its `[WitnessFunction]` attribute.
- - You don't need to define witness functions for parameters that are grammar variables in a state (such as `in`). More generally, you don't need to define witness functions for a parameter $p$ if all DSL programs that may derive from $p$ do not include any literals.
+ - You don't need to define witness functions for parameters that are grammar variables in a state (such as `inp`). More generally, you don't need to define witness functions for a parameter $p$ if all DSL programs that may derive from $p$ do not include any literals.
  - You don't need to define witness functions for operators from the standard library (with some exceptions).
  - Returning `null` from a witness function means "The given spec is inconsistent, no program can possibly satisfy it."
 
 #### Absolute positions
 Covering more DSL operators with witness functions is straightforward.
 The next one witnesses `k` in the `AbsolutePosition` operator.
-Given an example of position $\ell$ that `AbsolutePosition(in, k)` produced, `k` must have been one of two options: the offset of $\ell$ from the left or from the right in `in`.
+Given an example of position $\ell$ that `AbsolutePosition(inp, k)` produced, `k` must have been one of two options: the offset of $\ell$ from the left or from the right in `inp`.
 We can apply similar logic if we are given not one position $\ell$ but a disjunction of them: the witness function just enumerates over each option, collecting all possible $k$s.
 
 ``` csharp
@@ -282,11 +282,11 @@ static DisjunctiveExamplesSpec WitnessK(GrammarRule rule, int parameter, Disjunc
 	{
 		State inputState = example.Key;
 		var ks = new HashSet<int?>();
-		var in = (string) inputState[rule.Body[0]];
+		var inp = (string) inputState[rule.Body[0]];
 		foreach (int? pos in example.Value)
 		{
 			ks.Add(pos);
-			ks.Add(pos - in.Length - 1);
+			ks.Add(pos - inp.Length - 1);
 		}
 		if (ks.Count == 0) return null;
 		result[inputState] = ks;
@@ -300,12 +300,12 @@ Operator `RegexPosition` needs 2 witness functions: one for its `rr` parameter a
 For the first one, we need to learn a list of regular expressions that match to the left and to the right of given position.
 There are many techniques for doing that; in this tutorial, we will assume that we have a predefined list of "common" regexes like `/[0-9]+/`, and enumerate them exhaustively at a given position.
 
-> **Note:** to make the semantics of `RegexPosition(in, rr, k)` and its witness functions consistent, we need to agree on what does it mean for a regex to "match" at a given position.
+> **Note:** to make the semantics of `RegexPosition(inp, rr, k)` and its witness functions consistent, we need to agree on what does it mean for a regex to "match" at a given position.
 > If we take a standard definition of "matching", and simply test each regex at each position, we will later run into problems when determining the corresponding `k` for each regex.
 >
-> Consider a string `in = "abc def"`. We would like a program `RegexPosition(in, RegexPair(//, /[a-z]+/), 1)` to match before a second word in `in` -- in this case, at position #4.
+> Consider a string `inp = "abc def"`. We would like a program `RegexPosition(inp, RegexPair(//, /[a-z]+/), 1)` to match before a second word in `inp` -- in this case, at position #4.
 > However, for that we need to assume *non-overlapping* semantics of regex matches, since the regex `/[a-z]+/` also matches at positions #0, #1, and #2.
-> In fact, there are 6 matches of this regex in `in`, but only two "words", by a "common sense" definition.
+> In fact, there are 6 matches of this regex in `inp`, but only two "words", by a "common sense" definition.
 > Therefore, instead of testing a regex at each position, we need to first run it against the entire string, record a list of non-overlapping matches, and only then test a position for a match in that list.
 >
 > For computational efficiency, ideally we should *cache* the run of each predefined regex against each input string in the examples before the learning session starts.
@@ -322,19 +322,19 @@ Regex[] UsefulRegexes = {
 };
 
 // For efficiency, this function should be invoked only once for each input string before the learning session starts
-void BuildStringMatches(string in, out Dictionary<int, List<Match>> leftMatches,
+void BuildStringMatches(string inp, out Dictionary<int, List<Match>> leftMatches,
                         out Dictionary<int, List<Match>> rightMatches)
 {
 	leftMatches = new Dictionary<int, List<Match>>();
 	rightMatches = new Dictionary<int, List<Match>>();
-	for (int p = 0; p <= in.Length; ++p)
+	for (int p = 0; p <= inp.Length; ++p)
 	{
 		leftMatches[p] = new List<Match>();
 		rightMatches[p] = new List<Match>();
 	}
 	foreach (Regex r in UsefulRegexes)
 	{
-		foreach (Match m in r.Matches(in))
+		foreach (Match m in r.Matches(inp))
 		{
 			leftMatches[m.Right].Add(m);
 			rightMatches[m.Index].Add(m);
@@ -349,9 +349,9 @@ static DisjunctiveExamplesSpec WitnessRegexPair(GrammarRule rule, int parameter,
 	foreach (var example in spec.DisjunctiveExamples)
 	{
 		State inputState = example.Key;
-		var in = (string) inputState[rule.Body[0]];
+		var inp = (string) inputState[rule.Body[0]];
 		Dictionary<int, List<Match>> leftMatches, rightMatches;
-		BuildStringMatches(in, out leftMatches, out rightMatches);
+		BuildStringMatches(inp, out leftMatches, out rightMatches);
 		var regexes = new List<Tuple<Regex, Regex>>();
 		foreach (int? pos in example.Value)
 			regexes.AddRange(from l in leftMatches[pos.Value]
@@ -384,13 +384,13 @@ static DisjunctiveExamplesSpec WitnessKForRegexPair(Grammar rule, int parameter,
 	foreach (var example in spec.DisjunctiveExamples)
 	{
 		State inputState = example.Key;
-		var in = (string) inputState[rule.Body[0]];
+		var inp = (string) inputState[rule.Body[0]];
 		var regexPair = (Tuple<Regex, Regex>) rrSpec.Examples[inputState];
 		Regex left = regexPair.Item1;
 		Regex right = regexPair.Item2;
-		var rightMatches = right.Matches(in).ToDictionary(m => m.Index);
+		var rightMatches = right.Matches(inp).ToDictionary(m => m.Index);
 		var matchPositions = new List<int>();
-		foreach (Match m in left.Matches(in))
+		foreach (Match m in left.Matches(inp))
 		    if (rightMatches.ContainsKey(m.Right))
 			    matchPositions.Add(m.Right);
 	    var ks = new HashSet<int?>();
@@ -431,7 +431,7 @@ A property is defined in a DSL as follows:
 Here `Score` is its name, `double` is its type, and `ScoreCalculator` is a static class that holds calculator functions.
 Given a program AST `p`, you can access the value of `Score` on this AST as `p["Score"]` (converted to `double`).
 
-> **Note:** by default, variable ASTs such as `in` are automatically assigned a property value of `default(T)` -- in case of `Score`, it's `0.0`.
+> **Note:** by default, variable ASTs such as `inp` are automatically assigned a property value of `default(T)` -- in case of `Score`, it's `0.0`.
 > To override this behavior, put a `@vardefault[VarCalc]` annotation on the property definition, where `VarCalc` is a member of the same static class with calculators.
 > This member may be a (constant) field, a .NET property, or a parameterless method.
 
@@ -441,7 +441,7 @@ There are three ways to define a calculator: based on *recursive property values
 
 #### Calculation from recursive values
 The most common property definitions are inductive, recursively defined over the grammar.
-For instance, a score for `RegPos(in, rr, k)` would be defined as a formula over a score for `rr` and a score for `k`.
+For instance, a score for `RegPos(inp, rr, k)` would be defined as a formula over a score for `rr` and a score for `k`.
 Such property calculators take as input recursively computed values of the same property on parameters of a current program AST:
 
 ``` csharp
@@ -456,9 +456,9 @@ You can specify specific subclasses of `ProgramNode` instead as parameters, if y
 
 ``` csharp
 [PropertyCalculator("AbsolutePosition", Method = CalculationMethod.FromChildrenNodes]
-static double ScoreAbsolutePosition(VariableNode in, LiteralNode k)
+static double ScoreAbsolutePosition(VariableNode inp, LiteralNode k)
 {
-	double score = (double) in["Score"] + (double) k["Score"];
+	double score = (double) inp["Score"] + (double) k["Score"];
 	int kValue = (int) k.Value;
 	if (Math.Abs(k) <= 1)
 		score *= 10;
@@ -510,7 +510,7 @@ Assuming scoring functions similar to FlashFill, this program will be "Extract t
 ``` csharp
 ProgramNode p = bestLearned.First();
 Console.WriteLine(p);
-/* Substring(in, PositionPair(RegexPosition(in, RegexPair(//, /\w+/), 0), RegexPosition(in, RegexPair(/\w+/, //), 0)) */
+/* Substring(inp, PositionPair(RegexPosition(inp, RegexPair(//, /\w+/), 0), RegexPosition(inp, RegexPair(/\w+/, //), 0)) */
 State input = State.Create(grammar.InputSymbol, "Program Synthesis");
 Console.WriteLine(p.Invoke(input));
 /* Program */
