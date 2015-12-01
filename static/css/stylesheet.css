@@ -30,9 +30,9 @@ time, mark, audio, video {
 
 div {
     font: inherit;
-    margin: 0px;
-    padding: 0px;
-    border: 0px currentColor;
+    margin: 0;
+    padding: 0;
+    border: 0 currentColor;
     border-image: none;
     vertical-align: baseline;
     font-size-adjust: inherit;
@@ -57,6 +57,7 @@ body {
     box-sizing: border-box;
     color: #373737;
     background: #212121;
+    padding-top: 0;
     font-size: 16px;
     line-height: 1.5em;
     font-family: 'Segoe UI', 'Segoe WP Light', 'Segoe WP', Tahoma, Arial, sans-serif;
@@ -111,6 +112,10 @@ h6 {
     font-size: 16px;
 }
 
+p, #toc, div.post {
+    line-height: 24px;
+}
+
 p {
     margin: 10px 0 15px 0;
 }
@@ -124,16 +129,11 @@ a {
     color: steelblue;
     text-shadow: none;
 
-    transition: color 0.5s ease;
-    transition: text-shadow 0.5s ease;
-    -webkit-transition: color 0.5s ease;
-    -webkit-transition: text-shadow 0.5s ease;
-    -moz-transition: color 0.5s ease;
-    -moz-transition: text-shadow 0.5s ease;
-    -o-transition: color 0.5s ease;
-    -o-transition: text-shadow 0.5s ease;
-    -ms-transition: color 0.5s ease;
-    -ms-transition: text-shadow 0.5s ease;
+    transition: color 0.5s ease, text-shadow 0.5s ease;
+    -webkit-transition: color 0.5s ease, text-shadow 0.5s ease;
+    -moz-transition: color 0.5s ease, text-shadow 0.5s ease;
+    -o-transition: color 0.5s ease, text-shadow 0.5s ease;
+    -ms-transition: color 0.5s ease, text-shadow 0.5s ease;
 }
 
 a:hover, a:focus {
@@ -155,7 +155,6 @@ strong {
 
 img {
     position: relative;
-    margin: 0 auto;
     max-width: 739px;
     padding: 5px;
     margin: 10px 0 10px 0;
@@ -204,6 +203,7 @@ pre code {
 }
 
 blockquote {
+    font-size: 15px;
     color: #666;
     margin-bottom: 20px;
     padding: 0 0 0 20px;
@@ -215,14 +215,12 @@ ul, ol, dl {
 }
 
 ul {
-    list-style-position: inside;
-    list-style: disc;
+    list-style: disc inside;
     padding-left: 20px;
 }
 
 ol {
-    list-style-position: inside;
-    list-style: decimal;
+    list-style: decimal inside;
     padding-left: 20px;
 }
 
@@ -301,7 +299,7 @@ Full-Width Styles
 }
 
 #header_wrap .inner-content {
-    padding: 0px 0px 0px 0px;
+    padding: 0 0 0 0;
 }
 
 #project_title {
@@ -309,7 +307,7 @@ Full-Width Styles
     color: #fff;
     font-size: 35px;
     font-weight: 700;
-    text-shadow: #111 0px 0px 10px;
+    text-shadow: #111 0 0 10px;
 }
 
 #project_tagline {
@@ -318,7 +316,7 @@ Full-Width Styles
     font-weight: 200;
     font-size: 20px;
     background: none;
-    text-shadow: #111 0px 0px 10px;
+    text-shadow: #111 0 0 10px;
 }
 
 .leftNav {
@@ -341,35 +339,6 @@ Full-Width Styles
     padding: 0 20px;
 }
 
-.zip_download_link {
-    display: block;
-    float: right;
-    width: 90px;
-    height: 70px;
-    text-indent: -5000px;
-    overflow: hidden;
-    background: url(../images/sprite_download.png) no-repeat bottom left;
-}
-
-.tar_download_link {
-    display: block;
-    float: right;
-    width: 90px;
-    height: 70px;
-    text-indent: -5000px;
-    overflow: hidden;
-    background: url(../images/sprite_download.png) no-repeat bottom right;
-    margin-left: 10px;
-}
-
-.zip_download_link:hover {
-    background: url(../images/sprite_download.png) no-repeat top left;
-}
-
-.tar_download_link:hover {
-    background: url(../images/sprite_download.png) no-repeat top right;
-}
-
 .container {
     max-width: 740px;
     padding-right: 15px;
@@ -389,9 +358,7 @@ Full-Width Styles
     float: right;
     width: 47%;
     padding-left: 25px;
-    border-left-width: 1px;
-    border-left-style: outset;
-    border-left-color: lightslategray;
+    border-left: 1px outset lightslategray;
     clear: right;
 }
 
@@ -417,6 +384,7 @@ Full-Width Styles
 
 #footer_wrap {
     clear: both;
+    font-size: smaller;
     background: #212121;
 }
 
