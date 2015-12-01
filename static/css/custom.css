@@ -4,11 +4,11 @@ a.footnote-return {
     margin-left: 5px;
 }
 
-.footnote-ref > a:before {
+a[rel="footnote"]:before {
     content: "[";
 }
 
-.footnote-ref > a:after {
+a[rel="footnote"]:after {
     content: "]";
 }
 
