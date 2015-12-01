@@ -19,6 +19,7 @@ interface ILanguageList {
 interface Prism {
     languages: ILanguageList;
     highlightElement(element: HTMLElement, async?: boolean, callback?: (n: HTMLElement) => void): void;
+    highlightAll(async?: boolean, callback?: (n: HTMLElement) => void): void;
 }
 
 declare var Prism: Prism;

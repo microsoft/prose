@@ -68,14 +68,14 @@ function fixTOC() {
     $toc.find("nav > ul").each(displayNode);
 }
 
-window.onload = function() {
+export function main() {
     $("#main_content_wrap").find("table").addClass("table table-hover table-bordered");
 
-    $(".footnote-return").each(function() {
+    $(".footnote-return").each(function () {
         $(this).prev().append($(this));
     });
 
     fixTOC();
     setupAnchors();
     setupPrism();
-};
+}

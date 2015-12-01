@@ -29,62 +29,18 @@
     <link href='//fonts.googleapis.com/css?family=Lora:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ site.baseurl }}/static/css/bootstrap.min.css" media="screen">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.js"
-            data-main="{{ site.baseurl }}/static/js/requires.js"></script>
-
     <link rel="stylesheet" href="{{ site.baseurl }}/static/css/hugo-bootswatch.css">
     <link href="{{ site.baseurl }}/static/css/bootstrap-flat.min.css" rel="stylesheet">
     <link href="{{ site.baseurl }}/static/css/bootstrap-flat-extras.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="{{ site.baseurl }}/static/css/prism.css"/>
     <link href="{{ site.baseurl }}/static/css/prism-ghcolors.css" rel="stylesheet"/>
-    <script src="{{ site.baseurl }}/static/js/prism.js"></script>
-
-    <script type="text/javascript"
-            src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-                inlineMath: [['$', '$']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                processEscapes: true,
-                processEnvironments: true,
-                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-                TeX: {
-                    equationNumbers: {autoNumber: "AMS"},
-                    extensions: ["AMSmath.js", "AMSsymbols.js"]
-                }
-            },
-            TeX: {
-                Macros: {
-                    llbracket: "[\\![",
-                    rrbracket: "]\\!]"
-                }
-            }
-        });
-
-    </script>
-
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Queue(function () {
-            // Fix <code> tags after MathJax finishes running. This is a
-            // hack to overcome a shortcoming of Markdown. Discussion at
-            // https://github.com/mojombo/jekyll/issues/199
-            var all = MathJax.Hub.getAllJax(), i;
-            for (i = 0; i < all.length; i += 1) {
-                all[i].SourceElement().parentNode.className += ' has-jax';
-            }
-        });
-
-    </script>
 
     <link rel="stylesheet" href="{{ site.baseurl }}/static/css/github-light.css">
     <link rel="stylesheet" href="{{ site.baseurl }}/static/css/stylesheet.css">
     <link rel="stylesheet" href="{{ site.baseurl }}/static/css/custom.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.js"
+            data-main="{{ site.baseurl }}/static/js/requires.js"></script>
 </head>
