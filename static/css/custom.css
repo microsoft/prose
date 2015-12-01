@@ -20,6 +20,9 @@ code.has-jax {
     background: inherit;
     border: inherit;
     color: #515151;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
 }
 
 /* Table of Contents */
