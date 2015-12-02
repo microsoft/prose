@@ -85,7 +85,7 @@ using learners TestSemantics.FlashFill.Learners;
 language FlashFill;
 
 @start string f := ConstStr(s) | let x: string = v in SubStr(x, P, P);
-int P := CPos(k) | Pos(x, r, r, k);
+int P := CPos(x, k) | Pos(x, r, r, k);
 int k;
 @values[StringGen] string s;
 Regex r;
@@ -185,12 +185,10 @@ public static class Semantics
 		return k < 0 ? s.Length + 1 + k : k;
 	}
 
-	public static int? Pos(string s, Tuple<Regex, Regex> boundaryPair,
-							int occurrence)
+	public static int? Pos(string s, Regex leftRegex, Regex rightRegex,
+						   int occurrence)
 	{
-		Regex leftRegex = boundaryPair.Item1;
-		Regex rightRegex = boundaryPair.Item2;
-		var boundaryRegex =  new Regex("(?<={0}){1}".FormatWith(leftRegex, rightRegex));
+		var boundaryRegex = new Regex(string.Format("(?<={0}){1}", leftRegex, rightRegex));
 		var matches = boundaryRegex.Matches(s);
 		int index = occurrence > 0 ? occurrence - 1 : matches.Count + occurrence;
 		if (index < 0 || index >= matches.Count)
@@ -205,15 +203,13 @@ public static class Semantics
 		return s;
 	}
 
-	public static string SubStr(string s, Tuple<int, int> positionPair)
+	public static string SubStr(string s, int left, int right)
 	{
-		int left = positionPair.Item1;
-		int right = positionPair.Item2;
 		if (left < 0 || right > s.Length || right < left)
 		{
 			return null;
 		}
-		return s.Slice(left, right);
+		return s.Substring(left, right - left);
 	}
 
 	public static string Concat(string s, string t)

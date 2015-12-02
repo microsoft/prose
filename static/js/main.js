@@ -24,19 +24,13 @@ define(["require", "exports"], function (require, exports) {
         $(".language-dsl").each(function () {
             Prism.highlightElement($(this)[0]);
         });
+        Prism.highlightAll();
     }
     function setupAnchors() {
         var $root = $("html, body");
         $("a[href*=#]:not([data-toggle])").click(function () {
             $root.animate({ scrollTop: $(jqEscape($(this).attr("href"))).offset().top }, "fast");
             return false;
-        });
-        $("main h1, main h2, main h3").each(function () {
-            var id = $(this).attr("id");
-            $(this).wrapInner("<a class=\"header-link\" href=\"#" + id + "\"></a>");
-            var $upArrow = $('<span class="anchor-highlight" style="display: none;"><a href="#top"><i class="fa fa-level-up" /></a></span>');
-            $(this).hover(function () { return $upArrow.delay(100).fadeIn(200); }, function () { return $upArrow.fadeOut(200); });
-            $(this).append($upArrow);
         });
         $("a[href=#top]").click(function () {
             $root.animate({ scrollTop: 0 }, "fast");

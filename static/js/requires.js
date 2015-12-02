@@ -52,6 +52,5 @@ require.config({
 require(['app', 'jquery', 'bootstrap', 'jasny', 'prism', 'mathjax'],
     function (app) {
         app.main();
-        Prism.highlightAll();
     }
 );

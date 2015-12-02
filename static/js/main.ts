@@ -27,6 +27,7 @@ function setupPrism() {
     $(".language-dsl").each(function () {
         Prism.highlightElement($(this)[0]);
     });
+    Prism.highlightAll();
 }
 
 function setupAnchors() {
@@ -34,14 +35,6 @@ function setupAnchors() {
     $("a[href*=#]:not([data-toggle])").click(function () {
         $root.animate({scrollTop: $(jqEscape($(this).attr("href"))).offset().top}, "fast");
         return false;
-    });
-
-    $("main h1, main h2, main h3").each(function () {
-        const id = $(this).attr("id");
-        $(this).wrapInner(`<a class="header-link" href="#${id}"></a>`);
-        var $upArrow = $('<span class="anchor-highlight" style="display: none;"><a href="#top"><i class="fa fa-level-up" /></a></span>');
-        $(this).hover(() => $upArrow.delay(100).fadeIn(200), () => $upArrow.fadeOut(200));
-        $(this).append($upArrow);
     });
 
     $("a[href=#top]").click(() => {

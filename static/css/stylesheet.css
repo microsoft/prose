@@ -12,7 +12,7 @@ html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
+small, strike, strong, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
@@ -326,7 +326,6 @@ Full-Width Styles
     padding-left: 5px;
     line-height: normal;
     font-size: 20px;
-    font-family: "Segoe UI Light", "Segoe WP Light", "Segoe UI", "Segoe WP", "Open Sans", Tahoma, Arial, sans-serif;
 }
 
 .leftNav a {

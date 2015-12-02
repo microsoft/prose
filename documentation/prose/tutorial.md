@@ -15,7 +15,7 @@ A DSL consists of several components:
 
 1. **Syntax** -- a *context-free grammar* describing a space of possible programs in a DSL.
 2. **Semantics** -- an executable function for each user-defined DSL operator.
-3. [optional] **Properties** -- computed attributes on individual programs in the DSL (for instance, a syntactic score of a program for ranking purposes).
+3. [optional] **Features** -- computed attributes on individual programs in the DSL (for instance, a syntactic score of a program for ranking purposes).
 4. [optional] **Witness functions** -- small "inverse semantics" functions that enable [$D^4$ synthesis strategy]({{ site.baseurl }}/documentation/prose/d4), the main synthesis technology provided in the PROSE framework.
 
 Below, we illustrate the usage of all 4 components on a small example DSL -- a portion of FlashFill.
@@ -141,8 +141,10 @@ static class Semantics
 		var rightMatches = right.Matches(inp).ToDictionary(m => m.Index);
 		var matchPositions = new List<int>();
 		foreach (Match m in left.Matches(inp))
-		    if (rightMatches.ContainsKey(m.Right))
-			    matchPositions.Add(m.Right);
+		{
+		    if (rightMatches.ContainsKey(m.Index + m.Length))
+			    matchPositions.Add(m.Index + m.Length);
+        }
 	    if (occurrence >= matchPositions.Count ||
 	        occurrence < -matchPositions.Count)
 	        return null;
@@ -170,7 +172,7 @@ However, in this tutorial we explain how to leverage $D^4$ for synthesis of prog
 
 Program synthesis starts with a specification: what do we want from a desired program?
 In PROSE, specifications are *inductive*: they specify an output of a desired program on some input state, or, more generally, some property of this output.
-In this tutorial, we start with the simplest form of such a spec -- `ExampleSpecification`, an input-output example.
+In this tutorial, we start with the simplest form of such a spec -- `ExampleSpec`, an input-output example.
 Given a spec, we invoke a learning session on it, generating a set of programs in the DSL that are consistent with the input-output examples in the spec.
 
 ``` csharp
@@ -179,7 +181,7 @@ using Microsoft.ProgramSynthesis.Learning;
 
 var input = State.Create(grammar.InputSymbol, "PROSE Rocks");
 string desiredOutput = "PROSE";
-var spec = new ExampleSpecification(input, desiredOutput);
+var spec = new ExampleSpec(input, desiredOutput);
 var engine = new SynthesisEngine(grammar);
 ProgramSet learned = engine.LearnGrammar(spec);
 Assert(learned?.Size > 0);
@@ -203,7 +205,7 @@ In its simplest form a witness function deduces a specification on that paramete
 A witness function does not by itself constitute a learning algorithm (or even a substantial portion of it), it is simply a domain-specific property of some operator in your language -- its inverse semantics.
 
 For instance, the first witness function we'll write in this tutorial is defined for the parameter `posPair` of the rule `Substring(inp, posPair)` of our `SubstringExtraction` DSL.
-It takes as input an `ExampleSpecification` $\phi$ on an output of `Substring(inp, posPair)`, and deduces a spec $\phi'$ on an output of `posPair` subexpression that is necessary (or even better, necessary and sufficient) for the entire expression to satisfy $\phi$.
+It takes as input an `ExampleSpec` $\phi$ on an output of `Substring(inp, posPair)`, and deduces a spec $\phi'$ on an output of `posPair` subexpression that is necessary (or even better, necessary and sufficient) for the entire expression to satisfy $\phi$.
 
 Consider a program `Substring(inp, posPair)` that outputs `"PROSE"` on a given input state $\\{$ `inp` $:=$ `"PROSE Rocks"` $\\}$. What could be a possible spec on `posPair`? Clearly, we know it precisely for the given example: `posPair`, whatever this program is, must have evaluated to `(0, 5)` because this is the only occurrence of the string `"Rocks"` in the given input `"PROSE Rocks"`.
 
@@ -222,7 +224,7 @@ using Microsoft.ProgramSynthesis.Learning;
 static class WitnessFunctions
 {
 	[WitnessFunction("Substring", parameterIndex: 1)]
-	static DisjunctiveExamplesSpec WitnessPositionPair(GrammarRule rule, int parameter, ExampleSpecification spec)
+	static DisjunctiveExamplesSpec WitnessPositionPair(GrammarRule rule, int parameter, ExampleSpec spec)
 	{
 		var result = new Dictionary<State, IEnumerable<object>>();
 		foreach (var example in spec.Examples)
@@ -289,7 +291,7 @@ static DisjunctiveExamplesSpec WitnessK(GrammarRule rule, int parameter, Disjunc
 			ks.Add(pos - inp.Length - 1);
 		}
 		if (ks.Count == 0) return null;
-		result[inputState] = ks;
+		result[inputState] = ks.Cast<object>();
 	}
 	return new DisjunctiveExamplesSpec(result);
 }
@@ -322,22 +324,22 @@ Regex[] UsefulRegexes = {
 };
 
 // For efficiency, this function should be invoked only once for each input string before the learning session starts
-void BuildStringMatches(string inp, out Dictionary<int, List<Match>> leftMatches,
-                        out Dictionary<int, List<Match>> rightMatches)
+static void BuildStringMatches(string inp, out List<Tuple<Match, Regex>>[] leftMatches,
+                               out List<Tuple<Match, Regex>>[] rightMatches)
 {
-	leftMatches = new Dictionary<int, List<Match>>();
-	rightMatches = new Dictionary<int, List<Match>>();
+	leftMatches = new List<Tuple<Match, Regex>>[inp.Length + 1];
+	rightMatches = new List<Tuple<Match, Regex>>[inp.Length + 1];
 	for (int p = 0; p <= inp.Length; ++p)
 	{
-		leftMatches[p] = new List<Match>();
-		rightMatches[p] = new List<Match>();
+		leftMatches[p] = new List<Tuple<Match, Regex>>();
+		rightMatches[p] = new List<Tuple<Match, Regex>>();
 	}
 	foreach (Regex r in UsefulRegexes)
 	{
 		foreach (Match m in r.Matches(inp))
 		{
-			leftMatches[m.Right].Add(m);
-			rightMatches[m.Index].Add(m);
+			leftMatches[m.Index + m.Length].Add(Tuple.Create(m, r));
+			rightMatches[m.Index].Add(Tuple.Create(m, r));
 		}
 	}
 }
@@ -350,13 +352,15 @@ static DisjunctiveExamplesSpec WitnessRegexPair(GrammarRule rule, int parameter,
 	{
 		State inputState = example.Key;
 		var inp = (string) inputState[rule.Body[0]];
-		Dictionary<int, List<Match>> leftMatches, rightMatches;
+		List<Tuple<Match, Regex>>[] leftMatches, rightMatches;
 		BuildStringMatches(inp, out leftMatches, out rightMatches);
 		var regexes = new List<Tuple<Regex, Regex>>();
 		foreach (int? pos in example.Value)
+		{
 			regexes.AddRange(from l in leftMatches[pos.Value]
 							 from r in rightMatches[pos.Value]
-							 select Tuple.Create(l, r));
+							 select Tuple.Create(l.Item2, r.Item2));
+        }
 		if (regexes.Count == 0) return null;
 		result[inputState] = regexes;
 	}
@@ -372,13 +376,13 @@ After inversion of semantics, skolemization is the second powerful idea that mak
 
 Our witness function for `k` is *conditional* on `rr`: in addition to an outer spec, it takes an additional input -- a spec on its *prerequisite parameter* `rr`.
 In general, it can be any spec that provides your witness function any useful information.
-Typically, an `ExampleSpecification` (i.e., a concrete value of prerequisite -- in this case `rr`) is the most useful and common prerequisite spec.
-We use `ExampleSpecification` here to deduce possible indices `k` for each regex pair in a manner similar to deducing absolute positions above.
+Typically, an `ExampleSpec` (i.e., a concrete value of prerequisite -- in this case `rr`) is the most useful and common prerequisite spec.
+We use `ExampleSpec` here to deduce possible indices `k` for each regex pair in a manner similar to deducing absolute positions above.
 
 ``` csharp
 [WitnessFunction("RegexPosition", 2, DependsOnParameters = new[] { 1 }]
-static DisjunctiveExamplesSpec WitnessKForRegexPair(Grammar rule, int parameter, DisjunctiveExamplesSpec spec,
-                                                    ExampleSpecification rrSpec)
+static DisjunctiveExamplesSpec WitnessKForRegexPair(GrammarRule rule, int parameter, DisjunctiveExamplesSpec spec,
+                                                    ExampleSpec rrSpec)
 {
 	var result = new Dictionary<State, IEnumerable<object>>();
 	foreach (var example in spec.DisjunctiveExamples)
@@ -391,8 +395,10 @@ static DisjunctiveExamplesSpec WitnessKForRegexPair(Grammar rule, int parameter,
 		var rightMatches = right.Matches(inp).ToDictionary(m => m.Index);
 		var matchPositions = new List<int>();
 		foreach (Match m in left.Matches(inp))
-		    if (rightMatches.ContainsKey(m.Right))
-			    matchPositions.Add(m.Right);
+		{
+		    if (rightMatches.ContainsKey(m.Index + m.Length))
+			    matchPositions.Add(m.Index + m.Length);
+        }
 	    var ks = new HashSet<int?>();
 	    foreach (int? pos in example.Value)
 	    {
@@ -402,7 +408,7 @@ static DisjunctiveExamplesSpec WitnessKForRegexPair(Grammar rule, int parameter,
 		    ks.Add(occurrence - matchPositions.Count);
 	    }
 	    if (ks.Count == 0) return null;
-	    result[inputState] = ks;
+	    result[inputState] = ks.Cast<object>();
 	}
     return new DisjunctiveExamplesSpec(result);
 }
@@ -419,43 +425,43 @@ Many disambiguation techniques exist; in this tutorial, we show the most common 
 Ranking assigns each program a *score* -- an approximation to its "prior probability" of being a desired program.
 For instance, string extraction based on absolute indices is less common than extraction based on regular expressions, therefore the former should be assigned a smaller score than the latter.
 
-In PROSE, scores are represented using *computed properties*.
-A property is a named attribute on a program AST, computed using provided *property calculator* functions.
-A property can be *complete*, which means that it must be defined with some value for each possible DSL program, or *incomplete* if it only exists on some DSL programs.
+In PROSE, scores are represented using *computed features*.
+A feature is a named attribute on a program AST, computed using provided *feature calculator* functions.
+A feature can be *complete*, which means that it must be defined with some value for each possible DSL program, or *incomplete* if it only exists on some DSL programs.
 
-A property is defined in a DSL as follows:
+A feature is defined in a DSL as follows:
 
 ```
-@complete double property Score = SubstringExtraction.ScoreCalculator;
+@complete double feature Score = SubstringExtraction.ScoreCalculator;
 ```
 Here `Score` is its name, `double` is its type, and `ScoreCalculator` is a static class that holds calculator functions.
 Given a program AST `p`, you can access the value of `Score` on this AST as `p["Score"]` (converted to `double`).
 
-> **Note:** by default, variable ASTs such as `inp` are automatically assigned a property value of `default(T)` -- in case of `Score`, it's `0.0`.
-> To override this behavior, put a `@vardefault[VarCalc]` annotation on the property definition, where `VarCalc` is a member of the same static class with calculators.
+> **Note:** by default, variable ASTs such as `inp` are automatically assigned a feature value of `default(T)` -- in case of `Score`, it's `0.0`.
+> To override this behavior, put a `@vardefault[VarCalc]` annotation on the feature definition, where `VarCalc` is a member of the same static class with calculators.
 > This member may be a (constant) field, a .NET property, or a parameterless method.
 
-### Property calculators
-A property calculator is defined for a grammar rule.
-There are three ways to define a calculator: based on *recursive property values*, based on *program syntax*, or based on *literal values*.
+### Feature calculators
+A feature calculator is defined for a grammar rule.
+There are three ways to define a calculator: based on *recursive feature values*, based on *program syntax*, or based on *literal values*.
 
 #### Calculation from recursive values
-The most common property definitions are inductive, recursively defined over the grammar.
+The most common feature definitions are inductive, recursively defined over the grammar.
 For instance, a score for `RegexPosition(inp, rr, k)` would be defined as a formula over a score for `rr` and a score for `k`.
-Such property calculators take as input recursively computed values of the same property on parameters of a current program AST:
+Such feature calculators take as input recursively computed values of the same feature on parameters of a current program AST:
 
 ``` csharp
-[PropertyCalculator("RegexPosition", Method = CalculationMethod.FromRecursivePropertyValues)]
+[FeatureCalculator("RegexPosition", Method = CalculationMethod.FromRecursiveFeatureValues)]
 static double ScoreRegexPosition(double inScore, double rrScore, double kScore) => rrScore * kScore;
 ```
 
 #### Calculation from syntax nodes
-When recursively computed property values are insufficient, you can take into account the entire syntax of a program AST.
+When recursively computed feature values are insufficient, you can take into account the entire syntax of a program AST.
 Such a calculator takes as input `ProgramNode` instances representing ASTs of parameter programs.
 You can specify specific subclasses of `ProgramNode` instead as parameters, if you know that your grammar structure only allows some specific AST kinds at this place.
 
 ``` csharp
-[PropertyCalculator("AbsolutePosition", Method = CalculationMethod.FromChildrenNodes]
+[FeatureCalculator("AbsolutePosition", Method = CalculationMethod.FromChildrenNodes]
 static double ScoreAbsolutePosition(VariableNode inp, LiteralNode k)
 {
 	double score = (double) inp["Score"] + (double) k["Score"];
@@ -467,18 +473,18 @@ static double ScoreAbsolutePosition(VariableNode inp, LiteralNode k)
 ```
 
 #### Calculation from literals
-An inductively defined computed property needs a basic case -- its value on literal program ASTs.
-Property calculators on terminal rules can take as input simply the value of a literal in a `LiteralNode` currently being scored.
+An inductively defined computed feature needs a basic case -- its value on literal program ASTs.
+Feature calculators on terminal rules can take as input simply the value of a literal in a `LiteralNode` currently being scored.
 
-Since terminal rules do not have names, you cannot associate a calculator with a rule simply by putting its name in a first parameter of the `[PropertyCalculator]` attribute.
-Instead, you can annotate the rule itself with a `@property` annotation, which specifies a calculator for each relevant property.
+Since terminal rules do not have names, you cannot associate a calculator with a rule simply by putting its name in a first parameter of the `[FeatureCalculator]` attribute.
+Instead, you can annotate the rule itself with a `@feature` annotation, which specifies a calculator for each relevant feature.
 
 ```
-@property[Score=KScore] int k;
+@feature[Score=KScore] int k;
 ```
 
 ``` csharp
-[PropertyCalculator(Method = CalculationMethod.FromLiteral)]
+[FeatureCalculator(Method = CalculationMethod.FromLiteral)]
 static double KScore(int k) => 1.0 / (1 + Math.Abs(k));
 ```
 
@@ -491,7 +497,7 @@ After you define all of them, you can now extract $k$ topmost-ranked programs ou
 ProgramSet learned = engine.LearnGrammar(spec);
 IEnumerable<ProgramNode> best = learned.TopK("Score", k: 1);
 ```
-The method `TopK` assumes that your property has a numerical type (convertible to `double`).
+The method `TopK` assumes that your feature has a numerical type (convertible to `double`).
 It returns an descendingly ordered sequence of programs (greater score values are better).
 If several programs have the same score, they are all returned in the sequence, thus it may hold more programs than the requested value of `k`.
 
@@ -502,7 +508,7 @@ Such a request significantly improves learning performance, since PROSE can perf
 IEnumerable<ProgramNode> bestLearned = engine.LearnGrammarTopK(spec, "Score", k: 1);
 ```
 
-> **Important:** in order for both `TopK` methods to work soundly, your property must be *monotonic* over the grammar structure. In other words, greater-scored subexpressions should produce greater-scored expressions.
+> **Important:** in order for both `TopK` methods to work soundly, your feature must be *monotonic* over the grammar structure. In other words, greater-scored subexpressions should produce greater-scored expressions.
 
 We can now take the best program and apply it on new user-provided data.
 Assuming scoring functions similar to FlashFill, this program will be "Extract the first word":

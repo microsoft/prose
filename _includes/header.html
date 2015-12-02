@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="description"
-          content="Microsoft Program Synthesis using Examples SDK Samples :  The PROSE SDK is a set of technologies for the automatic generation of programs from input-output examples. This repo includes samples and sample data for the Microsoft Program Synthesis using Examples SDK.">
+          content="Microsoft PROSE is a framework of technologies for automatic generation of programs from input-output examples, keywords, and similar forms of imprecise specification. In PROSE, you define a domain-specific language (DSL) of programs that constitute your domain of useful tasks (e.g. a DSL of CSS selectors). At runtime, you give PROSE some (typically user-provided) input-output examples for the desired program’s behavior, and its algorithms synthesize a ranked set of programs from this DSL that are consistent with the given examples. These programs can be saved and applied on similar user data after one learning session (typically with 1-4 examples). PROSE can be used to enable programming-by-example experience in an arbitrary user-facing application, provided the app developer describes its application domain in a DSL form.
+
+          As part of the project, the PROSE framework includes a set of specific technologies for various data wrangling domains. These include FlashFill, a library of string transformations from Microsoft Excel 2013, text extraction library with a DSL of programs that find a desired sequence of regions in a textual file, and a web extraction library with a CSS-based DSL of programs that select a set of elements on a web page. All three data wrangling libraries, as well as the underlying program synthesis framework, can currently be used out of the box for research, education, and other non-commercial initiatives.">
 
     <script type="text/javascript">
         var loc = window.location.toString();
@@ -29,7 +31,6 @@
     <link href='//fonts.googleapis.com/css?family=Lora:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ site.baseurl }}/static/css/bootstrap.min.css" media="screen">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ site.baseurl }}/static/css/hugo-bootswatch.css">
     <link href="{{ site.baseurl }}/static/css/bootstrap-flat.min.css" rel="stylesheet">
     <link href="{{ site.baseurl }}/static/css/bootstrap-flat-extras.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
