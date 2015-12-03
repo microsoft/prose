@@ -1,19 +1,21 @@
 markdown: kramdown
 kramdown:
-        input: GFM
-        hard_wrap: false
+  input: GFM
+  hard_wrap: false
 redcarpet:
-        extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data", "footnotes", "lax_spacing", "smart"]
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data", "footnotes", "lax_spacing", "smart"]
 permalink: pretty
 defaults:
-        -
-          scope:
-                path: ""
-          values:
-                layout: default
+  -
+    scope:
+      path: ""
+    values:
+      layout: default
+gems:
+  - jekyll-redirect-from
 exclude: 
-        - CNAME
-        - Gemfile
-        - README.md
+  - CNAME
+  - Gemfile
+  - README.md
 baseurl: https://microsoft.github.io/prose
 Title: Microsoft Program Synthesis using Examples SDK
