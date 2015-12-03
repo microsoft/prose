@@ -290,7 +290,7 @@ Full-Width Styles
     text-shadow: #111 0 0 10px;
 }
 
-#project_tagline {
+.project_tagline {
     color: #fff;
 
     font-weight: 200;
