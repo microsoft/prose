@@ -13,7 +13,7 @@ function isVisible($node: JQuery) {
 
 function setupPrism() {
     Prism.languages.xml = Prism.languages.markup;
-    $(".language-xml").each(function () {
+    $("code.language-xml").each(function () {
         Prism.highlightElement($(this)[0]);
     });
 
@@ -21,13 +21,16 @@ function setupPrism() {
         'keyword': /\b(reference|@start|@input|feature|property|language|@values|@feature|@property|@complete|semantics|learners|@witnesses|let|in|using|bool|byte|char|string|int|uint|sbyte|long|ulong|decimal|float|double|short)\b/,
         'property': /@\b\w+/
     });
-    $(".language-text").each(function () {
+    $("code.language-text").each(function () {
         $(this).addClass("language-dsl");
     });
-    $(".language-dsl").each(function () {
+    $("code.language-dsl").each(function () {
         Prism.highlightElement($(this)[0]);
     });
     Prism.highlightAll();
+    $('pre[class*="language-dsl"]').each(function() {
+        $(this).attr("data-language", "DSL");
+    });
 }
 
 function setupAnchors() {
