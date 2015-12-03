@@ -1,6 +1,6 @@
 ---
 date: 2015-10-28T12:19:15-07:00
-title: Microsoft Program Synthesis using Examples SDK FAQ
+title: FAQ
 ---
 
 #### How do I use it?
@@ -15,7 +15,7 @@ out the text and web extraction features.
 
 #### How do I install it?
 
-Use the NuGet package manager in Visual Studio. 
+Use the NuGet package manager in Visual Studio.
 Check "Include prerelease" and search for "Microsoft.ProgramSynthesis".
 If you run into issues installing System.Reflection.Metadata,
 follow [these instructions](http://celticcodingsolutions.com/Blog/post/2015/08/19/visual-studio-2015-and-nuget-redirection-and-package-retrieval-errors.aspx)

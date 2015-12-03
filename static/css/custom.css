@@ -123,3 +123,7 @@ h1:nth-of-type(n + 2):before, h2:before, h3:before {
     max-width: 160px;
     max-height: 160px;
 }
+
+.topicContent {
+    padding-bottom: 100px;
+}
