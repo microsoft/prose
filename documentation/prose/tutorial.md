@@ -51,6 +51,7 @@ Tuple<Regex, Regex> positionBoundaries := RegexPair(r, r)
 Regex r;
 int k;
 ```
+{: .language-dsl}
 
 Here are some possible extraction programs contained in the `SubstringExtraction` DSL:
 
