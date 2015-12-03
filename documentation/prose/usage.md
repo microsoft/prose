@@ -91,6 +91,7 @@ int k;
 Regex r;
 @input string v;
 ```
+{: .language-dsl}
 
 NOTE: The operators `ConstStr`, `SubStr`, `CPos` and `Pos` are defined in
 [Black-box operators](#black-box-operators) below.
@@ -256,6 +257,7 @@ The running grammar definition FlashFill contains the following rule:
 ```
 @start string f := let x: string = v in SubStr(x, P, P)
 ```
+{: .language-dsl}
 
 The formal signature of this rule has three free parameters:
 $v,\ P,\ P.$ At runtime, the `Let` construct, when given a state
@@ -274,6 +276,7 @@ following rule:
 ```
 int P := Pos(x, r, r, k)
 ```
+{: .language-dsl}
 
 `Pos` is a simple black-box operator, just like `SubStr`.
 When given a state $\sigma'$, it passes it on to its parameter symbols
@@ -326,6 +329,7 @@ Regex r;
 StringFilter f := Match(r) | FTrue();
 @start string[] P := Selected(f, v) = Filter(f, v);
 ```
+{: .language-dsl}
 
 The input string array $v$ is filtered with a filter $f$. A filter $f$
 can filter elements either according to a regular expression $r$, or
@@ -373,6 +377,7 @@ Regex r;
 bool f := Match(x, r) | True();
 @start string[] P := Selected(f, v) = Filter(\x: string => f, v);
 ```
+{: .language-dsl}
 
 The first argument of the `Filter` concept is a
 lambda function $\lambda x:f$. In our syntax, it is represented as
@@ -423,6 +428,7 @@ Consider the following concept rule:
 ```
 int S := F(v, P, P) = G(\x: string => P, v, P);
 ```
+{: .language-dsl}
 
 Here $G$ is some standard concept, and $S,\ v,P$ are grammar symbols.
 The correspondence between formal parameters on the LHS and free symbols

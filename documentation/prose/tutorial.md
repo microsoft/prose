@@ -260,6 +260,7 @@ A learning holder is specified in the grammar file similarly to a semantics hold
 ```
 using learners SubstringExtraction.WitnessFunctions;
 ```
+{: .language-dsl}
 Just like with semantics holders, a grammar may contain multiple learning holders.
 
 Some important points on writing witness functions:
@@ -436,6 +437,7 @@ A feature is defined in a DSL as follows:
 ```
 @complete double feature Score = SubstringExtraction.ScoreCalculator;
 ```
+{: .language-dsl}
 Here `Score` is its name, `double` is its type, and `ScoreCalculator` is a static class that holds calculator functions.
 Given a program AST `p`, you can access the value of `Score` on this AST as `p["Score"]` (converted to `double`).
 
@@ -484,6 +486,7 @@ Instead, you can annotate the rule itself with a `@feature` annotation, which sp
 ```
 @feature[Score=KScore] int k;
 ```
+{: .language-dsl}
 
 ``` csharp
 [FeatureCalculator(Method = CalculationMethod.FromLiteral)]
