@@ -47,15 +47,15 @@
 
 /* Footnotes */
 
-a.footnote-return {
+a.reversefootnote {
     margin-left: 5px;
 }
 
-a[rel="footnote"]:before {
+a.footnote:before {
     content: "[";
 }
 
-a[rel="footnote"]:after {
+a.footnote:after {
     content: "]";
 }
 
