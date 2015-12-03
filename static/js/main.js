@@ -53,12 +53,19 @@ define(["require", "exports"], function (require, exports) {
         }
         $toc.find("nav > ul").each(displayNode);
     }
+    function setupNav() {
+        var dropdowns = $(".dropdown");
+        dropdowns.on("shown.bs.dropdown", function (e) { return $(e.target).find("a > .fa").removeClass("fa-angle-right").addClass("fa-angle-down"); });
+        dropdowns.on("hidden.bs.dropdown", function (e) { return $(e.target).find("a > .fa").removeClass("fa-angle-down").addClass("fa-angle-right"); });
+        $("#leftNav").on("shown.bs.offcanvas", function (e) { return $("body").css("padding-right", 0); });
+    }
     function main() {
         $("#main_content_wrap").find("table").addClass("table table-hover table-bordered");
         $(".footnote-return").each(function () {
             $(this).prev().append($(this));
         });
         fixTOC();
+        setupNav();
         setupAnchors();
         setupPrism();
     }

@@ -3,7 +3,6 @@ require.config({
         app: 'main',
 
         jquery: "//code.jquery.com/jquery-1.11.3.min",
-        bootstrap: "//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min",
         jasny: "//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min",
         mathjax: "//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML&amp;delayStartupUntil=configured"
     },

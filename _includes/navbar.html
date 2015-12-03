@@ -1,21 +1,39 @@
-<p><a href="{{ site.baseurl }}/">Home</a></p>
-<p><a href="{{ site.baseurl }}/playground">Playground</a></p>
+<nav id="leftNav" class="navmenu navmenu-default navmenu-fixed-left offcanvas-xs" role="navigation">
+    <ul class="nav navmenu-nav">
+        <li><a href="{{ site.baseurl }}/">Home</a></li>
+        <li><a href="{{ site.baseurl }}/playground">Playground</a></li>
 
-<p>
-    Tutorials
-<ul>
-    <li><a href="{{ site.baseurl }}/documentation/prose/tutorial">Getting Started</a></li>
-</ul>
-</p>
-<p>
-    Documentation
-<ul>
-    <li><a href="{{ site.baseurl }}/documentation/prose/usage">Framework</a></li>
-    <li><a href="{{ site.baseurl }}/documentation/extraction-text/intro">Text Extraction</a></li>
-    <li><a href="{{ site.baseurl }}/documentation/extraction-web/intro">Web Extraction</a></li>
-    <li><a href="{{ site.baseurl }}/documentation/flashfill/intro">Flash Fill</a></li>
-    <li><a href="{{ site.baseurl }}/documentation/api">APIs</a></li>
-</ul>
-</p>
-<p><a href="{{ site.baseurl }}/team/">About Us</a></p>
-<p><a href="{{ site.baseurl }}/faq/">FAQ</a></p>
+        <li class="dropdown open">
+            <a href="#" data-toggle="dropdown">
+                <i class="fa fa-angle-down"></i> Tutorials
+            </a>
+            <ul class="dropdown-menu navmenu-nav">
+                <li><a href="{{ site.baseurl }}/documentation/prose/tutorial">Getting Started</a></li>
+            </ul>
+        </li>
+
+        <li class="dropdown open">
+            <a href="#" data-toggle="dropdown">
+                <i class="fa fa-angle-down"></i> Documentation
+            </a>
+            <ul class="dropdown-menu navmenu-nav">
+                <li><a href="{{ site.baseurl }}/documentation/prose/usage">Framework</a></li>
+                <li><a href="{{ site.baseurl }}/documentation/extraction-text/intro">Text Extraction</a></li>
+                <li><a href="{{ site.baseurl }}/documentation/extraction-web/intro">Web Extraction</a></li>
+                <li><a href="{{ site.baseurl }}/documentation/flashfill/intro">Flash Fill</a></li>
+                <li><a href="{{ site.baseurl }}/documentation/api">APIs</a></li>
+            </ul>
+        </li>
+
+        <li><a href="{{ site.baseurl }}/team/">About Us</a></li>
+        <li><a href="{{ site.baseurl }}/faq/">FAQ</a></li>
+    </ul>
+</nav>
+
+<div id="navbarToggle" class="navmenu navmenu-default navbar-default navmenu-fixed-left visible-xs">
+    <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#leftNav">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+</div>
