@@ -21,6 +21,7 @@ A DSL consists of several components:
 Below, we illustrate the usage of all 4 components on a small example DSL -- a portion of FlashFill.
 
 # Tutorial
+
 ## Syntax
 Our example DSL describes a space of programs that extract a substring from a given string. They can do it in two possible ways -- either extract a substring based on absolute position indices, or based on matches of regular expressions.
 

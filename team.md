@@ -1,9 +1,6 @@
 ---
 date: 2015-09-02T20:26:18-07:00
 title: About us
-
-menu: main
-weight: 90
 ---
 
 # About Us

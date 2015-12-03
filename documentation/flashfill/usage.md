@@ -122,7 +122,6 @@ FlashFill&apos;s internal ranking system.
 
 Serializing programs
 ====================
-</h1>
 
 Sometimes you will want to learn a program in one session and run it on other
 data in a future session or transfer learned programs between computers.
@@ -144,7 +143,6 @@ Console.WriteLine(parsedProgram.Run("Etelka Bala")); // outputs "Bala, E."
 
 API
 ===
-</h1>
 
 See [Documentation]({{ site.baseurl }}/documentation/api) for the full API documentation.
 
