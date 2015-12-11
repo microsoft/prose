@@ -5,6 +5,6 @@ The Program Synthesis using Examples (PROSE) SDK includes a set of technologies 
 The samples are split into two categories:
 
 * Program synthesis samples in [ProseSample.sln](ProgramSynthesis/ProseSample.sln)
-* Data wrangling samples in [Samples.sln](Samples.sln)
+* Data wrangling samples in [WranglingSamples.sln](WranglingSamples.sln)
 
 Find guides for these sample projects here: [https://microsoft.github.io/prose/](https://microsoft.github.io/prose/)
