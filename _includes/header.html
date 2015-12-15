@@ -9,7 +9,23 @@
 
           As part of the project, the PROSE framework includes a set of specific technologies for various data wrangling domains. These include FlashFill, a library of string transformations from Microsoft Excel 2013, text extraction library with a DSL of programs that find a desired sequence of regions in a textual file, and a web extraction library with a CSS-based DSL of programs that select a set of elements on a web page. All three data wrangling libraries, as well as the underlying program synthesis framework, can currently be used out of the box for research, education, and other non-commercial initiatives.">
 
+    <!-- Avoid a flash of unstyled content -->
+    <style type="text/css">
+        .no-js body {
+            display: none;
+        }
+    </style>
+    <noscript>
+        <style type="text/css">
+            .no-js body {
+                display: block;
+            }
+        </style>
+    </noscript>
+
     <script type="text/javascript">
+        document.documentElement.className = "";
+
         var loc = window.location.toString();
         if (loc.indexOf("http://") === 0) {
             var redirect_from_http_domains = ["programbyexample.com", "flashm.azurewebsites.net", "microsoft.github.io/prose"];
@@ -29,16 +45,15 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300,300italic,700,700italic'
           rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Lora:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{{ site.baseurl }}/static/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="{{ site.baseurl }}/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link href="{{ site.baseurl }}/static/css/bootstrap-flat.min.css" rel="stylesheet">
-    <link href="{{ site.baseurl }}/static/css/bootstrap-flat-extras.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ site.baseurl }}/static/css/bootstrap-flat.min.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}/static/css/bootstrap-flat-extras.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
 
-    <link rel="stylesheet" href="{{ site.baseurl }}/static/css/prism.css"/>
-    <link href="{{ site.baseurl }}/static/css/prism-ghcolors.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ site.baseurl }}/static/css/prism.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}/static/css/prism-ghcolors.css">
 
-    <link rel="stylesheet" href="{{ site.baseurl }}/static/css/github-light.css">
     <link rel="stylesheet" href="{{ site.baseurl }}/static/css/stylesheet.css">
     <link rel="stylesheet" href="{{ site.baseurl }}/static/css/custom.css">
 
