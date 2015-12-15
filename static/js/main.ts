@@ -67,7 +67,19 @@ function setupNav() {
         e => $(e.target).find("a > .fa").removeClass("fa-angle-right").addClass("fa-angle-down"));
     dropdowns.on("hidden.bs.dropdown",
         e => $(e.target).find("a > .fa").removeClass("fa-angle-down").addClass("fa-angle-right"));
-    $("#leftNav").on("shown.bs.offcanvas", e => $("body").css("padding-right", 0));
+
+    var nav = $('#leftNav');
+    var toggle = $('.navbar-toggle');
+    nav.offcanvas({ disableScrolling: false, toggle: false });
+    toggle.click(e => {
+        $("html, body").animate({ scrollTop: 0 }, "fast");
+        nav.offcanvas('show');
+    });
+    nav.on("shown.bs.offcanvas", e => {
+        $("body").css("padding-right", 0);
+        toggle.hide();
+    });
+    nav.on("hidden.bs.offcanvas", e => toggle.show());
 }
 
 export function main() {

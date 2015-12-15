@@ -3,9 +3,9 @@
 #leftNav {
     clear: left;
     float: left;
-    width: 200px;
+    width: 230px;
     padding-left: 5px;
-    padding-top: 85px;
+    padding-top: 15px;
     line-height: normal;
     font-size: 20px;
     background-color: inherit;
@@ -25,24 +25,36 @@
     width: auto;
     background-color: inherit;
     border: none;
-    padding-top: 85px;
+    padding-top: 75px;
     padding-left: 5px;
-}
-
-@media (min-width: 768px) {
-    .topicContent {
-        padding-left: 200px;
-    }
 }
 
 @media (max-width: 767px) {
     .topicContent {
         padding-left: 45px;
     }
+
     #leftNav {
         background-color: #F2F2F2;
         z-index: 1050;
     }
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: #e1e1e1;
+}
+
+.nav > li > a.nav-header:hover, .nav > li > a.nav-header:focus {
+    background-color: inherit;
+}
+
+ul.nav-stacked ul.nav-stacked > li {
+    font-size: 90%;
+    padding: 0 15px 0 30px;
+}
+
+ul.nav-stacked ul.nav-stacked > li > a {
+    padding: 7px 15px;
 }
 
 /* Footnotes */

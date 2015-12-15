@@ -8,3 +8,5 @@ packages/
 .vs/
 _site/
 public/
+
+*.DotSettings

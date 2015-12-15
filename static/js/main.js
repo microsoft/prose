@@ -1,5 +1,3 @@
-/// <reference path="./typings/jquery/jquery.d.ts" />
-/// <reference path="./typings/prism.d.ts" />
 define(["require", "exports"], function (require, exports) {
     function jqEscape(id) {
         return id.replace(/(:|\.|\[|\]|,)/g, "\\$1");
@@ -57,7 +55,18 @@ define(["require", "exports"], function (require, exports) {
         var dropdowns = $(".dropdown");
         dropdowns.on("shown.bs.dropdown", function (e) { return $(e.target).find("a > .fa").removeClass("fa-angle-right").addClass("fa-angle-down"); });
         dropdowns.on("hidden.bs.dropdown", function (e) { return $(e.target).find("a > .fa").removeClass("fa-angle-down").addClass("fa-angle-right"); });
-        $("#leftNav").on("shown.bs.offcanvas", function (e) { return $("body").css("padding-right", 0); });
+        var nav = $('#leftNav');
+        var toggle = $('.navbar-toggle');
+        nav.offcanvas({ disableScrolling: false, toggle: false });
+        toggle.click(function (e) {
+            $("html, body").animate({ scrollTop: 0 }, "fast");
+            nav.offcanvas('show');
+        });
+        nav.on("shown.bs.offcanvas", function (e) {
+            $("body").css("padding-right", 0);
+            toggle.hide();
+        });
+        nav.on("hidden.bs.offcanvas", function (e) { return toggle.show(); });
     }
     function main() {
         $("#main_content_wrap").find("table").addClass("table table-hover table-bordered");

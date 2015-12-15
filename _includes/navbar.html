@@ -1,29 +1,51 @@
-<nav id="leftNav" class="navmenu navmenu-default navmenu-fixed-left offcanvas-xs" role="navigation">
-    <ul class="nav navmenu-nav">
-        <li><a href="{{ site.baseurl }}/">Home</a></li>
-        <li><a href="{{ site.baseurl }}/playground">Playground</a></li>
-        <li><a href="{{ site.baseurl }}/documentation/prose/tutorial">Getting Started</a></li>
+<ul id="leftNav" class="nav navmenu navmenu-default nav-pills nav-stacked offcanvas-xs"
+    role="navigation">
+    <li><a href="{{ site.baseurl }}/">Home</a></li>
+    <li><a href="{{ site.baseurl }}/playground">Playground</a></li>
+    <li><a href="{{ site.baseurl }}/documentation/prose/tutorial">Getting Started</a></li>
 
-        <li class="dropdown open">
-            <a href="#" data-toggle="dropdown">
-                <i class="fa fa-angle-down"></i> Documentation
-            </a>
-            <ul class="dropdown-menu navmenu-nav">
-                <li><a href="{{ site.baseurl }}/documentation/prose/usage">Framework</a></li>
-                <li><a href="{{ site.baseurl }}/documentation/extraction-text/intro">Text Extraction</a></li>
-                <li><a href="{{ site.baseurl }}/documentation/extraction-web/intro">Web Extraction</a></li>
-                <li><a href="{{ site.baseurl }}/documentation/flashfill/intro">Flash Fill</a></li>
-                <li><a href="{{ site.baseurl }}/documentation/api">APIs</a></li>
-            </ul>
-        </li>
+    <li>
+        <a class="nav-header">Documentation <i class="fa fa-angle-down"></i></a>
 
-        <li><a href="{{ site.baseurl }}/team/">About Us</a></li>
-        <li><a href="{{ site.baseurl }}/faq/">FAQ</a></li>
-    </ul>
-</nav>
+        <ul class="nav nav-pills nav-stacked">
+            <li>
+                <a class="nav-header">Framework <i class="fa fa-angle-down"></i></a>
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="{{ site.baseurl }}/documentation/prose/usage">Usage</a></li>
+                    <li><a href="{{ site.baseurl }}/documentation/prose/d4">Deduction</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{{ site.baseurl }}/documentation/extraction-text/intro">Text Extraction</a>
 
-<div id="navbarToggle" class="navmenu navmenu-default navbar-default navmenu-fixed-left visible-xs">
-    <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#leftNav">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="{{ site.baseurl }}/documentation/extraction-text/usage">Usage</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{{ site.baseurl }}/documentation/extraction-web/intro">Web Extraction</a>
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="{{ site.baseurl }}/documentation/extraction-web/usage">Usage</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{{ site.baseurl }}/documentation/flashfill/intro">Flash Fill</a>
+
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="{{ site.baseurl }}/documentation/flashfill/usage">Usage</a></li>
+                </ul>
+            </li>
+            <li><a href="{{ site.baseurl }}/documentation/api">APIs</a></li>
+        </ul>
+    </li>
+
+    <li><a href="{{ site.baseurl }}/team/">About Us</a></li>
+    <li><a href="{{ site.baseurl }}/faq/">FAQ</a></li>
+</ul>
+
+<div id="navbarToggle" class="nav navmenu navmenu-default navbar-default navmenu-fixed-left visible-xs">
+    <button type="button" class="navbar-toggle">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>

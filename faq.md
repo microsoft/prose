@@ -37,4 +37,4 @@ Our samples are located in the [PROSE GitHub repository](https://github.com/micr
 ### How can I contact you if I have any questions or feedback?
 
 If you run into any bugs or issues, please [open an issue](https://github.com/microsoft/prose/issues) in our GitHub repository.
-If you want, feel free also to [email us](mailto:prose-contact@microsoft.com).
+Feel free also to [email us](mailto:prose-contact@microsoft.com).
