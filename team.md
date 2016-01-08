@@ -5,6 +5,8 @@ title: About us
 
 # About Us
 
+[We are hiring!]({{ site.baseurl }}/hiring/)
+
 We are a team of researchers and engineers working to create state-of-the-art
 programming-by-example and other technologies for data wrangling and other application domains of program synthesis.
 This is a revolutionary charter since 99% of computer users lack programming skills, and data
