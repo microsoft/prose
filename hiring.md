@@ -1,6 +1,6 @@
 ---
 date: 2016-01-07T16:26:18-07:00
-title: Hiring
+title: We are hiring!
 ---
 
 # Hiring
