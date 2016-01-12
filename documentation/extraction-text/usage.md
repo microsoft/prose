@@ -50,10 +50,10 @@ StringRegion name = record.Slice(0u, 13u); // "Carrie Dodson""
 StringRegion number = record.Slice(14u, 17u); // "100"
 ```
 
-ExampleSpec
+ExtractionExample
 ===
 
-A `ExampleSpec` is a pair of a referencing `StringRegion` and its corresponding output `StringRegion`.
+A `ExtractionExample` is a pair of a referencing `StringRegion` and its corresponding output `StringRegion`.
 
 
 The referencing `StringRegion` can be one of the following kinds:
@@ -62,21 +62,21 @@ The referencing `StringRegion` can be one of the following kinds:
 For instance,
 
 ```csharp
-ExampleSpec nameRefRecExample = new ExampleSpec<StringRegion>(record /* Carrie Dodson 100 */, name /* Carrie Dodson */);
+ExtractionExample nameRefRecExample = new ExtractionExample<StringRegion>(record /* Carrie Dodson 100 */, name /* Carrie Dodson */);
 ```
 
 - **Preceding Sibling:** The referencing `StringRegion` is a sibling that appears *before* the example.
 For instance,
 
 ```csharp
-ExampleSpec numRefNameExample = new ExampleSpec<StringRegion>(name /* Carrie Dodson */, number /* 100 */);
+ExtractionExample numRefNameExample = new ExtractionExample<StringRegion>(name /* Carrie Dodson */, number /* 100 */);
 ```
 
 - **Succeeding Sibling:** The referencing `StringRegion` is a sibling that appears *after* the example.
 For instance,
 
 ```csharp
-ExampleSpec nameRefNumExample = new ExampleSpec<StringRegion>(number /* 100 */, name /* Carrie Dodson */);
+ExtractionExample nameRefNumExample = new ExtractionExample<StringRegion>(number /* 100 */, name /* Carrie Dodson */);
 
 ```
 
@@ -116,10 +116,10 @@ var input1 = StringRegion.Create("Carrie Dodson 100");
 var input2 = StringRegion.Create("Leonard Robledo 75");
 
 var positiveExamples = new[] {
-    new ExampleSpec<StringRegion>(input1, input1.Slice(7, 13)), // "Carrie Dodson 100" => "Dodson"
-    new ExampleSpec<StringRegion>(input2, input2.Slice(8, 15)) // "Leonard Robledo 75" => "Robledo"
+    new ExtractionExample<StringRegion>(input1, input1.Slice(7, 13)), // "Carrie Dodson 100" => "Dodson"
+    new ExtractionExample<StringRegion>(input2, input2.Slice(8, 15)) // "Leonard Robledo 75" => "Robledo"
 };
-var negativeExamples = Enumerable.Empty<ExampleSpec<StringRegion>>();
+var negativeExamples = Enumerable.Empty<ExtractionExample<StringRegion>>();
 
 Program topRankedProg = Learner.Instance.LearnRegion(positiveExamples, negativeExamples);
 
@@ -145,10 +145,10 @@ StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(
 
 // Suppose we want to extract "100", "320".
 var positiveExamples = new[] {
-    new ExampleSpec<StringRegion>(records[0], records[0].Slice(14, 17)) // "Carrie Dodson 100" => "100"
+    new ExtractionExample<StringRegion>(records[0], records[0].Slice(14, 17)) // "Carrie Dodson 100" => "100"
 };
 var negativeExamples = new[] {
-    new ExampleSpec<StringRegion>(records[1], records[1]) // no extraction in "Leonard Robledo NA"
+    new ExtractionExample<StringRegion>(records[1], records[1]) // no extraction in "Leonard Robledo NA"
 };
 
 // Extraction.Text will find a program whose output does not OVERLAP with any of the negative examples.
@@ -177,9 +177,9 @@ StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(
 
 // Suppose we want to extract "100", "75", and "***".
 var positiveExamples = new[] {
-    new ExampleSpec<StringRegion>(records[0], records[0].Slice(14, 17)) // "Carrie Dodson 100" => "100"
+    new ExtractionExample<StringRegion>(records[0], records[0].Slice(14, 17)) // "Carrie Dodson 100" => "100"
 };
-var negativeExamples = Enumerable.Empty<ExampleSpec<StringRegion>>();
+var negativeExamples = Enumerable.Empty<ExtractionExample<StringRegion>>();
 
 // Additional references help Extraction.Text observe the behavior of the learnt programs on unseen data.
 // In this example, if we do not use additional references, Extraction.Text may learn a program that extracts the first number.
@@ -206,9 +206,9 @@ StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(
 
 // Suppose we want to extract the number out of a record
 var positiveExamples = new[] {
-    new ExampleSpec<StringRegion>(records[0], records[0].Slice(14, 17)), // "Carrie Dodson 100" => "100"
+    new ExtractionExample<StringRegion>(records[0], records[0].Slice(14, 17)), // "Carrie Dodson 100" => "100"
 };
-var negativeExamples = Enumerable.Empty<ExampleSpec<StringRegion>>();
+var negativeExamples = Enumerable.Empty<ExtractionExample<StringRegion>>();
 
 Regex lookBehindRegex = new Regex("\\s");
 Regex lookAheadRegex = null;
@@ -248,10 +248,10 @@ var input = StringRegion.Create("United States\nCarrie Dodson 100\nLeonard Roble
                                 "Great Britain\nNettie Pope 50\nMack Beeson 1070");
 // Suppose we want to extract all last names from the input string.
 var positiveExamples = new[] {
-    new ExampleSpec<StringRegion>(input, input.Slice(14, 20)), // input => "Carrie"
-    new ExampleSpec<StringRegion>(input, input.Slice(32, 39)) // input => "Leonard"
+    new ExtractionExample<StringRegion>(input, input.Slice(14, 20)), // input => "Carrie"
+    new ExtractionExample<StringRegion>(input, input.Slice(32, 39)) // input => "Leonard"
 };
-var negativeExamples = Enumerable.Empty<ExampleSpec<StringRegion>>();
+var negativeExamples = Enumerable.Empty<ExtractionExample<StringRegion>>();
 
 Program topRankedProg = Learner.Instance.LearnSequence(positiveExamples, negativeExamples);
 
@@ -280,10 +280,10 @@ StringRegion[] countries = { input.Slice(0, 13), input.Slice(69, 75), input.Slic
 
 // Suppose we want to extract all last names from the input string.
 var positiveExamples = new[] {
-    new ExampleSpec<StringRegion>(countries[0], input.Slice(14, 20)), // "United States" => "Carrie"
-    new ExampleSpec<StringRegion>(countries[0], input.Slice(32, 39)), // "United States" => "Leonard"
+    new ExtractionExample<StringRegion>(countries[0], input.Slice(14, 20)), // "United States" => "Carrie"
+    new ExtractionExample<StringRegion>(countries[0], input.Slice(32, 39)), // "United States" => "Leonard"
 };
-var negativeExamples = Enumerable.Empty<ExampleSpec<StringRegion>>();
+var negativeExamples = Enumerable.Empty<ExtractionExample<StringRegion>>();
 
 Program topRankedProg = Learner.Instance.LearnSequence(positiveExamples, negativeExamples);
 
@@ -316,9 +316,9 @@ the top `k` ranks if there are ties).
 var input = StringRegion.Create("Carrie Dodson 100");
 
 var positiveExamples = new[] {
-    new ExampleSpec<StringRegion>(input, input.Slice(14, 17)) // "Carrie Dodson 100" => "Dodson"
+    new ExtractionExample<StringRegion>(input, input.Slice(14, 17)) // "Carrie Dodson 100" => "Dodson"
 };
-var negativeExamples = Enumerable.Empty<ExampleSpec<StringRegion>>();
+var negativeExamples = Enumerable.Empty<ExtractionExample<StringRegion>>();
 
 IEnumerable<Program> topKPrograms = Learner.Instance.LearnTopKRegion(positiveExamples, negativeExamples, 3);
 ```
@@ -331,9 +331,9 @@ IEnumerable<Program> topKPrograms = Learner.Instance.LearnTopKRegion(positiveExa
 var input = StringRegion.Create("Carrie Dodson 100");
 
 var positiveExamples = new[] {
-    new ExampleSpec<StringRegion>(input, input.Slice(14, 17)) // "Carrie Dodson 100" => "Dodson"
+    new ExtractionExample<StringRegion>(input, input.Slice(14, 17)) // "Carrie Dodson 100" => "Dodson"
 };
-var negativeExamples = Enumerable.Empty<ExampleSpec<StringRegion>>();
+var negativeExamples = Enumerable.Empty<ExtractionExample<StringRegion>>();
 
 ProgramSet allPrograms = Learner.Instance.LearnAllRegion(positiveExamples, negativeExamples);
 ```
@@ -364,7 +364,7 @@ on the structure of the file.
 
 ```csharp
 public IEnumerable<StringRegion> Run(StringRegion reference);
-public IEnumerable<ExampleSpec<StringRegion>> Run(IEnumerable<StringRegion> references);
+public IEnumerable<ExtractionExample<StringRegion>> Run(IEnumerable<StringRegion> references);
 public IEnumerable<StringRegion> OutputRun(IEnumerable<StringRegion> references);
 ```
 
@@ -377,7 +377,7 @@ The output of the region program is the first element in the returned list (sinc
 > **IMPORTANT:** If you have multiple references and the referencing `StringRegion`s are (preceding or succeeding) siblings, do *NOT* use this method.
 > Instead, use `Run(IEnumerable<StringRegion> references)` or `OutputRun(IEnumerable<StringRegion> references)`.
 
-It is because `references.SelectMany(r => new ExampleSpec<StringRegion>(r, program.Run(r))` is *NOT* equivalent to `program.Run(references)`.
+It is because `references.SelectMany(r => new ExtractionExample<StringRegion>(r, program.Run(r))` is *NOT* equivalent to `program.Run(references)`.
 
 In these sibling referencing scenarios, Extraction.Text seeks for the output in the `StringRegion` formed by two contiguous siblings.
 If only one referencing sibling is provided, Extraction.Text will search for the output until it reaches end of file (in case of preceding siblings)
