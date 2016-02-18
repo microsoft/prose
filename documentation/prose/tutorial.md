@@ -101,7 +101,8 @@ var output = (string) ast.Invoke(state);
 Assert(output == "PROSE");
 ```
 
-However, at this moment grammar parsing will fail since we haven't defined any execution semantics for the operators in our DSL, only its syntax.
+A `LoadGrammarFromFile` invocation returns a `Result<Grammar>`, which will either hold a valid parsed grammar in its `Value` property, or a collection of errors/warnings in its `Diagnostics` property.
+At this moment grammar parsing will fail since we haven't defined any execution semantics for the operators in our DSL, only its syntax.
 Let's fix that.
 
 ## Semantics
