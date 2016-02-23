@@ -94,3 +94,10 @@ advocated discovering new roles for assistive AI in creative domains. Now at Mic
 excited to build program synthesis technology that, even programmers have to admit, seems to
 work by magic.
 {% include about-row-end.html %}
+
+{% include about-row-start.html name="Abhishek Udupa" img="Abhishek-Udupa.jpg" link="http://www.cis.upenn.edu/~audupa" %}
+Abhishek graduated with a PhD from the University of Pennsylvania, in 2016, advised by Rajeev Alur. His dissertation
+explored techniques for synthesizing distributed protocols and loop-free programs. He has contributed to development of the 
+[SyGuS language definition](http://www.sygus.org), and has also developed SyGuS solvers which have been primarily based on enumerative program synthesis strategies.
+His research interests include formal methods and program synthesis, and he very much enjoys building systems to demonstrate the practicality of his research.
+{% include about-row-end.html %}
