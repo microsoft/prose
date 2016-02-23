@@ -101,3 +101,4 @@ explored techniques for synthesizing distributed protocols and loop-free program
 [SyGuS language definition](http://www.sygus.org), and has also developed SyGuS solvers which have been primarily based on enumerative program synthesis strategies.
 His research interests include formal methods and program synthesis, and he very much enjoys building systems to demonstrate the practicality of his research.
 {% include about-row-end.html %}
+
