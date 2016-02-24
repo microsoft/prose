@@ -102,3 +102,14 @@ explored techniques for synthesizing distributed protocols and loop-free program
 His research interests include formal methods and program synthesis, and he very much enjoys building systems to demonstrate the practicality of his research.
 {% include about-row-end.html %}
 
+
+{% include about-row-start.html name="Allen Cypher" img="Allen-Cypher.jpg" link="http://acypher.com" %}
+Allen Cypher has been working on Programming by Example for 25 years. 
+His 1991 Eager program uses Programming by Example in one of the first intelligent agents. 
+The 1993 book "Watch What I Do: Programming by Demonstration" comprised the major work in the field at the time. 
+Stagecast Creator (1995), developed with David C. Smith, uses Programming by Example to teach 10 year olds how to program. 
+CoScripter (2007), developed with Tessa Lau, uses Programming by Example to automate end user activities in a web browser. 
+Allen joined Sumit Gulwani's Prose team in January to help apply their innovative Programming by Example technology to data wrangling. 
+He has a Bachelors in Mathematics from Princeton University and a Ph.D. in Computer Science from Yale University. 
+He worked at Apple for 9 years, IBM for 12 years, and has worked at several startups, including Stagecast, where he was a founder.
+{% include about-row-end.html %}
