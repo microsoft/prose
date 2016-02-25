@@ -102,3 +102,6 @@ explored techniques for synthesizing distributed protocols and loop-free program
 His research interests include formal methods and program synthesis, and he very much enjoys building systems to demonstrate the practicality of his research.
 {% include about-row-end.html %}
 
+{% include about-row-start.html name="Ranvijay Kumar" img="Ranvijay-Kumar.jpg" link="" %}
+Ranvijay has more than 18 years of experience in software industry and more than 10 years in managing product development. He is a BTech from IIT Kanpur (India) and has been a part of the founding team of three startups in the US and in India. Prior to joining Microsoft, Ranvijay managed the Research and new product development efforts of a Healthcare Product company based in Bellevue, Washington. He shipped a Health Information Exchange, a Healthcare Analytics Platform, and a Patient Master Data Management solution that uses advance record linking capabilities to match Patient records across care settings. Ranvijay is very excited about the possibilities of Program Synthesis by Example technologies.
+{% include about-row-end.html %}
