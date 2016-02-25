@@ -45,7 +45,7 @@ He worked at Apple for 9 years, IBM for 12 years, and has worked at several star
 {% include about-row-end.html %}
 
 {% include about-row-start.html name="Ranvijay Kumar" img="Ranvijay-Kumar.jpg"%}
-Ranvijay has more than 18 years of experience in software industry and more than 10 years in managing product development. He is a BTech from IIT Kanpur (India) and has been a part of the founding team of three startups in the US and in India. Prior to joining Microsoft, Ranvijay managed the Research and new product development efforts of a Healthcare Product company based in Bellevue, Washington. He shipped a Health Information Exchange, a Healthcare Analytics Platform, and a Patient Master Data Management solution that uses advance record linking capabilities to match Patient records across care settings. Ranvijay is very excited about the possibilities of Program Synthesis by Example technologies.
+Ranvijay has more than 18 years of experience in software industry and more than 10 years in managing product development. He is a BTech from IIT Kanpur (India) and has been a part of the founding team of three startups in the US and in India. Prior to joining Microsoft, Ranvijay managed the Research and new product development efforts of a Healthcare Product company based in Bellevue, Washington. He shipped a Health Information Exchange, a Healthcare Analytics Platform, and a Patient Master Data Management solution that uses advanced record linking capabilities to match Patient records across care settings. Ranvijay is very excited about the possibilities of Program Synthesis by Example technologies.
 {% include about-row-end.html %}
 
 {% include about-row-start.html name="Vu Le" img="Vu-Le.jpg" link="http://vuminhle.com/" %}
