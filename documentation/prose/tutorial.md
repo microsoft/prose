@@ -362,8 +362,8 @@ static DisjunctiveExamplesSpec WitnessRegexPair(GrammarRule rule, int parameter,
 		foreach (int? pos in example.Value)
 		{
 			regexes.AddRange(from l in leftMatches[pos.Value]
-							 from r in rightMatches[pos.Value]
-							 select Tuple.Create(l.Item2, r.Item2));
+							from r in rightMatches[pos.Value]
+							select Tuple.Create(l.Item2, r.Item2));
         }
 		if (regexes.Count == 0) return null;
 		result[inputState] = regexes;
