@@ -97,7 +97,7 @@ var ast = grammar.ParseAST("Substring(inp, PosPair(AbsolutePosition(inp, 0), Abs
 // is bound to the string "PROSE Rocks".
 var input = State.Create(grammar.InputSymbol, "PROSE Rocks");
 // Execute the program on the input state.
-var output = (string) ast.Invoke(state);
+var output = (string) ast.Invoke(input);
 Assert(output == "PROSE");
 ```
 
