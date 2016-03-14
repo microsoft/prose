@@ -184,7 +184,7 @@ using Microsoft.ProgramSynthesis.Learning;
 
 var input = State.Create(grammar.InputSymbol, "PROSE Rocks");
 string desiredOutput = "PROSE";
-var spec = new ExampleSpec(input, desiredOutput);
+var spec = new ExampleSpec(new Dictionary<State, object> { [input] = desiredOutput });
 var engine = new SynthesisEngine(grammar);
 ProgramSet learned = engine.LearnGrammar(spec);
 Assert(learned?.Size > 0);
