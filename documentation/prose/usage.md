@@ -29,8 +29,8 @@ recursive invocations of `Invoke`.
 
 # Architecture
 
-The Microsoft.ProgramSynthesis solution unites the core pieces of the meta-synthesizer.
-Here are the included projects:
+The Microsoft.ProgramSynthesis package unites the core pieces of the meta-synthesizer.
+Here are the included assemblies:
 
 -   **Microsoft.ProgramSynthesis** includes the core functionality for manipulating
 	ASTs, validating DSLs, maintain a DSL and a set of its operators,
@@ -41,10 +41,6 @@ Here are the included projects:
 	parsed language representation into a portable file.
 -   **Microsoft.ProgramSynthesis.Learning** is a core library of synthesis algorithms,
 	standard operators and strategies.
--   **SynthesisLib.NLGenerator** is a library for paraphrasing ASTs in
-	natural language and building ASTs from keywords or phrases.
--   **Microsoft.ProgramSynthesis.Tests** and **TestSemantics** contain a set of unit
-	tests and supporting infrastructure.
 -   **Microsoft.ProgramSynthesis.Utils** is a collection of utility methods that are used
 	in different parts of the project.
 
@@ -69,10 +65,8 @@ A typical workflow of a DSL designer consists of the following steps:
 The main class `Grammar` represents a context-free grammar as a
 set of DSL rules and a list of references to operators’ semantics and/or
 custom operator learners, implemented in C\# in a separate assembly. The
-method `DSLCompiler.LoadGrammar` loads a grammar definition from
-a string. Multiple examples of its usage can be found in
-`Microsof.ProgramSynthesis.Tests`; the semantics for the test languages in there
-are defined in the assembly `TestSemantics`.
+method `DSLCompiler.LoadGrammar` loads a grammar definition from a string.
+Multiple examples of its usage can be found in our [sample repository](https://github.com/microsoft/prose).
 
 Here’s a typical language definition:
 
@@ -223,8 +217,22 @@ public static class Semantics
 It is important to note that the learning process requires that semantic
 functions are *total*.  If the function is inapplicable for the current
 choice of arguments or if for any other reason it would throw an exception,
-it must return **null**[^1]. In such a case, if the return type of a
-function is a .NET value type, it should be made nullable.
+it must return **null** instead[^1].
+In such a case, if the return type of a function is a .NET value type, it should be made nullable.
+
+> This choice was made to enable efficient program synthesis. During learning,
+> PROSE may repeatedly invoke partial programs on various inputs for
+> verification purposes. If an input is invalid and a program handles it by
+> throwing an exception, it slows down the learning by two orders of
+> magnitude.
+
+Nulls are automatically propagated upward like exceptions: if an argument to
+a semantic function is **null**, its result is automatically presumed to be
+**null** as well.
+You can override this behavior by annotating your semantics function with a
+`[LazySemantics]` attribute.
+In that case, your function will receive any **null** arguments as usual, and
+must handle it on its own.
 
 Every grammar operator should be pure, and its *formal* signature should
 be $\sigma \rightarrow T$ (where $T$ is the type of the corresponding
@@ -793,9 +801,7 @@ Microsoft Program Synthesis using Examples framework:
  Join of version spaces for the parameters |  `Symbol s` <br/> `GrammarRule r // r.Head == s` <br/> `ProgramSet v1, …, vk` | `new JoinProgramSet(r, v1, …, vk)`
 
 
-[^1]: Null is used to indicate to the learning system that an operator is inapplicable for a particular set of parameters. This replaces the special value $\bot$ typically used in the formal definition of a language.
-
-[^2]: This is a typical implementation of an [Algebraic data type](http://en.wikipedia.org/wiki/Algebraic_data_type) pattern in an object-oriented programming language.
+[^1]: In other words, **null** is used as a special value $\bot$ that is typically found in a formal definition of a language.
 
 [^3]: Following Haskell syntax, we start our lambda functions with the “\\” character, which is supposed to approximately represent the letter $\lambda$.
 
