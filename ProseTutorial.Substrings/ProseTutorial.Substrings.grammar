@@ -2,6 +2,7 @@
 
 using ProseTutorial.Substrings;
 using semantics ProseTutorial.Substrings.Semantics;
+using learners ProseTutorial.Substrings.WitnessFunctions;
 
 language ProseTutorial.Substrings;
 

@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Semantics.cs" />
+    <Compile Include="WitnessFunctions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
