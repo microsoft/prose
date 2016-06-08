@@ -21,7 +21,11 @@ namespace ProseTutorial.Substrings
         public static double Score_PosPair(double pp1, double pp2) => pp1 * pp2;
 
         [FeatureCalculator(nameof(Semantics.AbsPos))]
-        public static double Score_AbsPos(double x, double k) => 0.01 / k;
+        public static double Score_AbsPos(double x, double k) {
+            k = 1.0 / k - 1;
+            // Prefer absolute positions to regex positions if k is small
+            return Math.Max(10 * Token.MinScore - (k - 1) * 3 * Token.MinScore, 1 / k);
+        }
 
         [FeatureCalculator("k", Method = CalculationMethod.FromLiteral)]
         public static double KScore(int k) => k >= 0 ? 1.0 / (k + 1.0) : 1.0 / (-k + 1.1);
