@@ -95,7 +95,18 @@ namespace ProseTutorial.Substrings
                 var v = (string) input[rule.Body[0]];
                 var rr = (Tuple<Regex, Regex>) regexBinding.Examples[input];
 
-                kExamples[input] = null; // <== deduce examples for the regex count here
+                var r = new Regex($"(?<={rr.Item1}){rr.Item2}");
+                Match[] ms = r.Matches(v).Cast<Match>().ToArray();
+                var ks = new List<object>();
+                foreach (uint pos in spec.DisjunctiveExamples[input])
+                {
+                    int index = ms.BinarySearchBy(m => m.Index.CompareTo((int) pos));
+                    if (index < 0) return null;
+                    ks.Add(index + 1);
+                    ks.Add(index - ms.Length);
+                }
+
+                kExamples[input] = ks; // <== deduce examples for the regex count here
             }
             return DisjunctiveExamplesSpec.From(kExamples);
         }
