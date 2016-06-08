@@ -5,6 +5,9 @@ using semantics ProseTutorial.Substrings.Semantics;
 
 language ProseTutorial.Substrings;
 
-@start string P;
+@start string sub := SubStr(v, posPair);
+Tuple<uint?, uint?> posPair := PosPair(pos, pos) = Pair(pos, pos);
+uint? pos := AbsPos(v, k);
 
 @input string v;
+int k;
