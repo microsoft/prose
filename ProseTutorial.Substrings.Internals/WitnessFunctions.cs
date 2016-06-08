@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Rules;
 using Microsoft.ProgramSynthesis.Specifications;
-
+using static ProseTutorial.Substrings.RegexUtils;
 namespace ProseTutorial.Substrings
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -65,8 +66,20 @@ namespace ProseTutorial.Substrings
             foreach (State input in spec.ProvidedInputs)
             {
                 var v = (string) input[rule.Body[0]];
+                var regexes = new List<Tuple<Regex, Regex>>();
+                foreach (uint pos in spec.DisjunctiveExamples[input])
+                {
+                    Regex[] rightRegexes = 
+                        Tokens.Where(t => t.Match(v, (int) pos).Index == pos).ToArray();
+                    if (rightRegexes.Length == 0) continue;
+                    Regex[] leftRegexes = 
+                        LeftTokens.Where(t => t.Match(v, (int) pos).Index == pos).ToArray();
+                    if (leftRegexes.Length == 0) continue;
+                    regexes.AddRange(
+                        leftRegexes.SelectMany(l => rightRegexes.Select(r => Tuple.Create(l, r))));
+                }
 
-                rrExamples[input] = null; // <== deduce examples for the regex pair here
+                rrExamples[input] = regexes; // <== deduce examples for the regex pair here
             }
             return DisjunctiveExamplesSpec.From(rrExamples);
         }
