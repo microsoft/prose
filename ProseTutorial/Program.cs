@@ -31,6 +31,10 @@ namespace ProseTutorial
             const string data = "Microsoft PROSE SDK";
             State input = State.Create(grammar.InputSymbol, data);
             Console.WriteLine(p.Invoke(input));
+
+            string sdk = data.Substring(data.Length - 3);
+            Spec spec = ShouldConvert.Given(grammar).To(data, sdk);
+            Learn(grammar, spec);
         }
     }
 }
