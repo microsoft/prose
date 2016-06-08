@@ -83,5 +83,21 @@ namespace ProseTutorial.Substrings
             }
             return DisjunctiveExamplesSpec.From(rrExamples);
         }
+
+        [WitnessFunction(nameof(Semantics.RegPos), 2, DependsOnParameters = new[] { 1 })]
+        public static DisjunctiveExamplesSpec WitnessRegexCount(GrammarRule rule,
+                                                                DisjunctiveExamplesSpec spec,
+                                                                ExampleSpec regexBinding)
+        {
+            var kExamples = new Dictionary<State, IEnumerable<object>>();
+            foreach (State input in spec.ProvidedInputs)
+            {
+                var v = (string) input[rule.Body[0]];
+                var rr = (Tuple<Regex, Regex>) regexBinding.Examples[input];
+
+                kExamples[input] = null; // <== deduce examples for the regex count here
+            }
+            return DisjunctiveExamplesSpec.From(kExamples);
+        }
     }
 }
