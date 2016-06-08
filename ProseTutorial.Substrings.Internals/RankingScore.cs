@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.AST;
 
@@ -23,5 +24,14 @@ namespace ProseTutorial.Substrings
 
         [FeatureCalculator("k", Method = CalculationMethod.FromLiteral)]
         public static double KScore(int k) => k >= 0 ? 1.0 / (k + 1.0) : 1.0 / (-k + 1.1);
+
+        [FeatureCalculator("BoundaryPair")]
+        public static double Score_BoundaryPair(double r1, double r2) => r1 + r2;
+
+        [FeatureCalculator(nameof(Semantics.RegPos))]
+        public static double Score_RegPos(double x, double rr, double k) => rr * k;
+
+        [FeatureCalculator("r", Method = CalculationMethod.FromLiteral)]
+        public static double RegexScore(Regex r) => 0.1 / (1 + r.ToString().Length);
     }
 }
