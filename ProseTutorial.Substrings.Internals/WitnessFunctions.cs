@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Rules;
@@ -25,14 +26,28 @@ namespace ProseTutorial.Substrings
                 var occurrences = new List<Tuple<uint?, uint?>>();
                 for (int i = v.IndexOf(desiredOutput, StringComparison.Ordinal);
                      i >= 0;
-                     i = v.IndexOf(desiredOutput, i + 1, StringComparison.Ordinal)) {
-
+                     i = v.IndexOf(desiredOutput, i + 1, StringComparison.Ordinal))
+                {
                     occurrences.Add(Tuple.Create((uint?) i, (uint?) (i + desiredOutput.Length)));
                 }
 
                 ppExamples[input] = occurrences; // <== deduce examples for the position pair here
             }
             return DisjunctiveExamplesSpec.From(ppExamples);
+        }
+
+        [WitnessFunction(nameof(Semantics.AbsPos), 1)]
+        public static DisjunctiveExamplesSpec WitnessK(GrammarRule rule, DisjunctiveExamplesSpec spec)
+        {
+            var kExamples = new Dictionary<State, IEnumerable<object>>();
+            foreach (State input in spec.ProvidedInputs)
+            {
+                var v = (string) input[rule.Body[0]];
+                var positionVariants = spec.DisjunctiveExamples[input].Cast<uint?>();
+
+                kExamples[input] = null; // <== deduce examples for the absolute index 'k' here
+            }
+            return DisjunctiveExamplesSpec.From(kExamples);
         }
     }
 }
