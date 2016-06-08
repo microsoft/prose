@@ -1,6 +1,7 @@
 ﻿#reference 'Microsoft.ProgramSynthesis.Utils, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35';
 #reference 'Microsoft.ProgramSynthesis.Extraction.Text.Semantics, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35';
 #reference 'file:ProseTutorial.TextExtraction.Internals.dll';
+#reference 'file:ProseTutorial.Substrings.dll';
 
 using System.Text.RegularExpressions;
 using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;

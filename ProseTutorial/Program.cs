@@ -15,7 +15,8 @@ namespace ProseTutorial
     {
         private static void Main(string[] args)
         {
-            LoadAndTestSubstrings();
+            //LoadAndTestSubstrings();
+            LoadAndTestTextExtraction();
         }
 
         private static void LoadAndTestSubstrings()
@@ -58,6 +59,11 @@ namespace ProseTutorial
                 var output = program.Invoke(input);
                 WriteColored(ConsoleColor.DarkCyan, $"{row.Item1} => {output}");
             }
+        }
+
+        private static void LoadAndTestTextExtraction()
+        {
+            var grammar = ProseTutorial.TextExtraction.Language.Grammar;
         }
     }
 }
