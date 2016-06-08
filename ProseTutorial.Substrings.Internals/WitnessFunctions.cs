@@ -45,7 +45,14 @@ namespace ProseTutorial.Substrings
                 var v = (string) input[rule.Body[0]];
                 var positionVariants = spec.DisjunctiveExamples[input].Cast<uint?>();
 
-                kExamples[input] = null; // <== deduce examples for the absolute index 'k' here
+                var positions = new List<object>();
+                foreach (uint? pos in positionVariants)
+                {
+                    positions.Add((int) pos + 1);
+                    positions.Add((int) pos - v.Length - 1);
+                }
+
+                kExamples[input] = positions; // <== deduce examples for the absolute index 'k' here
             }
             return DisjunctiveExamplesSpec.From(kExamples);
         }
