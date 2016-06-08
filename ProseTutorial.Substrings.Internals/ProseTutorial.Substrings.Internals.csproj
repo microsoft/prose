@@ -38,6 +38,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.ProgramSynthesis.2.2.0\lib\net45\Microsoft.ProgramSynthesis.Utils.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.Extraction.Text.Semantics, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.2.2.0\lib\net45\Microsoft.ProgramSynthesis.Extraction.Text.Semantics.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Z3, Version=4.4.2.5831, Culture=neutral, PublicKeyToken=9c8d792caae602a2, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ProgramSynthesis.2.2.0\lib\net45\lib\x64\osx\Microsoft.Z3.dll</HintPath>
     </Reference>
@@ -52,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RankingScore.cs" />
+    <Compile Include="RegexUtils.cs" />
     <Compile Include="Semantics.cs" />
     <Compile Include="WitnessFunctions.cs" />
   </ItemGroup>

@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		BuildGrammar.targets = BuildGrammar.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProseTutorial.Substrings", "ProseTutorial.Substrings\ProseTutorial.Substrings.csproj", "{41E9A9B1-B013-4A87-9759-E3004FEF8A81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProseTutorial.Substrings.Internals", "ProseTutorial.Substrings.Internals\ProseTutorial.Substrings.Internals.csproj", "{C07573DB-18CF-43B8-A7D8-5AAECFF444F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +24,14 @@ Global
 		{C7FC4D3C-3CAE-42B9-AFF9-83CB07A7872F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7FC4D3C-3CAE-42B9-AFF9-83CB07A7872F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7FC4D3C-3CAE-42B9-AFF9-83CB07A7872F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41E9A9B1-B013-4A87-9759-E3004FEF8A81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41E9A9B1-B013-4A87-9759-E3004FEF8A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41E9A9B1-B013-4A87-9759-E3004FEF8A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41E9A9B1-B013-4A87-9759-E3004FEF8A81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C07573DB-18CF-43B8-A7D8-5AAECFF444F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C07573DB-18CF-43B8-A7D8-5AAECFF444F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C07573DB-18CF-43B8-A7D8-5AAECFF444F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C07573DB-18CF-43B8-A7D8-5AAECFF444F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
