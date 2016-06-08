@@ -6,6 +6,8 @@ using learners ProseTutorial.Substrings.WitnessFunctions;
 
 language ProseTutorial.Substrings;
 
+@complete feature double Score = RankingScore;
+
 @start string sub := SubStr(v, posPair);
 Tuple<uint?, uint?> posPair := PosPair(pos, pos) = Pair(pos, pos);
 uint? pos := AbsPos(v, k);

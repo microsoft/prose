@@ -18,7 +18,7 @@ namespace ProseTutorial
 {
     internal static class Utils
     {
-        public static void Learn(Grammar grammar, Spec spec)
+        public static ProgramNode Learn(Grammar grammar, Spec spec)
         {
             var engine =
                 new SynthesisEngine(grammar,
@@ -35,10 +35,21 @@ namespace ProseTutorial
             ProgramSet consistentPrograms = engine.LearnGrammar(spec);
             engine.Configuration.LogListener.SaveLogToXML("learning.log.xml");
 
-            foreach (ProgramNode p in consistentPrograms.RealizedPrograms)
+            /*foreach (ProgramNode p in consistentPrograms.RealizedPrograms)
             {
                 Console.WriteLine(p);
+            }*/
+
+            var scoreFeature = new RankingScore(grammar);
+            ProgramNode bestProgram = consistentPrograms.TopK(scoreFeature).FirstOrDefault();
+            if (bestProgram == null)
+            {
+                WriteColored(ConsoleColor.Red, "No program :(");
+                return null;
             }
+            var score = bestProgram.GetFeatureValue(scoreFeature);
+            WriteColored(ConsoleColor.Cyan, $"[score = {score:F3}] {bestProgram}");
+            return bestProgram;
         }
 
         #region Auxiliary methods
