@@ -56,5 +56,19 @@ namespace ProseTutorial.Substrings
             }
             return DisjunctiveExamplesSpec.From(kExamples);
         }
+
+        [WitnessFunction(nameof(Semantics.RegPos), 1)]
+        public static DisjunctiveExamplesSpec WitnessRegexPair(GrammarRule rule,
+                                                               DisjunctiveExamplesSpec spec)
+        {
+            var rrExamples = new Dictionary<State, IEnumerable<object>>();
+            foreach (State input in spec.ProvidedInputs)
+            {
+                var v = (string) input[rule.Body[0]];
+
+                rrExamples[input] = null; // <== deduce examples for the regex pair here
+            }
+            return DisjunctiveExamplesSpec.From(rrExamples);
+        }
     }
 }
