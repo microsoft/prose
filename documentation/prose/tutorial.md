@@ -384,7 +384,7 @@ Typically, an `ExampleSpec` (i.e., a concrete value of prerequisite -- in this c
 We use `ExampleSpec` here to deduce possible indices `k` for each regex pair in a manner similar to deducing absolute positions above.
 
 ``` csharp
-[WitnessFunction("RegexPosition", 2, DependsOnParameters = new[] { 1 }]
+[WitnessFunction("RegexPosition", 2, DependsOnParameters = new[] { 1 })]
 static DisjunctiveExamplesSpec WitnessKForRegexPair(GrammarRule rule, int parameter, DisjunctiveExamplesSpec spec,
                                                     ExampleSpec rrSpec)
 {
@@ -466,7 +466,7 @@ Such a calculator takes as input `ProgramNode` instances representing ASTs of pa
 You can specify specific subclasses of `ProgramNode` instead as parameters, if you know that your grammar structure only allows some specific AST kinds at this place.
 
 ``` csharp
-[FeatureCalculator("AbsolutePosition", Method = CalculationMethod.FromChildrenNodes]
+[FeatureCalculator("AbsolutePosition", Method = CalculationMethod.FromChildrenNodes)]
 static double ScoreAbsolutePosition(VariableNode inp, LiteralNode k)
 {
 	double score = (double) inp["Score"] + (double) k["Score"];
