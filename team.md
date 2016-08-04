@@ -75,7 +75,7 @@ Before joining the team, he worked on automatic problem
 generation for intelligent tutoring systems in [Center for Game Science](http://centerforgamescience.org/), programming languages for data wrangling, and linguistic algorithms for [Yandex](https://www.yandex.com/).
 {% include about-row-end.html %}
 
-{% include about-row-start.html name="Mohammad Raza" img="Mohammad-Raza.jpg" link="http://research.microsoft.com/en-us/people/moraza" %}
+{% include about-row-start.html name="Mohammad Raza" img="Mohammad-Raza.jpg" link="http://www.microsoft.com/en-us/research/people/moraza/" %}
 Mohammad's background and interests
 are in formal methods for reasoning about computer programs. He holds a PhD in Computer Science from Imperial College London and a Masters in Mathematics from the University of Cambridge. He works on the development of
 techniques and tools for program synthesis through natural
