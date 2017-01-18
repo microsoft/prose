@@ -33,11 +33,7 @@ h1 {
     font-family: Raleway, Lato, sans-serif;
 }
 
-h2 {
-    font-weight: 400;
-}
-
-h3, h4, h5, h6 {
+h2, h3, h4, h5, h6 {
     font-weight: 300;
 }
 
@@ -61,6 +57,7 @@ code {
     background-color: #f9f2f4;
     padding: 2px 4px;
     font-size: 90%;
+    font-family: Consolas, "Source Code Pro", Inconsolata, "Courier New", monospace;
 }
 
 pre {
