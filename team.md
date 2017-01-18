@@ -3,16 +3,15 @@ date: 2015-09-02T20:26:18-07:00
 title: About us
 ---
 
-# About Us
-
-[We are hiring!]({{ site.baseurl }}/hiring/)
-
 We are a team of researchers and engineers working to create state-of-the-art
 programming-by-example and other technologies for data wrangling and other application domains of program synthesis.
 This is a revolutionary charter since 99% of computer users lack programming skills, and data
 scientists spend 80% of their time wrangling with data. The team includes:
 
-{% include about-row-start.html name="Sumit Gulwani" img="Sumit-Gulwani.jpg" link="http://research.microsoft.com/en-us/um/people/sumitg/publications.html" %}
+<div class="pure-g" markdown="1">
+
+{% include about-row-start.html name="Sumit Gulwani" img="Sumit-Gulwani.jpg"
+           link="http://research.microsoft.com/en-us/um/people/sumitg/publications.html" %}
 Sumit has been an MSR veteran
 for the past 10 years, working on program synthesis (developing technologies for
 _programming-by-examples_ and _programming-by-natural-language_) and computer-aided education
@@ -31,17 +30,6 @@ to the field of programming languages. He obtained his PhD in Computer Science f
 UC-Berkeley in 2005, and was awarded the _ACM SIGPLAN Outstanding Doctoral Dissertation
 Award_. He obtained his Bachelors in Computer Science and Engineering from IIT Kanpur
 (India) in 2000, and was awarded the President's Gold Medal for best academic performance.
-{% include about-row-end.html %}
-
-{% include about-row-start.html name="Allen Cypher" img="Allen-Cypher.jpg" link="http://acypher.com" %}
-Allen Cypher has been working on Programming by Example for 25 years.
-His 1991 Eager program uses Programming by Example in one of the first intelligent agents.
-The 1993 book "Watch What I Do: Programming by Demonstration" comprised the major work in the field at the time.
-Stagecast Creator (1995), developed with David C. Smith, uses Programming by Example to teach 10 year olds how to program.
-CoScripter (2007), developed with Tessa Lau, uses Programming by Example to automate end user activities in a web browser.
-Allen joined Sumit Gulwani's Prose team in January to help apply their innovative Programming by Example technology to data wrangling.
-He has a Bachelors in Mathematics from Princeton University and a Ph.D. in Computer Science from Yale University.
-He worked at Apple for 9 years, IBM for 12 years, and has worked at several startups, including Stagecast, where he was a founder.
 {% include about-row-end.html %}
 
 {% include about-row-start.html name="Ranvijay Kumar" img="Ranvijay-Kumar.jpg"%}
@@ -99,17 +87,6 @@ their traffic data web services, and served as CTO of a startup building RFID-ba
 tracking systems for small businesses, among other endeavors.
 {% include about-row-end.html %}
 
-{% include about-row-start.html name="Adam Smith" img="Adam-Smith.jpg" link="https://adamsmith.as/" %}
-Adam is an artificial intelligence researcher interested in technologies that augment the
-creativity and productivity of designer-programmers. He received a PhD in computer science
-from UC Santa Cruz in 2012 and was later a postdoc at University of Washington. He has utilized
-symbolic and probabilistic knowledge representation techniques in the development of game
-content generation and gameplay verification systems. In his teaching practice, he has
-advocated discovering new roles for assistive AI in creative domains. Now at Microsoft, he's
-excited to build program synthesis technology that, even programmers have to admit, seems to
-work by magic.
-{% include about-row-end.html %}
-
 {% include about-row-start.html name="Abhishek Udupa" img="Abhishek-Udupa.jpg" link="http://www.cis.upenn.edu/~audupa" %}
 Abhishek graduated with a PhD from the University of Pennsylvania, in 2016, advised by Rajeev Alur. His dissertation
 explored techniques for synthesizing distributed protocols and loop-free programs. He has contributed to development of the
@@ -117,4 +94,15 @@ explored techniques for synthesizing distributed protocols and loop-free program
 His research interests include formal methods and program synthesis, and he very much enjoys building systems to demonstrate the practicality of his research.
 {% include about-row-end.html %}
 
+</div>
 
+# Alumni
+{: .center .py2}
+
+<div class="center py2" markdown="1">
+
+{% include about-image.html name="Allen Cypher" img="Allen-Cypher.jpg" link="http://acypher.com" %}
+
+{% include about-image.html name="Adam Smith" img="Adam-Smith.jpg" link="https://adamsmith.as/" %}
+
+</div>

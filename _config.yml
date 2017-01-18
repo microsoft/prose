@@ -3,7 +3,14 @@ highlighter: rouge
 kramdown:
   input: GFM
   hard_wrap: false
+  math_engine: mathjax
+  toc_levels: 1..3
   syntax_highlighter: rouge
+
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    line_numbers: false
+
 permalink: pretty
 defaults:
   -
@@ -13,9 +20,12 @@ defaults:
       layout: default
 gems:
   - jekyll-redirect-from
-exclude: 
+exclude:
   - CNAME
   - Gemfile
   - README.md
+  - "vendor/**/*.md"
 baseurl: https://microsoft.github.io/prose
-Title: Microsoft Program Synthesis using Examples SDK
+repository: Microsoft/prose
+
+Title: Microsoft PROSE SDK

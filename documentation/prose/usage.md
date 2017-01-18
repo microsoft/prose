@@ -1,8 +1,9 @@
 ---
 date: 2015-08-31T15:02:56-07:00
 title: Usage
-toc: true
 ---
+
+{% include toc.md %}
 
 # Terminology
 

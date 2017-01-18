@@ -1,0 +1,7 @@
+{
+  "name": "prose-site",
+  "version": "1.0.0",
+  "dependencies": {
+    "@types/jquery": "^2.0.39"
+  }
+}

@@ -1,22 +1,22 @@
 ---
 date: 2015-09-02T20:14:43-07:00
-title: Getting Started
-toc: true
-layout: default
+title: Tutorial
 ---
+
+{% include toc.md %}
 
 # Synthesis Framework
 
 The core component of the PROSE SDK is its program synthesis framework for custom domain-specific languages (DSLs).
 It allows you to define a DSL that describes a typical space of tasks in your application domain, and automatically provides parsing, execution, and synthesis technologies for this DSL.
-[FlashFill]({{ site.baseurl }}/documentation/flashfill/intro) and [text]({{ site.baseurl }}/documentation/extraction-text/intro)/[Web]({{ site.baseurl }}/documentation/extraction-web/intro) extraction DSLs are programming-by-example technologies that have been developed on top of the PROSE core synthesis framework.
+[FlashFill]({{ site.baseurl }}/documentation/flashfill/intro) and [text extraction]({{ site.baseurl }}/documentation/extraction-text/intro) DSLs are programming-by-example technologies that have been developed on top of the PROSE core synthesis framework.
 
 A DSL consists of several components:
 
 1. **Syntax** -- a *context-free grammar* describing a space of possible programs in a DSL.
 2. **Semantics** -- an executable function for each user-defined DSL operator.
-3. [optional] **Features** -- computed attributes on individual programs in the DSL (for instance, a syntactic score of a program for ranking purposes).
-4. [optional] **Witness functions** -- small "inverse semantics" functions that enable [$D^4$ synthesis strategy]({{ site.baseurl }}/documentation/prose/d4), the main synthesis technology provided in the PROSE framework.
+3. \[optional\] **Features** -- computed attributes on individual programs in the DSL (for instance, a syntactic score of a program for ranking purposes).
+4. \[optional\] **Witness functions** -- small "inverse semantics" functions that enable [$D^4$ synthesis strategy]({{ site.baseurl }}/documentation/prose/d4), the main synthesis technology provided in the PROSE framework.
 
 Below, we illustrate the usage of all 4 components on a small example DSL -- a portion of FlashFill.
 

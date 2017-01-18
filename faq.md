@@ -3,7 +3,7 @@ date: 2015-10-28T12:19:15-07:00
 title: FAQ
 ---
 
-### How do I use it?
+## How do I use it?
 
 The SDK is used through .NET APIs.
 See the [tutorial]({{ site.baseurl }}/documentation/prose/tutorial) for how to get
@@ -13,7 +13,7 @@ Also, the [Playground]({{ site.baseurl }}/playground) provides a web interface f
 out the text and web extraction features.
 
 
-### How do I install it?
+## How do I install it?
 
 Use the NuGet package manager in Visual Studio.
 Check "Include prerelease" and search for "Microsoft.ProgramSynthesis".
@@ -22,7 +22,7 @@ follow [these instructions](http://celticcodingsolutions.com/Blog/post/2015/08/1
 to resolve them.
 
 
-### Where can I use it?
+## Where can I use it?
 
 The SDK is released under a _non-commercial license_ for use in
 research, education, and non-commercial applications. See
@@ -30,11 +30,11 @@ research, education, and non-commercial applications. See
 for details.
 
 
-### Where can I find sample code?
+## Where can I find sample code?
 
 Our samples are located in the [PROSE GitHub repository](https://github.com/microsoft/prose).
 
-### How can I contact you if I have any questions or feedback?
+## How can I contact you if I have any questions or feedback?
 
 If you run into any bugs or issues, please [open an issue](https://github.com/microsoft/prose/issues) in our GitHub repository.
 Feel free also to [email us](mailto:prose-contact@microsoft.com).

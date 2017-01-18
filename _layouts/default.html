@@ -1,38 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-{% include header.html %}
+<head>
+    {% include header.html %}
+</head>
+<body class="flex flex-column">
+{% include page-header.html %}
 
-<body id="bootstrap-overrides">
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
 
-<!-- HEADER -->
-<div id="header_wrap" class="outer">
-    <header class="innerTemplate">
-        {{ page.title }}
-
-    </header>
-</div>
-<!-- MAIN CONTENT -->
-<div id="main_content_wrap" class="outer">
-    <div id="main_content" class="innerTemplate">
-        {% include navbar.html %}
-
-        <div class="topicContent" id="TopicContent">
-            {% if page.toc %}
-            <script type="text/javascript" src="{{ site.baseurl }}/static/js/generated_toc.js"></script>
-            <div id="toc"
-                 class="well well-sm col-md-4 pull-right list_type_ul back_to_top_off generate_to_h3">
-            </div>
-            {% endif %}
-            {{ content }}
+    <div id="menu">
+        <div class="pure-menu">
+            {% include menu.html %}
         </div>
+    </div>
 
-        <div class="end-main">
-            <p>&nbsp;</p>
+    <div id="main">
+        {% unless page.path == "index.html" %}
+        <div class="header">
+            <h1>{{ page.title }}</h1>
+        </div>
+        {% endunless %}
+
+        <div class="content">
+            {{ content }}
         </div>
     </div>
 </div>
 
 {% include footer.html %}
-
 </body>
 </html>

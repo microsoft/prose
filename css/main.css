@@ -1,0 +1,226 @@
+html {
+    height: 100%;
+}
+
+html, body {
+    font-size: 1em;
+    color: #777;
+    min-height: 100%;
+    line-height: 1.6em;
+}
+
+html, body, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+    font-family: Lato, sans-serif;
+}
+
+a {
+    color: #3b8bba;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Headers */
+
+h1 {
+    font-weight: 500;
+}
+
+.header h1 {
+    font-family: Raleway, Lato, sans-serif;
+}
+
+h2 {
+    font-weight: 400;
+}
+
+h3, h4, h5, h6 {
+    font-weight: 300;
+}
+
+blockquote {
+    font-size: 16px;
+}
+
+.content {
+    padding: 1em 2em;
+}
+
+.header {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+/* Code */
+
+code {
+    color: inherit;
+    background-color: #f9f2f4;
+    padding: 2px 4px;
+    font-size: 90%;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 15px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    border-radius: 4px;
+}
+
+pre code {
+    padding: 0;
+    /*font-size: inherit;*/
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+    background-color: inherit;
+    font-size: inherit;
+}
+
+/* MathJax */
+
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+}
+
+/* Footnotes */
+
+a.footnote {
+    padding-left: 1px;
+}
+
+a.footnote:before {
+    content: "[";
+}
+
+a.footnote:after {
+    content: "]";
+}
+
+a.reversefootnote {
+    margin-left: 5px;
+}
+
+/* Footer */
+
+#footer {
+    padding: 0.3em;
+    background: #fafafa;
+    font-size: 14px;
+    border-top: 1px solid #eee;
+    margin-top: 3em;
+}
+
+#layout {
+    flex: 1;
+}
+
+@media (min-width: 1170px) {
+    #footer {
+        padding-left: 230px;
+    }
+}
+
+/* Menu */
+
+#menu a:hover {
+    text-decoration: none;
+}
+
+#menu a.pure-menu-heading {
+    font-family: Merriweather, serif;
+    font-weight: 400;
+    letter-spacing: 1px;
+    background: inherit;
+    padding: 0.6em 0.45em;
+    font-size: 140%;
+}
+
+#menu a.pure-menu-heading.pure-menu-selected {
+    background: #1f8dd6;
+}
+
+#menu {
+    font-family: Raleway, Lato, sans-serif;
+    font-size: larger;
+}
+
+.menu-item-disabled {
+    padding: 0.6em 0 0.6em 0.6em;
+    color: rgb(119, 119, 160);
+}
+
+.menu-item-level-1 {
+    padding-left: 35px;
+    font-size: smaller;
+}
+
+li.menu-item-level-1.menu-item-disabled {
+    padding-left: 45px;
+}
+
+.menu-item-level-2 {
+    padding-left: 65px;
+    font-size: smaller;
+}
+
+#menu .menu-item-level-2 a.pure-menu-link {
+    padding: 0.4em 0 0.4em 0.6em;
+}
+
+/* Team page */
+
+.about-row {
+    margin-top: 30px;
+    padding-left: 30px;
+}
+
+.about-image {
+    border-radius: 50%;
+    height: auto;
+    width: auto;
+    max-width: 160px;
+    max-height: 160px;
+}
+
+/* Index page */
+.title, .subtitle {
+    font-family: Raleway, Lato, sans-serif;
+}
+
+.title {
+    font-size: 250%;
+    line-height: 1.1em;
+}
+
+h2.subtitle {
+    font-size: 110%;
+}
+
+span.title-blue {
+    color: #1f8dd6;
+}
+
+.installation pre {
+    font-size: 95%;
+    padding: 0.7em;
+    line-height: 1.3;
+}

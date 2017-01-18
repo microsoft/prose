@@ -25,5 +25,5 @@ if (-not $tsc) {
     throw "TypeScript is not installed."
 }
 
-$mainTS = [IO.Path]::Combine($WorkingDir, "static", "js", "main.ts")
+$mainTS = [IO.Path]::Combine($WorkingDir, "js", "main.ts")
 &"$tsc" --module amd --sourcemap  --target ES5 "$mainTS"

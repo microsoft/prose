@@ -1,99 +1,118 @@
 ---
-layout:
 ---
-<!DOCTYPE html>
-<html lang="en">
-{% include header.html %}
-<body id="bootstrap-overrides">
+<h1 class="center bold title mb1">Microsoft <span class="title-blue">Pro</span>gram <span class="title-blue">S</span>ynthesis using
+    <span class="title-blue">E</span>xamples SDK</h1>
 
-<!-- HEADER -->
-<div id="header_wrap" class="outer">
-    <header class="inner">
-        <h1 id="project_title">Microsoft Program Synthesis using Examples SDK</h1>
+<h2 class="center subtitle pb3">A framework for automatic programming or data wrangling from input-output examples.</h2>
 
-        <h2 class="project_tagline">Microsoft Program Synthesis using Examples (PROSE) SDK is a framework of technologies for programming by examples &ndash; automatic generation of programs from input-output examples at runtime. Given a domain-specific language (DSL) and some input-output examples for the desired program’s behavior, PROSE algorithms synthesize a ranked set of DSL programs that are consistent with the given examples.</h2>
-
-        <h2 class="project_tagline">The PROSE SDK also includes a pre-defined set of specific technologies for various data wrangling domains, such as: FlashFill, a library of string transformations from Microsoft Excel 2013; text extraction library with a DSL of programs that find desired regions in a textual file; web extraction library with a DSL of programs that select elements on a web page.</h2>
-
-    </header>
-</div>
-
-<!-- MAIN CONTENT -->
-<div id="main_content_wrap" class="outer">
-    <div id="main_content" class="inner">
-
-
-        <div class="gh-container">
-            <div class="col-left">
-                <h3><strong>&gt;</strong>&nbsp;&nbsp;&nbsp; <a
-                        href="https://www.nuget.org/packages/Microsoft.ProgramSynthesis/">Latest Release</a></h3>
-
-                <p>Want to see a quick summary of the release highlights?
-                    Visit the <a href="">Updates</a> section to learn more about the PROSE SDK
-                    and the feature set available in our latest release.</p>
-            </div>
-            <div class="col-right">
-                <h3><strong>&gt;</strong>&nbsp;&nbsp;&nbsp; <a
-                        href="https://prose-playground.cloudapp.net/">Playground</a></h3>
-
-                <p>The PROSE playground is an interface to experiment with
-                    domain-specific languages for extracting and transforming data.
-                    It is built on top of the PROSE SDK. </p>
-
-            </div>
-        </div>
-        <div class="gh-container">
-            <div class="col-left">
-                <p></p>
-            </div>
-            <div class="col-right-no-border">
-                <p></p>
-            </div>
-        </div>
-        <div class="gh-container">
-            <div class="col-left">
-                <h3><strong>&gt;</strong>&nbsp;&nbsp;&nbsp; <a href="./documentation/prose/tutorial/">Getting
-                    Started</a></h3>
-
-                <p>Everything you need to know to get up and running with the PROSE
-                    SDK in a quick and easy tutorial. This section will walk you through
-                    all the steps required to build a DSL in PROSE and enable program synthesis for it.</p>
-            </div>
-            <div class="col-right">
-                <h3><strong>&gt;</strong>&nbsp;&nbsp;&nbsp; <a href="./documentation/prose/tutorial/">Documentation</a>
-                </h3>
-                Learn more about the PROSE SDK.
-                <ul>
-                    <li><a href="./faq/">FAQ</a></li>
-                    <li><a href="./documentation/prose/usage/">Base SDK</a></li>
-                    <li><a href="./documentation/extraction-text/intro/">Extract Text</a></li>
-                    <li><a href="./documentation/extraction-web/intro/">Extract Web</a></li>
-                    <li><a href="./documentation/flashfill/intro/">Flash Fill</a></li>
-                    <li><a href="https://github.com/Microsoft/prose/">Sample projects</a></li>
-                    <li><a href="./documentation/api/">API Documentation</a></li>
-                </ul>
-
-            </div>
-        </div>
-        <div class="gh-container">
-            <div class="col-left">
-                <p></p>
-            </div>
-            <div class="col-right-no-border">
-                <p></p>
-            </div>
-        </div>
-
-
-        <div class="end-main">
-            <p>&nbsp;</p>
-        </div>
+<div class="pure-g pb3">
+    <div class="pure-u-1 pure-u-md-9-24">
+        <h2 class="mt0">Program Synthesis Framework</h2>
+        <p>
+            Microsoft PROSE SDK is a framework of technologies for <em>programming by examples</em> &ndash;
+            automatic generation of programs from input-output examples at runtime.
+        </p>
+        <p>
+            Given a domain-specific language (DSL) and some input-output examples for the desired program’s behavior,
+            PROSE algorithms synthesize a ranked set of DSL programs that are consistent with the given examples.
+        </p>
+    </div>
+    <div class="pure-u-1 pure-u-md-14-24 p1">
+        <img src="{{ site.baseurl }}/img/workflow.png" alt="Programming by Examples workflow using PROSE SDK"
+             class="pure-img">
     </div>
 </div>
 
+<div class="pure-g pb2">
+    <div class="pure-u-1 pure-u-md-13-24">
+        <img class="pure-img" src="{{ site.baseurl }}/img/extraction.png" alt="Data extraction by examples in PROSE Playground">
+    </div>
+    <div class="pure-u-1 pure-u-md-10-24 px2">
+        <h2 class="mt0">Data Wrangling DSLs</h2>
+        <p>
+            PROSE SDK includes a pre-defined suite of technologies for various kinds of <em>data wrangling</em> &ndash;
+            cleaning and pre-processing raw semi-structure data into a form amenable to analysis.
+            These include:
+        </p>
+        <ul>
+            <li>
+                <a href="http://research.microsoft.com/en-us/um/people/sumitg/flashfill.html">Flash Fill</a>, a technology
+                for <em>text transformation by examples</em>, available in
+                <a href="https://products.office.com/en-us/excel">Microsoft Excel</a> and <a
+                href="https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.utility/convert-string">PowerShell</a>.
+            </li>
+            <li>
+                <em>Data extraction from text files</em> by examples, available in <a
+                href="https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.utility/convertfrom-string">PowerShell</a>
+                and <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-custom-fields">Azure Log Analytics</a>.
+            </li>
+            <li>Data extraction and transformation of JSON files by examples.</li>
+            <li><em>Predictive file splitting</em> technology, which discovers structured columns in a text file without any examples or interaction.</li>
+            <li><em>Clustering</em> of a set of strings into buckets by syntactic similarity.</li>
+        </ul>
+        <p>
+            In addition, PROSE supports compilation of the programs from all aforementioned DSLs into self-sufficient Python/R scripts.
+        </p>
+    </div>
+</div>
 
-{% include footer.html %}
+<hr />
+<h1 class="center pt2"><i class="fa fa-download" aria-hidden="true"></i> Installation</h1>
 
+<div class="pure-g installation pb3">
+    <div class="pure-u-1 pure-u-md-7-24">
+        <h2 class="center subtitle">
+            1. Install our <a href="https://www.nuget.org/packages/Microsoft.ProgramSynthesis/">NuGet package</a>
+        </h2>
+        <pre class="highlight language-console"><code class="language-console">Install-Package Microsoft.ProgramSynthesis</code></pre>
+    </div>
+    <div class="pure-u-1 pure-u-md-1-24 flex justify-center items-center h5 p1">and</div>
+    <div class="pure-u-1 pure-u-md-6-24">
+        <h2 class="center subtitle">
+            2a. Start a new DSL using <a href="http://yeoman.io/">Yeoman</a>
+        </h2>
+        <pre class="highlight language-console"><code class="language-console">$ npm install -g yo generator-prose
+$ yo prose</code></pre>
+    </div>
+    <div class="pure-u-1 pure-u-md-1-24 flex justify-center items-center h5 p1">or</div>
+    <div class="pure-u-1 pure-u-md-8-24">
+        <h2 class="center subtitle">
+            2b. Build on top of the existing DSLs
+        </h2>
+        <pre class="highlight language-csharp"><code class="language-csharp">using Microsoft.ProgramSynthesis.Extraction.Text;
+using Microsoft.ProgramSynthesis.Extraction.Json;</code></pre>
+    </div>
+</div>
 
-</body>
-</html>
+<hr />
+<h1 class="center pt2"><i class="fa fa-book" aria-hidden="true"></i> Getting Started</h1>
+
+<div class="pure-g pb0">
+    <div class="pure-u-11-24 pure-u-md-1-4 py1 pr1">
+        <h2 class="center"><a href="{{ site.baseurl }}{% link documentation/prose/tutorial.md %}">Tutorial</a></h2>
+        <p>
+            This section will walk you through the steps required to build a DSL in PROSE and enable program synthesis for it.
+        </p>
+    </div>
+    <div class="pure-u-11-24 pure-u-md-5-24 py1 pr1">
+        <h2 class="center"><a href="{{ site.baseurl }}{% link playground/index.html %}">Playground</a></h2>
+        <p>
+            PROSE Playground is a fluid interface for extracting structured data from text files and Web pages.
+        </p>
+    </div>
+    <div class="pure-u-11-24 pure-u-md-1-4 p1">
+        <h2 class="center"><a href="https://github.com/microsoft/prose">API &amp; Samples</a></h2>
+        <p>
+            If you want to apply an existing PROSE DSL, please check out its documentation links on the left
+            and our <a href="https://github.com/microsoft/prose">sample code</a>.
+        </p>
+    </div>
+    <div class="pure-u-11-24 pure-u-md-6-24 py1 pl1">
+        <h2 class="center"><a href="{{ site.baseurl }}{% link resources.md %}">Resources</a></h2>
+        <p>
+            This section contains our publications and slides.
+            If you have any questions, feel free to <a href="mailto:prose-contact@microsoft.com">email us</a>
+            or <a href="https://github.com/Microsoft/prose/issues/new">open an issue on GitHub</a>.
+        </p>
+    </div>
+</div>

@@ -1,13 +1,15 @@
 {
-  "compilerOptions": {
-    "module": "amd",
-    "target": "es5",
-    "sourceMap": true,
-    "removeComments": true
-  },
-  "exclude": [
-    "node_modules",
-    "packages",
-    "_site"
-  ]
+    "compilerOptions": {
+        "module": "amd",
+        "target": "es5",
+        "sourceMap": true,
+        "removeComments": true,
+        "types": ["jquery"]
+    },
+    "exclude": [
+        "node_modules",
+        "packages",
+        "vendor",
+        "_site"
+    ]
 }
