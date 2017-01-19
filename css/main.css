@@ -1,4 +1,4 @@
-html {
+ html {
     height: 100%;
 }
 
@@ -10,17 +10,36 @@ html, body {
 }
 
 html, body, button, input, select, textarea,
-.pure-g [class *= "pure-u"] {
+.pure-g [class *= "pure-u"], .text-font {
     font-family: Lato, sans-serif;
 }
 
 a {
-    color: #3b8bba;
+    color: #3da6d6;
     text-decoration: none;
 }
 
 a:hover {
     text-decoration: underline;
+}
+
+.hyphenate {
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+
+.semibold {
+    font-weight: 500;
+}
+
+.flip-vertical {
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
 }
 
 /* Headers */
@@ -74,7 +93,6 @@ pre {
 
 pre code {
     padding: 0;
-    /*font-size: inherit;*/
     color: inherit;
     white-space: pre-wrap;
     background-color: transparent;
@@ -145,7 +163,6 @@ a.reversefootnote {
 #menu a.pure-menu-heading {
     font-family: Merriweather, serif;
     font-weight: 400;
-    letter-spacing: 1px;
     background: inherit;
     padding: 0.6em 0.45em;
     font-size: 140%;
@@ -209,15 +226,9 @@ li.menu-item-level-1.menu-item-disabled {
 }
 
 h2.subtitle {
-    font-size: 110%;
+    font-size: 120%;
 }
 
 span.title-blue {
     color: #1f8dd6;
-}
-
-.installation pre {
-    font-size: 95%;
-    padding: 0.7em;
-    line-height: 1.3;
 }
