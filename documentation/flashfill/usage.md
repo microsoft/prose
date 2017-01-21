@@ -1,9 +1,11 @@
 ---
 date: 2015-09-02T20:00:16-07:00
 title: FlashFill – Usage
-toc: true
 ---
 
+{% include outdated.html %}
+
+{% include toc.md %}
 
 The FlashFill API is accessed through the `FlashFill.FlashFillProgram` class.
 The primary method is `Learn()` which takes a set of examples

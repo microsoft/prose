@@ -1,4 +1,4 @@
- html {
+html {
     height: 100%;
 }
 
@@ -27,6 +27,41 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+blockquote {
+    padding: 5px 20px;
+    margin: 0 0 20px;
+    font-size: 15px;
+    border-left: 4px solid #999;
+    line-height: 1.4;
+}
+
+blockquote p:first-child,
+blockquote ul:first-child,
+blockquote ol:first-child {
+    margin-top: 0;
+}
+
+blockquote p:last-child,
+blockquote ul:last-child,
+blockquote ol:last-child {
+    margin-bottom: 0;
+}
+
+blockquote footer,
+blockquote small,
+blockquote .small {
+    display: block;
+    font-size: 80%;
+    line-height: 1.42857143;
+    color: #777;
+}
+
+blockquote footer:before,
+blockquote small:before,
+blockquote .small:before {
+    content: '\2014 \00A0';
 }
 
 .hyphenate {

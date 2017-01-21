@@ -15,11 +15,19 @@ out the text and web extraction features.
 
 ## How do I install it?
 
-Use the NuGet package manager in Visual Studio.
-Check "Include prerelease" and search for "Microsoft.ProgramSynthesis".
-If you run into issues installing System.Reflection.Metadata,
-follow [these instructions](http://celticcodingsolutions.com/Blog/post/2015/08/19/visual-studio-2015-and-nuget-redirection-and-package-retrieval-errors.aspx)
-to resolve them.
+Install the `Microsoft.ProgramSynthesis` and (optionally) `Microsoft.ProgramSynthesis.Compiler` NuGet packages in Visual Studio.
+
+You can also generate a template DSL project by running
+```
+npm install -g yo
+npm install -g generator-prose
+yo prose
+```
+
+## Is it cross-platform?
+Yes, PROSE SDK is supported on Windows, Linux, and macOS.
+Currently, the package is guaranteed to work on .NET 4.5+ and Mono.
+Support for .NET Core is forthcoming as soon as its MSBuild packaging stabilizes.
 
 
 ## Where can I use it?

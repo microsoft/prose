@@ -8,7 +8,7 @@ The [Usage]({{ site.baseurl }}/documentation/extraction-text/usage) page and the
 
 Extraction.Text supports two kinds of extraction: (1) extract a substring from an input string, and (2) extract a sequence of substrings from an input string.
 
-#### Substring Extraction
+## Substring Extraction
 
 Given an example like
 
@@ -23,7 +23,7 @@ Extraction.Text will generate a program to extract the last name given any other
 | Leonard Robledo 75 | Robledo   |
 
 
-#### Sequence Extraction
+## Sequence Extraction
 
 Given an example like
 

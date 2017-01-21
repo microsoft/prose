@@ -3,10 +3,10 @@ date: 2015-09-02T20:00:06-07:00
 title: "Introduction"
 ---
 
-FlashFill is a system that performs string transformations using examples
+FlashFill (or, officially, `Transformation.Text`) is a system that performs string transformations using examples
 allowing for many tasks involving strings to be performed automatically.
 The [Usage]({{ site.baseurl }}/documentation/flashfill/usage) page and the
-`FlashFill.Sample` project show examples of how to use the FlashFill API.
+`Transformation.Text.Sample` project show examples of how to use the FlashFill API.
 
 
 Example Transformation

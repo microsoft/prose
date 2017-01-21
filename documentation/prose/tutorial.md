@@ -479,7 +479,7 @@ double ScoreRegexPosition(double inScore, double rrScore, double kScore) => rrSc
 
 When recursively computed feature values are insufficient, you can take into account the entire syntax of a program AST. There are two ways to define such a calculator: **(a)** take as input a `ProgramNode` to score, or **(b)** take as input several individual `ProgramNode` instances representing ASTs of its parameter programs.
 
->  **Hint:** can specify a specific subclass of `ProgramNode` as as parameter, if you know that your grammar structure only allows some specific AST kinds at this place.
+>  **Hint:** You can specify a specific subclass of `ProgramNode` as a parameter, if you know that your grammar structure only allows some specific AST kinds at this place.
 
 ``` csharp
 [FeatureCalculator("AbsolutePosition", Method = CalculationMethod.FromChildrenNodes)]

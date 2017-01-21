@@ -1,8 +1,11 @@
 ---
 date: 2015-09-02T20:00:16-07:00
 title: Text Extraction - Usage
-toc: true
 ---
+
+{% include outdated.html %}
+
+{% include toc.md %}
 
 The Extraction.Text learning APIs are accessed through the `Extraction.Text.Learner` class.
 The two primary methods are `LearnRegion()` and `LearnSequence()` which take a set of examples
