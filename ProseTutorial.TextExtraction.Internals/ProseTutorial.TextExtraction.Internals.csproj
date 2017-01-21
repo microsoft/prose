@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProseTutorial.Substrings.Internals\ProseTutorial.Substrings.Internals.csproj">
+      <Project>{c07573db-18cf-43b8-a7d8-5aaecff444f9}</Project>
+      <Name>ProseTutorial.Substrings.Internals</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProseTutorial.Substrings\ProseTutorial.Substrings.csproj">
       <Project>{41e9a9b1-b013-4a87-9759-e3004fef8a81}</Project>
       <Name>ProseTutorial.Substrings</Name>

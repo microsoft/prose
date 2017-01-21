@@ -7,6 +7,7 @@ using Microsoft.ProgramSynthesis.Extraction.Text;
 using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 using Microsoft.ProgramSynthesis.Specifications;
 using Microsoft.ProgramSynthesis.Specifications.Extensions;
+using Microsoft.ProgramSynthesis.Utils;
 using static ProseTutorial.Utils;
 
 namespace ProseTutorial
@@ -64,6 +65,16 @@ namespace ProseTutorial
         private static void LoadAndTestTextExtraction()
         {
             var grammar = ProseTutorial.TextExtraction.Language.Grammar;
+
+            StringRegion document;
+            LoadBenchmark("benchmarks/countries.txt", out document);
+            var input = State.Create(grammar.InputSymbol, document);
+            ProgramNode p = ProgramNode.Parse(
+                "LinesMap(SubStr(line, PosPair(AbsPos(line, 1), AbsPos(line, 5))), SplitLines(document))",
+                grammar, ASTSerializationFormat.HumanReadable);
+            var output = p.Invoke(input).ToEnumerable();
+            WriteColored(ConsoleColor.DarkCyan,
+                         output.DumpCollection(openDelim: "", closeDelim: "", separator: "\n"));
         }
     }
 }

@@ -15,6 +15,9 @@ namespace ProseTutorial.TextExtraction
 
         protected override double GetFeatureValueForVariable(VariableNode variable) => 0;
 
+        [ExternFeatureMapping("Selection", 0)]
+        public IFeature ExternScore => new Substrings.RankingScore(Substrings.Language.Grammar);
+
         [FeatureCalculator("SplitLines")]
         public static double Score_SplitLines(double document) => document;
 
