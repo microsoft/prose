@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.AST;
+using Microsoft.ProgramSynthesis.Extraction.Text;
 using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 using Microsoft.ProgramSynthesis.VersionSpace;
 using Microsoft.ProgramSynthesis.Wrangling.Constraints;
 
-namespace Microsoft.ProgramSynthesis.Extraction.Text.Sample {
+namespace Extraction.Text {
     /// <summary>
     ///     Extraction.Text learns programs to extract a single string region or a sequence of string regions from text files.
     ///     This class demonstrates some common usage of Extraction.Text APIs.

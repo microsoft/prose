@@ -41,10 +41,10 @@ namespace ProseSample
             Learn(grammar, spec,
                   new Substrings.RankingScore(grammar), new Substrings.WitnessFunctions(grammar));
 
-            TestFlashFillBenchmark(grammar, "emails");
+            TestTransformation.TextBenchmark(grammar, "emails");
         }
 
-        private static void TestFlashFillBenchmark(Grammar grammar, string benchmark, int exampleCount = 2)
+        private static void TestTransformation.TextBenchmark(Grammar grammar, string benchmark, int exampleCount = 2)
         {
             string[] lines = File.ReadAllLines($"benchmarks/{benchmark}.tsv");
             Tuple<string, string>[] data = lines.Select(l =>

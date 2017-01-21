@@ -7,8 +7,8 @@
     <ProjectGuid>{2698A7F0-26B7-42E7-A9C6-11BB4AEAF23D}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.ProgramSynthesis.FlashFill.Sample</RootNamespace>
-    <AssemblyName>Microsoft.ProgramSynthesis.FlashFill.Sample</AssemblyName>
+    <RootNamespace>Transformation.Text</RootNamespace>
+    <AssemblyName>Transformation.Text</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

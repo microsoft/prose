@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Microsoft.ProgramSynthesis.FlashFill.Sample")]
+[assembly: AssemblyTitle("Microsoft.ProgramSynthesis.Transformation.Text.Sample")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Microsoft.ProgramSynthesis.FlashFill.Sample")]
+[assembly: AssemblyProduct("Microsoft.ProgramSynthesis.Transformation.Text.Sample")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

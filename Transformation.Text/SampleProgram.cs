@@ -5,7 +5,7 @@ using Microsoft.ProgramSynthesis.Transformation.Text;
 using Microsoft.ProgramSynthesis.Transformation.Text.Semantics;
 using Microsoft.ProgramSynthesis.Wrangling.Constraints;
 
-namespace Microsoft.ProgramSynthesis.FlashFill.Sample {
+namespace Transformation.Text {
     /// <summary>
     ///     Sample of how to use the Transformation.Text API. Transformation.Text generates string programs from input/output examples.
     /// </summary>

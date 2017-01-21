@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.AST;
 using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Learning.Strategies;
@@ -9,7 +10,7 @@ using Microsoft.ProgramSynthesis.Specifications;
 using Microsoft.ProgramSynthesis.Transformation.Text;
 using Microsoft.ProgramSynthesis.Transformation.Text.Semantics;
 
-namespace Microsoft.ProgramSynthesis.FlashFill.Sample {
+namespace Transformation.Text {
     /// <summary>
     ///     Simplified version of <see cref="Program" /> to demonstrate lower level API usage.
     /// </summary>
