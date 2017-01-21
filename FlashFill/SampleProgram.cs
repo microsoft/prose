@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.ProgramSynthesis.Transformation.Text;
+using Microsoft.ProgramSynthesis.Transformation.Text.Semantics;
+using Microsoft.ProgramSynthesis.Wrangling.Constraints;
 
-namespace Microsoft.ProgramSynthesis.FlashFill.Sample
-{
+namespace Microsoft.ProgramSynthesis.FlashFill.Sample {
     /// <summary>
-    ///     Sample of how to use the FlashFill API. FlashFill generates string programs from input/output examples.
+    ///     Sample of how to use the Transformation.Text API. Transformation.Text generates string programs from input/output examples.
     /// </summary>
-    internal static class SampleProgram
-    {
-        private static void Main(string[] args)
-        {
+    internal static class SampleProgram {
+        private static void Main(string[] args) {
             // Simplest usage: single example of a single string input:
             LearnFormatName();
             // Learning a program using multiple examples:
@@ -22,34 +22,32 @@ namespace Microsoft.ProgramSynthesis.FlashFill.Sample
             LearnTop10FormatName();
             // Learning with additional inputs:
             LearnNormalizeDate();
+            // Learning with learning session API:
+            LearnWithSession();
             // Convert program to string and back:
             SerializeProgram();
         }
 
         /// <summary>
         ///     Learn to reformat a name written "First Last" as "Last, F." where 'F' is the first initial.
-        ///     Demonstrates basic usage of FlashFill API.
+        ///     Demonstrates basic usage of Transformation.Text API.
         /// </summary>
-        private static void LearnFormatName()
-        {
-            // Examples are given as a FlashFillExample object which takes an input and output.
-            IEnumerable<FlashFillExample> examples = new[]
+        private static void LearnFormatName() {
+            // Examples are given as an Example object which takes an input and output.
+            IEnumerable<Constraint<IRow, object>> constraints = new[]
             {
-                new FlashFillExample("Kettil Hansson", "Hansson, K.")
+                new Example(new InputRow("Kettil Hansson"), "Hansson, K.")
             };
             // Given just the examples, the best program is returned
-            FlashFillProgram topRankedProgram = FlashFillProgram.Learn(examples);
+            Program topRankedProgram = Learner.Instance.Learn(constraints);
 
-            if (topRankedProgram == null)
-            {
+            if (topRankedProgram == null) {
                 Console.Error.WriteLine("Error: failed to learn format name program.");
             }
-            else
-            {
+            else {
                 // Run the program on some new inputs.
-                foreach (var name in new[] {"Etelka Bala", "Myron Lampros"})
-                {
-                    string formatted = topRankedProgram.Run(name);
+                foreach (var name in new[] { "Etelka Bala", "Myron Lampros" }) {
+                    string formatted = topRankedProgram.Run(new InputRow(name)) as string;
                     Console.WriteLine("\"{0}\" => \"{1}\"", name, formatted);
                 }
             }
@@ -57,28 +55,24 @@ namespace Microsoft.ProgramSynthesis.FlashFill.Sample
 
         /// <summary>
         ///     Learn to normalize phone numbers in a few input formats to the same output format.
-        ///     Demonstrates giving FlashFill multiple examples.
+        ///     Demonstrates giving Transformation.Text multiple examples.
         /// </summary>
-        private static void LearnNormalizePhoneNumber()
-        {
+        private static void LearnNormalizePhoneNumber() {
             // Some programs may require multiple examples.
             // More examples ensures the proper program is learned and may speed up learning.
-            IEnumerable<FlashFillExample> examples = new[]
+            IEnumerable<Constraint<IRow, object>> constraints = new[]
             {
-                new FlashFillExample("425-829-5512", "425-829-5512"),
-                new FlashFillExample("(425) 829 5512", "425-829-5512")
+                new Example(new InputRow("425-829-5512"), "425-829-5512"),
+                new Example(new InputRow("(425) 829 5512"), "425-829-5512")
             };
-            FlashFillProgram topRankedProgram = FlashFillProgram.Learn(examples);
+            Program topRankedProgram = Learner.Instance.Learn(constraints);
 
-            if (topRankedProgram == null)
-            {
+            if (topRankedProgram == null) {
                 Console.Error.WriteLine("Error: failed to learn normalize phone number program.");
             }
-            else
-            {
-                foreach (var phoneNumber in new[] {"425 233 1234", "(425) 777 3333"})
-                {
-                    string normalized = topRankedProgram.Run(phoneNumber);
+            else {
+                foreach (var phoneNumber in new[] { "425 233 1234", "(425) 777 3333" }) {
+                    string normalized = topRankedProgram.Run(new InputRow(phoneNumber)) as string;
                     Console.WriteLine("\"{0}\" => \"{1}\"", phoneNumber, normalized);
                 }
             }
@@ -88,38 +82,28 @@ namespace Microsoft.ProgramSynthesis.FlashFill.Sample
         ///     Learn to take two strings of a first name and last name and combine them into "Last, First" format.
         ///     Demonstrates inputs with multiple strings (columns) and also providing inputs without a known output.
         /// </summary>
-        private static void LearnMergeNames()
-        {
+        private static void LearnMergeNames() {
             // Inputs may be made up of multiple strings. If so, all inputs must contain the same number of strings.
-            IEnumerable<FlashFillExample> examples = new[]
+            IEnumerable<Constraint<IRow, object>> constraints = new[]
             {
-                new FlashFillExample(new FlashFillInput("Kettil", "Hansson"), "Hansson, Kettil")
+                new Example(new InputRow("Kettil", "Hansson"), "Hansson, Kettil")
             };
             // Inputs for which the corresponding output is not known. May be used for improving ranking.
-            FlashFillInput[] additionalInputs =
+            InputRow[] additionalInputs =
             {
-                new FlashFillInput("Greta", "Hermansson")
+                new InputRow("Greta", "Hermansson")
             };
-            FlashFillProgram topRankedProgram = FlashFillProgram.Learn(examples, additionalInputs);
+            Program topRankedProgram = Learner.Instance.Learn(constraints, additionalInputs);
 
-            if (topRankedProgram == null)
-            {
+            if (topRankedProgram == null) {
                 Console.Error.WriteLine("Error: failed to learn merge names program.");
             }
-            else
-            {
-                var testInputs = new[] {new FlashFillInput("Etelka", "Bala"), new FlashFillInput("Myron", "Lampros")};
-                foreach (var name in testInputs)
-                {
-                    string merged = topRankedProgram.Run(name);
+            else {
+                var testInputs = new[] { new InputRow("Etelka", "Bala"), new InputRow("Myron", "Lampros") };
+                foreach (var name in testInputs) {
+                    string merged = topRankedProgram.Run(name) as string;
                     Console.WriteLine("{0} => \"{1}\"", name, merged);
                 }
-                // Instead of a FlashFillInput, .Run() can also take the inputs as an IEnumerable<string>
-                //  or as a params string[]:
-                Console.WriteLine("\"Nelly\", \"Akesson\" => \"{0}\"",
-                    topRankedProgram.Run(new List<string> {"Nelly", "Akesson"}));
-                Console.WriteLine("\"Nelly\", \"Akesson\" => \"{0}\"",
-                    topRankedProgram.Run("Nelly", "Akesson"));
             }
         }
 
@@ -130,31 +114,26 @@ namespace Microsoft.ProgramSynthesis.FlashFill.Sample
         ///     among the top-ranked programs on unseen input formats.
         /// </summary>
         /// <seealso cref="LearnTop10FormatName" />
-        private static void LearnTop10NormalizePhoneNumber()
-        {
-            IEnumerable<FlashFillExample> examples = new[]
+        private static void LearnTop10NormalizePhoneNumber() {
+            IEnumerable<Constraint<IRow, object>> constraints = new[]
             {
-                new FlashFillExample("(425) 829 5512", "425-829-5512")
+                new Example(new InputRow("(425) 829 5512"), "425-829-5512")
             };
             // Request is for number of distinct rankings, not number of programs,
             //  so more programs will be generated if there are ties.
             int numRankingsToGenerate = 10;
-            IList<FlashFillProgram> programs = FlashFillProgram.LearnTopK(examples, k: numRankingsToGenerate).ToList();
+            IList<Program> programs = Learner.Instance.LearnTopK(constraints, k: numRankingsToGenerate).ToList();
 
-            if (!programs.Any())
-            {
+            if (!programs.Any()) {
                 Console.Error.WriteLine("Error: failed to learn normalize phone number program.");
             }
-            else
-            {
+            else {
                 // More than numRankingsToGenerate programs may be generated if there are ties in the ranking.
                 Console.WriteLine("Learned {0} programs.", programs.Count);
                 // Run all of the programs to see how their output differs.
-                for (int i = 0; i < programs.Count; i++)
-                {
-                    foreach (var phoneNumber in new[] {"425 233 1234", "(425) 777 3333"})
-                    {
-                        string normalized = programs[i].Run(phoneNumber);
+                for (int i = 0; i < programs.Count; i++) {
+                    foreach (var phoneNumber in new[] { "425 233 1234", "(425) 777 3333" }) {
+                        string normalized = programs[i].Run(new InputRow(phoneNumber)) as string;
                         Console.WriteLine("Program {2}: \"{0}\" => \"{1}\"", phoneNumber, normalized, (i + 1));
                     }
                 }
@@ -168,52 +147,43 @@ namespace Microsoft.ProgramSynthesis.FlashFill.Sample
         ///     among the top-ranked programs on unseen input formats.
         /// </summary>
         /// <seealso cref="LearnTop10NormalizePhoneNumber" />
-        private static void LearnTop10FormatName()
-        {
-            var examples = new[] {new FlashFillExample("Greta Hermansson", "Hermansson, G.")};
-            IEnumerable<FlashFillProgram> programs = FlashFillProgram.LearnTopK(examples, k: 10);
+        private static void LearnTop10FormatName() {
+            var constraints = new[] { new Example(new InputRow("Greta Hermansson"), "Hermansson, G.") };
+            IEnumerable<Program> programs = Learner.Instance.LearnTopK(constraints, k: 10);
 
             // This attempts running the top 10 programs on an input not directly similar to the example
             //  to see if any of them work anyway.
             int i = 0;
-            foreach (var program in programs)
-            {
-                var input = "Kettil hansson"; // Notice it's "hansson", not "Hansson".
+            foreach (var program in programs) {
+                var input = new InputRow("Kettil hansson"); // Notice it's "hansson", not "Hansson".
                 Console.WriteLine("Program {0}: \"{1}\" => \"{2}\"", ++i, input, program.Run(input));
             }
         }
 
         /// <summary>
         ///     Learns a program to convert dates from "DD/MM/YYYY" to "YYYY-MM-DD".
-        ///     Demonstrates providing examples using <see cref="string" /> instead of <see cref="FlashFillExample" />
+        ///     Demonstrates providing examples using <see cref="string" /> instead of <see cref="Example" />
         ///     and providing additional inputs.
         /// </summary>
-        private static void LearnNormalizeDate()
-        {
-            // Can give FlashFillProgram's .Learn() function an IDictionary<string, string>
-            //  instead of an IEnumerable of FlashFillExample.
-            IDictionary<string, string> examples = new Dictionary<string, string>
+        private static void LearnNormalizeDate() {
+            IEnumerable<Constraint<IRow, object>> constraints = new[]
             {
-                {"02/04/1953", "1953-04-02"}
+                new Example(new InputRow("02/04/1953"), "1953-04-02")
             };
             // Inputs for which the corresponding output is not known. May be used for improving ranking.
-            // Given as strings instead of FlashFillInputs when the examples are given as Tuple<string, string>.
-            IEnumerable<string> additionalInputs = new[]
+            IEnumerable<IRow> additionalInputs = new[]
             {
-                "04/02/1962",
-                "27/08/1998"
+                new InputRow("04/02/1962"),
+                new InputRow("27/08/1998"),
             };
-            FlashFillProgram topRankedProgram = FlashFillProgram.Learn(examples, additionalInputs);
+            Program topRankedProgram = Learner.Instance.Learn(constraints, additionalInputs);
 
-            if (topRankedProgram == null)
-            {
+            if (topRankedProgram == null) {
                 Console.Error.WriteLine("Error: failed to learn normalize date program.");
             }
-            else
-            {
-                foreach (var date in new[] {"12/02/1972", "31/01/1983"})
-                {
-                    string normalized = topRankedProgram.Run(date);
+            else {
+                foreach (var date in new[] { "12/02/1972", "31/01/1983" }) {
+                    string normalized = topRankedProgram.Run(new InputRow(date)) as string;
                     Console.WriteLine("\"{0}\" => \"{1}\"", date, normalized);
                 }
             }
@@ -221,30 +191,46 @@ namespace Microsoft.ProgramSynthesis.FlashFill.Sample
 
         /// <summary>
         ///     Learns a programs for formatting a name but serializes and deserializes it before running it.
-        ///     Demonstrates serializing a FlashFillProgram to a string.
+        ///     Demonstrates serializing a Program to a string.
         /// </summary>
-        private static void SerializeProgram()
-        {
-            IEnumerable<FlashFillExample> examples = new[]
+        private static void SerializeProgram() {
+            IEnumerable<Constraint<IRow, object>> constraints = new[]
             {
-                new FlashFillExample("Kettil Hansson", "Hansson, K.")
+                new Example(new InputRow("Kettil Hansson"), "Hansson, K.")
             };
-            FlashFillProgram topRankedProgram = FlashFillProgram.Learn(examples);
+            Program topRankedProgram = Learner.Instance.Learn(constraints);
 
-            if (topRankedProgram == null)
-            {
+            if (topRankedProgram == null) {
                 Console.Error.WriteLine("Error: failed to learn format name program.");
             }
-            else
-            {
-                // FlashFillPrograms can be serialized using .ToString().
-                string serializedProgram = topRankedProgram.ToString();
-                // Serialized programs can be loaded in another program using the FlashFill API using .Load():
-                var parsedProgram = FlashFillProgram.Load(serializedProgram);
-                foreach (var name in new[] {"Etelka Bala", "Myron Lampros"})
-                {
-                    string formatted = parsedProgram.Run(name);
+            else {
+                // Programs can be serialized using .Serialize().
+                string serializedProgram = topRankedProgram.Serialize();
+                // Serialized programs can be loaded in another program using the Transformation.Text API using .Load():
+                var parsedProgram = Loader.Instance.Load(serializedProgram);
+                foreach (var name in new[] { "Etelka Bala", "Myron Lampros" }) {
+                    string formatted = parsedProgram.Run(new InputRow(name)) as string;
                     Console.WriteLine("\"{0}\" => \"{1}\"", name, formatted);
+                }
+            }
+        }
+
+        private static void LearnWithSession() {
+            Session session = new Session {
+                AllowBackgroundComputations = true
+            };
+
+            session.AddInputs(new InputRow("02/04/1953"), new InputRow("04/02/1962"), new InputRow("27/08/1998"));
+            session.AddConstraints(new Example(new InputRow("02/04/1953"), "1953-04-02"));
+            Program topRankedProgram = session.Learn();
+
+            if (topRankedProgram == null) {
+                Console.Error.WriteLine("Error: failed to learn normalize date program.");
+            }
+            else {
+                foreach (var date in session.Inputs) {
+                    string normalized = topRankedProgram.Run(date) as string;
+                    Console.WriteLine("\"{0}\" => \"{1}\"", date, normalized);
                 }
             }
         }

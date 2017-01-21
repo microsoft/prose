@@ -4,8 +4,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.ProgramSynthesis.FlashFill.Sample", "FlashFill\Microsoft.ProgramSynthesis.FlashFill.Sample.csproj", "{2698A7F0-26B7-42E7-A9C6-11BB4AEAF23D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.ProgramSynthesis.Extraction.Web.Sample", "Extraction.Web\Microsoft.ProgramSynthesis.Extraction.Web.Sample.csproj", "{D24046B6-4E7C-4112-B88C-D360695D1E66}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.ProgramSynthesis.Extraction.Text.Sample", "Extraction.Text\Microsoft.ProgramSynthesis.Extraction.Text.Sample.csproj", "{96D149D8-0A64-451A-A909-499D2162683D}"
 EndProject
 Global
