@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProseTutorial.Substrings", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProseTutorial.Substrings.Internals", "ProseTutorial.Substrings.Internals\ProseTutorial.Substrings.Internals.csproj", "{C07573DB-18CF-43B8-A7D8-5AAECFF444F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProseTutorial.TextExtraction", "ProseTutorial.TextExtraction\ProseTutorial.TextExtraction.csproj", "{5AA217F9-DEAB-46BE-81BE-AFD00948AC50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProseTutorial.TextExtraction.Internals", "ProseTutorial.TextExtraction.Internals\ProseTutorial.TextExtraction.Internals.csproj", "{29932B8D-3123-4BA2-8D90-0032A348BF01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +36,14 @@ Global
 		{C07573DB-18CF-43B8-A7D8-5AAECFF444F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C07573DB-18CF-43B8-A7D8-5AAECFF444F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C07573DB-18CF-43B8-A7D8-5AAECFF444F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AA217F9-DEAB-46BE-81BE-AFD00948AC50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AA217F9-DEAB-46BE-81BE-AFD00948AC50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AA217F9-DEAB-46BE-81BE-AFD00948AC50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AA217F9-DEAB-46BE-81BE-AFD00948AC50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29932B8D-3123-4BA2-8D90-0032A348BF01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29932B8D-3123-4BA2-8D90-0032A348BF01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29932B8D-3123-4BA2-8D90-0032A348BF01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29932B8D-3123-4BA2-8D90-0032A348BF01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

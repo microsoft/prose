@@ -236,6 +236,14 @@
       <Project>{41e9a9b1-b013-4a87-9759-e3004fef8a81}</Project>
       <Name>ProseTutorial.Substrings</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProseTutorial.TextExtraction.Internals\ProseTutorial.TextExtraction.Internals.csproj">
+      <Project>{29932b8d-3123-4ba2-8d90-0032a348bf01}</Project>
+      <Name>ProseTutorial.TextExtraction.Internals</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProseTutorial.TextExtraction\ProseTutorial.TextExtraction.csproj">
+      <Project>{5aa217f9-deab-46be-81be-afd00948ac50}</Project>
+      <Name>ProseTutorial.TextExtraction</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
