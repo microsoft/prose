@@ -1,7 +1,10 @@
-﻿#reference 'file:ProseTutorial.Substrings.Internals.dll';
+﻿#reference 'Microsoft.ProgramSynthesis.Extraction.Text.Semantics, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35';
+#reference 'file:ProseTutorial.Substrings.Internals.dll';
 
 using System.Text.RegularExpressions;
+using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 using ProseTutorial.Substrings;
+
 using semantics ProseTutorial.Substrings.Semantics;
 using learners ProseTutorial.Substrings.WitnessFunctions;
 
@@ -9,12 +12,12 @@ language ProseTutorial.Substrings;
 
 @complete feature double Score = RankingScore;
 
-@start string sub := SubStr(v, posPair);
+@start StringRegion sub := SubStr(v, posPair);
 Tuple<uint?, uint?> posPair := PosPair(pos, pos) = Pair(pos, pos);
 uint? pos := AbsPos(v, k) | RegPos(v, rr, k);
 
-Tuple<Regex, Regex> rr := BoundaryPair(r, r) = Pair(r, r);
-Regex r;
+Tuple<RegularExpression, RegularExpression> rr := BoundaryPair(r, r) = Pair(r, r);
+RegularExpression r;
 
-@input string v;
+@input StringRegion v;
 int k;

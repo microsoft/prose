@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.Learning;
+using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 using Microsoft.ProgramSynthesis.Rules;
 using Microsoft.ProgramSynthesis.Specifications;
+using Microsoft.ProgramSynthesis.Utils;
 using static ProseTutorial.Substrings.RegexUtils;
 namespace ProseTutorial.Substrings
 {
@@ -21,18 +23,18 @@ namespace ProseTutorial.Substrings
             var ppExamples = new Dictionary<State, IEnumerable<object>>();
             foreach (State input in spec.ProvidedInputs)
             {
-                var v = (string) input[rule.Body[0]];
-                var desiredOutput = (string) spec.Examples[input];
+                var v = (StringRegion) input[rule.Body[0]];
+                var desiredOutput = (StringRegion) spec.Examples[input];
 
                 var occurrences = new List<Tuple<uint?, uint?>>();
-                for (int i = v.IndexOf(desiredOutput, StringComparison.Ordinal);
+                for (int i = v.Value.IndexOf(desiredOutput.Value, StringComparison.Ordinal);
                      i >= 0;
-                     i = v.IndexOf(desiredOutput, i + 1, StringComparison.Ordinal))
+                     i = v.Value.IndexOf(desiredOutput.Value, i + 1, StringComparison.Ordinal))
                 {
-                    occurrences.Add(Tuple.Create((uint?) i, (uint?) (i + desiredOutput.Length)));
+                    occurrences.Add(Tuple.Create(v.Start + (uint?) i, v.Start + (uint?) i + desiredOutput.Length));
                 }
 
-                ppExamples[input] = occurrences; // <== deduce examples for the position pair here
+                ppExamples[input] = occurrences;
             }
             return DisjunctiveExamplesSpec.From(ppExamples);
         }
@@ -43,17 +45,16 @@ namespace ProseTutorial.Substrings
             var kExamples = new Dictionary<State, IEnumerable<object>>();
             foreach (State input in spec.ProvidedInputs)
             {
-                var v = (string) input[rule.Body[0]];
-                var positionVariants = spec.DisjunctiveExamples[input].Cast<uint?>();
+                var v = (StringRegion) input[rule.Body[0]];
 
                 var positions = new List<object>();
-                foreach (uint? pos in positionVariants)
+                foreach (uint pos in spec.DisjunctiveExamples[input])
                 {
-                    positions.Add((int) pos + 1);
-                    positions.Add((int) pos - v.Length - 1);
+                    positions.Add((int) pos + 1 - (int) v.Start);
+                    positions.Add((int) pos - (int) v.End - 1);
                 }
 
-                kExamples[input] = positions; // <== deduce examples for the absolute index 'k' here
+                kExamples[input] = positions;
             }
             return DisjunctiveExamplesSpec.From(kExamples);
         }
@@ -65,21 +66,24 @@ namespace ProseTutorial.Substrings
             var rrExamples = new Dictionary<State, IEnumerable<object>>();
             foreach (State input in spec.ProvidedInputs)
             {
-                var v = (string) input[rule.Body[0]];
-                var regexes = new List<Tuple<Regex, Regex>>();
+                var v = (StringRegion) input[rule.Body[0]];
+                var regexes = new List<Tuple<RegularExpression, RegularExpression>>();
                 foreach (uint pos in spec.DisjunctiveExamples[input])
                 {
-                    Regex[] rightRegexes = 
-                        Tokens.Where(t => t.Match(v, (int) pos).Index == pos).ToArray();
-                    if (rightRegexes.Length == 0) continue;
-                    Regex[] leftRegexes = 
-                        LeftTokens.Where(t => t.Match(v, (int) pos).Index == pos).ToArray();
-                    if (leftRegexes.Length == 0) continue;
-                    regexes.AddRange(
-                        leftRegexes.SelectMany(l => rightRegexes.Select(r => Tuple.Create(l, r))));
+                    if (!v.Cache.TryGetAllMatchesStartingAt(pos, out var rightMatches)) continue;
+                    if (!v.Cache.TryGetAllMatchesEndingAt(pos, out var leftMatches)) continue;
+                    var leftRegexes =
+                        leftMatches.Keys.Select(t => RegularExpression.Create(new[] { t }))
+                                        .Append(Epsilon);
+                    var rightRegexes = 
+                        rightMatches.Keys.Select(t => RegularExpression.Create(new[] { t }))
+                                         .Append(Epsilon);
+                    var regexPairs = from l in leftRegexes
+                                     from r in rightRegexes
+                                     select Tuple.Create(l, r);
+                    regexes.AddRange(regexPairs);
                 }
-
-                rrExamples[input] = regexes; // <== deduce examples for the regex pair here
+                rrExamples[input] = regexes;
             }
             return DisjunctiveExamplesSpec.From(rrExamples);
         }
@@ -92,21 +96,20 @@ namespace ProseTutorial.Substrings
             var kExamples = new Dictionary<State, IEnumerable<object>>();
             foreach (State input in spec.ProvidedInputs)
             {
-                var v = (string) input[rule.Body[0]];
-                var rr = (Tuple<Regex, Regex>) regexBinding.Examples[input];
+                var v = (StringRegion) input[rule.Body[0]];
+                var rr = (Tuple<RegularExpression, RegularExpression>) regexBinding.Examples[input];
 
-                var r = new Regex($"(?<={rr.Item1}){rr.Item2}");
-                Match[] ms = r.Matches(v).Cast<Match>().ToArray();
                 var ks = new List<object>();
                 foreach (uint pos in spec.DisjunctiveExamples[input])
                 {
-                    int index = ms.BinarySearchBy(m => m.Index.CompareTo((int) pos));
+                    var ms = rr.Item1.Run(v).Where(m => rr.Item2.MatchesAt(v, m.Right)).ToArray();
+                    int index = ms.BinarySearchBy(m => m.Right.CompareTo(pos));
                     if (index < 0) return null;
                     ks.Add(index + 1);
                     ks.Add(index - ms.Length);
                 }
 
-                kExamples[input] = ks; // <== deduce examples for the regex count here
+                kExamples[input] = ks;
             }
             return DisjunctiveExamplesSpec.From(kExamples);
         }

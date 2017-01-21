@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.AST;
+using Microsoft.ProgramSynthesis.Extraction.Text;
+using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 using Microsoft.ProgramSynthesis.Specifications;
 using Microsoft.ProgramSynthesis.Specifications.Extensions;
 using static ProseTutorial.Utils;
@@ -23,11 +25,11 @@ namespace ProseTutorial
 
             ProgramNode p = ProgramNode.Parse(@"SubStr(v, PosPair(AbsPos(v, -4), AbsPos(v, -1)))",
                                               grammar, ASTSerializationFormat.HumanReadable);
-            const string data = "Microsoft PROSE SDK";
+            StringRegion data = RegionSession.CreateStringRegion("Microsoft PROSE SDK");
             State input = State.Create(grammar.InputSymbol, data);
             Console.WriteLine(p.Invoke(input));
 
-            string sdk = data.Substring(data.Length - 3);
+            StringRegion sdk = data.Slice(data.End - 3, data.End);
             Spec spec = ShouldConvert.Given(grammar).To(data, sdk);
             Learn(grammar, spec);
 
@@ -42,14 +44,18 @@ namespace ProseTutorial
                 var parts = l.Split(new[] { "\t" }, StringSplitOptions.RemoveEmptyEntries);
                 return Tuple.Create(parts[0], parts[1]);
             }).ToArray();
-            var examples = data.Take(exampleCount)
-                               .ToDictionary(t => State.Create(grammar.InputSymbol, t.Item1),
-                                             t => (object) t.Item2);
+            var examples =
+                data.Take(exampleCount)
+                    .ToDictionary(
+                        t => State.Create(grammar.InputSymbol, RegionSession.CreateStringRegion(t.Item1)),
+                        t => (object)RegionSession.CreateStringRegion(t.Item2));
             var spec = new ExampleSpec(examples);
             ProgramNode program = Learn(grammar, spec);
             foreach (Tuple<string, string> row in data.Skip(exampleCount))
             {
-                var output = program.Invoke(State.Create(grammar.InputSymbol, row.Item1));
+                State input = State.Create(grammar.InputSymbol,
+                                           RegionSession.CreateStringRegion(row.Item1));
+                var output = program.Invoke(input);
                 WriteColored(ConsoleColor.DarkCyan, $"{row.Item1} => {output}");
             }
         }

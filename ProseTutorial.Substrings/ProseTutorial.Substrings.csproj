@@ -54,6 +54,10 @@
       <HintPath>..\packages\Microsoft.ProgramSynthesis.2.2.0\lib\net45\Microsoft.ProgramSynthesis.Extraction.Text.Learning.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.CoreFxLab, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.2.2.0\lib\net45\Microsoft.ProgramSynthesis.CoreFxLab.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.ProgramSynthesis.Extraction.Text.Semantics, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ProgramSynthesis.2.2.0\lib\net45\Microsoft.ProgramSynthesis.Extraction.Text.Semantics.dll</HintPath>
       <Private>True</Private>

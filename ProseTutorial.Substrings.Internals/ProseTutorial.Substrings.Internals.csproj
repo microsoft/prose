@@ -34,6 +34,10 @@
     <Reference Include="Microsoft.ProgramSynthesis">
       <HintPath>..\packages\Microsoft.ProgramSynthesis.2.2.0\lib\net45\Microsoft.ProgramSynthesis.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ProgramSynthesis.CoreFxLab, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.ProgramSynthesis.2.2.0\lib\net45\Microsoft.ProgramSynthesis.CoreFxLab.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ProgramSynthesis.Utils, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.ProgramSynthesis.2.2.0\lib\net45\Microsoft.ProgramSynthesis.Utils.dll</HintPath>

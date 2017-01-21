@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.AST;
+using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 
 namespace ProseTutorial.Substrings
 {
@@ -32,6 +33,6 @@ namespace ProseTutorial.Substrings
         public static double Score_RegPos(double x, double rr, double k) => rr * k;
 
         [FeatureCalculator("r", Method = CalculationMethod.FromLiteral)]
-        public static double RegexScore(Regex r) => 0.1 / (1 + r.ToString().Length);
+        public static double RegexScore(RegularExpression r) => r.Score;
     }
 }
