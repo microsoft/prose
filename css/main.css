@@ -14,6 +14,12 @@ html, body, button, input, select, textarea,
     font-family: Lato, sans-serif;
 }
 
+* {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
 a {
     color: #3da6d6;
     text-decoration: none;
