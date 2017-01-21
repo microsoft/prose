@@ -9,6 +9,7 @@ using ProseTutorial.TextExtraction;
 using grammar Substrings = ProseTutorial.Substrings.Language.Grammar;
 
 using semantics ProseTutorial.TextExtraction.Semantics;
+using learners ProseTutorial.TextExtraction.WitnessFunctions;
 
 language ProseTutorial.TextExtraction;
 
