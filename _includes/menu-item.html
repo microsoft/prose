@@ -1,6 +1,7 @@
 {% capture class_divided %}{% if include.divided %} menu-item-divided {% else %}{% endif %}{% endcapture %}
 {% capture class_disabled %}{% if include.disabled %} menu-item-disabled {% else %}{% endif %}{% endcapture %}
 {% capture class_selected %}{% if page.url contains include.url %} pure-menu-selected {% else %}{% endif %}{% endcapture %}
+{% capture url %}{% if include.absolute %}{{ include.url }}{% else %}{{ site.baseurl }}{{ include.url }}{% endif %}{% endcapture %}
 
 {% assign level = include.level | default: 0 %}
 <li class="pure-menu-item {{ class_disabled }} {{ class_divided }} {{ class_selected }} menu-item-level-{{level}}">
@@ -9,10 +10,10 @@
         {{ include.title }} <i class="fa fa-angle-down"></i>
     {% else %}
         {% if include.title %}
-    <a class="pure-menu-link" href="{{ site.baseurl }}{{ include.url }}/">{{ include.title }}</a>
+    <a class="pure-menu-link" href="{{ url }}/">{{ include.title }}</a>
         {% else %}
             {% assign current_page = site.pages | where_exp: "item", "item.url contains include.url" | first %}
-    <a class="pure-menu-link" href="{{ site.baseurl }}{{ include.url }}/">{{ current_page.title }}</a>
+    <a class="pure-menu-link" href="{{ url }}/">{{ current_page.title }}</a>
         {% endif %}
     {% endif %}
 </li>

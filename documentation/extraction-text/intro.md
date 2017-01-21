@@ -4,7 +4,7 @@ title: "Text Extraction"
 ---
 
 **Extraction.Text** is a system that extracts data from semi-structured text files using *examples*.
-The [Usage]({{ site.baseurl }}/documentation/extraction-text/usage) page and the `Extraction.Text.Sample` project show examples of how to use the Extraction.Text API.
+The [Usage]({{ site.baseurl }}/documentation/extraction-text/usage) page and the [`Extraction.Text` sample project](https://github.com/Microsoft/prose/tree/master/Extraction.Text) show examples of how to use the Extraction.Text API.
 
 Extraction.Text supports two kinds of extraction: (1) extract a substring from an input string, and (2) extract a sequence of substrings from an input string.
 

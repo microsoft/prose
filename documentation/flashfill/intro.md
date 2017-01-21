@@ -6,7 +6,7 @@ title: "Introduction"
 FlashFill (or, officially, `Transformation.Text`) is a system that performs string transformations using examples
 allowing for many tasks involving strings to be performed automatically.
 The [Usage]({{ site.baseurl }}/documentation/flashfill/usage) page and the
-`Transformation.Text.Sample` project show examples of how to use the FlashFill API.
+[`Transformation.Text` sample project](https://github.com/Microsoft/prose/tree/master/Transformation.Text) show examples of how to use the FlashFill API.
 
 
 Example Transformation
