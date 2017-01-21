@@ -1,7 +1,6 @@
 ---
 title: Backpropagation
 ---
-{% include outdated.html %}
 
 Deductive strategy (i.e., backpropagation) is the main synthesis algorithm used by the PROSE SDK.
 It relies on external annotations, provided by the DSL designer for the language operators -- [witness functions](#witness-functions).
@@ -9,7 +8,7 @@ Our [tutorial]({{ site.baseurl }}/documentation/prose/tutorial) and samples show
 
 # Witness Functions
 A witness function is a domain-specific deductive procedure for a parameter $k$ of an operator $F$, that, given an outer spec $\phi$ on $F$, answer a question: "What should a program used as this parameter satisfy in order for the entire $F$ expression to satisfy $\phi$?"
-In other words, witness functions propagate specifications from expressions to their subexpressions.
+In other words, witness functions *backpropagate* specifications from expressions to their subexpressions.
 
 There are two kinds of witness functions: non-conditional and conditional.
 
@@ -18,7 +17,7 @@ Non-conditional witness functions have the following signature:
 
 ``` csharp
 [WitnessFunction("OperatorName", paramIndex)]
-static Spec Witness(GrammarRule rule, int parameter, Spec outerSpec);
+Spec Witness(GrammarRule rule, Spec outerSpec);
 ```
 
 Since PROSE uses .NET reflection to extract information about witness functions, you should make the actual types in your signature as precise as possible.
@@ -39,32 +38,27 @@ They have the following signature:
 
 ``` csharp
 [WitnessFunction("OperatorName", paramIndex, DependsOnParameters = new[] { prereqParam1, prereqParam2, ... }]
-static Spec Witness(GrammarRule rule, int parameter, Spec outerSpec, Spec prereqSpec1, Spec prereqSpec2, ...);
+Spec Witness(GrammarRule rule, Spec outerSpec, Spec prereqSpec1, Spec prereqSpec2, ...);
 ```
 
 As with non-conditional witness functions, prerequisite specs in the signature should be as precise as possible.
 Typically they will be `ExampleSpec`s: deductive reasoning is easiest when you know precisely some fixed value of a prerequisite on the same input state.
 
-You can use `DependsOnSymbols = new[] { prereqName1, prereqName2, ... }` in the attribute, referring to parameter names instead of their indices (if that's unambiguous).
+You can use `DependsOnSymbols = new[] { prereqName1, prereqName2, ... }` in the attribute, referring to parameter names instead of their indices (if they are unambiguous).
 
-## Annotations
-If a target grammar rule does not have a name (for instance, it is a `let` rule or a conversion rule `A := B`), you can use an `@witnesses` annotation in the grammar file to specify a designated holder class with witness functions for this rule.
+## ID Annotations
+If a target grammar rule does not have a name (for instance, it is a `let` rule or a conversion rule `A := B`), you can use an `@id` annotation in the grammar file to give it one, and then use this name as a reference in `[WitnessFunction]` attributes.
 
 ```
-string expr := @witnesses[WitnessesForSubstrLet] let x = ChooseInput(inputs, k) in SubStr(x, posPair);
+string expr := @id['LetSubstring'] let x = ChooseInput(inputs, k) in SubStr(x, posPair);
 ```
 {: .language-dsl}
 
 ``` csharp
-static class WitnessesForSubstrLet
-{
-	[WitnessFunction(0)]
-	static Spec Witness(LetRule rule, int parameter, Spec outerSpec);
-}
+[WitnessFunction("LetSubstring", 0)]
+Spec Witness(LetRule rule, Spec outerSpec);
 ```
 
-You don't need to mention a rule name in the `[WitnessFunction]` attribute (the rule doesn't have one anyway).
-You still have to specify the target parameter index.
 In case of a `let` rule, it has two parameters: its "binding" expression (the part on the right-hand side of an equal sign) and its "body" expression (the part after **`in`**).
 PROSE provides an automatic witness function for the body parameter, so you only to write one for the binding parameter (whose index in the containing `let` rule is $0$).
 
@@ -78,7 +72,7 @@ A rule learner has the following signature:
 
 ``` csharp
 [RuleLearner("OperatorName")]
-static ProgramSet Learn(SynthesisEngine engine, GrammarRule rule, Spec spec, CancellationToken token);
+ProgramSet Learn(SynthesisEngine engine, GrammarRule rule, Spec spec, CancellationToken token);
 ```
 
 You can make recursive calls to `engine.LearnSymbol` in your rule learner to solve deductive subproblems.
