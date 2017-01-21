@@ -5,7 +5,7 @@ function setupPrism() {
     });
 
     Prism.languages["dsl"] = Prism.languages.extend("clike", {
-        'keyword': /\b(reference|@start|@input|feature|property|language|@values|@feature|@property|@complete|semantics|learners|@witnesses|let|in|using|bool|byte|char|string|int|uint|sbyte|long|ulong|decimal|float|double|short)\b/,
+        'keyword': /\b(reference|@start|@input|feature|language|@values|@feature|@complete|semantics|learners|@id|let|in|using|Tuple|bool|byte|char|string|int|uint|sbyte|long|ulong|decimal|float|double|short)\b/,
         'property': /@\b\w+/
     });
     $("code.language-dsl").each(function () {

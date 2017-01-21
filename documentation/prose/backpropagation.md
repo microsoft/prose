@@ -1,7 +1,9 @@
 ---
 title: Backpropagation
 ---
-Deductive strategy ($D^4$) is the main synthesis algorithm used by the PROSE SDK.
+{% include outdated.html %}
+
+Deductive strategy (i.e., backpropagation) is the main synthesis algorithm used by the PROSE SDK.
 It relies on external annotations, provided by the DSL designer for the language operators -- [witness functions](#witness-functions).
 Our [tutorial]({{ site.baseurl }}/documentation/prose/tutorial) and samples show many use cases for specific witness functions.
 

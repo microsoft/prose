@@ -42,6 +42,10 @@ a:hover {
     transform: scale(-1, 1);
 }
 
+#markdown-toc ul {
+    margin: 0;
+}
+
 /* Headers */
 
 h1 {
