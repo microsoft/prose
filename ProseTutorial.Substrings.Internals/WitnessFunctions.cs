@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.Learning;
@@ -21,7 +22,15 @@ namespace ProseTutorial.Substrings
                 var v = (string) input[rule.Body[0]];
                 var desiredOutput = (string) spec.Examples[input];
 
-                ppExamples[input] = null; // <== deduce examples for the position pair here
+                var occurrences = new List<Tuple<uint?, uint?>>();
+                for (int i = v.IndexOf(desiredOutput, StringComparison.Ordinal);
+                     i >= 0;
+                     i = v.IndexOf(desiredOutput, i + 1, StringComparison.Ordinal)) {
+
+                    occurrences.Add(Tuple.Create((uint?) i, (uint?) (i + desiredOutput.Length)));
+                }
+
+                ppExamples[input] = occurrences; // <== deduce examples for the position pair here
             }
             return DisjunctiveExamplesSpec.From(ppExamples);
         }
