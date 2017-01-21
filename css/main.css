@@ -64,6 +64,10 @@ blockquote .small:before {
     content: '\2014 \00A0';
 }
 
+.mb-1 {
+    margin-bottom: -1rem;
+}
+
 .hyphenate {
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
