@@ -177,3 +177,7 @@ VersionInfo.cs
 
 .vs/
 _site/
+.idea/
+node_modules/
+Gemfile.lock
+

@@ -60,16 +60,15 @@ namespace ProseSample.Substrings
         };
 
         private static Regex[] _leftTokens;
-        public static readonly RegularExpression Epsilon = RegularExpression.Create();
+        public static readonly RegularExpression Epsilon = RegularExpression.Create(new Token[0]);
 
         public static Regex[] LeftTokens =>
             _leftTokens ?? (_leftTokens = Tokens.Select(t => new Regex($"(?<={t})", RegexOptions.Compiled)).ToArray());
 
-        public static List<PositionMatch> Run(this RegularExpression r, StringRegion v)
-            => r.Run(v.Cache, v.Start, v.End);
+        public static PositionMatch[] Run(this RegularExpression r, StringRegion v) => r.Run(v);
 
         public static bool MatchesAt(this RegularExpression r, StringRegion v, uint pos)
-            => r.MatchesAt(v.Cache, pos, v.Start, v.End);
+            => r.MatchesAt(v, pos);
 
         public static int BinarySearchBy<T>(this IList<T> list, Func<T, int> comparer)
         {

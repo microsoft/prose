@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.AST;
 using Microsoft.ProgramSynthesis.Compiler;
+using Microsoft.ProgramSynthesis.Extraction.Text;
 using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Learning.Logging;
+using Microsoft.ProgramSynthesis.Learning.Strategies;
 using Microsoft.ProgramSynthesis.Specifications;
 using Microsoft.ProgramSynthesis.VersionSpace;
 
@@ -20,51 +22,60 @@ namespace ProseSample
     {
         public static Grammar LoadGrammar(string grammarFile, params string[] prerequisiteGrammars)
         {
-            foreach (string prerequisite in prerequisiteGrammars)
-            {
-                var buildResult = DSLCompiler.Compile(prerequisite, $"{prerequisite}.xml");
-                if (buildResult.HasErrors)
-                {
-                    WriteColored(ConsoleColor.Magenta, buildResult.TraceDiagnostics);
-                    return null;
-                }
+            foreach (string prerequisite in prerequisiteGrammars) {
+                var options = new CompilerOptions {
+                    InputGrammar = prerequisite,
+                    Output = Path.GetFileNameWithoutExtension(prerequisite) + ".Language.dll",
+                    Verbosity = Verbosity.Normal
+                };
+                var buildResult = DSLCompiler.Compile(options);
+                if (!buildResult.HasErrors) continue;
+                WriteColored(ConsoleColor.Magenta, buildResult.TraceDiagnostics);
+                return null;
             }
 
-            var compilationResult = DSLCompiler.LoadGrammarFromFile(grammarFile);
-            if (compilationResult.HasErrors)
-            {
+            var compilationResult = DSLCompiler.ParseGrammarFromFile(grammarFile);
+            if (compilationResult.HasErrors) {
                 WriteColored(ConsoleColor.Magenta, compilationResult.TraceDiagnostics);
                 return null;
             }
-            if (compilationResult.Diagnostics.Count > 0)
-            {
+            if (compilationResult.Diagnostics.Count > 0) {
                 WriteColored(ConsoleColor.Yellow, compilationResult.TraceDiagnostics);
             }
 
             return compilationResult.Value;
         }
 
-        public static ProgramNode Learn(Grammar grammar, Spec spec)
+        public static ProgramNode Learn(Grammar grammar, Spec spec,
+                                        Feature<double> scoreFeature, DomainLearningLogic witnessFunctions)
         {
-            var engine = new SynthesisEngine(grammar, new SynthesisEngine.Config
-            {
-                UseThreads = false,
-                LogListener = new LogListener(),
-            });
+            var engine =
+                new SynthesisEngine(grammar,
+                                    new SynthesisEngine.Config
+                                    {
+                                        UseThreads = false,
+                                        Strategies = new ISynthesisStrategy[]
+                                        {
+                                            new EnumerativeSynthesis(), 
+                                            new DeductiveSynthesis(witnessFunctions),
+                                        },
+                                        LogListener = new LogListener(),
+                                    });
             ProgramSet consistentPrograms = engine.LearnGrammar(spec);
             engine.Configuration.LogListener.SaveLogToXML("learning.log.xml");
 
-            //foreach (ProgramNode p in consistentPrograms.RealizedPrograms) {
-            //    Console.WriteLine(p);
-            //}
+            /*foreach (ProgramNode p in consistentPrograms.RealizedPrograms)
+            {
+                Console.WriteLine(p);
+            }*/
 
-            ProgramNode bestProgram = consistentPrograms.TopK("Score").FirstOrDefault();
+            ProgramNode bestProgram = consistentPrograms.TopK(scoreFeature).FirstOrDefault();
             if (bestProgram == null)
             {
                 WriteColored(ConsoleColor.Red, "No program :(");
                 return null;
             }
-            var score = bestProgram["Score"];
+            var score = bestProgram.GetFeatureValue(scoreFeature);
             WriteColored(ConsoleColor.Cyan, $"[score = {score:F3}] {bestProgram}");
             return bestProgram;
         }
@@ -88,7 +99,7 @@ namespace ProseSample
         {
             string content = File.ReadAllText(filename);
             Match[] examples = ExampleRegex.Matches(content).Cast<Match>().ToArray();
-            document = StringRegion.Create(content.Replace("}", "").Replace("{", ""));
+            document = RegionLearner.CreateStringRegion(content.Replace("}", "").Replace("{", ""));
             var result = new List<StringRegion>();
             for (int i = 0, shift = -1; i < examples.Length; i++, shift -= 2)
             {

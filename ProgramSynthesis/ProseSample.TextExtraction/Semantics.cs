@@ -11,7 +11,7 @@ namespace ProseSample.TextExtraction
     {
         public static IEnumerable<StringRegion> SplitLines(StringRegion document)
         {
-            Token lineBreak = StringLearningCache.GetStaticTokenByName(Token.LineSeparatorName);
+            Token lineBreak = document.Cache.GetStaticTokenByName(Token.LineSeparatorName);
             CachedList lineBreakPositions;
             if (!document.Cache.TryGetMatchPositionsFor(lineBreak, out lineBreakPositions))
                 return new[] { document };
