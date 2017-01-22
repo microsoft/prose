@@ -39,6 +39,18 @@ title: Resources
 
 # Talks
 
+{% include talk.md title="PROSE: Inductive Program Synthesis for the Mass Markets"
+                    authors="Oleksandr Polozov, Sumit Gulwani, and the rest of the PROSE team"
+                    slides="http://homes.cs.washington.edu/~polozov/papers/berkeley-jan2017-talk.pptx"
+                    venue="UC Berkeley, January 2017"
+%}
+
+{% include talk.md title="Programming by Examples with PROSE SDK: A Tutorial"
+                    authors="Oleksandr Polozov, Sumit Gulwani, and the rest of the PROSE team"
+                    slides="http://homes.cs.washington.edu/~polozov/papers/berkeley-jan2017-tutorial.pptx"
+                    venue="UC Berkeley Hackathon, January 2017"
+%}
+
 {% include talk.md title="Program Synthesis in the Industrial World: Inductive, Incremental, Interactive"
                     authors="Oleksandr Polozov, Sumit Gulwani, and the rest of the PROSE team"
                     slides="http://homes.cs.washington.edu/~polozov/papers/synt2016-prose-slides.pdf"
