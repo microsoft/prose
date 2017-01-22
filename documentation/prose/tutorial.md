@@ -107,9 +107,13 @@ All semantics functions should be defined as static methods. Static classes wher
 A DSL may contain multiple `using semantics` declarations, but each operator should correspond to exactly one semantics function with the same name and signature in one of semantics holders.
 
 ``` csharp
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
 static class Semantics
 {
-	static string Substring(string inp, Tuple<int?, int?> posPair)
+    static string Substring(string inp, Tuple<int?, int?> posPair)
 	{
 		if (posPair.Item1 == null || posPair.Item2 == null)
 			return null;
@@ -134,7 +138,7 @@ static class Semantics
 			return null;
 		Regex left = regexPair.Item1;
 		Regex right = regexPair.Item2;
-		var rightMatches = right.Matches(inp).ToDictionary(m => m.Index);
+		var rightMatches = right.Matches(inp).Cast<Match>().ToDictionary(m => m.Index);
 		var matchPositions = new List<int>();
 		foreach (Match m in left.Matches(inp))
 		{
@@ -381,7 +385,7 @@ DisjunctiveExamplesSpec WitnessKForRegexPair(GrammarRule rule, DisjunctiveExampl
 		var regexPair = (Tuple<Regex, Regex>) rrSpec.Examples[inputState];
 		Regex left = regexPair.Item1;
 		Regex right = regexPair.Item2;
-		var rightMatches = right.Matches(inp).ToDictionary(m => m.Index);
+		var rightMatches = right.Matches(inp).Cast<Match>().ToDictionary(m => m.Index);
 		var matchPositions = new List<int>();
 		foreach (Match m in left.Matches(inp))
 		{

@@ -3,6 +3,10 @@ date: 2015-10-28T12:19:15-07:00
 title: FAQ
 ---
 
+{% include toc.md %}
+
+# General questions
+
 ## How do I use it?
 
 The SDK is used through .NET APIs.
@@ -18,6 +22,7 @@ out the text and web extraction features.
 Install the `Microsoft.ProgramSynthesis` and (optionally) `Microsoft.ProgramSynthesis.Compiler` NuGet packages in Visual Studio.
 
 You can also generate a template DSL project by running
+
 ```
 npm install -g yo
 npm install -g generator-prose
@@ -46,3 +51,25 @@ Our samples are located in the [PROSE GitHub repository](https://github.com/micr
 
 If you run into any bugs or issues, please [open an issue](https://github.com/microsoft/prose/issues) in our GitHub repository.
 Feel free also to [email us](mailto:prose-contact@microsoft.com).
+
+# Visual Studio Code on Linux
+
+## How do I restore NuGet packages for a PROSE solution (a sample or a `yo`-generated template)?
+
+```
+sudo apt install mono-complete nuget
+sudo nuget update -self
+nuget restore YourSolution.sln
+```
+
+## How do I build a solution in VS Code?
+
+Press <kbd>Ctrl+Shift+P</kbd> and [configure a task runner](https://code.visualstudio.com/docs/editor/tasks). Pick the `msbuild` task. In the generated `tasks.json`, replace `msbuild` with `xbuild`.
+
+## When I try to run xbuild on my yo-generated solution, it fails with an error about `@(AssemblyPaths -> Replace('/', '/'))`.
+
+As it turns out, `xbuild` does not support the entirety of the `msbuild` language. This means that you won't be able to recompile your grammar automatically on each build out of the box. We are working on fixing this. In the meantime, please regenerate your solution with `yo prose` but **answer "No" to the last question**.
+
+## How do I launch a program or debug it in VS Code?
+
+Install the [mono-debug](http://marketplace.visualstudio.com/items?itemName=ms-vscode.mono-debug) extension for VS Code and follow the instructions on its webpage.

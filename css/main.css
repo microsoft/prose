@@ -122,7 +122,7 @@ blockquote {
 
 code {
     color: inherit;
-    background-color: #f9f2f4;
+    background-color: hsl(0, 0%, 90%);
     padding: 2px 4px;
     font-size: 90%;
     font-family: Consolas, "Source Code Pro", Inconsolata, "Courier New", monospace;
@@ -148,9 +148,11 @@ pre code {
     border-radius: 0;
 }
 
-h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+h1 code, h2 code, h3 code, h4 code, h5 code, h6 code,
+#markdown-toc code {
     background-color: inherit;
-    font-size: inherit;
+    font-size: 90%;
+    padding: 0 !important;
 }
 
 /* MathJax */
