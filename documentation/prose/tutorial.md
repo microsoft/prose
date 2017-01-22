@@ -50,11 +50,11 @@ int k;
 
 Here are some possible extraction programs contained in the `SubstringExtraction` DSL:
 
-* First 5 characters: `Substring(inp, PosPair(AbsolutePosition(inp, 0), AbsolutePosition(inp, 5)))`
-* Last character: `Substring(inp, PosPair(AbsolutePosition(inp, -2), AbsolutePosition(inp, -1)))`
+* First 5 characters: `Substring(inp, PositionPair(AbsolutePosition(inp, 0), AbsolutePosition(inp, 5)))`
+* Last character: `Substring(inp, PositionPair(AbsolutePosition(inp, -2), AbsolutePosition(inp, -1)))`
 * A substring from the start until (but not including) the last number[^regex]:
-  `Substring(inp, PosPair(AbsolutePosition(inp, -2), RegexPosition(inp, RegexPair(//, /\d+/), -1))`
-* A substring between the first pair of parentheses: `Substring(inp, PosPair(RegexPosition(inp, RegexPair(/\(/, //), 0), RegexPosition(inp, RegexPair(//, /\)/), 0)))`.
+  `Substring(inp, PositionPair(AbsolutePosition(inp, -2), RegexPosition(inp, RegexPair(//, /\d+/), -1))`
+* A substring between the first pair of parentheses: `Substring(inp, PositionPair(RegexPosition(inp, RegexPair(/\(/, //), 0), RegexPosition(inp, RegexPair(//, /\)/), 0)))`.
   Note that this program will not extract the desired content of *inp* contains unbalanced parentheses (for instance,  *inp* $=$ `"a) Bread ($2.00)"`). This problem can be addressed by a language extension.
 
 [^regex]: PROSE uses JavaScript/Perl syntax for regular expression literals.
@@ -83,7 +83,7 @@ var grammar = DSLCompiler.ParseGrammarFromFile("SubstringExtraction.grammar").Va
 // Parse a program in this grammar. PROSE supports two serialization formats:
 // "human-readable" expression format, used in this tutorial, and machine-readable XML.
 var ast =
-  ProgramNode.Parse("Substring(inp, PosPair(AbsolutePosition(inp, 0), AbsolutePosition(inp, 5)))",
+  ProgramNode.Parse("Substring(inp, PositionPair(AbsolutePosition(inp, 0), AbsolutePosition(inp, 5)))",
                     grammar, ASTSerializationFormat.HumanReadable);
 // Create an input state to the program. It contains one binding: a variable 'inp' (DSL input)
 // is bound to the string "PROSE Rocks".
