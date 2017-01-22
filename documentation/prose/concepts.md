@@ -54,13 +54,16 @@ Notice that *you can either use a formal parameter directly in a concept, or pas
 
 # List of concepts
 
-Concept                                           | Semantics                      | Specs handled             | Witness functions needed?
+Concept                                           | Semantics                      | Specs handled by PROSE    | Witness functions needed?
 -----------|----------------------------------|--------------------------------|---------------------------|--------------------------
 **Pair**(`x: T`, `y: T`): `Tuple<T, T>`    | Combine `x` and `y` in a tuple | `DisjunctiveExamplesSpec` | &mdash;
 **Map**(`f: Func<T, U>`, `seq: IEnumerable<T>`): `IEnumerable<U>` | Apply `f` to each element of `seq`, and return a sequence of results | `PrefixSpec` | `seq`
 **Filter**(`f: Func<T, bool>`, `seq: IEnumerable<T>`): `IEnumerable<T>` | Return only those elements of `seq` that satisfy the predicate `f` | `PrefixSpec`, `SubsequenceSpec`, `ExampleSpec` | &mdash;
+**FilterNot**(`f: Func<T, bool>`, `seq: IEnumerable<T>`): `IEnumerable<T>` | Return only those elements of `seq` that **do not** satisfy `f` | `PrefixSpec`, `SubsequenceSpec`, | &mdash;
 **Kth**(`seq: IEnumerable<T>`, `k: int`): `T` | Return an element of `seq` at the specified index, from the left if $k \ge 0$ or from the right if $k < 0$ | `DisjunctiveExamplesSpec` | &mdash;
-**TakeWhile**(`f: Func<T, bool>`, `seq: IEnumerable<T>`): `IEnumerable<T>` | 
+**TakeWhile**(`f: Func<T, bool>`, `seq: IEnumerable<T>`): `IEnumerable<T>` | Return the longest prefix of `seq` where all the elements satisfy  `f` | `SubsequenceSpec` | &mdash;
+**FilterInt**(`initIter: Tuple<int, int>`, `seq: IEnumerable<T>`): `IEnumerable<T>` | Return a subsequence of `seq` defined by the arithmetic progression starting at the index `initIter.Item0` (0-based) with the step `initIter.Item1` | `PrefixSpec`, `SubsequenceSpec` | &mdash;
+**First**(`f: Func<T, bool>`, `seq: IEnumerable<T>`): `T` | Return the first element of `seq` that satisfies  `f` | `ExampleSpec` | &mdash;
 
 
 

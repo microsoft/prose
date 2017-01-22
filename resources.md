@@ -38,6 +38,7 @@ title: Resources
 %}
 
 # Talks
+{: .title}
 
 {% include talk.md title="PROSE: Inductive Program Synthesis for the Mass Markets"
                     authors="Oleksandr Polozov, Sumit Gulwani, and the rest of the PROSE team"
