@@ -62,7 +62,7 @@ Concept                                           | Semantics                   
 **FilterNot**(`f: Func<T, bool>`, `seq: IEnumerable<T>`): `IEnumerable<T>` | Return only those elements of `seq` that **do not** satisfy `f` | `PrefixSpec`, `SubsequenceSpec`, | &mdash;
 **Kth**(`seq: IEnumerable<T>`, `k: int`): `T` | Return an element of `seq` at the specified index, from the left if $k \ge 0$ or from the right if $k < 0$ | `DisjunctiveExamplesSpec` | &mdash;
 **TakeWhile**(`f: Func<T, bool>`, `seq: IEnumerable<T>`): `IEnumerable<T>` | Return the longest prefix of `seq` where all the elements satisfy  `f` | `SubsequenceSpec` | &mdash;
-**FilterInt**(`initIter: Tuple<int, int>`, `seq: IEnumerable<T>`): `IEnumerable<T>` | Return a subsequence of `seq` defined by the arithmetic progression starting at the index `initIter.Item0` (0-based) with the step `initIter.Item1` | `PrefixSpec`, `SubsequenceSpec` | &mdash;
+**FilterInt**(`initIter: Tuple<int, int>`, `seq: IEnumerable<T>`): `IEnumerable<T>` | Return a subsequence of `seq` defined by the arithmetic progression starting at the index `initIter.Item1` with the step `initIter.Item2` | `PrefixSpec`, `SubsequenceSpec` | &mdash;
 **First**(`f: Func<T, bool>`, `seq: IEnumerable<T>`): `T` | Return the first element of `seq` that satisfies  `f` | `ExampleSpec` | &mdash;
 
 

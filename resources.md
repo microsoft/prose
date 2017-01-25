@@ -3,6 +3,7 @@ title: Resources
 ---
 
 # Publications
+{: .title}
 
 {% include paper.md title="Automated Data Extraction using Predictive Program Synthesis"
                     authors="Mohammad Raza, Sumit Gulwani"
