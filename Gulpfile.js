@@ -27,7 +27,7 @@ gulp.task('scripts', ['ts'], function () {
         .pipe(gulp.dest(DEST))
         .pipe(rename('scripts.min.js'))
         .pipe(uglify())
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(DEST));
 });
 
