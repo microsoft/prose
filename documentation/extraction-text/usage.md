@@ -5,7 +5,7 @@ title: Text Extraction - Usage
 
 {% include outdated.html %}
 
-{% include toc.md %}
+{% include toc.liquid.md %}
 
 The Extraction.Text learning APIs are accessed through the `Extraction.Text.Learner` class.
 The two primary methods are `LearnRegion()` and `LearnSequence()` which take a set of examples

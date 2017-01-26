@@ -5,7 +5,7 @@ title: FlashFill – Usage
 
 {% include outdated.html %}
 
-{% include toc.md %}
+{% include toc.liquid.md %}
 
 The FlashFill API is accessed through the `FlashFill.FlashFillProgram` class.
 The primary method is `Learn()` which takes a set of examples

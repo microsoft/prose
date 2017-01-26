@@ -10,7 +10,7 @@ scientists spend 80% of their time wrangling with data. The team includes:
 
 <div class="pure-g" markdown="1">
 
-{% include about-row-start.html name="Sumit Gulwani" img="Sumit-Gulwani.jpg"
+{% include about-row-start.liquid.html name="Sumit Gulwani" img="Sumit-Gulwani.jpg"
            link="http://research.microsoft.com/en-us/um/people/sumitg/publications.html" %}
 Sumit has been an MSR veteran
 for the past 10 years, working on program synthesis (developing technologies for
@@ -30,30 +30,30 @@ to the field of programming languages. He obtained his PhD in Computer Science f
 UC-Berkeley in 2005, and was awarded the _ACM SIGPLAN Outstanding Doctoral Dissertation
 Award_. He obtained his Bachelors in Computer Science and Engineering from IIT Kanpur
 (India) in 2000, and was awarded the President's Gold Medal for best academic performance.
-{% include about-row-end.html %}
+{% include about-row-end.liquid.html %}
 
-{% include about-row-start.html name="Ranvijay Kumar" img="Ranvijay-Kumar.jpg"%}
+{% include about-row-start.liquid.html name="Ranvijay Kumar" img="Ranvijay-Kumar.jpg"%}
 Ranvijay has more than 18 years of experience in software industry and more than 10 years in managing product development. He is a BTech from IIT Kanpur (India) and has been a part of the founding team of three startups in the US and in India. Prior to joining Microsoft, Ranvijay managed the Research and new product development efforts of a Healthcare Product company based in Bellevue, Washington. He shipped a Health Information Exchange, a Healthcare Analytics Platform, and a Patient Master Data Management solution that uses advanced record linking capabilities to match Patient records across care settings. Ranvijay is very excited about the possibilities of Program Synthesis by Example technologies.
-{% include about-row-end.html %}
+{% include about-row-end.liquid.html %}
 
-{% include about-row-start.html name="Vu Le" img="Vu-Le.jpg" link="http://vuminhle.com/" %}
+{% include about-row-start.liquid.html name="Vu Le" img="Vu-Le.jpg" link="http://vuminhle.com/" %}
 Vu is a Research Software Engineer at
 Microsoft. He obtained his PhD at the University of California, Davis in 2015, and his BEng at
 Vietnam National University in 2006. His research focuses on automatic program generation to
 help improve the quality of critical software and make programming more accessible to end
 users. His work has led to important shipped features in commercial products (such as Windows)
 and hundreds of bug reports/fixes in widely used, critical open-source software (such as GCC and LLVM).
-{% include about-row-end.html %}
+{% include about-row-end.liquid.html %}
 
-{% include about-row-start.html name="Daniel Perelman" img="Daniel-Perelman.jpg" link="https://homes.cs.washington.edu/~perelman/" %}
+{% include about-row-start.liquid.html name="Daniel Perelman" img="Daniel-Perelman.jpg" link="https://homes.cs.washington.edu/~perelman/" %}
 Daniel recently completed his
 PhD at the University of Washington working with Dan Grossman and Sumit Gulwani on program
 synthesis and is now a Research Software Engineer in the PROSE team. In addition to work on
 programming by example, his code has been deployed as the hint mechanism in MSR's
 [Code Hunt programming game](https://www.codehunt.com/).
-{% include about-row-end.html %}
+{% include about-row-end.liquid.html %}
 
-{% include about-row-start.html name="Alex Polozov" img="Alex-Polozov.jpg" link="http://alexpolozov.com" %}
+{% include about-row-start.liquid.html name="Alex Polozov" img="Alex-Polozov.jpg" link="http://alexpolozov.com" %}
 Alex is a PhD student at University
 of Washington, Seattle, USA, and a researcher/software engineer at Microsoft. His passion lies
 in research and implementation of solutions that automate repetitive programming tasks for
@@ -61,9 +61,9 @@ engineers, consumers, and educators. Alex initiated the program synthesis framew
 the core of Microsoft PROSE SDK, and continues to lead its development.
 Before joining the team, he worked on automatic problem
 generation for intelligent tutoring systems in [Center for Game Science](http://centerforgamescience.org/), programming languages for data wrangling, and linguistic algorithms for [Yandex](https://www.yandex.com/).
-{% include about-row-end.html %}
+{% include about-row-end.liquid.html %}
 
-{% include about-row-start.html name="Mohammad Raza" img="Mohammad-Raza.jpg" link="http://www.microsoft.com/en-us/research/people/moraza/" %}
+{% include about-row-start.liquid.html name="Mohammad Raza" img="Mohammad-Raza.jpg" link="http://www.microsoft.com/en-us/research/people/moraza/" %}
 Mohammad's background and interests
 are in formal methods for reasoning about computer programs. He holds a PhD in Computer Science from Imperial College London and a Masters in Mathematics from the University of Cambridge. He works on the development of
 techniques and tools for program synthesis through natural
@@ -73,9 +73,9 @@ for data wrangling tasks such as extraction, formatting, cleaning, or transforma
 various data formats including spreadsheets, text documents, and richly formatted documents.
 In the PROSE Team his current focus is on developing examples-based and fully automated
 synthesis technologies for information extraction from web pages.
-{% include about-row-end.html %}
+{% include about-row-end.liquid.html %}
 
-{% include about-row-start.html name="Danny Simmons" img="Danny-Simmons.jpg" link="http://blogs.msdn.com/dsimmons" %}
+{% include about-row-start.liquid.html name="Danny Simmons" img="Danny-Simmons.jpg" link="http://blogs.msdn.com/dsimmons" %}
 Danny has worked in the software
 industry (both inside Microsoft and out) for over 25 years.  He first started at Microsoft in
 1997 working on the Outlook team, and then spent nearly 15 years alternating between shipping
@@ -85,14 +85,14 @@ targeted.  Outside of Microsoft he has worked as a Unix System Admin in the Idah
 University computer center, founded an early Internet Service Provider, helped INRIX with
 their traffic data web services, and served as CTO of a startup building RFID-based inventory
 tracking systems for small businesses, among other endeavors.
-{% include about-row-end.html %}
+{% include about-row-end.liquid.html %}
 
-{% include about-row-start.html name="Abhishek Udupa" img="Abhishek-Udupa.jpg" link="http://www.cis.upenn.edu/~audupa" %}
+{% include about-row-start.liquid.html name="Abhishek Udupa" img="Abhishek-Udupa.jpg" link="http://www.cis.upenn.edu/~audupa" %}
 Abhishek graduated with a PhD from the University of Pennsylvania, in 2016, advised by Rajeev Alur. His dissertation
 explored techniques for synthesizing distributed protocols and loop-free programs. He has contributed to development of the
 [SyGuS language definition](http://www.sygus.org), and has also developed SyGuS solvers which have been primarily based on enumerative program synthesis strategies.
 His research interests include formal methods and program synthesis, and he very much enjoys building systems to demonstrate the practicality of his research.
-{% include about-row-end.html %}
+{% include about-row-end.liquid.html %}
 
 </div>
 
@@ -101,8 +101,8 @@ His research interests include formal methods and program synthesis, and he very
 
 <div class="center py2" markdown="1">
 
-{% include about-image.html name="Allen Cypher" img="Allen-Cypher.jpg" link="http://acypher.com" %}
+{% include about-image.liquid.html name="Allen Cypher" img="Allen-Cypher.jpg" link="http://acypher.com" %}
 
-{% include about-image.html name="Adam Smith" img="Adam-Smith.jpg" link="https://adamsmith.as/" %}
+{% include about-image.liquid.html name="Adam Smith" img="Adam-Smith.jpg" link="https://adamsmith.as/" %}
 
 </div>

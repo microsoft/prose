@@ -30,11 +30,11 @@ a:hover {
 }
 
 blockquote {
-    padding: 5px 20px;
+    padding: 7px 20px;
     margin: 0 0 20px;
     font-size: 15px;
-    border-left: 4px solid #999;
-    line-height: 1.4;
+    border-left: 3px solid #999;
+    line-height: 1.5;
 }
 
 blockquote p:first-child,
@@ -110,7 +110,11 @@ blockquote {
 }
 
 .content {
-    padding: 1em 2em;
+    padding: 2em;
+}
+
+.content > #toc-wrapper + p {
+    margin-top: 0;
 }
 
 .header {
@@ -118,19 +122,27 @@ blockquote {
     padding-bottom: 1em;
 }
 
+#toc-wrapper {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: hsl(0, 0%, 98%);
+}
+
 /* Code */
 
 code {
     color: inherit;
-    background-color: hsl(0, 0%, 90%);
-    padding: 2px 4px;
+    background-color: hsl(0, 0%, 95%);
+    padding: 1px 4px;
     font-size: 90%;
     font-family: Consolas, "Source Code Pro", Inconsolata, "Courier New", monospace;
 }
 
 pre {
     display: block;
-    padding: 9.5px;
+    padding: 10px;
     margin: 0 0 10px;
     font-size: 15px;
     line-height: 1.42857143;
@@ -138,6 +150,7 @@ pre {
     word-break: break-all;
     word-wrap: break-word;
     border-radius: 4px;
+    border: 1px solid #e4decb;
 }
 
 pre code {
@@ -183,6 +196,16 @@ a.footnote:after {
 
 a.reversefootnote {
     margin-left: 5px;
+}
+
+.footnotes {
+    border-top: 1px solid #ddd;
+    margin-top: 3em;
+    padding-top: .5em;
+}
+
+.footnotes li {
+    padding-left: .5em;
 }
 
 /* Footer */

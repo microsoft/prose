@@ -5,7 +5,7 @@ title: Usage
 
 {% include outdated.html %}
 
-{% include toc.md %}
+{% include toc.liquid.md %}
 
 # Terminology
 

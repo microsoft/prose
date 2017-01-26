@@ -1,0 +1,24 @@
+{% capture class_selected %}{% if page.path == "index.liquid.html" %} pure-menu-selected {% else %}{% endif %}{% endcapture %}
+<a class="pure-menu-heading {{ class_selected }}" href="{{ site.baseurl }}/">
+    <i class="fa fa-bolt" aria-hidden="true"></i> PROSE SDK
+</a>
+<ul class="pure-menu-list">
+    {% include menu-item.liquid.html url="/playground" title="Playground" %}
+    {% include menu-item.liquid.html url="/documentation/prose/tutorial" %}
+    {% include menu-item.liquid.html url="https://github.com/Microsoft/prose" title="Samples" absolute=true %}
+
+    {% include menu-item.liquid.html disabled=true divided=true title="Documentation" %}
+        {% include menu-item.liquid.html level=1 disabled=true title="PROSE Framework" %}
+            {% include menu-item.liquid.html level=2 url="/documentation/prose/usage" %}
+            {% include menu-item.liquid.html level=2 url="/documentation/prose/backpropagation" %}
+            {% include menu-item.liquid.html level=2 url="/documentation/prose/concepts" %}
+        {% include menu-item.liquid.html level=1 url="/documentation/extraction-text/intro" %}
+            {% include menu-item.liquid.html level=2 url="/documentation/extraction-text/usage" title="Usage" %}
+        {% include menu-item.liquid.html level=1 url="/documentation/flashfill/intro" title="Flash Fill" %}
+            {% include menu-item.liquid.html level=2 url="/documentation/flashfill/usage" title="Usage" %}
+        {% include menu-item.liquid.html level=1 url="/documentation/api" title="API" %}
+
+    {% include menu-item.liquid.html url="/resources" divided=true %}
+    {% include menu-item.liquid.html url="/team" %}
+    {% include menu-item.liquid.html url="/faq" %}
+</ul>

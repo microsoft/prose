@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
-    {% include header.html %}
+    {% include header.liquid.html %}
 </head>
 <body class="flex flex-column">
-{% include page-header.html %}
+{% include page-header.liquid.html %}
 
 <div id="layout">
     <!-- Menu toggle -->
@@ -15,23 +15,23 @@
 
     <div id="menu">
         <div class="pure-menu">
-            {% include menu.html %}
+            {% include menu.liquid.html %}
         </div>
     </div>
 
     <div id="main">
-        {% unless page.path == "index.html" %}
+        {% unless page.path == "index.liquid.html" %}
         <div class="header">
             <h1>{{ page.title }}</h1>
         </div>
         {% endunless %}
 
-        <div class="content">
+        <div class="content clearfix">
             {{ content }}
         </div>
     </div>
 </div>
 
-{% include footer.html %}
+{% include footer.liquid.html %}
 </body>
 </html>
