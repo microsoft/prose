@@ -12,7 +12,7 @@ One-time setup to install Jekyll:
 Steps to run while locally iterating on a website change:
 
  * Make your change (likely to a markdown file in `/documentation`)
- * Run `gulp` or `npm run build`
+ * Run `gulp` or `npm run build` if you change any TS/JS/CSS files. Commit the compiled files in `/static` if you do.
  * `bundle exec jekyll serve --baseurl=''` (overriding the `baseURL` like this required for local viewing)
  * Open and monitor http://localhost:4000/ in your browser
 

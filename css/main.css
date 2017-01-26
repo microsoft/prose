@@ -247,6 +247,10 @@ a.reversefootnote {
     background: #1f8dd6;
 }
 
+#menu .pure-menu-selected li:not(.pure-menu-selected) a {
+    color: #999;
+}
+
 #menu {
     font-family: Raleway, Lato, sans-serif;
     font-size: larger;
