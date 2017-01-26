@@ -238,8 +238,9 @@ a.reversefootnote {
     font-family: Merriweather, serif;
     font-weight: 400;
     background: inherit;
-    padding: 0.6em 0.45em;
+    padding: 0.6em 0 0.6em 0.6em;
     font-size: 140%;
+    color: #eeeeee;
 }
 
 #menu a.pure-menu-heading.pure-menu-selected {
@@ -249,29 +250,38 @@ a.reversefootnote {
 #menu {
     font-family: Raleway, Lato, sans-serif;
     font-size: larger;
+    overflow: visible;
 }
 
 .menu-item-disabled {
-    padding: 0.6em 0 0.6em 0.6em;
-    color: rgb(119, 119, 160);
+    padding: 0.6em 0 0.6em 0.55em;
+    color: #eee;
+    font-family: Merriweather, serif;
+    font-size: 120%;
 }
 
-.menu-item-level-1 {
-    padding-left: 35px;
-    font-size: smaller;
+#menu .pure-menu-children {
+    background: inherit;
 }
 
-li.menu-item-level-1.menu-item-disabled {
-    padding-left: 45px;
+#menu ul.pure-menu-children {
+    border: none;
+    background-color: #191818;
 }
 
-.menu-item-level-2 {
-    padding-left: 65px;
-    font-size: smaller;
+#menu ul.pure-menu-children li a {
+    padding: 0.8em 1.2em;
 }
 
-#menu .menu-item-level-2 a.pure-menu-link {
-    padding: 0.4em 0 0.4em 0.6em;
+#menu .pure-menu-has-children>.pure-menu-link:after {
+    padding-left: .5em;
+    content: "\f054";
+    font-family: FontAwesome;
+    font-size: small;
+}
+
+#menu .pure-menu ul, #menu .pure-menu .menu-item-divided {
+    border-top: 1px solid #444;
 }
 
 /* Team page */
