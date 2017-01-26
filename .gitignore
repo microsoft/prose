@@ -536,3 +536,4 @@ Gemfile.lock
 
 _site/
 /vendor/
+static/

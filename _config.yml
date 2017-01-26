@@ -23,9 +23,12 @@ gems:
   - jekyll-optional-front-matter
 exclude:
   - CNAME
+  - Gulpfile.js
   - Gemfile
   - README.md
-  - "vendor/**/*.md"
+  - js
+  - css
+  - node_modules
 baseurl: https://microsoft.github.io/prose
 repository: Microsoft/prose
 
