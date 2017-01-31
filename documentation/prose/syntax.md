@@ -7,7 +7,7 @@ This document describes the syntax of PROSE v1 DSL grammars.
 
 > **Note:** this syntax is volatile and subject to breaking changes in the future. We will notify you about each breaking change in accordance with [SemVer](http://semver.org/).
 
-> Hereafter in the general syntax descriptions, angle brackets `<>` denote a placeholder to be filled with a concrete value, and curly braces `{}` denote an optional component (unless specified otherwise).
+> Hereafter in the general syntax descriptions, angle brackets `<>` denote a placeholder to be filled with a concrete value, and curly braces `{}` with an `opt` subscript denote an optional component (unless specified otherwise).
 
 # Basic structure
 
@@ -25,7 +25,7 @@ language <Name>;
 <Nonterminal symbols and rules>
 <Terminal symbols>
 ```
-{: .language-dsl}
+{: .language-bnf}
 
 # References
 
@@ -39,30 +39,30 @@ There are two syntax forms for specifying a reference.
 ```
 #reference 'file:<Filename>';
 ```
-{: .language-dsl}
+{: .language-bnf}
 
-Reference an assembly via its absolute or relative path. The compiler will look for it in the provided list of *library paths* (`dslc -p`). This list always includes the directory of the currently executing assembly and the current working directory.  
+Reference an assembly via its absolute or relative path. The compiler will look for it in the provided list of *library paths* (`dslc -p`). This list always includes the directory of the currently executing assembly and the current working directory.
 **Example:**
 
 ```
-#reference 'file: TestLanguage.Semantics.dll';
+#reference 'file:TestLanguage.Semantics.dll';
 ```
-{: .language-dsl}
+{: .language-bnf}
 
 ## Qualified assembly reference
 
 ```
 #reference '<AssemblyQualifiedName>';
 ```
-{: .language-dsl}
+{: .language-bnf}
 
-Reference an assembly via its assembly qualified name. The compiler will load it using [`Assembly.Load`](https://msdn.microsoft.com/en-us/library/ky3942xh.aspx) and its standard probing mechanism of the current .NET runtime.  
+Reference an assembly via its assembly qualified name. The compiler will load it using [`Assembly.Load`](https://msdn.microsoft.com/en-us/library/ky3942xh.aspx) and its standard probing mechanism of the current .NET runtime.
 **Example:**
 
 ```
 #reference 'System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a';
 ```
-{: .language-dsl}
+{: .language-bnf}
 
 # Usings
 
@@ -73,7 +73,7 @@ These statements are identical to the corresponding C# forms. They import a name
 ```
 using System.Text.RegularExpressions;
 ```
-{: .language-dsl}
+{: .language-bnf}
 
 ## Semantics usings
 
@@ -82,7 +82,7 @@ These statements specify *semantics holders* – static classes that contain imp
 ```
 using semantics TestLanguage.Semantics.Holder;
 ```
-{: .language-dsl}
+{: .language-bnf}
 
 ## Learner usings
 
@@ -91,7 +91,7 @@ These statements specify *learning logic holders* – non-static classes that in
 ```
 using learners TestLanguage.Learning.LogicHolder;
 ```
-{: .language-dsl}
+{: .language-bnf}
 
 # Language Name
 
@@ -104,13 +104,13 @@ A [feature]({{site.baseurl}}/documentation/prose/tutorial/#features) is a comput
 **Syntax:**
 
 ```
-{@complete} feature <Type> <Name> = <Feature calculator holders>;
+{@complete} feature <Type> <Name> = <Implementation class 1>, …, <Implementation class N>;
 ```
-{: .language-dsl}
+{: .language-bnf}
 
-Here `@complete` is an optional completeness annotation, and the comma-separated holder references on the right specify one or more classes that inherit `Feature<T>` and provide implementations of the feature calculators. Notice that one feature may be implemented in multiple possible ways (*e.g.* the program's `RankingScore` may be computed differently as `LikelihoodScore` or `PerformanceScore`, depending on the requirements), thus it is possible to specify multiple implementation holders for the same feature.
+Here `@complete` is an optional completeness annotation, and the comma-separated identifiers on the right specify one or more classes that inherit `Feature<T>` and provide implementations of the feature calculators. Notice that one feature may be implemented in multiple possible ways (*e.g.* the program's `RankingScore` may be computed differently as `LikelihoodScore` or `PerformanceScore`, depending on the requirements), thus it is possible to specify multiple implementation classes for the same feature.
 
-> A feature calculator holder does *not* have to be specified in the `*.grammar` file to properly interact with the framework. As long as it inherits `Feature<T>` and holds the required feature calculator implementations, its instances may be used at runtime to compute the value of the corresponding feature on the ASTs. However, specifying it in the `*.grammar` file provides additional information to the `dslc` grammar compiler. The compiler can then verify your feature calculator definitions and provide more detailed error messages.
+> A feature class does *not* have to be specified in the `*.grammar` file to properly interact with the framework. As long as it inherits `Feature<T>` and holds the required feature calculator implementations, its instances may be used at runtime to compute the value of the corresponding feature on the ASTs. However, specifying it in the `*.grammar` file provides additional information to the `dslc` grammar compiler. The compiler can then verify your feature calculator definitions and provide more detailed error messages.
 
 **Example:**
 
@@ -122,10 +122,10 @@ using TestLanguage.ScoreFunctions;
 @complete feature double RankingScore = TestLanguage.ScoreFunctions.LikelihoodScore,
                                         TestLanguage.ScoreFunctions.PerformanceScore,
                                         TestLanguage.ScoreFunctions.ReadabilityScore;
-                                        
+
 feature HashSet<int> UsedConstants = TestLanguage.UsedConstantsCalculator;
 ```
-{: .language-dsl}
+{: .language-bnf}
 
 # Symbols and rules
 
@@ -138,7 +138,7 @@ Each *terminal symbol* of the grammar is associated with its own unique *termina
 -   A terminal rule `int k;` specifies a symbol $k$ that represents a literal integer constant.
 -   A terminal rule `@input string v;` specifies a *variable* symbol $v$ that contains program input data *at runtime.*
 
-A user can specify the list of possible values that a literal symbol can be set to. This is done with a **@values[**$G$**]** annotation, where $G$ is a **value generator** – a reference to a user-defined static field, property, or method. The compiler will search for $G$ in the provided learning logic holders, and will report an error if it does not find a type-compatible member.  
+A user can specify the list of possible values that a literal symbol can be set to. This is done with a **@values[**$G$**]** annotation, where $G$ is a **value generator** – a reference to a user-defined static field, property, or method. The compiler will search for $G$ in the provided learning logic holders, and will report an error if it does not find a type-compatible member.
 
 **Example:** given the following declaration of a terminal `s`:
 
@@ -146,7 +146,7 @@ A user can specify the list of possible values that a literal symbol can be set 
 using learners TestLanguage.Learners;
 @values[StringGen] string s;
 ```
-{: .language-dsl}
+{: .language-bnf}
 
 any of the following members in `TestLanguage.Learners` can serve as a generator for `s`:
 
@@ -157,10 +157,10 @@ namespace TestLanguage
 	{
 		// Field
 		public static string[] StringGen = {"", "123", "ABRACADABRA"};
-		
+
 		// Property
 		public static string[] StringGen => new[] {"", "123", "ABRACADABRA"};
-		
+
 		// Method
 		public static string[] StringGen() => new[] {"", "123", "ABRACADABRA"};
 	}
@@ -172,7 +172,7 @@ namespace TestLanguage
 ```
 {@values[<Generator member>]} {@input} <Type> <Symbol name>;
 ```
-{: .language-dsl}
+{: .language-bnf}
 
 ## Nonterminal rules
 

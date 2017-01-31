@@ -41,8 +41,10 @@ gulp.task('css', function () {
 
     gulp.src(SRC)
         .pipe(sourcemaps.init())
+        .pipe(concat('styles.css'))
+        .pipe(gulp.dest('static'))
         .pipe(cleanCSS({compatibility: 'ie8'}))
-        .pipe(concat('styles.min.css'))
+        .pipe(rename('styles.min.css'))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('static'));
 });

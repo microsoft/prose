@@ -22,7 +22,7 @@ Install the `Microsoft.ProgramSynthesis` and (optionally) `Microsoft.ProgramSynt
 
 You can also generate a template DSL project by running
 
-```
+``` terminal
 npm install -g yo
 npm install -g generator-prose
 yo prose
@@ -55,7 +55,7 @@ Feel free also to [email us](mailto:prose-contact@microsoft.com).
 
 ## How do I restore NuGet packages for a PROSE solution (a sample or a `yo`-generated template)?
 
-```
+``` terminal
 sudo apt install mono-complete nuget
 sudo nuget update -self
 nuget restore YourSolution.sln

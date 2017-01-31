@@ -130,6 +130,18 @@ blockquote {
     background-color: hsl(0, 0%, 98%);
 }
 
+a.header-link {
+    margin-left: 10px;
+    color: #aaa;
+    font-weight: 300;
+    visibility: hidden;
+}
+
+h1:hover a.header-link, h2:hover a.header-link, h3:hover a.header-link,
+h4:hover a.header-link, h5:hover a.header-link, h6:hover a.header-link {
+    visibility: visible;
+}
+
 /* Code */
 
 code {
@@ -166,6 +178,50 @@ h1 code, h2 code, h3 code, h4 code, h5 code, h6 code,
     background-color: inherit;
     font-size: 90%;
     padding: 0 !important;
+}
+
+.token.optional-start, .token.optional-end {
+    color: #aaa;
+    font-size: 115%;
+}
+
+.token.optional-end::after {
+    position: relative;
+    top: 0.5em;
+    font-size: 70%;
+    font-style: italic;
+    content: 'opt';
+}
+
+pre div.toolbar {
+    width: 100%;
+    font-family: Lato, sans-serif;
+}
+
+pre div.toolbar .toolbar-item:first-child {
+    -ms-transform: translate(0.2em, -0.5em);
+    -webkit-transform: translate(0.2em, -0.5em);
+    transform: translate(0.2em, -0.5em);
+}
+
+pre div.toolbar .toolbar-item:first-child span {
+    font-family: Consolas, "Source Code Pro", Inconsolata, "Courier New", monospace;
+    color: #af902f;
+    -webkit-border-radius: 0 0 8px 0;
+    -moz-border-radius: 0 0 8px 0;
+    border-radius: 0 0 8px 0;
+}
+
+pre div.toolbar .toolbar-item:last-child a::before {
+    content: '\f24d';
+    font-family: FontAwesome;
+    padding-right: .3em;
+}
+
+pre div.toolbar .toolbar-item a,
+pre div.toolbar .toolbar-item button {
+    background: #f5f5f5;
+    box-shadow: 1px 1px 0 0 #ccc;
 }
 
 /* MathJax */
@@ -210,22 +266,17 @@ a.reversefootnote {
 
 /* Footer */
 
+#layout {
+    height: 100vh;
+}
+
 #footer {
-    padding: 0.3em;
+    padding: 0.6em 0;
     background: #fafafa;
     font-size: 14px;
     border-top: 1px solid #eee;
     margin-top: 3em;
-}
-
-#layout {
-    flex: 1;
-}
-
-@media (min-width: 1170px) {
-    #footer {
-        padding-left: 230px;
-    }
+    width: 100%;
 }
 
 /* Menu */
@@ -277,7 +328,7 @@ a.reversefootnote {
     padding: 0.8em 1.2em;
 }
 
-#menu .pure-menu-has-children>.pure-menu-link:after {
+#menu .pure-menu-has-children > .pure-menu-link:after {
     padding-left: .5em;
     content: "\f054";
     font-family: FontAwesome;
@@ -314,7 +365,7 @@ a.reversefootnote {
 }
 
 h2.subtitle {
-    font-size: 120%;
+    font-size: 119%;
 }
 
 span.title-blue {

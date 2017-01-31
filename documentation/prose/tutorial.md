@@ -200,7 +200,7 @@ It takes as input an `ExampleSpec` $\phi$ on an output of `Substring(inp, posPai
 
 Consider a program `Substring(inp, posPair)` that outputs `"PROSE"` on a given input state $\\{$ `inp` $:=$ `"PROSE Rocks"` $\\}$. What could be a possible spec on `posPair`? Clearly, we know it precisely for the given example: `posPair`, whatever this program is, must evaluate to `(0, 5)` because this is the only occurrence of the string `"Rocks"` in the given input `"PROSE Rocks"`.
 
-In a more complex example, however, there is no single answer. For instance, suppose *inp* $=$ `"(206) 279-6261"`, and the corresponding desired output in a spec is `"2"`. In this case, the substring `"2"` could have been extracted from 3 different places in the input string.  
+In a more complex example, however, there is no single answer. For instance, suppose *inp* $=$ `"(555) 279-2261"`, and the corresponding desired output in a spec is `"2"`. In this case, the substring `"2"` could have been extracted from 3 different places in the input string.
 Therefore, instead of *witnessing* a single output value for `posPair` on a given input, in this case we witness a *disjunction* of three possible output values. A disjunction of possible outputs has its own representative spec type in PROSE -- `DisjunctiveExamplesSpec`.
 
 The two cases above lead us to a general definition of a witness function for `posPair`: find all occurrences of the desired output string in the input, and return a disjunction of them. In PROSE, you express it in the following way:
@@ -497,8 +497,8 @@ double ScoreAbsolutePosition(VariableNode inp, LiteralNode k)
 }
 
 // Alternatively:
-// [FeatureCalculator("AbsolutePosition", Method = CalculationMethod.FromProgramNode)]
-// double ScoreAbsolutePosition(ProgramNode p) { ... }
+[FeatureCalculator("AbsolutePosition", Method = CalculationMethod.FromProgramNode)]
+double ScoreAbsolutePosition(ProgramNode p) { ... }
 ```
 
 #### Calculation from literals

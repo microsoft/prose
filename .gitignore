@@ -533,6 +533,7 @@ build/
 
 *.js.map
 Gemfile.lock
+.jekyll-metadata
 
 _site/
 /vendor/

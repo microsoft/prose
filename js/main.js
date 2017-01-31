@@ -1,26 +1,102 @@
+function markLanguage(tag, name) {
+    $("pre").has("code[class*=\"language-" + tag + "\"]").each(function () {
+        $(this).attr("data-language", name || tag.toUpperCase());
+    });
+}
 function setupPrism() {
-    Prism.languages.xml = Prism.languages.markup;
-    $("code.language-xml").each(function () {
-        Prism.highlightElement($(this)[0]);
+    function getCodePres() {
+        var languages = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            languages[_i] = arguments[_i];
+        }
+        function preSelector(element, suffix) {
+            var languages = [];
+            for (var _i = 2; _i < arguments.length; _i++) {
+                languages[_i - 2] = arguments[_i];
+            }
+            return languages.map(function (tag) { return element + "[class*='language-" + tag + "']" + suffix; }).join(", ");
+        }
+        if (languages.length == 0)
+            languages = [''];
+        return $("pre").has(preSelector.apply(void 0, ["code", ""].concat(languages))).add(preSelector.apply(void 0, ["div", " > pre"].concat(languages)));
+    }
+    var termLanguages = ['console', 'cmd', 'term', 'terminal'];
+    getCodePres.apply(void 0, termLanguages).addClass("command-line").not("pre[data-prompt]").attr("data-prompt", "$");
+    getCodePres().not(".command-line").addClass("line-numbers");
+    Prism.languages["xml"] = Prism.languages.markup;
+    markLanguage("xml");
+    Prism.languages["dsl"] = {
+        'comment': {
+            pattern: /(^|[^\\:])\/\/.*/,
+            lookbehind: true
+        },
+        'string': {
+            pattern: /(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+            greedy: true
+        },
+        'keyword': /#?\b(reference|feature|language|semantics|learners|let|in|using)\b/,
+        'type': [
+            /(Tuple|HashSet|IEnumerable|I?List|I?Dictionary)<[?\w\[\]]+(,\s*[?\w\[\]]+)*>/,
+            /\b(Regex|bool|byte|char|string|int|uint|sbyte|long|ulong|decimal|float|double|short)\b\??(\[])?/,
+            /\b\w+(\.\w+)+\b/,
+            {
+                pattern: /(\[)\b\w+(\.\w+)*\b(?=])/,
+                lookbehind: true
+            }
+        ],
+        'annotation': /@\b\w+/,
+        'function': /\w+(?=\()/,
+        'number': /\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,
+        'punctuation': /:=|\||\\|:|=|=>|\(|\)|,/
+    };
+    markLanguage("dsl");
+    Prism.languages["bnf"] = Prism.languages.extend("dsl", {
+        'optional-start': /\{/,
+        'optional-end': /}/,
+        'placeholder': {
+            pattern: /<[\w\d\s]+>/,
+            greedy: true,
+        },
+        'string': {
+            pattern: /(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+            greedy: true,
+            inside: {
+                'placeholder': /<[\w\d\s]+>/
+            }
+        }
     });
-    Prism.languages["dsl"] = Prism.languages.extend("clike", {
-        'keyword': /#?\b(reference|@start|@input|feature|language|@values|@feature|@complete|semantics|learners|@id|let|in|using|Tuple|bool|byte|char|string|int|uint|sbyte|long|ulong|decimal|float|double|short)\b\??/,
-        'property': /@\b\w+/
-    });
-    $("code.language-dsl").each(function () {
-        Prism.highlightElement($(this)[0]);
-    });
+    markLanguage("bnf", "DSL");
     Prism.highlightAll();
-    $('pre[class*="language-dsl"]').each(function () {
-        $(this).attr("data-language", "DSL");
-    });
+    $(".toolbar").addClass("flex justify-between");
 }
 function setupTables() {
     $(".content").find("table").addClass("pure-table pure-table-horizontal mx-auto");
 }
-$(function () {
-    setupPrism();
-    setupTables();
+function setupHeaderLinks() {
+    $("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]").each(function () {
+        $(this).append($("<a href=\"#" + $(this).attr('id') + "\" class=\"header-link\">#</a>"));
+    });
+}
+function defer(method) {
+    if (window.jQuery) {
+        method();
+    }
+    else {
+        setTimeout(function () { return defer(method); }, 50);
+    }
+}
+defer(function () {
+    $(function () {
+        setupPrism();
+        setupTables();
+        setupHeaderLinks();
+    });
 });
+if (window.Prism) {
+    document.removeEventListener('DOMContentLoaded', Prism.highlightAll);
+}
+else {
+    window.Prism = { manual: true };
+}
 
 //# sourceMappingURL=main.js.map

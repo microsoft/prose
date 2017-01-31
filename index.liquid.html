@@ -43,13 +43,13 @@ permalink: index.html
                 technology
                 for <em>text transformation by examples</em>, available in
                 <a href="https://products.office.com/en-us/excel">Microsoft Excel</a> and <a
-                href="https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.utility/convert-string">PowerShell</a>.
+                    href="https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.utility/convert-string">PowerShell</a>.
             </li>
             <li>
                 <em>Data extraction from text files</em> by examples, available in <a
-                href="https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.utility/convertfrom-string">PowerShell</a>
+                    href="https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.utility/convertfrom-string">PowerShell</a>
                 and <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-custom-fields">Azure Log
-                Analytics</a>.
+                    Analytics</a>.
             </li>
             <li>Data extraction and transformation of JSON files by examples.</li>
             <li><em>Predictive file splitting</em> technology, which discovers structured columns in a text file without
@@ -67,7 +67,7 @@ permalink: index.html
     <div class="pure-u-1-5"></div>
     <div class="pure-u-3-5">
         <h2 class="subtitle mt1"><span class="semibold">1.</span> Install <a href="https://www.visualstudio.com/vs/">Visual
-            Studio</a> (<i class="fa fa-windows" aria-label="Windows"></i>),
+                Studio</a> (<i class="fa fa-windows" aria-label="Windows"></i>),
             <a href="https://code.visualstudio.com">Visual Studio Code</a>
             (<i class="fa fa-linux" aria-label="Linux"></i>),
             or <a href="https://www.visualstudio.com/vs/visual-studio-mac/">Visual Studio for Mac</a>
@@ -79,8 +79,9 @@ permalink: index.html
     <div class="pure-u-3-5">
         <h2 class="subtitle mt0"><span class="semibold">2.</span>
             Ensure that either <a href="https://www.microsoft.com/net/download/framework">.NET Framework</a>
-            or <a href="http://www.mono-project.com">Mono</a> is available on your machine.<span class="text-font">*</span>
-            <br />
+            or <a href="http://www.mono-project.com">Mono</a> is available on your machine.<span
+                class="text-font">*</span>
+            <br/>
             <span class="h6 pl1"><span class="text-font">*&thinsp;</span> .NET Core support is forthcoming as soon as its
                 <a href="https://blogs.msdn.microsoft.com/dotnet/2016/11/16/announcing-net-core-tools-msbuild-alpha/">MSBuild tooling support</a>
                 stabilizes.</span>
@@ -95,19 +96,32 @@ permalink: index.html
             <span class="semibold">3a.</span> Generate a new DSL skeleton using <a href="http://yeoman.io/">Yeoman</a>.
         </h2>
         <h5 class="my0 ml3">(requires <a href="https://nodejs.org/">Node.js</a>)</h5>
-        <pre class="highlight language-console"><code class="language-console">$ npm install -g yo
-$ npm install -g generator-prose
+        <pre class="highlight command-line">
+            <code class="language-terminal">
+npm install -g yo
+npm install -g generator-prose
 
-$ yo prose</code></pre>
+yo prose
+            </code>
+        </pre>
     </div>
     <div class="pure-u-2-24 flex items-center justify-center"><h3>or</h3></div>
     <div class="pure-u-10-24">
         <h2 class="center subtitle mt0">
-            <span class="semibold">3b.</span> Build on top of the DSLs in our <a href="https://www.nuget.org/packages/Microsoft.ProgramSynthesis/">NuGet package</a>.
+            <span class="semibold">3b.</span> Build on top of the DSLs in our <a
+                href="https://www.nuget.org/packages/Microsoft.ProgramSynthesis/">NuGet package</a>.
         </h2>
-        <pre class="highlight language-console"><code class="language-console">> Install-Package Microsoft.ProgramSynthesis
-> Install-Package Microsoft.ProgramSynthesis.Compiler</code></pre>
-        <pre class="highlight language-csharp"><code class="language-csharp">using Microsoft.ProgramSynthesis.Transformation.Text;</code></pre>
+        <pre class="highlight command-line" data-prompt="PM&gt;">
+            <code class="language-powershell">
+Install-Package Microsoft.ProgramSynthesis
+Install-Package Microsoft.ProgramSynthesis.Compiler
+            </code>
+        </pre>
+        <pre class="highlight language-csharp">
+            <code class="language-csharp">
+using Microsoft.ProgramSynthesis.Transformation.Text;
+            </code>
+        </pre>
     </div>
 </div>
 

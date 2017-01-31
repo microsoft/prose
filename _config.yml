@@ -6,6 +6,7 @@ kramdown:
   math_engine: mathjax
   toc_levels: 1..3
   syntax_highlighter: rouge
+  extensions: ['options']
 
   syntax_highlighter_opts:
     css_class: 'highlight'

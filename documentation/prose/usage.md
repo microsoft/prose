@@ -545,7 +545,7 @@ grammar definition file, and compiles it into a serialized format,
 potentially emitting any warnings/errors on the way. The command-line
 usage is shown below:
 
-```console
+```
 Microsoft Program Synthesis using Examples DSL Compiler 0.5.0.180-9c4db2d
 Created by Microsoft Program Synthesis using Examples team (prose-contact@microsoft.com), 2014-2015.
 Usage: dslc.exe [options] INPUT_GRAMMAR

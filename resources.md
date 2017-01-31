@@ -1,6 +1,7 @@
 ---
 title: Resources
 ---
+{::options auto_ids="false" /}
 
 # Publications
 {: .title}

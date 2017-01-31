@@ -3,7 +3,7 @@
 <head>
     {% include header.liquid.html %}
 </head>
-<body class="flex flex-column">
+<body>
 {% include page-header.liquid.html %}
 
 <div id="layout">
@@ -26,12 +26,15 @@
         </div>
         {% endunless %}
 
-        <div class="content clearfix">
-            {{ content }}
+        <div id="contentWrapper" class="flex flex-column items-center">
+            <div class="content">
+                {{ content }}
+            </div>
+
+            {% include footer.liquid.html %}
         </div>
     </div>
 </div>
 
-{% include footer.liquid.html %}
 </body>
 </html>
