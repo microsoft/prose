@@ -77,6 +77,13 @@ function setupHeaderLinks() {
         $(this).append($("<a href=\"#" + $(this).attr('id') + "\" class=\"header-link\">#</a>"));
     });
 }
+function setupPopups() {
+    $(".popup-image").magnificPopup({
+        autoFocusLast: false,
+        removalDelay: 300,
+        mainClass: 'mfp-fade'
+    });
+}
 function defer(method) {
     if (window.jQuery) {
         method();
@@ -90,6 +97,7 @@ defer(function () {
         setupPrism();
         setupTables();
         setupHeaderLinks();
+        setupPopups();
     });
 });
 if (window.Prism) {

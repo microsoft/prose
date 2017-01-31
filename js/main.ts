@@ -78,6 +78,14 @@ function setupHeaderLinks() {
     });
 }
 
+function setupPopups() {
+    $(".popup-image").magnificPopup({
+        autoFocusLast: false,
+        removalDelay: 300,
+        mainClass: 'mfp-fade'
+    });
+}
+
 function defer(method: () => void) {
     if (window.jQuery) {
         method();
@@ -92,6 +100,7 @@ defer(function () {
         setupPrism();
         setupTables();
         setupHeaderLinks();
+        setupPopups();
     });
 });
 

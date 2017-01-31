@@ -1,4 +1,4 @@
 interface Window {
     Prism?: Prism;
-    jQuery?: JQuery
+    jQuery?: JQueryStatic;
 }
