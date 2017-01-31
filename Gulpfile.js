@@ -45,7 +45,7 @@ gulp.task('css', function () {
         .pipe(gulp.dest('static'))
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(rename('styles.min.css'))
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('static'));
 });
 

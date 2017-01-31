@@ -532,6 +532,7 @@ build/
 # End of https://www.gitignore.io/api/intellij,bower,typings,node,visualstudio,visualstudiocode,windows,macos,linux,sublimetext,webstorm
 
 *.js.map
+*.css.map
 Gemfile.lock
 .jekyll-metadata
 
