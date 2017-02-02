@@ -37,12 +37,11 @@ Ranvijay has more than 18 years of experience in software industry and more than
 {% include about-row-end.liquid.html %}
 
 {% include about-row-start.liquid.html name="Vu Le" img="Vu-Le.jpg" link="http://vuminhle.com/" %}
-Vu is a Research Software Engineer at
-Microsoft. He obtained his PhD at the University of California, Davis in 2015, and his BEng at
-Vietnam National University in 2006. His research focuses on automatic program generation to
+Vu obtained his PhD at the University of California, Davis in 2015, and his BEng at
+Vietnam National University in 2006. His PhD focuses on automatic program generation to
 help improve the quality of critical software and make programming more accessible to end
-users. His work has led to important shipped features in commercial products (such as Windows)
-and hundreds of bug reports/fixes in widely used, critical open-source software (such as GCC and LLVM).
+users. His work has led to hundreds of bug reports/fixes in GCC and LLVM and important shipped features in Microsoft PowerShell and Operations Management Suite (Azure OMS).
+He is currently working on (predictive/by-example) text extraction, tree-based extraction and transformation, and predicate/conditional learning.
 {% include about-row-end.liquid.html %}
 
 {% include about-row-start.liquid.html name="Daniel Perelman" img="Daniel-Perelman.jpg" link="https://homes.cs.washington.edu/~perelman/" %}
