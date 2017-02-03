@@ -28,6 +28,14 @@
             {% include menu-item.liquid.html url="/documentation/extraction-text/usage" title="Usage" %}
         </ul>
     </li>
+    
+    <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover {% include menu-selected.liquid.html url="/documentation/extraction-json" %}">
+        <a href="#" class="pure-menu-link">Json Extraction</a>
+        <ul class="pure-menu-children">
+            {% include menu-item.liquid.html url="/documentation/extraction-json/intro" title="Introduction" %}
+            {% include menu-item.liquid.html url="/documentation/extraction-json/usage" title="Usage" %}
+        </ul>
+    </li>
 
     <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover {% include menu-selected.liquid.html url="/documentation/transformation-text" %}">
         <a href="#" class="pure-menu-link">Text Transformation</a>
