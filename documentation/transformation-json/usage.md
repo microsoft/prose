@@ -93,7 +93,7 @@ JToken output = program.Run(input);
 
 Output is:
 
-```
+``` json
 [
   {
     ""John"" : ""To Be Processed""

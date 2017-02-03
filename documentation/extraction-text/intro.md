@@ -8,10 +8,10 @@ The [Usage]({{ site.baseurl }}/documentation/extraction-text/usage) page and the
 
 **Extraction.Text** supports two kinds of extraction: 
 
-	1.  Extract.Text.Region extracts a substring from an input string, and 
-	2.  Extract.Text.Sequence extracts a sequence of substrings from an input string.
+1.  Extract.Text.Region extracts a substring from an input string.
+2.  Extract.Text.Sequence extracts a sequence of substrings from an input string.
 
-**Read more:** [[Extraction.Text Paper] FlashExtract: A Framework for Data Extraction by Examples](http://research.microsoft.com/en-us/um/people/sumitg/pubs/pldi14-flashextract.pdf)
+**Read more:** ["FlashExtract: A Framework for Data Extraction by Examples"](http://research.microsoft.com/en-us/um/people/sumitg/pubs/pldi14-flashextract.pdf)
 
 
 ## Substring Extraction
@@ -71,7 +71,7 @@ In the above template, **ConvertFrom-String** learns a sequence of *Name* (also 
 
 Now we can pass the template to **ConvertFrom-String** to extract nested data from the complete input document.
 
-```
+``` powershell
 $template = @'
 {[string]Name*:Phoebe Cat}, {[string]phone:425-123-6789}, {[int]age:6}
 {[string]Name*:Lucky Shot}, {[string]phone:(206) 987-4321}, {[int]age:12}
@@ -101,7 +101,7 @@ Elephant Wise 425-888-7766     87
 Wild Shrimp   (111)  222-3333   1
 ```
 
-**Read more:** [[PowerShell Blog] ConvertFrom-String: Example-based text parsing](https://blogs.msdn.microsoft.com/powershell/2014/10/31/convertfrom-string-example-based-text-parsing/).
+**Read more:** [ConvertFrom-String: Example-based text parsing](https://blogs.msdn.microsoft.com/powershell/2014/10/31/convertfrom-string-example-based-text-parsing/).
 
 ### Prose Playground
 
@@ -111,6 +111,9 @@ Although the learning in **Playground** is similar to that of **ConvertFrom-Stri
 
 Because at each step users can only give one example, most of the existing fields are not affected. This allows **Playground** to cache most of the learning result from the previous step. However, since users can give example for *any* field, all fields depending on it will be affected. **Playground** has to visit the field dependency graph to relearn the affected fields, if necessary.
 
-**Read more:** [[Playground Paper] User Interaction Models for Disambiguation in Programming by Example](http://research.microsoft.com/en-us/um/people/sumitg/pubs/uist15.pdf)
+**Read more:** [User Interaction Models for Disambiguation in Programming by Example](http://research.microsoft.com/en-us/um/people/sumitg/pubs/uist15.pdf)
 
-![Prose Playground]({{ site.baseurl }}/img/extraction.png "Prose Playground")
+<a href="{{ site.baseurl }}/img/extraction-full.png" class="popup-image mfp-image"
+   title="Data extraction by examples in PROSE Playground">
+    <img class="pure-img mx-auto" src="{{ site.baseurl }}/img/extraction.png">
+</a>

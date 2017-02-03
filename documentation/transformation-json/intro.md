@@ -11,7 +11,7 @@ The [Usage]({{ site.baseurl }}/documentation/transformation-json/usage) page and
 
 Given an example to transform this input Json:
 
-```
+``` json
 {
   ""datatype"": ""local"",
   ""data"": [
@@ -31,7 +31,7 @@ Given an example to transform this input Json:
 
 into this output Json:
 
-```
+``` json
 [
   {
     ""John"" : ""To Be Processed""
@@ -45,7 +45,7 @@ into this output Json:
 **Transformation.Json** will generate a program to perform the same
 transformation given any other similar and larger input Json. For example, the learned program transforms this input:
 
-```
+``` json
 {
   ""datatype"": ""local"",
   ""data"": [
@@ -70,7 +70,7 @@ transformation given any other similar and larger input Json. For example, the l
 
 into this output:
 
-```
+``` json
 [
   {
     ""John"" : ""To Be Processed""

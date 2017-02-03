@@ -9,8 +9,8 @@ The [Usage]({{ site.baseurl }}/documentation/extraction-json/usage) page and the
 
 **Extraction.Json** supports two main modes of extraction: 
 
-	1.  No Joining Inner Arrays: arrays are not joined and are kept as a single cell in the output table. Each Json outer object corresponds to one row in the output table.
-	2.  Joining Inner Arrays: arrays are joined with other fields. Each Json outer object corresponds to multiple rows in the output table.
+1.  No Joining Inner Arrays: arrays are not joined and are kept as a single cell in the output table. Each Json outer object corresponds to one row in the output table.
+2.  Joining Inner Arrays: arrays are joined with other fields. Each Json outer object corresponds to multiple rows in the output table.
 
 We use the following Json to illustrate different extraction modes:
 
