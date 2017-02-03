@@ -18,6 +18,9 @@ function setupPrism() {
     getCodePres(...termLanguages).addClass("command-line").not("pre[data-prompt]").attr("data-prompt", "$");
     getCodePres().not(".command-line").addClass("line-numbers");
 
+    // Add 'language-none' to all plaintext code blocks that were (not) processed by rouge.
+    $('div[class="highlighter-rouge"] > pre[class="highlight"] > code:not([class])').addClass('language-none');
+
     Prism.languages["xml"] = Prism.languages.markup;
     markLanguage("xml");
 
