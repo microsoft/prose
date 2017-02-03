@@ -13,17 +13,17 @@ Given an example to transform this input Json:
 
 ``` json
 {
-  ""datatype"": ""local"",
-  ""data"": [
+  "datatype": "local",
+  "data": [
     {
-      ""Name"": ""John"",
-      ""status"": ""To Be Processed"",
-      ""LastUpdatedDate"": ""2013-05-31 08:40:55.0""
+      "Name": "John",
+      "status": "To Be Processed",
+      "LastUpdatedDate": "2013-05-31 08:40:55.0"
     },
     {
-      ""Name"": ""Paul"",
-      ""status"": ""To Be Processed"",
-      ""LastUpdatedDate"": ""2013-06-02 16:03:00.0""
+      "Name": "Paul",
+      "status": "To Be Processed",
+      "LastUpdatedDate": "2013-06-02 16:03:00.0"
     }
   ]
 }
@@ -34,10 +34,10 @@ into this output Json:
 ``` json
 [
   {
-    ""John"" : ""To Be Processed""
+    "John" : "To Be Processed"
   },
   {
-    ""Paul"" : ""To Be Processed""
+    "Paul" : "To Be Processed"
   }
 ]
 ```
@@ -47,22 +47,22 @@ transformation given any other similar and larger input Json. For example, the l
 
 ``` json
 {
-  ""datatype"": ""local"",
-  ""data"": [
+  "datatype": "local",
+  "data": [
     {
-      ""Name"": ""John"",
-      ""status"": ""To Be Processed"",
-      ""LastUpdatedDate"": ""2013-05-31 08:40:55.0""
+      "Name": "John",
+      "status": "To Be Processed",
+      "LastUpdatedDate": "2013-05-31 08:40:55.0"
     },
     {
-      ""Name"": ""Paul"",
-      ""status"": ""To Be Processed"",
-      ""LastUpdatedDate"": ""2013-06-02 16:03:00.0""
+      "Name": "Paul",
+      "status": "To Be Processed",
+      "LastUpdatedDate": "2013-06-02 16:03:00.0"
     },
     {
-      ""Name"": ""Alice"",
-      ""status"": ""Finished"",
-      ""LastUpdatedDate"": ""2013-07-02 12:04:00.0""
+      "Name": "Alice",
+      "status": "Finished",
+      "LastUpdatedDate": "2013-07-02 12:04:00.0"
     }
   ]
 }
@@ -73,13 +73,13 @@ into this output:
 ``` json
 [
   {
-    ""John"" : ""To Be Processed""
+    "John" : "To Be Processed"
   },
   {
-    ""Paul"" : ""To Be Processed""
+    "Paul" : "To Be Processed"
   },
   {
-    ""Alice"" : ""Finished""
+    "Alice" : "Finished"
   }
 ]
 ```

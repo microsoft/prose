@@ -96,13 +96,13 @@ Output is:
 ``` json
 [
   {
-    ""John"" : ""To Be Processed""
+    "John" : "To Be Processed"
   },
   {
-    ""Paul"" : ""To Be Processed""
+    "Paul" : "To Be Processed"
   },
   {
-    ""Alice"" : ""Finished""
+    "Alice" : "Finished"
   }
 ]
 ```
