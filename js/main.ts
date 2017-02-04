@@ -1,10 +1,10 @@
-function markLanguage(tag: string, name?: string) {
-    $("pre").has(`code[class*="language-${tag}"]`).each(function () {
-        $(this).attr("data-language", name || tag.toUpperCase());
-    });
-}
-
 function setupPrism() {
+    function markLanguage(tag: string, name?: string) {
+        $("pre").has(`code[class*="language-${tag}"]`).each(function () {
+            $(this).attr("data-language", name || tag.toUpperCase());
+        });
+    }
+
     function getCodePres(...languages: string[]) {
         function preSelector(element: string, suffix: string, ...languages: string[]) {
             return languages.map(tag => `${element}[class*='language-${tag}']${suffix}`).join(", ");
@@ -77,9 +77,12 @@ function setupTables() {
 }
 
 function setupHeaderLinks() {
+    const $root = $('html, body');
     $("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]").each(function () {
         $(this).append($(`<a title="Permalink" href="#${$(this).attr('id')}" class="header-link">#</a>`));
-        $(this).append($(`<a title="Scroll to top" href="#table-of-contents" class="header-link">&#8593;</a>`));
+        const $scrollLink = $(`<a title="Scroll to top" href="#" class="header-link">&#8593;</a>`);
+        $scrollLink.click(() => $root.animate({scrollTop: 0}, "slow"));
+        $(this).append($scrollLink);
     });
 }
 
@@ -88,6 +91,16 @@ function setupPopups() {
         autoFocusLast: false,
         removalDelay: 300,
         mainClass: 'mfp-fade'
+    });
+}
+
+function setupAnchors() {
+    const $root = $('html, body');
+    $("a[href^=\\#]").click(function () {
+        const href = $(this).attr('href').substring(1);
+        if (href == "") return true;
+        $root.animate({scrollTop: $("#" + $.escapeSelector(href)).offset().top}, 500, () => window.location.hash = href);
+        return false;
     });
 }
 
@@ -106,6 +119,7 @@ defer(function () {
         setupTables();
         setupHeaderLinks();
         setupPopups();
+        setupAnchors();
     });
 });
 
