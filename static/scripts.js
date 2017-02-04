@@ -23,6 +23,7 @@ function setupPrism() {
     var termLanguages = ['console', 'cmd', 'term', 'terminal'];
     getCodePres.apply(void 0, termLanguages).addClass("command-line").not("pre[data-prompt]").attr("data-prompt", "$");
     getCodePres().not(".command-line").addClass("line-numbers");
+    $('div[class="highlighter-rouge"] > pre[class="highlight"] > code:not([class])').addClass('language-none');
     Prism.languages["xml"] = Prism.languages.markup;
     markLanguage("xml");
     Prism.languages["dsl"] = {
