@@ -69,13 +69,15 @@ function setupPrism() {
     markLanguage("bnf", "DSL");
     Prism.highlightAll();
     $(".toolbar").addClass("flex justify-between");
+    $(".toolbar-item").has("span:contains('None')").css("visibility", "hidden");
 }
 function setupTables() {
     $(".content").find("table").addClass("pure-table pure-table-horizontal mx-auto");
 }
 function setupHeaderLinks() {
     $("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]").each(function () {
-        $(this).append($("<a href=\"#" + $(this).attr('id') + "\" class=\"header-link\">#</a>"));
+        $(this).append($("<a title=\"Permalink\" href=\"#" + $(this).attr('id') + "\" class=\"header-link\">#</a>"));
+        $(this).append($("<a title=\"Scroll to top\" href=\"#table-of-contents\" class=\"header-link\">&#8593;</a>"));
     });
 }
 function setupPopups() {
