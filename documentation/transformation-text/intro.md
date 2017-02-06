@@ -9,7 +9,7 @@ allowing for many tasks involving strings to be performed automatically.
 [FlashFill feature in Excel](http://research.microsoft.com/en-us/um/people/sumitg/flashfill.html),
 but with extended capabilities for semantic transformations involving dates
 and numbers as well as support for interactivity due to being part of PROSE.
-The [Usage]({{ site.baseurl }}/documentation/flashfill/usage) page and the
+The [Usage]({{ site.baseurl }}/documentation/transformation-text/usage) page and the
 [`Transformation.Text` sample project](https://github.com/Microsoft/prose/tree/master/Transformation.Text) show examples of how to use the
 Transformation.Text API.
 
