@@ -28,11 +28,13 @@ var inputs = new List<StringRegion> {
 splitSession.AddInputs(inputs);
 ```
 
-Each row of text in the input data is added as a `StringRegion` object created from the text content in that row. We can also add some constraints to the session to specify basic properties of the desired splitting, such as whether we want to include the delimiters in the resulting split or not. If we do not want delimiters in the output, we can specify it as follows:
+Each row of text in the input data is added as a `StringRegion` object created from the text content in that row. If we want we can also add some constraints to the session to specify basic properties of the desired splitting, such as whether we want to include the delimiters in the resulting split or not. If we do not want delimiters in the output, we can specify with a constraint as follows:
 
 ```csharp
 splitSession.AddConstraints(new IncludeDelimitersInOutput(false));
 ```
+
+We can clear any constraints provided in the session at any time by calling the `splitSession.RemoveAllConstraints()` method. 
 
 ## Learning a new split program
 
