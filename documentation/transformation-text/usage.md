@@ -3,15 +3,13 @@ date: 2015-09-02T20:00:16-07:00
 title: Text Transformation – Usage
 ---
 
-{% include outdated.html %}
-
 {% include toc.liquid.md %}
 
 The `Transformation.Text` API is accessed through the
-`Transformation.Text.Session` class.
-The primary methods are `AddConstraints()` which adds examples (or other
-constraints) to a session and `Learn()` which
-and learns a `Transformation.Text` program consistent with those examples.
+[`Transformation.Text.Session`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Session.htm) class.
+The primary methods are [`AddConstraints()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_AddConstraints.htm) which adds examples (or other
+constraints) to a session and [`Learn()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_Learn.htm) which
+and learns a [`Transformation.Text` program](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Program.htm) consistent with those examples.
 In order to use `Transformation.Text`, you need assembly references to
 `Microsoft.ProgramSynthesis.Transformation.Text.dll`,
 `Microsoft.ProgramSynthesis.Transformation.Text.Language.dll`, and
@@ -32,12 +30,12 @@ Program program = session.Learn();
 object output = program.Run(new InputRow("Kettil Hansson")); // output is "Hansson, K."
 ```
 
-The examples are given as an `IEnumerable<Example>` with the input and
+The examples are given as an `IEnumerable<`[`Example`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Example.htm)`>` with the input and
 the correct output. The input to `Transformation.Text` is a row of a
 table of data which may include data from multiple columns.
-The `InputRow` type lets you give a row as just a list of `string`s
+The [`InputRow`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_InputRow.htm) type lets you give a row as just a list of `string`s
 without naming the columns. To get more control,
-implement `Transformation.Text`&apos;s `IRow` interface.
+implement `Transformation.Text`&apos;s [`IRow`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Semantics_IRow.htm) interface.
 
 
 #### One example with multiple strings
@@ -119,7 +117,7 @@ examples. `Transformation.Text` has a ranking scheme which it uses to return
 the most likely program for the examples it has seen, but in some cases this
 may not be the desired program.
 
-`LearnTopK()` has a parameter `k` which specifies how many programs
+[`LearnTopK()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_LearnTopK.htm) has a parameter `k` which specifies how many programs
 it should try to learn; it returns the top `k` ranked programs
 (or programs with the top `k` ranks if there are ties).
 
@@ -140,7 +138,7 @@ automated reranking of the top results based on some logic other than
 `Transformation.Text`&apos;s internal ranking system.
 
 To specifically get the top distinct outputs, without needing to directly
-access the programs, use `ComputeTopKOutputsAsync()`:
+access the programs, use [`ComputeTopKOutputsAsync()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_NonInteractiveSession_3_ComputeTopKOutputsAsync.htm):
 
 ```csharp
 var session = new Session();
@@ -180,17 +178,65 @@ See [Documentation]({{ site.baseurl }}/documentation/api) for the full API docum
 Learning `Transformation.Text` programs
 ---------------------------------------
 
-`Session` has three different methods for learning:
+To start, construct an empty [`Session`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Session.htm)
+which encapsulates learning a program for a single task, often refined
+over the course of multiple learning calls.
 
-* `Learn()` returns the single top-ranked program as a `Program`.
-* `LearnTopK()` takes an integer `k` and returns the top-`k` ranked
+The collection of all known inputs should be provided using
+[`.AddInputs()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_AddInputs.htm).
+`Transformation.Text` can make good use of around one hundred inputs;
+providing over a thousand may cause performance issues for some operations,
+although it will attempt to work on only a randomly selected sample when
+possible if too many inputs are provided. If selecting a subset of inputs
+to provide, they should be representative of the inputs the program will
+be run on.
+The inputs provided can accessed using [`.Inputs`](https://prose-docs.azurewebsites.net/html/P_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_Inputs.htm)
+and removed using [`.RemoveInputs()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_RemoveInputs.htm) or
+[`RemoveAllInputs()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_RemoveAllInputs.htm).
+
+The main input to the learning procedure is a set of **constraints**,
+primarily examples, which are provided using [`.AddConstraints()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_AddConstraints_1.htm).
+The following are common constraints used with `Transformation.Text`:
+
+* **[`Example`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Example.htm)** (or [`Example<IRow, object>`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Wrangling_Constraints_Example_2.htm)). The most common constraint. Asserts what the output
+should be for a specific input.
+
+* **[`DoesNotEqual<IRow, object>`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Wrangling_Constraints_DoesNotEqual_2.htm)**.
+The opposite: for a specific input, gives a specific disallowed output.
+
+* **[`ColumnPriority`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Constraints_ColumnPriority.htm)**.
+Used to specify which columns of the input to use. Useful if the `IRow`
+implementation exposes many columns but only a few columns should be used
+by the program.
+
+* **[`OutputIs<IRow, object>`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Wrangling_Constraints_OutputIs_2.htm)**. Constrains
+the output to be of a specific semantic kind. Note that the .NET type of
+the output will still be `string`; support for other .NET types in the
+output is expected in the future. The supported types for this constraint
+are [`NumberType`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Semantics_Numbers_NumberType.htm),
+[`PartialDateTimeType`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Semantics_Dates_PartialDateTimeType.htm),
+and [`FormattedPartialDateTimeType`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Semantics_Dates_FormattedPartialDateTimeType.htm).
+
+* See the [`Transformation.Text.Constraints`](https://prose-docs.azurewebsites.net/html/N_Microsoft_ProgramSynthesis_Transformation_Text_Constraints.htm)
+namespace for other constraints.
+
+[`Session`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Session.htm) has three different methods for learning
+(plus "`Async`" variants):
+
+* [`Learn()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_Learn.htm)/[`LearnAsync()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_LearnAsync.htm) returns the single top-ranked program as a [`Program`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Program.htm).
+* [`LearnTopK()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_LearnTopK.htm)/[`LearnTopKAsync()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_LearnTopKAsync.htm) takes an integer `k` and returns the top-`k` ranked
 	programs as an `IReadOnlyList<Program>`.
-* `LearnAll()` learns all programs consistent with the examples, giving
-	the result compactly as a `ProgramSet` (wrapped in an 
-	`IProgramSetWrapper`).
+* [`LearnAll()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_LearnAll.htm)/[`LearnAllAsync()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_LearnAllAsync.htm) learns all programs consistent with the examples, giving
+	the result compactly as a [`ProgramSet`](https://prose-docs.azurewebsites.net/html/P_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_IProgramSetWrapper_ProgramSet.htm) (wrapped in an 
+	[`IProgramSetWrapper`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_IProgramSetWrapper.htm)).
 
-To run a `Program`, use its `Run()` method:
+To run a `Program`, use its [`Run()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Transformation_Text_Program_Run_1.htm) method:
 
 ```csharp
 public object Run(IRow input)
 ```
+
+If performance of running a single program on many inputs is an issue, then 
+implementing the [`IIndexableRow`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Semantics_IIndexableRow.htm)
+interface and using the
+[`Run(IIndexableRow)`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Transformation_Text_Program_Run.htm) variant may help.
