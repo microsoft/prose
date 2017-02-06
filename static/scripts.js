@@ -1,9 +1,9 @@
-function markLanguage(tag, name) {
-    $("pre").has("code[class*=\"language-" + tag + "\"]").each(function () {
-        $(this).attr("data-language", name || tag.toUpperCase());
-    });
-}
 function setupPrism() {
+    function markLanguage(tag, name) {
+        $("pre").has("code[class*=\"language-" + tag + "\"]").each(function () {
+            $(this).attr("data-language", name || tag.toUpperCase());
+        });
+    }
     function getCodePres() {
         var languages = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -69,13 +69,18 @@ function setupPrism() {
     markLanguage("bnf", "DSL");
     Prism.highlightAll();
     $(".toolbar").addClass("flex justify-between");
+    $(".toolbar-item").has("span:contains('None')").css("visibility", "hidden");
 }
 function setupTables() {
     $(".content").find("table").addClass("pure-table pure-table-horizontal mx-auto");
 }
 function setupHeaderLinks() {
+    var $root = $('html, body');
     $("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]").each(function () {
-        $(this).append($("<a href=\"#" + $(this).attr('id') + "\" class=\"header-link\">#</a>"));
+        $(this).append($("<a title=\"Permalink\" href=\"#" + $(this).attr('id') + "\" class=\"header-link\">#</a>"));
+        var $scrollLink = $("<a title=\"Scroll to top\" href=\"#\" class=\"header-link\">&#8593;</a>");
+        $scrollLink.click(function () { return $root.animate({ scrollTop: 0 }, "slow"); });
+        $(this).append($scrollLink);
     });
 }
 function setupPopups() {
@@ -83,6 +88,16 @@ function setupPopups() {
         autoFocusLast: false,
         removalDelay: 300,
         mainClass: 'mfp-fade'
+    });
+}
+function setupAnchors() {
+    var $root = $('html, body');
+    $("a[href^=\\#]").click(function () {
+        var href = $(this).attr('href').substring(1);
+        if (href == "")
+            return true;
+        $root.animate({ scrollTop: $("#" + $.escapeSelector(href)).offset().top }, 500, function () { return window.location.hash = href; });
+        return false;
     });
 }
 function defer(method) {
@@ -99,6 +114,7 @@ defer(function () {
         setupTables();
         setupHeaderLinks();
         setupPopups();
+        setupAnchors();
     });
 });
 if (window.Prism) {
