@@ -1261,7 +1261,7 @@ a.reversefootnote {
     padding: 0.8em 1.2em;
 }
 
-#menu .pure-menu-has-children .pure-menu-link:after {
+#menu .pure-menu-has-children > .pure-menu-link:after {
     padding-left: .5em;
     content: "\f054";
     font-family: FontAwesome;
