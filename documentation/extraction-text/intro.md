@@ -2,6 +2,7 @@
 date: 2017-02-02
 title: "Text Extraction"
 ---
+{% include toc.liquid.md %}
 
 **Extraction.Text** extracts data from semi-structured text files using *examples*.
 The [Usage]({{ site.baseurl }}/documentation/extraction-text/usage) page and the [Sample project](https://github.com/Microsoft/prose/tree/master/Extraction.Text) illustrate the API usage.
@@ -87,10 +88,13 @@ Wild Shrimp, (111)  222-3333, 1
 $testText  |
     ConvertFrom-String -TemplateContent $template -OutVariable PersonalData | Out-Null
 
-Write-output ("Pet items found: " + ($PersonalData.Count))
+Write-Output ("Pet items found: " + ($PersonalData.Count))
 $PersonalData
+```
 
+Output:
 
+```
 Pet items found: 4
 
 Name          phone           age

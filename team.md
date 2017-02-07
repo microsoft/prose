@@ -32,7 +32,11 @@ Award_. He obtained his Bachelors in Computer Science and Engineering from IIT K
 (India) in 2000, and was awarded the President's Gold Medal for best academic performance.
 {% include about-row-end.liquid.html %}
 
-{% include about-row-start.liquid.html name="Ranvijay Kumar" img="Ranvijay-Kumar.jpg"%}
+{% include about-row-start.liquid.html name="Ranjit Gupta" img="Ranjit-Gupta.jpg" %}
+Ranjit graduated from Indian Institute of Science (IISc), Bangalore. In IISc he contributed to research in Distributed Systems and invented new Distributed Mutual Exclusion(DME) algorithm. He has over a decade of experience building both Client and Server side products in Microsoft. Ranjit is passionate about Cloud Computing and BigData. Other patented inventions of Ranjit includes Context Sensitive Handwriting Recognition, Digital Ink Manipulation Techniques, Schedule Simplification for Calendar, Immersive visualization of big objects on small devices. He has contributed towards shipping multiple products in Windows, WinPhone, Office and Microsoft Azure Cloud. He has recently started contributing to application of Program Synthesis for Data Scientist related use-cases.
+{% include about-row-end.liquid.html %}
+
+{% include about-row-start.liquid.html name="Ranvijay Kumar" img="Ranvijay-Kumar.jpg" %}
 Ranvijay has more than 18 years of experience in software industry and more than 10 years in managing product development. He is a BTech from IIT Kanpur (India) and has been a part of the founding team of three startups in the US and in India. Prior to joining Microsoft, Ranvijay managed the Research and new product development efforts of a Healthcare Product company based in Bellevue, Washington. He shipped a Health Information Exchange, a Healthcare Analytics Platform, and a Patient Master Data Management solution that uses advanced record linking capabilities to match Patient records across care settings. Ranvijay is very excited about the possibilities of Program Synthesis by Example technologies.
 {% include about-row-end.liquid.html %}
 
@@ -50,6 +54,10 @@ PhD at the University of Washington working with Dan Grossman and Sumit Gulwani 
 synthesis and is now a Research Software Engineer in the PROSE team. In addition to work on
 programming by example, his code has been deployed as the hint mechanism in MSR's
 [Code Hunt programming game](https://www.codehunt.com/).
+{% include about-row-end.liquid.html %}
+
+{% include about-row-start.liquid.html name="Mark Plesko" img="Mark-Plesko.jpg" %}
+Mark has been at Microsoft for 15 years, spending about half of that time in MSR.  He graduated from Carnegie Mellon University and spent a year nearby working on certifying compilation and proof carrying code with Cedilla Systems.  At Microsoft, he worked on Bartok, an optimizing ahead-of-time compiler and runtime system for C#, for a long time.  As part of that work in MSR, he contributed to research in garbage collection, software transactional memory, and the Singularity managed OS project.  He then worked on generics, separate compilation, and System C# as part of the Midori incubation effort.  After a year and a half learning about Azure Storage, he is excited to have returned to the field of programming languages on the PROSE team.
 {% include about-row-end.liquid.html %}
 
 {% include about-row-start.liquid.html name="Alex Polozov" img="Alex-Polozov.jpg" link="http://alexpolozov.com" %}
