@@ -11,25 +11,8 @@ scientists spend 80% of their time wrangling with data. The team includes:
 <div class="pure-g" markdown="1">
 
 {% include about-row-start.liquid.html name="Sumit Gulwani" img="Sumit-Gulwani.jpg"
-           link="http://research.microsoft.com/en-us/um/people/sumitg/publications.html" %}
-Sumit has been an MSR veteran
-for the past 10 years, working on program synthesis (developing technologies for
-_programming-by-examples_ and _programming-by-natural-language_) and computer-aided education
-(developing technologies for automated grading and automated problem generation in
-various subject domains like programming, algebra, geometry, and language learning). His
-programming-by-example work has shipped in Excel 2013, and more recently in Azure OMS and
-Powershell 2015, while his automated grading work has been deployed at 10+ Universities
-for grading of programming and automata construction exercises. He is an
-inter-disciplinary prolific researcher who has co-authored 100+ research articles, most
-of which have been published in top-tier conferences across various areas including
-Programming Languages, Software Engineering, AI, ML, HCI, and Databases. He has been
-regularly invited to give keynotes and talks at conferences, workshops, and colloquiums.
-He is a recipient of the prestigious _Robin Milner Young Researcher Award_ for the year
-2014 for outstanding contributions (made in the first twenty years of one's research career)
-to the field of programming languages. He obtained his PhD in Computer Science from
-UC-Berkeley in 2005, and was awarded the _ACM SIGPLAN Outstanding Doctoral Dissertation
-Award_. He obtained his Bachelors in Computer Science and Engineering from IIT Kanpur
-(India) in 2000, and was awarded the President's Gold Medal for best academic performance.
+           link="https://www.microsoft.com/en-us/research/people/sumitg/" %}
+Sumit Gulwani leads a research & engineering team at Microsoft that develops program synthesis technologies for data wrangling and incorporates them into real products. Sumit’s programming-by-example work led to the [Flash Fill feature](https://www.microsoft.com/en-us/research/project/flash-fill-excel-feature-office-2013/) in Microsoft Excel used by hundreds of millions of people. Sumit has co-authored around 50 patent applications, published 110 papers in top-tier conferences/journals across multiple computer science areas, and delivered 30 keynotes/invited talks at various forums. He was awarded the [ACM SIGPLAN Robin Milner Young Researcher Award](http://www.sigplan.org/Awards/Milner/) in 2014 for his pioneering contributions to end-user programming and intelligent tutoring systems. He obtained his PhD from UC-Berkeley, and was awarded the ACM SIGPLAN Outstanding Doctoral Dissertation Award. He obtained his bachelor’s degree from IIT Kanpur in 2000, and was awarded the President's Gold Medal.
 {% include about-row-end.liquid.html %}
 
 {% include about-row-start.liquid.html name="Ranjit Gupta" img="Ranjit-Gupta.jpg" %}
