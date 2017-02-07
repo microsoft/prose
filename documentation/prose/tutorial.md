@@ -3,7 +3,7 @@ title: Tutorial
 ---
 {% include toc.liquid.md %}
 
-The core component of the PROSE SDK is its program synthesis framework for custom domain-specific languages (DSLs). It allows you to define a DSL that describes a typical space of tasks in your application domain, and automatically provides parsing, execution, and synthesis technologies for this DSL. [FlashFill]({{ site.baseurl }}/documentation/flashfill/intro) and [text extraction]({{ site.baseurl }}/documentation/extraction-text/intro) DSLs are programming-by-example technologies that have been developed on top of the PROSE core synthesis framework.
+The core component of the PROSE SDK is its program synthesis framework for custom domain-specific languages (DSLs). It allows you to define a DSL that describes a typical space of tasks in your application domain, and automatically provides parsing, execution, and synthesis technologies for this DSL. [Text transformation]({{ site.baseurl }}/documentation/transformation-text/intro) and [text extraction]({{ site.baseurl }}/documentation/extraction-text/intro) DSLs are programming-by-example technologies that have been developed on top of the PROSE core synthesis framework.
 
 This is a step-by-step tutorial on using the PROSE framework to *create new DSLs*. To use an existing DSL in your programming-by-examples application, please check out its individual documentation link on the left.
 
