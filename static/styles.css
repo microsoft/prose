@@ -29,12 +29,12 @@ This is the parent `<div>` that contains the menu and the content area.
     padding-left: 0;
 }
     #layout.active #menu {
-        left: 260px;
-        width: 260px;
+        left: 230px;
+        width: 230px;
     }
 
     #layout.active .menu-link {
-        left: 260px;
+        left: 230px;
     }
 /*
 The content `<div>` is where all your content goes.
@@ -79,8 +79,8 @@ appears on the left side of the page.
 */
 
 #menu {
-    margin-left: -260px; /* "#menu" width */
-    width: 260px;
+    margin-left: -230px; /* "#menu" width */
+    width: 230px;
     position: fixed;
     top: 0;
     left: 0;
@@ -215,21 +215,21 @@ Hides the menu at `1170px`, but modify this based on your app's needs.
     }
 
     #layout {
-        padding-left: 260px; /* left col width "#menu" */
+        padding-left: 230px; /* left col width "#menu" */
         left: 0;
     }
     #menu {
-        left: 260px;
+        left: 230px;
     }
 
     .menu-link {
         position: fixed;
-        left: 260px;
+        left: 230px;
         display: none;
     }
 
     #layout.active .menu-link {
-        left: 260px;
+        left: 230px;
     }
 }
 
@@ -242,7 +242,7 @@ Hides the menu at `1170px`, but modify this based on your app's needs.
     */
     #layout.active {
         position: relative;
-        left: 260px;
+        left: 230px;
     }
 }
 
@@ -965,7 +965,7 @@ a:hover {
 blockquote {
     padding: 7px 20px;
     margin: 0 0 20px;
-    font-size: 15px;
+    font-size: 1em;
     border-left: 3px solid #999;
     line-height: 1.5;
 }
@@ -986,7 +986,7 @@ blockquote footer,
 blockquote small,
 blockquote .small {
     display: block;
-    font-size: 80%;
+    font-size: 0.8em;
     line-height: 1.42857143;
     color: #777;
 }
@@ -1039,7 +1039,7 @@ h2, h3, h4, h5, h6 {
 }
 
 blockquote {
-    font-size: 16px;
+    font-size: 1em;
 }
 
 .content {
@@ -1081,7 +1081,7 @@ code {
     color: inherit;
     background-color: hsl(0, 0%, 95%);
     padding: 1px 4px;
-    font-size: 90%;
+    font-size: 0.95em;
     font-family: Consolas, "Source Code Pro", Inconsolata, "Courier New", monospace;
 }
 
@@ -1089,7 +1089,7 @@ pre {
     display: block;
     padding: 10px;
     margin: 0 0 10px;
-    font-size: 15px;
+    font-size: 0.95em;
     line-height: 1.42857143;
     color: #333;
     word-break: break-all;
@@ -1109,19 +1109,20 @@ pre code {
 h1 code, h2 code, h3 code, h4 code, h5 code, h6 code,
 #markdown-toc code {
     background-color: inherit;
-    font-size: 90%;
+    font-size: 0.9em;
     padding: 0 !important;
 }
 
 .token.optional-start, .token.optional-end {
     color: #aaa;
-    font-size: 115%;
+    font-size: 1.2em;
 }
 
 .token.optional-end::after {
     position: relative;
     top: 0.5em;
-    font-size: 70%;
+    margin-left: -1px;
+    font-size: 0.6em;
     font-style: italic;
     content: 'opt';
 }
@@ -1161,7 +1162,7 @@ pre div.toolbar .toolbar-item button {
 
 code.has-jax {
     font: inherit;
-    font-size: 100%;
+    font-size: 1em;
     background: inherit;
     border: inherit;
     margin: 0;
@@ -1206,7 +1207,7 @@ a.reversefootnote {
 #footer {
     padding: 0.6em 0;
     background: #fafafa;
-    font-size: 14px;
+    font-size: 0.9em;
     border-top: 1px solid #eee;
     margin-top: 3em;
     width: 100%;
@@ -1223,7 +1224,7 @@ a.reversefootnote {
     font-weight: 400;
     background: inherit;
     padding: 0.6em 0 0.6em 0.6em;
-    font-size: 140%;
+    font-size: 1.4em;
     color: #eeeeee;
 }
 
@@ -1245,7 +1246,7 @@ a.reversefootnote {
     padding: 0.6em 0 0.6em 0.55em;
     color: #eee;
     font-family: Merriweather, serif;
-    font-size: 120%;
+    font-size: 1.2em;
 }
 
 #menu .pure-menu-children {
@@ -1293,12 +1294,12 @@ a.reversefootnote {
 }
 
 .title {
-    font-size: 250%;
+    font-size: 2.5em;
     line-height: 1.1em;
 }
 
 h2.subtitle {
-    font-size: 119%;
+    font-size: 1.19em;
 }
 
 span.title-blue {
@@ -1351,7 +1352,7 @@ span.title-blue {
     right: 0;
     width: 100%;
     cursor: auto;
-    font-size: 18px;
+    font-size: 1.2em;
 }
 
 .mfp-title {
