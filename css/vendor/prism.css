@@ -39,7 +39,7 @@ pre[class*="language-"] {
     word-break: normal;
     word-wrap: normal;
 
-    line-height: 1.5;
+    line-height: 1.4;
 
     -moz-tab-size: 4;
     -o-tab-size: 4;
@@ -171,10 +171,10 @@ pre.line-numbers > code {
 .line-numbers .line-numbers-rows {
     position: absolute;
     pointer-events: none;
-    top: -4px;
-    font-size: 15px;
+    top: -0.1rem;
+    font-size: 0.9rem;
     left: -4em;
-    width: 3.25em;
+    width: 3rem;
     letter-spacing: -1px;
     border-right: 1px solid #ccc;
 
@@ -265,11 +265,11 @@ pre.code-toolbar > .toolbar span:focus {
     border-right: 1px solid #ccc;
     display: block;
     float: left;
-    font-size: 15px;
+    font-size: 0.9rem;
     letter-spacing: -1px;
-    margin-right: 1em;
+    margin-right: 1rem;
     pointer-events: none;
-    min-width: 1.5em;
+    min-width: 1.5rem;
     text-align: right;
 
     -webkit-user-select: none;

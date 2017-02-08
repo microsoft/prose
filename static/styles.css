@@ -29,19 +29,19 @@ This is the parent `<div>` that contains the menu and the content area.
     padding-left: 0;
 }
     #layout.active #menu {
-        left: 230px;
-        width: 230px;
+        left: 12.5em;
+        width: 12.5em;
     }
 
     #layout.active .menu-link {
-        left: 230px;
+        left: 12.5em;
     }
 /*
 The content `<div>` is where all your content goes.
 */
 .content {
     padding: 0 2em;
-    max-width: 1130px;
+    max-width: 70rem;
     margin: 0 auto 50px;
     line-height: 1.6em;
 }
@@ -79,8 +79,8 @@ appears on the left side of the page.
 */
 
 #menu {
-    margin-left: -230px; /* "#menu" width */
-    width: 230px;
+    margin-left: -12.5em; /* "#menu" width */
+    width: 12.5em;
     position: fixed;
     top: 0;
     left: 0;
@@ -215,21 +215,21 @@ Hides the menu at `1170px`, but modify this based on your app's needs.
     }
 
     #layout {
-        padding-left: 230px; /* left col width "#menu" */
+        padding-left: 12.5em; /* left col width "#menu" */
         left: 0;
     }
     #menu {
-        left: 230px;
+        left: 12.5em;
     }
 
     .menu-link {
         position: fixed;
-        left: 230px;
+        left: 12.5em;
         display: none;
     }
 
     #layout.active .menu-link {
-        left: 230px;
+        left: 12.5em;
     }
 }
 
@@ -242,7 +242,7 @@ Hides the menu at `1170px`, but modify this based on your app's needs.
     */
     #layout.active {
         position: relative;
-        left: 230px;
+        left: 12.5em;
     }
 }
 
@@ -375,7 +375,7 @@ pre[class*="language-"] {
     word-break: normal;
     word-wrap: normal;
 
-    line-height: 1.5;
+    line-height: 1.4;
 
     -moz-tab-size: 4;
     -o-tab-size: 4;
@@ -507,10 +507,10 @@ pre.line-numbers > code {
 .line-numbers .line-numbers-rows {
     position: absolute;
     pointer-events: none;
-    top: -4px;
-    font-size: 15px;
+    top: -0.1rem;
+    font-size: 0.9rem;
     left: -4em;
-    width: 3.25em;
+    width: 3rem;
     letter-spacing: -1px;
     border-right: 1px solid #ccc;
 
@@ -601,11 +601,11 @@ pre.code-toolbar > .toolbar span:focus {
     border-right: 1px solid #ccc;
     display: block;
     float: left;
-    font-size: 15px;
+    font-size: 0.9rem;
     letter-spacing: -1px;
-    margin-right: 1em;
+    margin-right: 1rem;
     pointer-events: none;
-    min-width: 1.5em;
+    min-width: 1.5rem;
     text-align: right;
 
     -webkit-user-select: none;
@@ -967,7 +967,7 @@ blockquote {
     margin: 0 0 20px;
     font-size: 1em;
     border-left: 3px solid #999;
-    line-height: 1.5;
+    line-height: 1.3;
 }
 
 blockquote p:first-child,
@@ -1081,7 +1081,7 @@ code {
     color: inherit;
     background-color: hsl(0, 0%, 95%);
     padding: 1px 4px;
-    font-size: 0.95em;
+    font-size: 0.91em;
     font-family: Consolas, "Source Code Pro", Inconsolata, "Courier New", monospace;
 }
 
@@ -1089,8 +1089,8 @@ pre {
     display: block;
     padding: 10px;
     margin: 0 0 10px;
-    font-size: 0.95em;
-    line-height: 1.42857143;
+    font-size: 0.91em;
+    line-height: 1.3;
     color: #333;
     word-break: break-all;
     word-wrap: break-word;
@@ -1109,7 +1109,6 @@ pre code {
 h1 code, h2 code, h3 code, h4 code, h5 code, h6 code,
 #markdown-toc code {
     background-color: inherit;
-    font-size: 0.9em;
     padding: 0 !important;
 }
 
