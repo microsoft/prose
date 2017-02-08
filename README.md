@@ -8,6 +8,7 @@ Follows [the official Github Pages instructions](help.github.com/articles/settin
 1. From [RubyInstaller](http://rubyinstaller.org/downloads/) get the latest x64 version of Ruby and the `mingw64-64` version of the Development Kit.
 * Install the development kit by running `ruby dk.rb init` followed by `ruby dk.rb install` in the directory you extracted it to.
 * Reopen your shell to pick up the new PATH, and run:
+
     ``` bash
     git clone https://github.com/Microsoft/prose prose-site
     cd prose-site
