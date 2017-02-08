@@ -29,19 +29,19 @@ This is the parent `<div>` that contains the menu and the content area.
     padding-left: 0;
 }
     #layout.active #menu {
-        left: 12.5em;
-        width: 12.5em;
+        left: 12em;
+        width: 12em;
     }
 
     #layout.active .menu-link {
-        left: 12.5em;
+        left: 12em;
     }
 /*
 The content `<div>` is where all your content goes.
 */
 .content {
     padding: 0 2em;
-    max-width: 70rem;
+    max-width: 67rem;
     margin: 0 auto 50px;
     line-height: 1.6em;
 }
@@ -79,8 +79,8 @@ appears on the left side of the page.
 */
 
 #menu {
-    margin-left: -12.5em; /* "#menu" width */
-    width: 12.5em;
+    margin-left: -12em; /* "#menu" width */
+    width: 12em;
     position: fixed;
     top: 0;
     left: 0;
@@ -215,21 +215,21 @@ Hides the menu at `1170px`, but modify this based on your app's needs.
     }
 
     #layout {
-        padding-left: 12.5em; /* left col width "#menu" */
+        padding-left: 12em; /* left col width "#menu" */
         left: 0;
     }
     #menu {
-        left: 12.5em;
+        left: 12em;
     }
 
     .menu-link {
         position: fixed;
-        left: 12.5em;
+        left: 12em;
         display: none;
     }
 
     #layout.active .menu-link {
-        left: 12.5em;
+        left: 12em;
     }
 }
 
@@ -242,7 +242,7 @@ Hides the menu at `1170px`, but modify this based on your app's needs.
     */
     #layout.active {
         position: relative;
-        left: 12.5em;
+        left: 12em;
     }
 }
 
@@ -375,7 +375,7 @@ pre[class*="language-"] {
     word-break: normal;
     word-wrap: normal;
 
-    line-height: 1.4;
+    line-height: 1.3;
 
     -moz-tab-size: 4;
     -o-tab-size: 4;
@@ -967,7 +967,7 @@ blockquote {
     margin: 0 0 20px;
     font-size: 1em;
     border-left: 3px solid #999;
-    line-height: 1.3;
+    line-height: 1.5;
 }
 
 blockquote p:first-child,
@@ -1081,7 +1081,7 @@ code {
     color: inherit;
     background-color: hsl(0, 0%, 95%);
     padding: 1px 4px;
-    font-size: 0.91em;
+    font-size: 0.9em;
     font-family: Consolas, "Source Code Pro", Inconsolata, "Courier New", monospace;
 }
 
@@ -1089,7 +1089,7 @@ pre {
     display: block;
     padding: 10px;
     margin: 0 0 10px;
-    font-size: 0.91em;
+    font-size: 0.9em;
     line-height: 1.3;
     color: #333;
     word-break: break-all;

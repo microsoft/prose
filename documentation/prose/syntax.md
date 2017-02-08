@@ -156,13 +156,13 @@ namespace TestLanguage
 	public class Learners : DomainLearningLogic
 	{
 		// Field
-		public static string[] StringGen = {"", "123", "ABRACADABRA"};
+		public static string[] StringGen = {"", "42", "foobar"};
 
 		// Property
-		public static string[] StringGen => new[] {"", "123", "ABRACADABRA"};
+		public static string[] StringGen => new[] {"", "42", "foobar"};
 
 		// Method
-		public static string[] StringGen() => new[] {"", "123", "ABRACADABRA"};
+		public static string[] StringGen() => new[] {"", "42", "foobar"};
 	}
 }
 ```
