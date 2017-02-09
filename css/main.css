@@ -285,6 +285,24 @@ a.reversefootnote {
     text-decoration: none;
 }
 
+#menu .pure-menu-children {
+    display: none;
+    font-size: 1rem;
+}
+
+#menu .pure-menu-active > .pure-menu-children, #menu .pure-menu-allow-hover:hover > .pure-menu-children {
+    position: static;
+    display: inline-block;
+}
+
+#menu .pure-menu-active > .pure-menu-link {
+    background-color: transparent;
+}
+
+#menu .pure-menu-link:focus, #menu .pure-menu-link:hover {
+    background-color: #333;
+}
+
 #menu a.pure-menu-heading {
     font-family: Merriweather, serif;
     font-weight: 400;
@@ -305,7 +323,8 @@ a.reversefootnote {
 #menu {
     font-family: Raleway, Lato, sans-serif;
     font-size: larger;
-    overflow: visible;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .menu-item-disabled {
@@ -320,17 +339,25 @@ a.reversefootnote {
 }
 
 #menu ul.pure-menu-children {
-    border: none;
+    border: none !important;
     background-color: #191818;
+    width: 100%;
 }
 
 #menu ul.pure-menu-children li a {
-    padding: 0.8em 1.2em;
+    padding: 0.6em 0 0.6em 2em;
 }
 
 #menu .pure-menu-has-children > .pure-menu-link:after {
     padding-left: .5em;
     content: "\f054";
+    font-family: FontAwesome;
+    font-size: small;
+}
+
+#menu .pure-menu-has-children.pure-menu-active > .pure-menu-link:after, #menu .pure-menu-has-children.pure-menu-allow-hover:hover > .pure-menu-link:after {
+    padding-left: .5em;
+    content: "\f078";
     font-family: FontAwesome;
     font-size: small;
 }
@@ -382,10 +409,12 @@ span.title-blue {
     -moz-transition: all 0.15s ease-out;
     transition: all 0.15s ease-out;
 }
+
 /* overlay animate in */
 .mfp-fade.mfp-bg.mfp-ready {
     opacity: 0.8;
 }
+
 /* overlay animate out */
 .mfp-fade.mfp-bg.mfp-removing {
     opacity: 0;
@@ -399,10 +428,12 @@ span.title-blue {
     -moz-transition: all 0.15s ease-out;
     transition: all 0.15s ease-out;
 }
+
 /* content animate it */
 .mfp-fade.mfp-wrap.mfp-ready .mfp-content {
     opacity: 1;
 }
+
 /* content animate out */
 .mfp-fade.mfp-wrap.mfp-removing .mfp-content {
     opacity: 0;

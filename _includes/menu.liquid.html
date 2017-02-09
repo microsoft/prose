@@ -1,4 +1,4 @@
-{% capture class_selected %}{% if page.path == "index.liquid.html" %} pure-menu-selected {% else %}{% endif %}{% endcapture %}
+{% capture class_selected %}{% if page.path == "index.liquid.html" %} pure-menu-active {% else %}{% endif %}{% endcapture %}
 <a class="pure-menu-heading {{ class_selected }}" href="{{ site.baseurl }}/">
     <i class="fa fa-bolt" aria-hidden="true"></i> PROSE SDK
 </a>
@@ -13,9 +13,9 @@
     {% include menu-item.liquid.html title="Documentation" divided=true disabled=true %}
 
     {% capture prose_selected %}
-        {% unless page.url contains "/documentation/prose/tutorial" %}{% include menu-selected.liquid.html url="/documentation/prose" %}{% endunless %}
+        {% unless page.url contains "/documentation/prose/tutorial" %}{% include menu-active.liquid.html url="/documentation/prose" %}{% endunless %}
     {% endcapture %}
-    <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover {{ prose_selected }}">
+    <li class="pure-menu-item pure-menu-has-children {{ prose_selected }}">
         <a href="#" class="pure-menu-link">PROSE Framework</a>
         <ul class="pure-menu-children">
             {% include menu-item.liquid.html url="/documentation/prose/syntax" %}
@@ -25,7 +25,7 @@
         </ul>
     </li>
 
-    <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover {% include menu-selected.liquid.html url="/documentation/extraction-text" %}">
+    <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/extraction-text" %}">
         <a href="#" class="pure-menu-link">Text Extraction</a>
         <ul class="pure-menu-children">
             {% include menu-item.liquid.html url="/documentation/extraction-text/intro" title="Introduction" %}
@@ -33,7 +33,7 @@
         </ul>
     </li>
 
-    <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover {% include menu-selected.liquid.html url="/documentation/extraction-json" %}">
+    <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/extraction-json" %}">
         <a href="#" class="pure-menu-link">Json Extraction</a>
         <ul class="pure-menu-children">
             {% include menu-item.liquid.html url="/documentation/extraction-json/intro" title="Introduction" %}
@@ -41,7 +41,7 @@
         </ul>
     </li>
 
-    <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover {% include menu-selected.liquid.html url="/documentation/split-text" %}">
+    <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/split-text" %}">
         <a href="#" class="pure-menu-link">Text Splitting</a>
         <ul class="pure-menu-children">
             {% include menu-item.liquid.html url="/documentation/split-text/intro" title="Introduction" %}
@@ -49,7 +49,7 @@
         </ul>
     </li>
 
-    <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover {% include menu-selected.liquid.html url="/documentation/transformation-text" %}">
+    <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/transformation-text" %}">
         <a href="#" class="pure-menu-link">Text Transformation</a>
         <ul class="pure-menu-children">
             {% include menu-item.liquid.html url="/documentation/transformation-text/intro" title="Introduction" %}
@@ -57,7 +57,7 @@
         </ul>
     </li>
 
-    <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover {% include menu-selected.liquid.html url="/documentation/transformation-json" %}">
+    <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/transformation-json" %}">
         <a href="#" class="pure-menu-link">Json Transformation</a>
         <ul class="pure-menu-children">
             {% include menu-item.liquid.html url="/documentation/transformation-json/intro" title="Introduction" %}
