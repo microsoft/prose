@@ -15,11 +15,7 @@ scientists spend 80% of their time wrangling with data. The team includes:
 Sumit Gulwani leads a research & engineering team at Microsoft that develops program synthesis technologies for data wrangling and incorporates them into real products. Sumit’s programming-by-example work led to the [Flash Fill feature](https://www.microsoft.com/en-us/research/project/flash-fill-excel-feature-office-2013/) in Microsoft Excel used by hundreds of millions of people. Sumit has co-authored around 50 patent applications, published 110 papers in top-tier conferences/journals across multiple computer science areas, and delivered 30 keynotes/invited talks at various forums. He was awarded the [ACM SIGPLAN Robin Milner Young Researcher Award](http://www.sigplan.org/Awards/Milner/) in 2014 for his pioneering contributions to end-user programming and intelligent tutoring systems. He obtained his PhD from UC-Berkeley, and was awarded the ACM SIGPLAN Outstanding Doctoral Dissertation Award. He obtained his bachelor’s degree from IIT Kanpur in 2000, and was awarded the President's Gold Medal.
 {% include about-row-end.liquid.html %}
 
-{% include about-row-start.liquid.html name="Ranjit Gupta" img="Ranjit-Gupta.jpg" %}
-Ranjit graduated from Indian Institute of Science (IISc), Bangalore. In IISc he contributed to research in Distributed Systems and invented new Distributed Mutual Exclusion(DME) algorithm. He has over a decade of experience building both Client and Server side products in Microsoft. Ranjit is passionate about Cloud Computing and BigData. Other patented inventions of Ranjit includes Context Sensitive Handwriting Recognition, Digital Ink Manipulation Techniques, Schedule Simplification for Calendar, Immersive visualization of big objects on small devices. He has contributed towards shipping multiple products in Windows, WinPhone, Office and Microsoft Azure Cloud. He has recently started contributing to application of Program Synthesis for Data Scientist related use-cases.
-{% include about-row-end.liquid.html %}
-
-{% include about-row-start.liquid.html name="Ranvijay Kumar" img="Ranvijay-Kumar.jpg" %}
+{% include about-row-start.liquid.html name="Ranvijay Kumar" img="Ranvijay-Kumar.jpg" link="https://www.linkedin.com/in/ranviz" %}
 Ranvijay has more than 18 years of experience in software industry and more than 10 years in managing product development. He is a BTech from IIT Kanpur (India) and has been a part of the founding team of three startups in the US and in India. Prior to joining Microsoft, Ranvijay managed the Research and new product development efforts of a Healthcare Product company based in Bellevue, Washington. He shipped a Health Information Exchange, a Healthcare Analytics Platform, and a Patient Master Data Management solution that uses advanced record linking capabilities to match Patient records across care settings. Ranvijay is very excited about the possibilities of Program Synthesis by Example technologies.
 {% include about-row-end.liquid.html %}
 
@@ -43,7 +39,7 @@ programming by example, his code has been deployed as the hint mechanism in MSR'
 Mark has been at Microsoft for 15 years, spending about half of that time in MSR.  He graduated from Carnegie Mellon University and spent a year nearby working on certifying compilation and proof carrying code with Cedilla Systems.  At Microsoft, he worked on Bartok, an optimizing ahead-of-time compiler and runtime system for C#, for a long time.  As part of that work in MSR, he contributed to research in garbage collection, software transactional memory, and the Singularity managed OS project.  He then worked on generics, separate compilation, and System C# as part of the Midori incubation effort.  After a year and a half learning about Azure Storage, he is excited to have returned to the field of programming languages on the PROSE team.
 {% include about-row-end.liquid.html %}
 
-{% include about-row-start.liquid.html name="Alex Polozov" img="Alex-Polozov.jpg" link="http://alexpolozov.com" %}
+{% include about-row-start.liquid.html name="Alex Polozov" img="Alex-Polozov.jpg" link="https://alexpolozov.com" %}
 Alex is a PhD student at University
 of Washington, Seattle, USA, and a researcher/software engineer at Microsoft. His passion lies
 in research and implementation of solutions that automate repetitive programming tasks for
@@ -53,7 +49,7 @@ Before joining the team, he worked on automatic problem
 generation for intelligent tutoring systems in [Center for Game Science](http://centerforgamescience.org/), programming languages for data wrangling, and linguistic algorithms for [Yandex](https://www.yandex.com/).
 {% include about-row-end.liquid.html %}
 
-{% include about-row-start.liquid.html name="Mohammad Raza" img="Mohammad-Raza.jpg" link="http://www.microsoft.com/en-us/research/people/moraza/" %}
+{% include about-row-start.liquid.html name="Mohammad Raza" img="Mohammad-Raza.jpg" link="https://www.microsoft.com/en-us/research/people/moraza/" %}
 Mohammad's background and interests
 are in formal methods for reasoning about computer programs. He holds a PhD in Computer Science from Imperial College London and a Masters in Mathematics from the University of Cambridge. He works on the development of
 techniques and tools for program synthesis through natural
@@ -65,7 +61,7 @@ In the PROSE Team his current focus is on developing examples-based and fully au
 synthesis technologies for information extraction from web pages.
 {% include about-row-end.liquid.html %}
 
-{% include about-row-start.liquid.html name="Danny Simmons" img="Danny-Simmons.jpg" link="http://blogs.msdn.com/dsimmons" %}
+{% include about-row-start.liquid.html name="Danny Simmons" img="Danny-Simmons.jpg" link="https://blogs.msdn.com/dsimmons" %}
 Danny has worked in the software
 industry (both inside Microsoft and out) for over 25 years.  He first started at Microsoft in
 1997 working on the Outlook team, and then spent nearly 15 years alternating between shipping
@@ -92,6 +88,8 @@ His research interests include formal methods and program synthesis, and he very
 <div class="center py2" markdown="1">
 
 {% include about-image.liquid.html name="Allen Cypher" img="Allen-Cypher.jpg" link="http://acypher.com" %}
+
+{% include about-image.liquid.html name="Ranjit Gupta" img="Ranjit-Gupta.jpg" link="https://www.linkedin.com/in/rajgz" %}
 
 {% include about-image.liquid.html name="Adam Smith" img="Adam-Smith.jpg" link="https://adamsmith.as/" %}
 
