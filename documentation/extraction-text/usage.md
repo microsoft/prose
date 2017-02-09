@@ -87,7 +87,7 @@ A `RegionNegativeExample` defines a subregion in which the output of the learned
 
 For instance, the following negative example dictates that all learned programs should not produce output that overlaps with "Carrie Dodson" given the input "Carrie Dodson 100".
 
-```
+``` csharp
 var example = new RegionNegativeExample(record /*Carrie Dodson 100*/ , name /*Carrie Dodson*/);
 ```
 
@@ -118,7 +118,7 @@ Program topRankedProg = session.Learn();
 
 Executing the `Run(StringRegion)` method on the input string returns the extraction output.
 
-```
+``` csharp
 var testInput = RegionSession.CreateStringRegion("Margaret Cook 320");
 StringRegion output = topRankedProg.Run(testInput); // expect "Cook"
 Console.WriteLine("\"{0}\" => \"{1}\"", testInput, output);
@@ -264,7 +264,7 @@ A `SequenceNegativeExample` defines a subregion in which the output of the learn
 
 For instance, the following negative example dictates that the output of all learned programs on `input` should not overlap with `"United States"`.
 
-```
+``` csharp
 var example = new SequenceNegativeExample(input , input.Slice(0, 13) /*United States*/);
 ```
 
