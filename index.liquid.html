@@ -7,7 +7,7 @@ permalink: index.html
 
 <h2 class="center subtitle pb3">A framework for automatic programming or data wrangling from input-output examples.</h2>
 
-<div class="pure-g pb2">
+<div class="pure-g pb1">
     <div class="pure-u-1 pure-u-md-9-24">
         <h2 class="mt0">Program Synthesis Framework</h2>
         <p>
@@ -16,7 +16,7 @@ permalink: index.html
         </p>
         <p>
             Given a domain-specific language (DSL) and some input-output examples for the desired program’s behavior,
-            PROSE algorithms synthesize a ranked set of DSL programs that are consistent with the given examples.
+            PROSE synthesizes a ranked set of DSL programs that are consistent with the examples.
         </p>
     </div>
     <div class="pure-u-1 pure-u-md-14-24 p1">
@@ -25,19 +25,18 @@ permalink: index.html
     </div>
 </div>
 
-<div class="pure-g pb2">
+<div class="pure-g pb1">
     <div class="pure-u-1 pure-u-md-12-24">
         <a href="{{ site.baseurl }}/img/extraction-full.png" class="popup-image mfp-image"
            title="Data extraction by examples in PROSE Playground">
             <img class="pure-img" src="{{ site.baseurl }}/img/extraction.png">
         </a>
     </div>
-    <div class="pure-u-1 pure-u-md-11-24 px2">
+    <div class="pure-u-1 pure-u-md-11-24 pl1">
         <h2 class="mt1">Data Wrangling DSLs</h2>
         <p>
             PROSE SDK includes a pre-defined suite of technologies for various kinds of <em>data wrangling</em> &ndash;
-            cleaning and pre-processing raw semi-structure data into a form amenable to analysis.
-            These include:
+            cleaning and pre-processing raw semi-structure data into a form amenable to analysis:
         </p>
         <ul>
             <li>
@@ -53,11 +52,10 @@ permalink: index.html
                 and <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-custom-fields">Azure Log
                     Analytics</a>.
             </li>
-            <li>Data extraction and transformation of JSON files by examples.</li>
-            <li><em>Predictive file splitting</em> technology, which discovers structured columns in a text file without
-                any examples or interaction.
+            <li><em>Data extraction</em> and <em>transformation</em> of JSON by examples.</li>
+            <li><em>Predictive file splitting</em> technology, which splits a text file into the structured columns without
+                any examples.
             </li>
-            <li><em>Clustering</em> of a set of strings into buckets by syntactic similarity.</li>
         </ul>
     </div>
 </div>
@@ -66,8 +64,8 @@ permalink: index.html
 <h1 class="center pt2"><i class="fa fa-download" aria-hidden="true"></i> Installation</h1>
 
 <div class="pure-g my0">
-    <div class="pure-u-5-24"></div>
-    <div class="pure-u-16-24">
+    <div class="pure-u-3-24"></div>
+    <div class="pure-u-18-24">
         <h2 class="subtitle mt1"><span class="semibold">1.</span> Install <a href="https://www.visualstudio.com/vs/">Visual
                 Studio</a> (<i class="fa fa-windows" aria-label="Windows"></i>),
             <a href="https://code.visualstudio.com">Visual Studio Code</a>
@@ -77,8 +75,8 @@ permalink: index.html
     </div>
 </div>
 <div class="pure-g my0">
-    <div class="pure-u-5-24 right"><h1 class="title bold my2 mx3 flip-vertical">&#10549;</h1></div>
-    <div class="pure-u-16-24">
+    <div class="pure-u-3-24 right"><h1 class="title bold my2 mx3 flip-vertical">&#10549;</h1></div>
+    <div class="pure-u-18-24">
         <h2 class="subtitle mt0"><span class="semibold">2.</span>
             Ensure that either <a href="https://www.microsoft.com/net/download/framework">.NET Framework</a>
             or <a href="http://www.mono-project.com">Mono</a> is available on your machine.<span
@@ -92,8 +90,7 @@ permalink: index.html
     <div class="pure-u-3-24 left"><h1 class="title bold my2 mx1">&#10549;</h1></div>
 </div>
 <div class="pure-g my0 flex items-bottom">
-    <div class="pure-u-2-24"></div>
-    <div class="pure-u-9-24">
+    <div class="pure-u-10-24">
         <h2 class="center subtitle my0">
             <span class="semibold">3a.</span> Generate a new DSL skeleton via <a href="http://yeoman.io/">Yeoman</a>.
         </h2>
@@ -108,7 +105,7 @@ yo prose
         </pre>
     </div>
     <div class="pure-u-2-24 flex items-center justify-center"><h3>or</h3></div>
-    <div class="pure-u-10-24">
+    <div class="pure-u-12-24">
         <h2 class="center subtitle mt0">
             <span class="semibold">3b.</span> Build on top of the DSLs in our <a
                 href="https://www.nuget.org/packages/Microsoft.ProgramSynthesis/">NuGet package</a>.
@@ -134,8 +131,7 @@ using Microsoft.ProgramSynthesis.Extraction.Text;
     <div class="pure-u-11-24 pure-u-md-5-24 py1 pr1">
         <h2 class="center"><a href="{{ site.baseurl }}{% link documentation/prose/tutorial.md %}">Tutorial</a></h2>
         <p>
-            This section will walk you through the steps required to build a DSL in PROSE and enable program synthesis
-            for it.
+            A step-by-step walkthrough of the process of building a DSL in PROSE and enabling program synthesis for it.
         </p>
     </div>
     <div class="pure-u-11-24 pure-u-md-6-24 py1 px2">
@@ -147,14 +143,14 @@ using Microsoft.ProgramSynthesis.Extraction.Text;
     <div class="pure-u-11-24 pure-u-md-5-24 py1 pl1 pr2">
         <h2 class="center"><a href="https://github.com/microsoft/prose">API &amp; Samples</a></h2>
         <p>
-            If you want to apply an existing PROSE DSL, please check out its documentation links on the left
-            and our <a href="https://github.com/microsoft/prose">sample code</a>.
+            If you want to apply an existing PROSE DSL, check out its documentation on the left
+            and our <a href="https://github.com/microsoft/prose">samples</a>.
         </p>
     </div>
     <div class="pure-u-11-24 pure-u-md-6-24 py1 pl1">
         <h2 class="center"><a href="{{ site.baseurl }}{% link resources.md %}">Resources</a></h2>
         <p>
-            This section contains our technical publications and slides.
+            This section contains our slides and publications.
             Also, if you have any questions, feel free to <a href="mailto:prose-contact@microsoft.com">email us</a>
             or <a href="https://github.com/Microsoft/prose/issues/new">open an issue on GitHub</a>.
         </p>

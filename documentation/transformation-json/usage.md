@@ -2,6 +2,7 @@
 date: 2017-02-02
 title: Json Transformation - Usage
 ---
+{% include toc.liquid.md %}
 
 The main entry point is `Session` class's `Learn()` method, which returns a `Program` object.
 The `Program`'s key method is `Run()` that executes the program on an input Json to obtain the transformed output Json. 

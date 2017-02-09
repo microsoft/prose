@@ -2,6 +2,7 @@
 date: 2017-02-03T20:00:16-07:00
 title: Text Splitting - Usage
 ---
+{% include toc.liquid.md %}
 
 The Split.Text APIs are accessed through the `SplitSession` class. The user can create a new `SplitSession` object, add input data and various constraints to the session, and then call the `Learn()` method to obtain a `SplitProgram`. This is the program that is learnt from the given input data and constraints. The `SplitProgram`'s key method is the `Run()` method which executes the program to perform a split on any given text input. 
 

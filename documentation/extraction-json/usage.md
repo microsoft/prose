@@ -2,6 +2,7 @@
 date: 2017-02-02
 title: Json Extraction - Usage
 ---
+{% include toc.liquid.md %}
 
 The main entry point is `Session` class's `Learn()` method, which returns a `Program` object.
 The `Program`'s key method is `Run()` that executes the program on an input Json to obtain the extracted output. 
@@ -58,7 +59,7 @@ Program loadProg = Loader.Instance.Load(progText);
 Given an input Json, a program can generate a hierarchical tree or a flattened table.
 If the program is a join program, the table is flattened either using *outer join* (default) or *inner join* semantics.
 
-### Generating Tree
+### Generating a Tree
 
 Use this method to obtain a hierarchical tree of the input document.
 
@@ -67,7 +68,7 @@ Use this method to obtain a hierarchical tree of the input document.
 ITreeOutput<JsonRegion> tree = program.Run(jsonText);
 ```
 
-### Generating Table
+### Generating a Table
 
 Supply the desired join semantics to the `RunTable()` method as follows:
 
