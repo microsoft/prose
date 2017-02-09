@@ -281,6 +281,10 @@ a.reversefootnote {
 
 /* Menu */
 
+#menu a {
+    padding: 0.5em 0 0.5em 0.7em;
+}
+
 #menu a:hover {
     text-decoration: none;
 }
@@ -307,7 +311,7 @@ a.reversefootnote {
     font-family: Merriweather, serif;
     font-weight: 400;
     background: inherit;
-    padding: 0.6em 0 0.6em 0.6em;
+    padding: 0.6em 0 0.6em 0.7em;
     font-size: 1.4em;
     color: #eeeeee;
 }
@@ -328,7 +332,7 @@ a.reversefootnote {
 }
 
 .menu-item-disabled {
-    padding: 0.6em 0 0.6em 0.55em;
+    padding: 0.5em 0 0.5em 0.7em;
     color: #eee;
     font-family: Merriweather, serif;
     font-size: 1.2em;
@@ -345,7 +349,7 @@ a.reversefootnote {
 }
 
 #menu ul.pure-menu-children li a {
-    padding: 0.6em 0 0.6em 2em;
+    padding: 0.5em 0 0.5em 2em;
 }
 
 #menu .pure-menu-has-children > .pure-menu-link:after {
