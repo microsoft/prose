@@ -53,9 +53,9 @@ For instance, given this example that contains a subsequence of the intended seq
 
 Clients may use these two APIs directly, or combine them to extract nested/hierarchical data (*i.e*, tree) from documents. Below are several real usages of **Extraction.Text**.
 
-## Operations Management Suite (OMS) Custom Fields, Custom Logs
+## Operations Management Suite (OMS)
 
-[**Custom Fields**](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-custom-fields) allows users to create a new *custom* field based on an existing field in the log. **Custom Fields** uses the **Extraction.Text.Region** API because each cell in the new field is a substring of a cell in the existing field.
+The [**Custom Fields**](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-custom-fields) feature in OMS allows users to create a new *custom* field based on an existing field in the log. **Custom Fields** uses the **Extraction.Text.Region** API because each cell in the new field is a substring of a cell in the existing field.
 
 Users highlight a text in one cell of the source field that they want to create a new field with. 
 
@@ -73,7 +73,7 @@ The UI calls the **Extraction.Text.Region** API to learn a substring extraction 
 
  **Read more:** [Create your own fields in OMS with Custom Fields!](https://blogs.technet.microsoft.com/momteam/2015/08/18/create-your-own-fields-in-oms-with-custom-fields/).
 
-[**Custom Log**](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-data-sources-custom-logs) allows users to split the input text stream into records, which can be split further into fields using **Custom Field**.
+The [**Custom Log**](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-data-sources-custom-logs) feature in OMS allows users to split the input text stream into records, which can be split further into fields using **Custom Fields**.
 
 <a href="{{ site.baseurl }}/img/custom-log.png" class="popup-image mfp-image"
    title="Custom Log.">
