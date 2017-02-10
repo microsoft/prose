@@ -15,7 +15,7 @@ The [Usage]({{ site.baseurl }}/documentation/extraction-text/usage) page and the
 **Read more:** ["FlashExtract: A Framework for Data Extraction by Examples"](http://research.microsoft.com/en-us/um/people/sumitg/pubs/pldi14-flashextract.pdf)
 
 
-## Substring Extraction
+# Substring Extraction
 
 From input/output example(s) in the form of `<input string, substring of input string>`, **Extraction.Text.Region** learns a program to extract a substring from an input string. The program can be run on new input strings to obtain new output substrings.
 
@@ -32,9 +32,9 @@ For instance, given this example:
 | Leonard `Robledo` 75 | `Robledo`   |
 
 
-## Sequence Extraction
+# Sequence Extraction
 
-From input/output example(s) in the form of `<input string, subsequence of the intended sequence>`, **Extraction.Text.Sequence** learns a program to extract a *full* sequence of substrings from an input string. The program can be run on the same training input string to obtain the full output sequence, or on new input strings to obtain new output sequences.
+From input/output example(s) in the form of `<input string, subsequence of the intended sequence>`, **Extraction.Text.Sequence** learns a program to extract a *complete* sequence of substrings from an input string. The program can be run on the same training input string to obtain the complete output sequence, or on new input strings to obtain new output sequences.
 
 For instance, given this example that contains a subsequence of the intended sequence of first names:
 
@@ -49,11 +49,39 @@ For instance, given this example that contains a subsequence of the intended seq
 | United States<br/> &nbsp;`Carrie` Dodson 100<br/> &nbsp;`Leonard` Robledo 75<br/> &nbsp;`Margaret` Cook 320<br/>Canada<br/> &nbsp;`Concetta` Beck 350<br/> &nbsp;`Nicholas` Sayers 90<br/> &nbsp;`Francis` Terrill 2430<br/>Great Britain<br/> &nbsp;`Nettie` Pope 50<br/> &nbsp;`Mack` Beeson 1070 | `Carrie`<br/> `Leonard`<br/> `Margaret`<br/>`Concetta` <br/>`Nicholas` <br/>`Francis` <br/>`Nettie` <br/>`Mack` |
 
 
-## Nested/Hierarchical Data Extraction
+# Applications
 
-Based on these two APIs, people can build applications to extract nested/hierarchical data (*i.e*, tree) from documents.
+Clients may use these two APIs directly, or combine them to extract nested/hierarchical data (*i.e*, tree) from documents. Below are several real usages of **Extraction.Text**.
 
-### PowerShell ConvertFrom-String
+## Operations Management Suite (OMS) Custom Fields, Custom Logs
+
+[**Custom Fields**](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-custom-fields) allows users to create a new *custom* field based on an existing field in the log. **Custom Fields** uses the **Extraction.Text.Region** API because each cell in the new field is a substring of a cell in the existing field.
+
+Users highlight a text in one cell of the source field that they want to create a new field with. 
+
+<a href="{{ site.baseurl }}/img/custom-field-example.png" class="popup-image mfp-image"
+   title="Create a new custom field by selecting the example.">
+    <img class="pure-img mx-auto" src="{{ site.baseurl }}/img/custom-field-example.png">
+</a>
+
+The UI calls the **Extraction.Text.Region** API to learn a substring extraction program, and populates other cells of the new field. Users may give more examples if necessary.
+
+<a href="{{ site.baseurl }}/img/custom-field-result.png" class="popup-image mfp-image"
+   title="The UI returns similar extracted entries.">
+    <img class="pure-img mx-auto" src="{{ site.baseurl }}/img/custom-field-result.png">
+</a>
+
+ **Read more:** [Create your own fields in OMS with Custom Fields!](https://blogs.technet.microsoft.com/momteam/2015/08/18/create-your-own-fields-in-oms-with-custom-fields/).
+
+[**Custom Log**](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-data-sources-custom-logs) allows users to split the input text stream into records, which can be split further into fields using **Custom Field**.
+
+<a href="{{ site.baseurl }}/img/custom-log.png" class="popup-image mfp-image"
+   title="Custom Log.">
+    <img class="pure-img mx-auto" src="{{ site.baseurl }}/img/custom-log.png">
+</a>
+
+
+## PowerShell ConvertFrom-String
 
 [**ConvertFrom-String**](https://msdn.microsoft.com/en-us/powershell/reference/5.0/microsoft.powershell.utility/convertfrom-string) allows users to extract hierarchical data from a document from an example template, which is a sample of the complete document.
 
@@ -107,9 +135,14 @@ Wild Shrimp   (111)  222-3333   1
 
 **Read more:** [ConvertFrom-String: Example-based text parsing](https://blogs.msdn.microsoft.com/powershell/2014/10/31/convertfrom-string-example-based-text-parsing/).
 
-### Prose Playground
+## Prose Playground
 
 In [**Prose Playground**](https://prose-playground.cloudapp.net/), users extract hierarchical data by highlighting various fields using colors.
+
+<a href="{{ site.baseurl }}/img/extraction-full.png" class="popup-image mfp-image"
+   title="Data extraction by examples in PROSE Playground">
+    <img class="pure-img mx-auto" src="{{ site.baseurl }}/img/extraction.png">
+</a>
 
 Although the learning in **Playground** is similar to that of **ConvertFrom-String** (learning fields in document order and fields reference each other), it is more complicated due to its interactive nature.
 
@@ -117,7 +150,3 @@ Because at each step users can only give one example, most of the existing field
 
 **Read more:** [User Interaction Models for Disambiguation in Programming by Example](http://research.microsoft.com/en-us/um/people/sumitg/pubs/uist15.pdf)
 
-<a href="{{ site.baseurl }}/img/extraction-full.png" class="popup-image mfp-image"
-   title="Data extraction by examples in PROSE Playground">
-    <img class="pure-img mx-auto" src="{{ site.baseurl }}/img/extraction.png">
-</a>
