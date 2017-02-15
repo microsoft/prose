@@ -95,7 +95,7 @@ using learners TestLanguage.Learning.LogicHolder;
 ```
 {: .language-bnf}
 
-# Language Name
+# Language name
 
 May be any valid C# *full type identifier* – that is, a dot-separated string where each element is a valid C# identifier.
 

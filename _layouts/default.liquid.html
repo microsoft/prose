@@ -27,7 +27,8 @@
         {% endunless %}
 
         <div id="contentWrapper" class="flex flex-column items-center">
-            {% capture class_article %}{% unless page.path == "index.liquid.html" %} article {% endunless %}{% endcapture %}
+            {% assign exceptions = "index.liquid.html; team.md" | split:"; " %}
+            {% capture class_article %}{% unless exceptions contains page.path %} article {% endunless %}{% endcapture %}
             <div class="content {{ class_article }}">
                 {{ content }}
             </div>
