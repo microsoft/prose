@@ -27,6 +27,8 @@ language <Name>;
 ```
 {: .language-bnf}
 
+It first specifies some metadata about the DSL, and then describes it as a grammar. A PROSE language is represented as a [context-free grammar](https://en.wikipedia.org/wiki/Context-free_grammar) – *i.e.,* as a set of *rules*, where each *symbol* on the left-hand side is bound to a set of possible expansions of this symbol on the right-hand side.
+
 # References
 
 A PROSE grammar may reference any .NET assembly. During compilation, it will be resolved via standard assembly resolution rules of the current .NET runtime (desktop, Mono, or Core).
@@ -127,16 +129,27 @@ feature HashSet<int> UsedConstants = TestLanguage.UsedConstantsCalculator;
 ```
 {: .language-bnf}
 
-# Symbols and rules
-
-A PROSE language is described as a [context-free grammar](https://en.wikipedia.org/wiki/Context-free_grammar) – *i.e.,* as a set of *rules*, where each *symbol* on the left-hand side is bound to a set of possible *operators* on the right-hand side that represent possible expansions of this symbol.
-
-## Terminal rules
+# Terminal rules
 
 Each *terminal symbol* of the grammar is associated with its own unique *terminal rule*. Terminal rules specify the leaf symbols that will be replaced with literal constants or variables in the AST. For example:
 
 -   A terminal rule `int k;` specifies a symbol $k$ that represents a literal integer constant.
 -   A terminal rule `@input string v;` specifies a *variable* symbol $v$ that contains program input data *at runtime.*
+
+**Syntax:**
+
+```
+{@values[<Generator member>]} {@input} <Type> <Symbol name>;
+```
+{: .language-bnf}
+
+## Annotations
+
+#### `@input`
+
+Denotes the input variable passed to the DSL programs. A DSL program may depend only on a single input variable, although of an arbitrary type.
+
+#### `@values`
 
 A user can specify the list of possible values that a literal symbol can be set to. This is done with a **@values[**$G$**]** annotation, where $G$ is a **value generator** – a reference to a user-defined static field, property, or method. The compiler will search for $G$ in the provided learning logic holders, and will report an error if it does not find a type-compatible member.
 
@@ -160,20 +173,73 @@ namespace TestLanguage
 
 		// Property
 		public static string[] StringGen => new[] {"", "42", "foobar"};
+        public static string[] StringGen {
+            get { return new[] {"", "42", "foobar"}; }
+        }
 
 		// Method
 		public static string[] StringGen() => new[] {"", "42", "foobar"};
+        public static string[] StringGen() {
+            return new[] {"", "42", "foobar"};
+        }
 	}
 }
 ```
 
+# Nonterminal rules
+
+A *nonterminal rule* describes a possible [production](https://en.wikipedia.org/wiki/Production_(computer_science)) in a context-free grammar of the DSL. In contrast to conventional programming languages, the productions of PROSE grammars describe not the surface syntax of DSL programs, but their direct semantics as ASTs. In other words, where a conventional context-free grammar would specify something like
+
+```
+expression := atom '+' atom | atom '-' atom ;
+```
+
+the corresponding PROSE grammar specifies
+
+```
+expression := Plus(atom, atom) | Minus(atom, atom) ;
+```
+{: .language-dsl}
+
+This snippet contains two nonterminal rules `expression := Plus(atom, atom)` and `expression := Minus(atom, atom)`. The functions `Plus` and `Minus` are *operators* in the grammar – domain-specific functions that may be included as steps of your  DSL programs. Thusly, PROSE DSLs do not have a syntax – they directly describe a grammar of possible domain-specific program actions.
+
+## Structure
+
+Every nonterminal rule has a *head* and a *body*. Its head is a typed *nonterminal symbol* on the left-hand side of the production. Its body is a sequence of free symbols on the right-hand side, which may be nonterminal or terminal (i.e. variables or constants). There exist multiple different kinds of nonterminal rules, which differ in their semantics as well as in the roles of the symbols in their bodies.
+
 **Syntax:**
 
 ```
-{@values[<Generator member>]} {@input} <Type> <Symbol name>;
+{@start} <Type> <Symbol name> := <Rule 1> | ... | <Rule N>;
 ```
 {: .language-bnf}
 
-## Nonterminal rules
+### Annotations
 
-> Coming soon.
+#### `@start`
+
+An optional annotation that specifies the _start symbol_ of the grammar – that is, the root nonterminal symbol of all programs in this DSL.
+
+## Operator rules
+
+> Coming soon...
+
+## Conversion rules
+
+> Coming soon...
+
+## Let bindings
+
+> Coming soon...
+
+## Standard concepts
+
+> Coming soon...
+
+### Lambda functions
+
+> Coming soon...
+
+## External rules
+
+> Coming soon...

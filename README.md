@@ -6,8 +6,8 @@ This repository contains documents and templates used to build and deploy the PR
 Follows [the official Github Pages instructions](help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/).
 
 1. From [RubyInstaller](http://rubyinstaller.org/downloads/) get the latest x64 version of Ruby and the `mingw64-64` version of the Development Kit.
-* Install the development kit by running `ruby dk.rb init` followed by `ruby dk.rb install` in the directory you extracted it to.
-* Reopen your shell to pick up the new PATH, and run:
+2. Install the development kit by running `ruby dk.rb init` followed by `ruby dk.rb install` in the directory you extracted it to.
+3. Reopen your shell to pick up the new PATH, and run:
 
     ``` bash
     git clone https://github.com/Microsoft/prose prose-site
@@ -21,9 +21,9 @@ Follows [the official Github Pages instructions](help.github.com/articles/settin
 ## How to run locally
 
 1. Make your change (likely to a markdown file in `/documentation`).
-* If you change any TS/JS/CSS files, run `gulp` and commit the compiled files in `/static`; otherwise, ignore this step.
-* `bundle exec jekyll serve --baseurl=''` (overriding the `baseURL` like this required for local viewing)
-* Open and monitor <http://localhost:4000/> in your browser.
+2. If you change any TS/JS/CSS files, run `gulp` and commit the compiled files in `/static`; otherwise, ignore this step.
+3. `bundle exec jekyll serve --baseurl=''` (overriding the `baseURL` like this required for local viewing)
+4. Open and monitor <http://localhost:4000/> in your browser.
 
 You can also edit directly on GitHub for small changes.
 
@@ -33,6 +33,7 @@ You can use any standard [GitHub-flavored Markdown syntax](https://guides.github
  - Every page needs a `title` in its YAML front matter.
  - Include `{% include toc.liquid.md %}` if you want a table of contents.
  - Prepend every link with `{{ site.baseurl }}`.
+ - **DO NOT** use the tab character (`\t`). Its width is inconsistent across browsers, even with all proper CSS styles in places. Before committing, make sure to convert all tabs to the desired number of spaces.
  - Don't forget to specify programming languages in the code snippets. That includes `csharp`, `powershell`, `xml`, `bash`, `json`, `python`, and `r` (among all others).
 
         ``` csharp
@@ -46,4 +47,7 @@ You can use any standard [GitHub-flavored Markdown syntax](https://guides.github
         {: .language-dsl}
 
 
+### Navigation
+
 To add your page to the navigation menu, edit [menu.liquid.html](/_includes/menu.liquid.html).
+Follow the markup patterns already present in the file.

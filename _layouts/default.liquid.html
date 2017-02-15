@@ -27,7 +27,8 @@
         {% endunless %}
 
         <div id="contentWrapper" class="flex flex-column items-center">
-            <div class="content">
+            {% capture class_article %}{% unless page.path == "index.liquid.html" %} article {% endunless %}{% endcapture %}
+            <div class="content {{ class_article }}">
                 {{ content }}
             </div>
 

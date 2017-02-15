@@ -23,7 +23,7 @@ Basic usage
 Session session = new Session();
 IEnumerable<Example> examples = new[]
 {
-	new Example(new InputRow("Greta Hermansson"), "Hermansson, G.")
+    new Example(new InputRow("Greta Hermansson"), "Hermansson, G.")
 };
 session.AddConstraints(examples);
 Program program = session.Learn();
@@ -66,8 +66,8 @@ to take a phone number in a third similar format and normalize it as well.
 var session = new Session();
 var examples = new[]
 {
-	new Example(new InputRow("212-555-0183"), "212-555-0183"),
-	new Example(new InputRow("(212) 555 0183"), "212-555-0183")
+    new Example(new InputRow("212-555-0183"), "212-555-0183"),
+    new Example(new InputRow("(212) 555 0183"), "212-555-0183")
 };
 session.AddConstraints(examples);
 Program program = session.Learn();
@@ -128,7 +128,7 @@ session.AddConstraints(new Example(new InputRow("Greta Hermansson"), "Hermansson
 IReadOnlyList<Program> programs = session.LearnTopK(k: 10);
 foreach (Program program in programs)
 {
-	Console.WriteLine(program.Run(new InputRow("Kettil hansson"))); // note "hansson" is lowercase
+    Console.WriteLine(program.Run(new InputRow("Kettil hansson"))); // note "hansson" is lowercase
 }
 ```
 
@@ -146,7 +146,7 @@ session.AddConstraints(new Example(new InputRow("Greta Hermansson"), "Hermansson
 IReadOnlyList<object> outputs = await session.ComputeTopKOutputsAsync(new InputRow("Kettil hansson"), k: 10);
 foreach (object output in outputs)
 {
-	Console.WriteLine(output);
+    Console.WriteLine(output);
 }
 ```
 
@@ -225,10 +225,10 @@ namespace for other constraints.
 
 * [`Learn()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_Learn.htm)/[`LearnAsync()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_LearnAsync.htm) returns the single top-ranked program as a [`Program`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Program.htm).
 * [`LearnTopK()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_LearnTopK.htm)/[`LearnTopKAsync()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_LearnTopKAsync.htm) takes an integer `k` and returns the top-`k` ranked
-	programs as an `IReadOnlyList<Program>`.
+    programs as an `IReadOnlyList<Program>`.
 * [`LearnAll()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_LearnAll.htm)/[`LearnAllAsync()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_LearnAllAsync.htm) learns all programs consistent with the examples, giving
-	the result compactly as a [`ProgramSet`](https://prose-docs.azurewebsites.net/html/P_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_IProgramSetWrapper_ProgramSet.htm) (wrapped in an 
-	[`IProgramSetWrapper`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_IProgramSetWrapper.htm)).
+    the result compactly as a [`ProgramSet`](https://prose-docs.azurewebsites.net/html/P_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_IProgramSetWrapper_ProgramSet.htm) (wrapped in an 
+    [`IProgramSetWrapper`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_IProgramSetWrapper.htm)).
 
 To run a `Program`, use its [`Run()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Transformation_Text_Program_Run_1.htm) method:
 

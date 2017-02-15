@@ -114,44 +114,44 @@ using System.Text.RegularExpressions;
 static class Semantics
 {
     static string Substring(string inp, Tuple<int?, int?> posPair)
-	{
-		if (posPair.Item1 == null || posPair.Item2 == null)
-			return null;
-		int start = posPair.Item1.Value;
-		int end = posPair.Item2.Value;
-		if (start < 0 || start >= inp.Length ||
-		    end < 0 || end >= inp.Length || end < start)
-		    return null;
-		return inp.Substring(start, end - start);
-	}
+    {
+        if (posPair.Item1 == null || posPair.Item2 == null)
+            return null;
+        int start = posPair.Item1.Value;
+        int end = posPair.Item2.Value;
+        if (start < 0 || start >= inp.Length ||
+            end < 0 || end >= inp.Length || end < start)
+            return null;
+        return inp.Substring(start, end - start);
+    }
 
-	static int? AbsolutePosition(string inp, int k)
-	{
-		if (k > inp.Length || k < -inp.Length - 1)
-			return null;
-		return k >= 0 ? k : (inp.Length + k + 1);
-	}
+    static int? AbsolutePosition(string inp, int k)
+    {
+        if (k > inp.Length || k < -inp.Length - 1)
+            return null;
+        return k >= 0 ? k : (inp.Length + k + 1);
+    }
 
-	static int? RegexPosition(string inp, Tuple<Regex, Regex> regexPair, int occurrence)
-	{
-		if (regexPair.Item1 == null || regexPair.Item2 == null)
-			return null;
-		Regex left = regexPair.Item1;
-		Regex right = regexPair.Item2;
-		var rightMatches = right.Matches(inp).Cast<Match>().ToDictionary(m => m.Index);
-		var matchPositions = new List<int>();
-		foreach (Match m in left.Matches(inp))
-		{
-		    if (rightMatches.ContainsKey(m.Index + m.Length))
-			    matchPositions.Add(m.Index + m.Length);
+    static int? RegexPosition(string inp, Tuple<Regex, Regex> regexPair, int occurrence)
+    {
+        if (regexPair.Item1 == null || regexPair.Item2 == null)
+            return null;
+        Regex left = regexPair.Item1;
+        Regex right = regexPair.Item2;
+        var rightMatches = right.Matches(inp).Cast<Match>().ToDictionary(m => m.Index);
+        var matchPositions = new List<int>();
+        foreach (Match m in left.Matches(inp))
+        {
+            if (rightMatches.ContainsKey(m.Index + m.Length))
+                matchPositions.Add(m.Index + m.Length);
         }
-	    if (occurrence >= matchPositions.Count ||
-	        occurrence < -matchPositions.Count)
-	        return null;
-	    return occurrence >= 0
-		    ? matchPositions[occurrence]
-		    : matchPositions[matchPositions.Count + occurrence];
-	}
+        if (occurrence >= matchPositions.Count ||
+            occurrence < -matchPositions.Count)
+            return null;
+        return occurrence >= 0
+            ? matchPositions[occurrence]
+            : matchPositions[matchPositions.Count + occurrence];
+    }
 }
 ```
 This code illustrates several important points that you should keep in mind when designing a DSL:
@@ -212,33 +212,33 @@ using Microsoft.ProgramSynthesis.Learning;
 
 class WitnessFunctions : DomainLearningLogic
 {
-	public WitnessFunctions(Grammar grammar) : base(grammar) { }  
+    public WitnessFunctions(Grammar grammar) : base(grammar) { }  
   
-	[WitnessFunction("Substring", parameterIndex: 1)]
-	DisjunctiveExamplesSpec WitnessPositionPair(GrammarRule rule, ExampleSpec spec)
-	{
-		var result = new Dictionary<State, IEnumerable<object>>();
-		foreach (var example in spec.Examples)
-		{
-			State inputState = example.Key;
-			// the first parameter of Substring is the variable symbol 'inp'
-			// we extract its current bound value from the given input state
-			var inp = (string) inputState[rule.Body[0]];
-			var substring = (string) example.Value;
-			var occurrences = new List<Tuple<int?, int?>>();
-			// Iterate over all occurrences of 'substring' in 'inp',
+    [WitnessFunction("Substring", parameterIndex: 1)]
+    DisjunctiveExamplesSpec WitnessPositionPair(GrammarRule rule, ExampleSpec spec)
+    {
+        var result = new Dictionary<State, IEnumerable<object>>();
+        foreach (var example in spec.Examples)
+        {
+            State inputState = example.Key;
+            // the first parameter of Substring is the variable symbol 'inp'
+            // we extract its current bound value from the given input state
+            var inp = (string) inputState[rule.Body[0]];
+            var substring = (string) example.Value;
+            var occurrences = new List<Tuple<int?, int?>>();
+            // Iterate over all occurrences of 'substring' in 'inp',
             // and add their position boundaries to the list of possible outputs for posPair.
-			for (int i = inp.IndexOf(substring);
-			     i >= 0;
-			     i = inp.IndexOf(substring, i + 1))
-		    {
-			    occurrences.Add(Tuple.Create((int?) i, (int?) i + substring.Length));
-		    }
-		    if (occurrences.Count == 0) return null;
-		    result[inputState] = occurrences;
-		}
-	    return new DisjunctiveExamplesSpec(result);
-	}
+            for (int i = inp.IndexOf(substring);
+                 i >= 0;
+                 i = inp.IndexOf(substring, i + 1))
+            {
+                occurrences.Add(Tuple.Create((int?) i, (int?) i + substring.Length));
+            }
+            if (occurrences.Count == 0) return null;
+            result[inputState] = occurrences;
+        }
+        return new DisjunctiveExamplesSpec(result);
+    }
 }
 ```
 We put this witness function in a class called, for instance, `SubstringExtraction.WitnessFunctions`. Such a class holds *domain learning logic* -- all hints and annotations that a DSL designer wants to provide to help the PROSE synthesis engine.
@@ -278,21 +278,21 @@ Given an example of position $\ell$ that `AbsolutePosition(inp, k)` produced, `k
 [WitnessFunction("AbsolutePosition", 1)
 DisjunctiveExamplesSpec WitnessK(GrammarRule rule, DisjunctiveExamplesSpec spec)
 {
-	var result = new Dictionary<State, IEnumerable<object>>();
-	foreach (var example in spec.DisjunctiveExamples)
-	{
-		State inputState = example.Key;
-		var ks = new HashSet<int?>();
-		var inp = (string) inputState[rule.Body[0]];
-		foreach (int? pos in example.Value)
-		{
-			ks.Add(pos);
-			ks.Add(pos - inp.Length - 1);
-		}
-		if (ks.Count == 0) return null;
-		result[inputState] = ks.Cast<object>();
-	}
-	return new DisjunctiveExamplesSpec(result);
+    var result = new Dictionary<State, IEnumerable<object>>();
+    foreach (var example in spec.DisjunctiveExamples)
+    {
+        State inputState = example.Key;
+        var ks = new HashSet<int?>();
+        var inp = (string) inputState[rule.Body[0]];
+        foreach (int? pos in example.Value)
+        {
+            ks.Add(pos);
+            ks.Add(pos - inp.Length - 1);
+        }
+        if (ks.Count == 0) return null;
+        result[inputState] = ks.Cast<object>();
+    }
+    return new DisjunctiveExamplesSpec(result);
 }
 ```
 
@@ -316,9 +316,9 @@ Here's a witness function for `rr`:
 
 ``` csharp
 Regex[] UsefulRegexes = {
-	new Regex(@"\w+"),  // Word
-	new Regex(@"\d+"),  // Number
-	// ...
+    new Regex(@"\w+"),  // Word
+    new Regex(@"\d+"),  // Number
+    // ...
 };
 
 // For efficiency, this function should be invoked only once for each input string before the learning session starts
@@ -326,44 +326,44 @@ static void BuildStringMatches(string inp,
                                out List<Tuple<Match, Regex>>[] leftMatches,
                                out List<Tuple<Match, Regex>>[] rightMatches)
 {
-	leftMatches = new List<Tuple<Match, Regex>>[inp.Length + 1];
-	rightMatches = new List<Tuple<Match, Regex>>[inp.Length + 1];
-	for (int p = 0; p <= inp.Length; ++p)
-	{
-		leftMatches[p] = new List<Tuple<Match, Regex>>();
-		rightMatches[p] = new List<Tuple<Match, Regex>>();
-	}
-	foreach (Regex r in UsefulRegexes)
-	{
-		foreach (Match m in r.Matches(inp))
-		{
-			leftMatches[m.Index + m.Length].Add(Tuple.Create(m, r));
-			rightMatches[m.Index].Add(Tuple.Create(m, r));
-		}
-	}
+    leftMatches = new List<Tuple<Match, Regex>>[inp.Length + 1];
+    rightMatches = new List<Tuple<Match, Regex>>[inp.Length + 1];
+    for (int p = 0; p <= inp.Length; ++p)
+    {
+        leftMatches[p] = new List<Tuple<Match, Regex>>();
+        rightMatches[p] = new List<Tuple<Match, Regex>>();
+    }
+    foreach (Regex r in UsefulRegexes)
+    {
+        foreach (Match m in r.Matches(inp))
+        {
+            leftMatches[m.Index + m.Length].Add(Tuple.Create(m, r));
+            rightMatches[m.Index].Add(Tuple.Create(m, r));
+        }
+    }
 }
 
 [WitnessFunction("RegexPosition", 1)]
 DisjunctiveExamplesSpec WitnessRegexPair(GrammarRule rule, DisjunctiveExamplesSpec spec)
 {
-	var result = new Dictionary<State, IEnumerable<object>>();
-	foreach (var example in spec.DisjunctiveExamples)
-	{
-		State inputState = example.Key;
-		var inp = (string) inputState[rule.Body[0]];
-		List<Tuple<Match, Regex>>[] leftMatches, rightMatches;
-		BuildStringMatches(inp, out leftMatches, out rightMatches);
-		var regexes = new List<Tuple<Regex, Regex>>();
-		foreach (int? pos in example.Value)
-		{
-			regexes.AddRange(from l in leftMatches[pos.Value]
-							 from r in rightMatches[pos.Value]
-							 select Tuple.Create(l.Item2, r.Item2));
+    var result = new Dictionary<State, IEnumerable<object>>();
+    foreach (var example in spec.DisjunctiveExamples)
+    {
+        State inputState = example.Key;
+        var inp = (string) inputState[rule.Body[0]];
+        List<Tuple<Match, Regex>>[] leftMatches, rightMatches;
+        BuildStringMatches(inp, out leftMatches, out rightMatches);
+        var regexes = new List<Tuple<Regex, Regex>>();
+        foreach (int? pos in example.Value)
+        {
+            regexes.AddRange(from l in leftMatches[pos.Value]
+                             from r in rightMatches[pos.Value]
+                             select Tuple.Create(l.Item2, r.Item2));
         }
-		if (regexes.Count == 0) return null;
-		result[inputState] = regexes;
-	}
-	return new DisjunctiveExamplesSpec(result);
+        if (regexes.Count == 0) return null;
+        result[inputState] = regexes;
+    }
+    return new DisjunctiveExamplesSpec(result);
 }
 ```
 
@@ -377,32 +377,32 @@ In general, the prerequisite spec can be of any kind that provides your witness 
 DisjunctiveExamplesSpec WitnessKForRegexPair(GrammarRule rule, DisjunctiveExamplesSpec spec,
                                              ExampleSpec rrSpec)
 {
-	var result = new Dictionary<State, IEnumerable<object>>();
-	foreach (var example in spec.DisjunctiveExamples)
-	{
-		State inputState = example.Key;
-		var inp = (string) inputState[rule.Body[0]];
-		var regexPair = (Tuple<Regex, Regex>) rrSpec.Examples[inputState];
-		Regex left = regexPair.Item1;
-		Regex right = regexPair.Item2;
-		var rightMatches = right.Matches(inp).Cast<Match>().ToDictionary(m => m.Index);
-		var matchPositions = new List<int>();
-		foreach (Match m in left.Matches(inp))
-		{
-		    if (rightMatches.ContainsKey(m.Index + m.Length))
-			    matchPositions.Add(m.Index + m.Length);
+    var result = new Dictionary<State, IEnumerable<object>>();
+    foreach (var example in spec.DisjunctiveExamples)
+    {
+        State inputState = example.Key;
+        var inp = (string) inputState[rule.Body[0]];
+        var regexPair = (Tuple<Regex, Regex>) rrSpec.Examples[inputState];
+        Regex left = regexPair.Item1;
+        Regex right = regexPair.Item2;
+        var rightMatches = right.Matches(inp).Cast<Match>().ToDictionary(m => m.Index);
+        var matchPositions = new List<int>();
+        foreach (Match m in left.Matches(inp))
+        {
+            if (rightMatches.ContainsKey(m.Index + m.Length))
+                matchPositions.Add(m.Index + m.Length);
         }
-	    var ks = new HashSet<int?>();
-	    foreach (int? pos in example.Value)
-	    {
-		    int occurrence = matchPositions.BinarySearch(pos.Value);
-		    if (occurrence < 0) continue;
-		    ks.Add(occurrence);
-		    ks.Add(occurrence - matchPositions.Count);
-	    }
-	    if (ks.Count == 0) return null;
-	    result[inputState] = ks.Cast<object>();
-	}
+        var ks = new HashSet<int?>();
+        foreach (int? pos in example.Value)
+        {
+            int occurrence = matchPositions.BinarySearch(pos.Value);
+            if (occurrence < 0) continue;
+            ks.Add(occurrence);
+            ks.Add(occurrence - matchPositions.Count);
+        }
+        if (ks.Count == 0) return null;
+        result[inputState] = ks.Cast<object>();
+    }
     return new DisjunctiveExamplesSpec(result);
 }
 ```
@@ -489,11 +489,11 @@ When recursively computed feature values are insufficient, you can take into acc
 [FeatureCalculator("AbsolutePosition", Method = CalculationMethod.FromChildrenNodes)]
 double ScoreAbsolutePosition(VariableNode inp, LiteralNode k)
 {
-	double score = (double) inp.GetFeatureValue(this) + (double) k.GetFeatureValue(this);
-	int kValue = (int) k.Value;
-	if (Math.Abs(k) <= 1)
-		score *= 10;
-	return score;
+    double score = (double) inp.GetFeatureValue(this) + (double) k.GetFeatureValue(this);
+    int kValue = (int) k.Value;
+    if (Math.Abs(k) <= 1)
+        score *= 10;
+    return score;
 }
 
 // Alternatively:

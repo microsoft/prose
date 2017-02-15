@@ -36,32 +36,32 @@ The Microsoft.ProgramSynthesis package unites the core pieces of the meta-synthe
 Here are the included assemblies:
 
 -   **Microsoft.ProgramSynthesis** includes the core functionality for manipulating
-	ASTs, validating DSLs, maintain a DSL and a set of its operators,
-	and core infrastructure for the synthesis algorithms.
+    ASTs, validating DSLs, maintain a DSL and a set of its operators,
+    and core infrastructure for the synthesis algorithms.
 -   **dslc.exe** is a DSL compiler. This is the executable that
-	takes a language definition, parses it, validates it, potentially
-	emits some diagnostics (warnings and/or errors), and serializes the
-	parsed language representation into a portable file.
+    takes a language definition, parses it, validates it, potentially
+    emits some diagnostics (warnings and/or errors), and serializes the
+    parsed language representation into a portable file.
 -   **Microsoft.ProgramSynthesis.Learning** is a core library of synthesis algorithms,
-	standard operators and strategies.
+    standard operators and strategies.
 -   **Microsoft.ProgramSynthesis.Utils** is a collection of utility methods that are used
-	in different parts of the project.
+    in different parts of the project.
 
 A typical workflow of a DSL designer consists of the following steps:
 
 1.  Define a DSL in a separate file (usually has a \*.grammar
-	extension).
+    extension).
 2.  Define the semantics and all the supporting infrastructure for the
-	DSL in a separate .NET assembly (see Section 4 below).
+    DSL in a separate .NET assembly (see Section 4 below).
 3.  Use one of the two options below to compile the DSL definition into
-	a `Grammar` object:
-	*  At compile-time, invoke the DSL compiler **dslc.exe**
-		manually on a \*.grammar file with a DSL definition. Deploy the
-		resulting serialized \*.grammar.xml file with your application.
-		At run-time, deserialize it using `Grammar.Deserialize` method.
-	*  Deploy the **dslc.exe** and the \*.grammar file with your
-		application. At run-time, compile your DSL definition in memory
-		using `DSLCompiler.Compile` method.
+    a `Grammar` object:
+    *  At compile-time, invoke the DSL compiler **dslc.exe**
+        manually on a \*.grammar file with a DSL definition. Deploy the
+        resulting serialized \*.grammar.xml file with your application.
+        At run-time, deserialize it using `Grammar.Deserialize` method.
+    *  Deploy the **dslc.exe** and the \*.grammar file with your
+        application. At run-time, compile your DSL definition in memory
+        using `DSLCompiler.Compile` method.
 
 # Language definition
 
@@ -124,9 +124,9 @@ Terminal rules specify the leaf symbols that will be replaced with
 literal constants or variables in the AST. For example:
 
 -   A terminal rule `int k;` specifies a symbol $k$ that represents a
-	literal integer constant.
+    literal integer constant.
 -   A terminal rule `@input string v;` specifies a *variable* symbol $v$
-	that will be replaced with program input data *at runtime.*
+    that will be replaced with program input data *at runtime.*
 
 A user can specify the list of possible values that a literal symbol can
 be set to. This is done with a **@values[**$G$**]** annotation,
@@ -141,18 +141,18 @@ following definition can serve as a value generator for $s$:
 ```csharp
 public static class FlashFill
 {
-	public static class Learners
-	{
-		public static string[] StringGen = {"", "123", "Gates, B.", "ABRACADABRA"};
-		public static string[] StringGen
-		{
-			get { return new[] {"", "123", "Gates, B.", "ABRACADABRA"}; }
-		}
-		public static string[] StringGen()
-		{
-			return new[] { "", "123", "Gates, B.", "ABRACADABRA" };
-		}
-	}
+    public static class Learners
+    {
+        public static string[] StringGen = {"", "123", "Gates, B.", "ABRACADABRA"};
+        public static string[] StringGen
+        {
+            get { return new[] {"", "123", "Gates, B.", "ABRACADABRA"}; }
+        }
+        public static string[] StringGen()
+        {
+            return new[] { "", "123", "Gates, B.", "ABRACADABRA" };
+        }
+    }
 }
 ```
 If no value generator is provided, the framework can either pick a
@@ -178,42 +178,42 @@ semantics assembly with the same name as a public static method:
 ```csharp
 public static class Semantics
 {
-	public static int CPos(string s, int k)
-	{
-		return k < 0 ? s.Length + 1 + k : k;
-	}
+    public static int CPos(string s, int k)
+    {
+        return k < 0 ? s.Length + 1 + k : k;
+    }
 
-	public static int? Pos(string s, Regex leftRegex, Regex rightRegex,
-						   int occurrence)
-	{
-		var boundaryRegex = new Regex(string.Format("(?<={0}){1}", leftRegex, rightRegex));
-		var matches = boundaryRegex.Matches(s);
-		int index = occurrence > 0 ? occurrence - 1 : matches.Count + occurrence;
-		if (index < 0 || index >= matches.Count)
-		{
-			return null;
-		}
-		return matches[index].Index;
-	}
+    public static int? Pos(string s, Regex leftRegex, Regex rightRegex,
+                           int occurrence)
+    {
+        var boundaryRegex = new Regex(string.Format("(?<={0}){1}", leftRegex, rightRegex));
+        var matches = boundaryRegex.Matches(s);
+        int index = occurrence > 0 ? occurrence - 1 : matches.Count + occurrence;
+        if (index < 0 || index >= matches.Count)
+        {
+            return null;
+        }
+        return matches[index].Index;
+    }
 
-	public static string ConstStr(string s)
-	{
-		return s;
-	}
+    public static string ConstStr(string s)
+    {
+        return s;
+    }
 
-	public static string SubStr(string s, int left, int right)
-	{
-		if (left < 0 || right > s.Length || right < left)
-		{
-			return null;
-		}
-		return s.Substring(left, right - left);
-	}
+    public static string SubStr(string s, int left, int right)
+    {
+        if (left < 0 || right > s.Length || right < left)
+        {
+            return null;
+        }
+        return s.Substring(left, right - left);
+    }
 
-	public static string Concat(string s, string t)
-	{
-		return s + t;
-	}
+    public static string Concat(string s, string t)
+    {
+        return s + t;
+    }
 }
 ```
 
@@ -361,15 +361,15 @@ For a valid execution, the runtime types of the symbols $f$ and $v$
 should satisfy the following contract:
 
 1.  The type of $v$ should implement `IEnumerable`. It can be a
-	standard .NET collection (array,
-	`List<T>`, etc.), or a user-defined
-	custom type that implements `IEnumerable`.
+    standard .NET collection (array,
+    `List<T>`, etc.), or a user-defined
+    custom type that implements `IEnumerable`.
 
 2.  The type of $f$ should have *functional semantics*. In other words,
-	it should behave like a lambda function, because at runtime it will
-	be “invoked” with array elements as arguments. Moreover, for the
-	`Filter` concept specifically, the return type of this
-	“function” should be assignable to `bool`.
+    it should behave like a lambda function, because at runtime it will
+    be “invoked” with array elements as arguments. Moreover, for the
+    `Filter` concept specifically, the return type of this
+    “function” should be assignable to `bool`.
 
 ### Lambda functions
 
@@ -410,15 +410,15 @@ The corresponding semantics implementation is now much simpler:
 ```csharp
 public static class Flare
 {
-	public static bool Match(string x, Regex r)
-	{
-		return r.IsMatch(x);
-	}
+    public static bool Match(string x, Regex r)
+    {
+        return r.IsMatch(x);
+    }
 
-	public static bool True()
-	{
-		return true;
-	}
+    public static bool True()
+    {
+        return true;
+    }
 }
 ```
 Note that a lambda function body is a free symbol on the RHS of the “=”
@@ -446,11 +446,11 @@ The correspondence between formal parameters on the LHS and free symbols
 on the RHS is resolved as follows:
 
 -   The first parameter $v$ on the LHS corresponds to the second
-	argument $v$ on the RHS.
+    argument $v$ on the RHS.
 -   The second parameter $P$ on the LHS corresponds to the body of the
-	first argument $\lambda x:P$ on the RHS.
+    first argument $\lambda x:P$ on the RHS.
 -   The third parameter $P$ on the LHS corresponds to the third argument
-	$P$ on the RHS.
+    $P$ on the RHS.
 
 Two usages of the same symbol $P$ among parameters were resolved in a
 left-to-right order.
@@ -461,16 +461,16 @@ Definition and usage of custom DSLs starts with the following steps:
 
 1.  Define a string representation of your DSL grammar in our syntax.
 2.  Implement your black-box operator semantics, custom types, and value
-	generators in a separate assembly. Make sure that it is accessible
-	at a path specified in the grammar string[^4].
+    generators in a separate assembly. Make sure that it is accessible
+    at a path specified in the grammar string[^4].
 3.  Load the grammar into a `Grammar` object:
-	* Either programmatically using `DSLCompiler.LoadGrammar`
-		or `DSLCompiler.LoadGrammarFromFile`.
-	* Or in two steps, with manual DSL compilation using
-		**dslc.exe** and loading the serialized `Grammar`
-		object using `Grammar.Deserialize`.
+    * Either programmatically using `DSLCompiler.LoadGrammar`
+        or `DSLCompiler.LoadGrammarFromFile`.
+    * Or in two steps, with manual DSL compilation using
+        **dslc.exe** and loading the serialized `Grammar`
+        object using `Grammar.Deserialize`.
 4.  Use this `Grammar` object to parse specific AST strings into
-	ASTs and invoke these ASTs on states.
+    ASTs and invoke these ASTs on states.
 
 ## AST parsing and printing
 
@@ -479,17 +479,17 @@ programmatically (option “a”):
 
 ```csharp
  const string TestFlareGrammar = @"
-		 reference 'TestSemantics.dll';
-		 using TestSemantics;
-		 using semantics TestSemantics.Flare;
-		 language Flare;
-		 @input string[] v;
-		 Regex r;
-		 StringFilter f := Match(r) | FTrue();
-		 @start string[] P := Selected(f, v) = Filter(f, v);";
+         reference 'TestSemantics.dll';
+         using TestSemantics;
+         using semantics TestSemantics.Flare;
+         language Flare;
+         @input string[] v;
+         Regex r;
+         StringFilter f := Match(r) | FTrue();
+         @start string[] P := Selected(f, v) = Filter(f, v);";
 var grammar = DSLCompiler.LoadGrammar(TestFlareGrammar).Value;
 var ast = grammar.ParseAST("Selected(Match(new Regex(\"[a-z]+\")), v)",
-	ASTSerializationFormat.HumanReadable);
+    ASTSerializationFormat.HumanReadable);
 var state = new State(grammar.InputSymbol, new[] {"1", "ab", ""});
 Assert.That(ast.Invoke(state), Is.EqualTo(new[] {"ab"}).AsCollection);
 ```
@@ -528,7 +528,7 @@ const string TestFlareGrammar = @"
 ";
 var grammar = DSLCompiler.LoadGrammar(TestFlareGrammar).Value;
 var ast = grammar.ParseAST("Selected(v, Match(x, new Regex(\"[a-z]+\")))")",
-	ASTSerializationFormat.HumanReadable);
+    ASTSerializationFormat.HumanReadable);
 var state = new State(grammar.InputSymbol, new[] {"1", "ab", ""});
 Assert.That(ast.Invoke(state), Is.EqualTo(new[] {"ab"}).AsCollection);
 ```
@@ -550,26 +550,26 @@ Microsoft Program Synthesis using Examples DSL Compiler 0.5.0.180-9c4db2d
 Created by Microsoft Program Synthesis using Examples team (prose-contact@microsoft.com), 2014-2015.
 Usage: dslc.exe [options] INPUT_GRAMMAR
 
-  -p, --path			   Additional directories to locate assembly
-						   references, separated by semicolons.
+  -p, --path               Additional directories to locate assembly
+                           references, separated by semicolons.
 
-  -o, --output			 (Default: "<DSLName>.grammar.xml") Output file for
-						   the serialized grammar object.
+  -o, --output             (Default: "<DSLName>.grammar.xml") Output file for
+                           the serialized grammar object.
 
-  -v, --verbosity		  (Default: Normal) Define verbosity level of
-						   messages printed by the compiler. Possible values:
-						   Silent=0, Errors=1, Warnings=2,
-						   Normal (Errors | Warnings), Debug=4,
-						   Verbose (Normal | Debug).
+  -v, --verbosity          (Default: Normal) Define verbosity level of
+                           messages printed by the compiler. Possible values:
+                           Silent=0, Errors=1, Warnings=2,
+                           Normal (Errors | Warnings), Debug=4,
+                           Verbose (Normal | Debug).
 
-  -w, --warn-categories	(Default: All) Define categories of warnings/errors
-						   that should be validated, separated by semicolons.
-						   Possible values: None, Core, Syntax, Semantics,
-						   Learning, Features, All.
+  -w, --warn-categories    (Default: All) Define categories of warnings/errors
+                           that should be validated, separated by semicolons.
+                           Possible values: None, Core, Syntax, Semantics,
+                           Learning, Features, All.
 
-  --indent				 Indent the XML in the serialized grammar file.
+  --indent                 Indent the XML in the serialized grammar file.
 
-  --help				   Display this help screen.
+  --help                   Display this help screen.
 
 ```
 
@@ -606,18 +606,18 @@ applications have different *kinds* of specifications to specify the
 desired program behavior. Some of the examples from prior work include:
 
 -   In FlashFill, $\varphi$ is an *example specification*: for every given
-	input state $\sigma$, the desired program output should be equal to
-	the given string $\varphi\lbrack\sigma\rbrack$.
+    input state $\sigma$, the desired program output should be equal to
+    the given string $\varphi\lbrack\sigma\rbrack$.
 
 -   In Extraction.Text, $\varphi$ is a *subset specification*. It assumes that
-	the runtime type of a root symbol $P$ is some sequence
-	`IEnumerable<T>`. The specification $\varphi$ expresses
-	the following property: for every given input state $\varphi$, the
-	desired program output should be a *superset* of the given subset
-	$\varphi\lbrack\sigma\rbrack$. In terms of Extraction.Text,
-	$\varphi\lbrack\sigma\rbrack$ are the substrings highlighted by the
-	user, and the program output includes them and the rest of the
-	substrings that should be highlighted.
+    the runtime type of a root symbol $P$ is some sequence
+    `IEnumerable<T>`. The specification $\varphi$ expresses
+    the following property: for every given input state $\varphi$, the
+    desired program output should be a *superset* of the given subset
+    $\varphi\lbrack\sigma\rbrack$. In terms of Extraction.Text,
+    $\varphi\lbrack\sigma\rbrack$ are the substrings highlighted by the
+    user, and the program output includes them and the rest of the
+    substrings that should be highlighted.
 
 The supported specification kinds are located in the namespace
 `Microsoft.ProgramSynthesis.Specifications`. All of them inherit
@@ -633,32 +633,32 @@ behavior on a set of provided input states $\varphi$.`ProvidedInputs`.
 Some of the main inductive specification kinds are described below:
 
 -   `InductiveConstraint` specifies an arbitrary constraint
-	`Constraint`$\colon$ `(State, object)` $\to$ `bool` on the
-	set of provided input states.
+    `Constraint`$\colon$ `(State, object)` $\to$ `bool` on the
+    set of provided input states.
 -   `SubsequenceSpec` specifies a
-	subsequence of the desired output sequence for each provided input
-	state in the dictionary
-	`Examples`$\colon$ `State` $\mapsto$ `IEnumerable<object>`.
-	-   `PrefixSpec` is a subclass of
-		`SubsequenceSpec` where the desired
-		subsequence of a program output is also required to be its
-		prefix.
+    subsequence of the desired output sequence for each provided input
+    state in the dictionary
+    `Examples`$\colon$ `State` $\mapsto$ `IEnumerable<object>`.
+    -   `PrefixSpec` is a subclass of
+        `SubsequenceSpec` where the desired
+        subsequence of a program output is also required to be its
+        prefix.
 -   `FunctionalOutputSpec` describes the behavior of the
-	program whose output type is a lambda function or a functional
-	symbol. For each input state, it specifies a set of input/output
-	pairs. These pairs are the behavior examples for the function *that
-	is the output of a desired program on a given state*.
+    program whose output type is a lambda function or a functional
+    symbol. For each input state, it specifies a set of input/output
+    pairs. These pairs are the behavior examples for the function *that
+    is the output of a desired program on a given state*.
 -   `DisjunctiveExamplesSpec` specifies a set of
-	possible desired outputs for each provided input state. On a given
-	state $\sigma$, the program output is allowed to equal *any of* the
-	given possible outputs
-	$\varphi$.`DisjunctiveExamples`$\lbrack\sigma\rbrack$.
-	-   `ExampleSpec` is a subclass of
-		`DisjunctiveExamplesSpec` where the size of
-		$\varphi$.`DisjunctiveExamples`$\lbrack\sigma\rbrack$ is constrained to 1.
-		In other words, this is the simplest specification
-		that specifies the single desired program output for each
-		provided input state.
+    possible desired outputs for each provided input state. On a given
+    state $\sigma$, the program output is allowed to equal *any of* the
+    given possible outputs
+    $\varphi$.`DisjunctiveExamples`$\lbrack\sigma\rbrack$.
+    -   `ExampleSpec` is a subclass of
+        `DisjunctiveExamplesSpec` where the size of
+        $\varphi$.`DisjunctiveExamples`$\lbrack\sigma\rbrack$ is constrained to 1.
+        In other words, this is the simplest specification
+        that specifies the single desired program output for each
+        provided input state.
 
 ## Strategies
 
@@ -689,11 +689,11 @@ which specifies the following contract:
 
 ```csharp
 public abstract class SynthesisStrategy<TSpec, TConfig> : ISynthesisStrategy
-		where TSpec : Spec where TConfig : StrategyConfig, new()
+        where TSpec : Spec where TConfig : StrategyConfig, new()
 {
-	void Initialize(SynthesisEngine engine);
-	abstract Optional<ProgramSet> LearnSymbol(SynthesisEngine engine, LearningTask<TSpec> task, CancellationToken cancel);
-	bool CanCall(Spec spec);
+    void Initialize(SynthesisEngine engine);
+    abstract Optional<ProgramSet> LearnSymbol(SynthesisEngine engine, LearningTask<TSpec> task, CancellationToken cancel);
+    bool CanCall(Spec spec);
 }
 ```
 Here `TSpec` is a supported specification type, `TConfig` is a type of
@@ -723,29 +723,29 @@ An abstract `ProgramSet` class defines the following contract:
 ```csharp
 public abstract class ProgramSet
 {
-	protected ProgramSet(Symbol symbol)
-	{
-		Symbol = symbol;
-	}
+    protected ProgramSet(Symbol symbol)
+    {
+        Symbol = symbol;
+    }
 
-	public Symbol Symbol { get; private set; }
+    public Symbol Symbol { get; private set; }
 
-	public abstract IEnumerable<ProgramNode> RealizedPrograms { get; }
+    public abstract IEnumerable<ProgramNode> RealizedPrograms { get; }
 
-	public abstract ulong Size { get; }
+    public abstract ulong Size { get; }
 
-	public virtual bool IsEmpty
-	{
-		get { return RealizedPrograms.IsEmpty(); }
-	}
+    public virtual bool IsEmpty
+    {
+        get { return RealizedPrograms.IsEmpty(); }
+    }
 
-	public abstract ProgramSet Intersect(ProgramSet other);
+    public abstract ProgramSet Intersect(ProgramSet other);
 
-	public Dictionary<object, ProgramSet> ClusterOnInput(State input);
+    public Dictionary<object, ProgramSet> ClusterOnInput(State input);
 
-	public Dictionary<object[], ProgramSet> ClusterOnInputs(IEnumerable<State> input);
+    public Dictionary<object[], ProgramSet> ClusterOnInputs(IEnumerable<State> input);
 
-	public abstract XElement ToXML();
+    public abstract XElement ToXML();
 }
 ```
 The property `RealizedPrograms` calculates the set of programs
@@ -771,7 +771,7 @@ want to learn a set of programs that start with a certain grammar symbol
 by learning each of its possible RHS rules automatically. For example:
 
 <div> $$
-	P\ : = F\left( A,\ B \right) \mid G\left( C, D \right)
+    P\ : = F\left( A,\ B \right) \mid G\left( C, D \right)
 $$ </div>
 
 Here $P,A,B,C,D$ are grammar symbols, and $F,G$ are black-box operators.
@@ -795,9 +795,9 @@ combinations.
 The table below outlines the APIs for building version spaces in the
 Microsoft Program Synthesis using Examples framework:
 
- Version space			 | Given									| Builder code
+ Version space             | Given                                    | Builder code
  --------------------------|------------------------------------------|------------------
- Empty					 | `Symbol s`							   | `ProgramSet.Empty(s)`
+ Empty                     | `Symbol s`                               | `ProgramSet.Empty(s)`
  Explicit list of programs | `Symbol s` <br/> `ProgramNode p1, …, pk` | `ProgramSet.List(s, p1, …, pk)`
  Lazy stream of programs| `Symbol s` <br /> `IEnumerable<ProgramNode> stream` | `new DirectProgramSet(s, stream)`
  Union of version spaces for the rules | `Symbol s` <br/> `ProgramSet v1, …, vk` | `new UnionProgramSet(s, v1, …, vk)`
