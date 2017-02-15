@@ -8,7 +8,7 @@ using ProseSample.Substrings;
 using semantics ProseSample.Substrings.Semantics;
 using learners ProseSample.Substrings.WitnessFunctions;
 
-language ProseSample_Substrings;
+language ProseSample.Substrings;
 
 @complete feature double Score = RankingScore;
 

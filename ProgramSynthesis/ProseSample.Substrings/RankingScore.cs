@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Text.RegularExpressions;
-using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.AST;
+using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 
 namespace ProseSample.Substrings
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class RankingScore : Feature<double>
     {
-        public RankingScore(Grammar grammar): base(grammar, "Score") {}
+        public RankingScore(Grammar grammar) : base(grammar, "Score") {}
 
         protected override double GetFeatureValueForVariable(VariableNode variable) => 0;
 
@@ -21,8 +20,9 @@ namespace ProseSample.Substrings
         public static double Score_PosPair(double pp1, double pp2) => pp1 * pp2;
 
         [FeatureCalculator(nameof(Semantics.AbsPos))]
-        public static double Score_AbsPos(double x, double k) {
-            k = 1.0 / k - 1;
+        public static double Score_AbsPos(double x, double k)
+        {
+            k = 1 / k - 1;
             // Prefer absolute positions to regex positions if k is small
             return Math.Max(10 * Token.MinScore - (k - 1) * 3 * Token.MinScore, 1 / k);
         }

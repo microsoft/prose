@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 using Microsoft.ProgramSynthesis;
+using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
+using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Rules;
 using Microsoft.ProgramSynthesis.Specifications;
-using Microsoft.ProgramSynthesis.Learning;
 using static Microsoft.ProgramSynthesis.Extraction.Text.Semantics.Semantics;
 
 namespace ProseSample.TextExtraction
@@ -17,12 +14,12 @@ namespace ProseSample.TextExtraction
         public WitnessFunctions(Grammar grammar) : base(grammar) {}
 
         [WitnessFunction("LinesMap", 1)]
-        public static PrefixSpec WitnessLinesMap(GrammarRule rule, PrefixSpec spec)
+        internal PrefixSpec WitnessLinesMap(GrammarRule rule, PrefixSpec spec)
         {
             var linesExamples = new Dictionary<State, IEnumerable<object>>();
             foreach (State input in spec.ProvidedInputs)
             {
-                var document = (StringRegion) input[rule.Grammar.InputSymbol];
+                var document = ((StringRegion) input[rule.Grammar.InputSymbol]);
                 var selectionPrefix = spec.PositiveExamples[input].Cast<StringRegion>();
 
                 var linesContainingSelection = new List<StringRegion>();
@@ -42,6 +39,6 @@ namespace ProseSample.TextExtraction
 
         [ExternLearningLogicMapping("Selection")]
         public DomainLearningLogic ExternWitnessFunction
-            => new Substrings.WitnessFunctions(Grammar.GrammarReferences["ProseSample_Substrings"]);
+            => new Substrings.WitnessFunctions(Grammar.GrammarReferences["ProseSample.Substrings"]);
     }
 }

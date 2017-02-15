@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 
 namespace ProseSample.TextExtraction
 {
+    using ETextSemantics = Microsoft.ProgramSynthesis.Extraction.Text.Semantics.Semantics;
+
     public static class Semantics
     {
         public static IEnumerable<StringRegion> SplitLines(StringRegion document)
         {
-            Token lineBreak = document.Cache.GetStaticTokenByName(Token.LineSeparatorName);
+            Token lineBreak = ETextSemantics.GetStaticTokenByName(Token.LineSeparatorName);
             CachedList lineBreakPositions;
             if (!document.Cache.TryGetMatchPositionsFor(lineBreak, out lineBreakPositions))
                 return new[] { document };

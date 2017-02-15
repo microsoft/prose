@@ -10,16 +10,19 @@ using Microsoft.ProgramSynthesis.Specifications;
 using Microsoft.ProgramSynthesis.Transformation.Text;
 using Microsoft.ProgramSynthesis.Transformation.Text.Semantics;
 
-namespace Transformation.Text {
+namespace Transformation.Text
+{
     /// <summary>
     ///     Simplified version of <see cref="Program" /> to demonstrate lower level API usage.
     /// </summary>
-    public class TextTransformationProgram {
+    public class TextTransformationProgram
+    {
         /// <summary>
         ///     Constructor for a Transformation.Text Program.
         /// </summary>
         /// <param name="program">The learnt program.</param>
-        private TextTransformationProgram(ProgramNode program) {
+        private TextTransformationProgram(ProgramNode program)
+        {
             ProgramNode = program;
         }
 
@@ -37,19 +40,19 @@ namespace Transformation.Text {
         /// <param name="k">the number of top programs</param>
         /// <returns>The top-k ranked programs as <see cref="TextTransformationProgram" />s</returns>
         public static IEnumerable<TextTransformationProgram> LearnTopK(IDictionary<string, string> trainingExamples,
-            IEnumerable<string> additionalInputs = null, int k = 1) {
+                                                                       IEnumerable<string> additionalInputs = null,
+                                                                       int k = 1)
+        {
             if (trainingExamples == null) throw new ArgumentNullException(nameof(trainingExamples));
             // Load Transformation.Text grammar
             Grammar grammar = Language.Grammar;
             DomainLearningLogic learningLogic = new Witnesses(grammar);
 
             // Setup configuration of synthesis process.
-            var engine = new SynthesisEngine(grammar, new SynthesisEngine.Config {
+            var engine = new SynthesisEngine(grammar, new SynthesisEngine.Config
+            {
                 // Strategies perform the actual logic of the synthesis process.
-                Strategies = new ISynthesisStrategy[] {
-                    new EnumerativeSynthesis(), 
-                    new DeductiveSynthesis(learningLogic)
-                },
+                Strategies = new[] { new DeductiveSynthesis(learningLogic) },
                 UseThreads = false,
                 CacheSize = int.MaxValue
             });
@@ -66,10 +69,13 @@ namespace Transformation.Text {
             // Learn the top-k programs according to the score feature used by Transformation.Text by default.
             // You could define your own feature on the Transformation.Text grammar to rank programs differently.
             var task = new LearningTask(grammar.StartSymbol, spec, k, Learner.Instance.ScoreFeature);
-            if (additionalInputs != null) {
+            if (additionalInputs != null)
+            {
                 task.AdditionalInputs =
                     additionalInputs.Select(
-                        input => State.Create(grammar.InputSymbol, new[] { ValueSubstring.Create(input) })).ToList();
+                                        input =>
+                                            State.Create(grammar.InputSymbol, new[] { ValueSubstring.Create(input) }))
+                                    .ToList();
             }
             IEnumerable<ProgramNode> topk = engine.Learn(task).RealizedPrograms;
             // Return the generated programs wraped in a TextTransformationProgram object.
@@ -82,7 +88,8 @@ namespace Transformation.Text {
         /// <param name="input">The input</param>
         /// <returns></returns>
         [SuppressMessage("ReSharper", "RedundantAssignment")]
-        public string Run(string input) {
+        public string Run(string input)
+        {
             Grammar grammar = Language.Grammar;
             State inputState = new InputRow(input).AsState();
             // Same as above without using the InputRow class:

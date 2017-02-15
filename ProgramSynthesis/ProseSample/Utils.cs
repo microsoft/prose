@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.AST;
 using Microsoft.ProgramSynthesis.Compiler;
@@ -22,12 +20,9 @@ namespace ProseSample
     {
         public static Grammar LoadGrammar(string grammarFile, params string[] prerequisiteGrammars)
         {
-            foreach (string prerequisite in prerequisiteGrammars) {
-                var options = new CompilerOptions {
-                    InputGrammar = prerequisite,
-                    Output = Path.GetFileNameWithoutExtension(prerequisite) + ".Language.dll",
-                    Verbosity = Verbosity.Normal
-                };
+            foreach (string prerequisite in prerequisiteGrammars)
+            {
+                var options = new CompilerOptions { InputGrammar = prerequisite };
                 var buildResult = DSLCompiler.Compile(options);
                 if (!buildResult.HasErrors) continue;
                 WriteColored(ConsoleColor.Magenta, buildResult.TraceDiagnostics);
@@ -35,11 +30,13 @@ namespace ProseSample
             }
 
             var compilationResult = DSLCompiler.ParseGrammarFromFile(grammarFile);
-            if (compilationResult.HasErrors) {
+            if (compilationResult.HasErrors)
+            {
                 WriteColored(ConsoleColor.Magenta, compilationResult.TraceDiagnostics);
                 return null;
             }
-            if (compilationResult.Diagnostics.Count > 0) {
+            if (compilationResult.Diagnostics.Count > 0)
+            {
                 WriteColored(ConsoleColor.Yellow, compilationResult.TraceDiagnostics);
             }
 
@@ -47,35 +44,32 @@ namespace ProseSample
         }
 
         public static ProgramNode Learn(Grammar grammar, Spec spec,
-                                        Feature<double> scoreFeature, DomainLearningLogic witnessFunctions)
+                                        Feature<double> scorer, DomainLearningLogic witnessFunctions)
         {
-            var engine =
-                new SynthesisEngine(grammar,
-                                    new SynthesisEngine.Config
-                                    {
-                                        UseThreads = false,
-                                        Strategies = new ISynthesisStrategy[]
-                                        {
-                                            new EnumerativeSynthesis(), 
-                                            new DeductiveSynthesis(witnessFunctions),
-                                        },
-                                        LogListener = new LogListener(),
-                                    });
+            var engine = new SynthesisEngine(grammar, new SynthesisEngine.Config
+            {
+                Strategies = new ISynthesisStrategy[]
+                {
+                    new EnumerativeSynthesis(),
+                    new DeductiveSynthesis(witnessFunctions)
+                },
+                UseThreads = false,
+                LogListener = new LogListener(),
+            });
             ProgramSet consistentPrograms = engine.LearnGrammar(spec);
             engine.Configuration.LogListener.SaveLogToXML("learning.log.xml");
 
-            /*foreach (ProgramNode p in consistentPrograms.RealizedPrograms)
-            {
-                Console.WriteLine(p);
-            }*/
+            //foreach (ProgramNode p in consistentPrograms.RealizedPrograms) {
+            //    Console.WriteLine(p);
+            //}
 
-            ProgramNode bestProgram = consistentPrograms.TopK(scoreFeature).FirstOrDefault();
+            ProgramNode bestProgram = consistentPrograms.TopK(scorer).FirstOrDefault();
             if (bestProgram == null)
             {
                 WriteColored(ConsoleColor.Red, "No program :(");
                 return null;
             }
-            var score = bestProgram.GetFeatureValue(scoreFeature);
+            var score = bestProgram.GetFeatureValue(scorer);
             WriteColored(ConsoleColor.Cyan, $"[score = {score:F3}] {bestProgram}");
             return bestProgram;
         }
@@ -99,7 +93,7 @@ namespace ProseSample
         {
             string content = File.ReadAllText(filename);
             Match[] examples = ExampleRegex.Matches(content).Cast<Match>().ToArray();
-            document = RegionLearner.CreateStringRegion(content.Replace("}", "").Replace("{", ""));
+            document = RegionSession.CreateStringRegion(content.Replace("}", "").Replace("{", ""));
             var result = new List<StringRegion>();
             for (int i = 0, shift = -1; i < examples.Length; i++, shift -= 2)
             {

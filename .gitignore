@@ -167,7 +167,7 @@ $RECYCLE.BIN/
 *.dll
 *.zip
 *.dtp
-*.DotSettings
+
 
 # Xamarin Stuidio userprefs
 *.userprefs

@@ -12,12 +12,8 @@ namespace ProseSample.Substrings
         public static StringRegion SubStr(StringRegion v, Tuple<uint?, uint?> posPair)
         {
             uint? start = posPair.Item1, end = posPair.Item2;
-            if (start == null || end == null ||
-                start < v.Start || start > v.End || end < v.Start || end > v.End)
-            {
+            if (start == null || end == null || start < v.Start || start > v.End || end < v.Start || end > v.End)
                 return null;
-                
-            }
             return v.Slice((uint) start, (uint) end);
         }
 

@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.ProgramSynthesis;
+using System.Text.RegularExpressions;
 using Microsoft.ProgramSynthesis.AST;
 using Microsoft.ProgramSynthesis.Extraction.Text;
+using Microsoft.ProgramSynthesis.Extraction.Text.Constraints;
 using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
+using Microsoft.ProgramSynthesis.Utils;
 using Microsoft.ProgramSynthesis.VersionSpace;
-using Microsoft.ProgramSynthesis.Wrangling.Constraints;
+using Microsoft.ProgramSynthesis.Wrangling;
 
-namespace Extraction.Text {
+namespace Extraction.Text
+{
     /// <summary>
     ///     Extraction.Text learns programs to extract a single string region or a sequence of string regions from text files.
     ///     This class demonstrates some common usage of Extraction.Text APIs.
     /// </summary>
-    internal static class LearningSamples {
-        private static void Main(string[] args) {
-
+    internal static class LearningSamples
+    {
+        private static void Main(string[] args)
+        {
             LearnRegion();
 
             LearnRegionUsingMultipleFiles();
@@ -34,6 +38,8 @@ namespace Extraction.Text {
 
             LearnAllRegionPrograms();
 
+            LearnRegionWithRegexes();
+
             SerializeProgram();
 
             // Learning sequence is similar to learning region. 
@@ -44,31 +50,36 @@ namespace Extraction.Text {
             // In case of { A, C}, Extraction.Text assumes that B is a negative example. 
             // This helps our learning converge more quickly.
             LearnSequence();
+
             LearnSequenceReferencingSibling();
+
+            Console.ReadKey();
         }
 
         /// <summary>
         ///     Learns a program to extract a single region from a file.
         /// </summary>
-        private static void LearnRegion() {
-            var input = RegionLearner.CreateStringRegion("Carrie Dodson 100");
+        private static void LearnRegion()
+        {
+            var session = new RegionSession();
+            StringRegion input = RegionSession.CreateStringRegion("Carrie Dodson 100");
 
             // Only one example because we extract one region from one file.
             // Position specifies the location between two characters in the file. It starts at 0 (the beginning of the file).
             // An example is identified by a pair of start and end positions.
-            var examples = new[] {
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(input, input.Slice(7, 13)) // "Carrie Dodson 100" => "Dodson"
-            };
+            session.AddConstraints(new RegionExample(input, input.Slice(7, 13))); // "Carrie Dodson 100" => "Dodson"
 
-            RegionProgram topRankedProg = RegionLearner.Instance.Learn(examples);
-            if (topRankedProg == null) {
+            RegionProgram topRankedProg = session.Learn();
+            if (topRankedProg == null)
+            {
                 Console.Error.WriteLine("Error: Learning fails!");
                 return;
             }
 
-            var testInput = RegionLearner.CreateStringRegion("Leonard Robledo 75"); // expect "Robledo"
+            StringRegion testInput = RegionSession.CreateStringRegion("Leonard Robledo 75"); // expect "Robledo"
             StringRegion output = topRankedProg.Run(testInput);
-            if (output == null) {
+            if (output == null)
+            {
                 Console.Error.WriteLine("Error: Extracting fails!");
                 return;
             }
@@ -80,24 +91,28 @@ namespace Extraction.Text {
         ///     Learning from different files is similar to learning with multiple examples from a single file.
         ///     Demonstrates how to learn with examples from different files.
         /// </summary>
-        private static void LearnRegionUsingMultipleFiles() {
-            var input1 = RegionLearner.CreateStringRegion("Carrie Dodson 100");
-            var input2 = RegionLearner.CreateStringRegion("Leonard Robledo 75");
+        private static void LearnRegionUsingMultipleFiles()
+        {
+            var session = new RegionSession();
+            StringRegion input1 = RegionSession.CreateStringRegion("Carrie Dodson 100");
+            StringRegion input2 = RegionSession.CreateStringRegion("Leonard Robledo 75");
 
-            var examples = new[] {
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(input1, input1.Slice(7, 13)), // "Carrie Dodson 100" => "Dodson"
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(input2, input2.Slice(8, 15)) // "Leonard Robledo 75" => "Robledo"
-            };
+            session.AddConstraints(
+                new RegionExample(input1, input1.Slice(7, 13)), // "Carrie Dodson 100" => "Dodson"
+                new RegionExample(input2, input2.Slice(8, 15)) // "Leonard Robledo 75" => "Robledo"
+            );
 
-            RegionProgram topRankedProg = RegionLearner.Instance.Learn(examples);
-            if (topRankedProg == null) {
+            RegionProgram topRankedProg = session.Learn();
+            if (topRankedProg == null)
+            {
                 Console.Error.WriteLine("Error: Learning fails!");
                 return;
             }
 
-            var testInput = RegionLearner.CreateStringRegion("Margaret Cook 320"); // expect "Cook"
+            StringRegion testInput = RegionSession.CreateStringRegion("Margaret Cook 320"); // expect "Cook"
             StringRegion output = topRankedProg.Run(testInput);
-            if (output == null) {
+            if (output == null)
+            {
                 Console.Error.WriteLine("Error: Extracting fails!");
                 return;
             }
@@ -109,24 +124,29 @@ namespace Extraction.Text {
         ///     Learns a program to extract a region with both positive and negative examples.
         ///     Demonstrates the use of negative examples.
         /// </summary>
-        private static void LearnRegionWithNegativeExamples() {
-            var input = RegionLearner.CreateStringRegion("Carrie Dodson 100\nLeonard Robledo NA\nMargaret Cook 320");
+        private static void LearnRegionWithNegativeExamples()
+        {
+            var session = new RegionSession();
+            StringRegion input =
+                RegionSession.CreateStringRegion("Carrie Dodson 100\nLeonard Robledo NA\nMargaret Cook 320");
             StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
 
             // Suppose we want to extract "100", "320".
-            var constraints = new Constraint<IEnumerable<StringRegion>, IEnumerable<StringRegion>>[] {
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(records[0], records[0].Slice(14, 17)), // "Carrie Dodson 100" => "100"
-                new CorrespondingMemberDoesNotIntersect<StringRegion>(records[1], records[1]) // no extraction in "Leonard Robledo NA"
-            };
+            session.AddConstraints(
+                new RegionExample(records[0], records[0].Slice(14, 17)), // "Carrie Dodson 100" => "100"
+                new RegionNegativeExample(records[1], records[1]) // no extraction in "Leonard Robledo NA"
+            );
 
             // Extraction.Text will find a program whose output does not OVERLAP with any of the negative examples.
-            RegionProgram topRankedProg = RegionLearner.Instance.Learn(constraints);
-            if (topRankedProg == null) {
+            RegionProgram topRankedProg = session.Learn();
+            if (topRankedProg == null)
+            {
                 Console.Error.WriteLine("Error: Learning fails!");
                 return;
             }
 
-            foreach (StringRegion record in records) {
+            foreach (StringRegion record in records)
+            {
                 string output = topRankedProg.Run(record)?.Value ?? "null";
                 Console.WriteLine("\"{0}\" => \"{1}\"", record, output);
             }
@@ -136,26 +156,32 @@ namespace Extraction.Text {
         ///     Learns a program to extract a region and provides other references to help find the intended program.
         ///     Demonstrates the use of additional references.
         /// </summary>
-        private static void LearnRegionWithAdditionalReferences() {
-            var input = RegionLearner.CreateStringRegion("Carrie Dodson 100\nLeonard Robledo 75\nMargaret Cook ***");
+        private static void LearnRegionWithAdditionalReferences()
+        {
+            var session = new RegionSession();
+            StringRegion input =
+                RegionSession.CreateStringRegion("Carrie Dodson 100\nLeonard Robledo 75\nMargaret Cook ***");
             StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
 
             // Suppose we want to extract "100", "75", and "***".
-            var examples = new[] {
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(records[0], records[0].Slice(14, 17)) // "Carrie Dodson 100" => "100"
-            };
+            session.AddConstraints(new RegionExample(records[0], records[0].Slice(14, 17)));
+                // "Carrie Dodson 100" => "100"
 
             // Additional references help Extraction.Text observe the behavior of the learnt programs on unseen data.
             // In this example, if we do not use additional references, Extraction.Text may learn a program that extracts the first number.
             // On the contrary, if other references are present, it knows that this program is not applicable on the third record "Margaret Cook ***",
             // and promotes a more applicable program.
-            RegionProgram topRankedProg = RegionLearner.Instance.Learn(examples, new[] { records.Skip(1) });
-            if (topRankedProg == null) {
+            session.AddInputs(records.Skip(1));
+
+            RegionProgram topRankedProg = session.Learn();
+            if (topRankedProg == null)
+            {
                 Console.Error.WriteLine("Error: Learning fails!");
                 return;
             }
 
-            foreach (StringRegion record in records) {
+            foreach (StringRegion record in records)
+            {
                 string output = topRankedProg.Run(record)?.Value ?? "null";
                 Console.WriteLine("\"{0}\" => \"{1}\"", record, output);
             }
@@ -165,23 +191,28 @@ namespace Extraction.Text {
         ///     Learns a program to extract a single region from a containing region (i.e., parent region).
         ///     Demonstrates how parent referencing works.
         /// </summary>
-        private static void LearnRegionReferencingParent() {
-            var input = RegionLearner.CreateStringRegion("Carrie Dodson 100\nLeonard Robledo 75\nMargaret Cook 320");
+        private static void LearnRegionReferencingParent()
+        {
+            var session = new RegionSession();
+            StringRegion input =
+                RegionSession.CreateStringRegion("Carrie Dodson 100\nLeonard Robledo 75\nMargaret Cook 320");
             StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
 
             // Suppose we want to extract the number out of a record
-            var examples = new[] {
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(records[0], records[0].Slice(14, 17)), // "Carrie Dodson 100" => "100"
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(records[1], records[1].Slice(34, 36)) // "Leonard Robledo 75" => "75"
-            };
+            session.AddConstraints(
+                new RegionExample(records[0], records[0].Slice(14, 17)), // "Carrie Dodson 100" => "100"
+                new RegionExample(records[1], records[1].Slice(34, 36)) // "Leonard Robledo 75" => "75"
+            );
 
-            RegionProgram topRankedProg = RegionLearner.Instance.Learn(examples);
-            if (topRankedProg == null) {
+            RegionProgram topRankedProg = session.Learn();
+            if (topRankedProg == null)
+            {
                 Console.Error.WriteLine("Error: Learning fails!");
                 return;
             }
 
-            foreach (StringRegion record in records) {
+            foreach (StringRegion record in records)
+            {
                 string output = topRankedProg.Run(record)?.Value ?? "null";
                 Console.WriteLine("\"{0}\" => \"{1}\"", record, output);
             }
@@ -192,24 +223,29 @@ namespace Extraction.Text {
         ///     preceding sibling region).
         ///     Demonstrates how sibling referencing works.
         /// </summary>
-        private static void LearnRegionReferencingPrecedingSibling() {
-            var input = RegionLearner.CreateStringRegion("Carrie Dodson 100\nLeonard Robledo 75\nMargaret Cook 320");
+        private static void LearnRegionReferencingPrecedingSibling()
+        {
+            var session = new RegionSession();
+            StringRegion input =
+                RegionSession.CreateStringRegion("Carrie Dodson 100\nLeonard Robledo 75\nMargaret Cook 320");
             StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
             StringRegion[] firstNames = { input.Slice(0, 6), input.Slice(18, 25), input.Slice(37, 45) };
 
             // Suppose we want to extract the number w.r.t the first name
-            var examples = new[] {
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(firstNames[0], records[0].Slice(14, 17)), // "Carrie" => "100"
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(firstNames[1], records[1].Slice(34, 36)) // "Leonard" => "75"
-            };
+            session.AddConstraints(
+                new RegionExample(firstNames[0], records[0].Slice(14, 17)), // "Carrie" => "100"
+                new RegionExample(firstNames[1], records[1].Slice(34, 36)) // "Leonard" => "75"
+            );
 
-            RegionProgram topRankedProg = RegionLearner.Instance.Learn(examples);
-            if (topRankedProg == null) {
+            RegionProgram topRankedProg = session.Learn();
+            if (topRankedProg == null)
+            {
                 Console.Error.WriteLine("Error: Learning fails!");
                 return;
             }
 
-            foreach (StringRegion firstName in firstNames) {
+            foreach (StringRegion firstName in firstNames)
+            {
                 string output = topRankedProg.Run(firstName)?.Value ?? "null";
                 Console.WriteLine("\"{0}\" => \"{1}\"", firstName, output);
             }
@@ -220,24 +256,29 @@ namespace Extraction.Text {
         ///     succeeding sibling region).
         ///     Demonstrates how sibling referencing works.
         /// </summary>
-        private static void LearnRegionReferencingSucceedingSibling() {
-            var input = RegionLearner.CreateStringRegion("Carrie Dodson 100\nLeonard Robledo 75\nMargaret Cook 320");
+        private static void LearnRegionReferencingSucceedingSibling()
+        {
+            var session = new RegionSession();
+            StringRegion input =
+                RegionSession.CreateStringRegion("Carrie Dodson 100\nLeonard Robledo 75\nMargaret Cook 320");
             StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
             StringRegion[] numbers = { input.Slice(14, 17), input.Slice(34, 36), input.Slice(51, 54) };
 
             // Suppose we want to extract the first name w.r.t the number
-            var examples = new[] {
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(numbers[0], records[0].Slice(0, 6)), // "Carrie" => "100"
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(numbers[1], records[1].Slice(18, 25)) // "Leonard" => "75"
-            };
+            session.AddConstraints(
+                new RegionExample(numbers[0], records[0].Slice(0, 6)), // "Carrie" => "100"
+                new RegionExample(numbers[1], records[1].Slice(18, 25)) // "Leonard" => "75"
+            );
 
-            RegionProgram topRankedProg = RegionLearner.Instance.Learn(examples);
-            if (topRankedProg == null) {
+            RegionProgram topRankedProg = session.Learn();
+            if (topRankedProg == null)
+            {
                 Console.Error.WriteLine("Error: Learning fails!");
                 return;
             }
 
-            foreach (StringRegion number in numbers) {
+            foreach (StringRegion number in numbers)
+            {
                 string output = topRankedProg.Run(number)?.Value ?? "null";
                 Console.WriteLine("\"{0}\" => \"{1}\"", number, output);
             }
@@ -247,23 +288,26 @@ namespace Extraction.Text {
         ///     Learns top-ranked 3 region programs.
         ///     Demonstrates access to lower-ranked programs.
         /// </summary>
-        private static void LearnTop3RegionPrograms() {
-            var input = RegionLearner.CreateStringRegion("Carrie Dodson 100");
+        private static void LearnTop3RegionPrograms()
+        {
+            var session = new RegionSession();
+            StringRegion input = RegionSession.CreateStringRegion("Carrie Dodson 100");
 
-            var examples = new[] {
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(input, input.Slice(14, 17)) // "Carrie Dodson 100" => "Dodson"
-            };
+            session.AddConstraints(new RegionExample(input, input.Slice(14, 17))); // "Carrie Dodson 100" => "Dodson"
 
-            IEnumerable<RegionProgram> topKPrograms = RegionLearner.Instance.LearnTopK(examples, 3);
+            IEnumerable<RegionProgram> topKPrograms = session.LearnTopK(3);
 
             var i = 0;
-            StringRegion[] otherInputs = {
-                input, RegionLearner.CreateStringRegion("Leonard Robledo NA"),
-                RegionLearner.CreateStringRegion("Margaret Cook 320")
+            StringRegion[] otherInputs =
+            {
+                input, RegionSession.CreateStringRegion("Leonard Robledo NA"),
+                RegionSession.CreateStringRegion("Margaret Cook 320")
             };
-            foreach (var prog in topKPrograms) {
+            foreach (RegionProgram prog in topKPrograms)
+            {
                 Console.WriteLine("Program {0}:", ++i);
-                foreach (var str in otherInputs) {
+                foreach (StringRegion str in otherInputs)
+                {
                     var r = prog.Run(str);
                     Console.WriteLine(r != null ? r.Value : "null");
                 }
@@ -275,29 +319,72 @@ namespace Extraction.Text {
         ///     Learns all region programs that satisfy the examples (advanced feature).
         ///     Demonstrates access to the entire program set.
         /// </summary>
-        private static void LearnAllRegionPrograms() {
-            var input = RegionLearner.CreateStringRegion("Carrie Dodson 100");
+        private static void LearnAllRegionPrograms()
+        {
+            var session = new RegionSession();
+            StringRegion input = RegionSession.CreateStringRegion("Carrie Dodson 100");
 
-            var examples = new[] {
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(input, input.Slice(14, 17)) // "Carrie Dodson 100" => "Dodson"
-            };
+            session.AddConstraints(new RegionExample(input, input.Slice(14, 17))); // "Carrie Dodson 100" => "Dodson"
 
-            ProgramSet allPrograms = RegionLearner.Instance.LearnAll(examples);
-            IEnumerable<ProgramNode> topKPrograms =
-                allPrograms.TopK(RegionLearner.Instance.ScoreFeature, 3); // "Score" is the ranking feature
+            ProgramSet allPrograms = session.LearnAll().ProgramSet;
+            IEnumerable<ProgramNode> topKPrograms = allPrograms.TopK(RegionLearner.Instance.ScoreFeature, 3);
 
             var i = 0;
-            StringRegion[] otherInputs = {
-                input, RegionLearner.CreateStringRegion("Leonard Robledo NA"),
-                RegionLearner.CreateStringRegion("Margaret Cook 320")
+            StringRegion[] otherInputs =
+            {
+                input, RegionSession.CreateStringRegion("Leonard Robledo NA"),
+                RegionSession.CreateStringRegion("Margaret Cook 320")
             };
-            foreach (var prog in topKPrograms) {
+            foreach (ProgramNode programNode in topKPrograms)
+            {
                 Console.WriteLine("Program {0}:", ++i);
-                foreach (var str in otherInputs) {
-                    State inputState = State.Create(Language.Grammar.InputSymbol, str); // Create Microsoft.ProgramSynthesis input state
-                    object r = prog.Invoke(inputState); // Invoke Microsoft.ProgramSynthesis program node on the input state
-                    Console.WriteLine(r != null ? (r as StringRegion).Value : "null");
+                var program = new RegionProgram(programNode, ReferenceKind.Parent);
+                foreach (StringRegion str in otherInputs)
+                {
+                    StringRegion r = program.Run(str);
+                    Console.WriteLine(r == null ? "null" : r.Value);
                 }
+            }
+        }
+
+
+        /// <summary>
+        ///     Learns a program to extract a region using positive examples and the matching regular expression.
+        ///     Demonstrates the possibility to give other constraint (regex) to Extraction.Text.
+        ///     This is an advanced feature.
+        /// </summary>
+        private static void LearnRegionWithRegexes()
+        {
+            StringRegion input =
+                RegionSession.CreateStringRegion("Carrie Dodson 100\nLeonard Robledo NA\nMargaret Cook 320");
+            StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
+
+            // Suppose we want to extract the number out of a record
+            var examples = new[]
+            {
+                new RegionExample(records[0], records[0].Slice(14, 17)), // "Carrie Dodson 100" => "100"
+            };
+
+            Regex lookBehindRegex = new Regex("\\s");
+            Regex lookAheadRegex = null;
+            Regex matchingRegex = new Regex("\\d+");
+
+            IEnumerable<RegionProgram> topRankedPrograms = RegionLearner.Instance.LearnTopK(examples, null, 1,
+                                                                                            lookBehindRegex,
+                                                                                            matchingRegex,
+                                                                                            lookAheadRegex);
+
+            RegionProgram topRankedProg = topRankedPrograms.FirstOrDefault();
+            if (topRankedProg == null)
+            {
+                Console.Error.WriteLine("Error: Learning fails!");
+                return;
+            }
+
+            foreach (StringRegion record in records)
+            {
+                string output = topRankedProg.Run(record)?.Value ?? "null";
+                Console.WriteLine("\"{0}\" => \"{1}\"", record, output);
             }
         }
 
@@ -305,24 +392,26 @@ namespace Extraction.Text {
         /// <summary>
         ///     Learns to serialize and deserialize Extraction.Text program.
         /// </summary>
-        private static void SerializeProgram() {
-            var input = RegionLearner.CreateStringRegion("Carrie Dodson 100");
+        private static void SerializeProgram()
+        {
+            var session = new RegionSession();
+            StringRegion input = RegionSession.CreateStringRegion("Carrie Dodson 100");
 
-            var examples = new[] {
-                new CorrespondingMemberEquals<StringRegion, StringRegion>(input, input.Slice(7, 13)) // "Carrie Dodson 100" => "Dodson"
-            };
+            session.AddConstraints(new RegionExample(input, input.Slice(7, 13))); // "Carrie Dodson 100" => "Dodson"
 
-            RegionProgram topRankedProg = RegionLearner.Instance.Learn(examples);
-            if (topRankedProg == null) {
+            RegionProgram topRankedProg = session.Learn();
+            if (topRankedProg == null)
+            {
                 Console.Error.WriteLine("Error: Learning fails!");
                 return;
             }
 
             string serializedProgram = topRankedProg.Serialize();
             RegionProgram deserializedProgram = Loader.Instance.Region.Load(serializedProgram);
-            var testInput = RegionLearner.CreateStringRegion("Leonard Robledo 75"); // expect "Robledo"
+            StringRegion testInput = RegionSession.CreateStringRegion("Leonard Robledo 75"); // expect "Robledo"
             StringRegion output = deserializedProgram.Run(testInput);
-            if (output == null) {
+            if (output == null)
+            {
                 Console.Error.WriteLine("Error: Extracting fails!");
                 return;
             }
@@ -330,66 +419,80 @@ namespace Extraction.Text {
         }
 
         /// <summary>
-        ///     Learns a program to extract a sequence of regions using its preceding sibling as reference.
+        ///     Learns a program to extract a sequence of regions from a file.
         /// </summary>
-        private static void LearnSequence() {
+        private static void LearnSequence()
+        {
+            var session = new SequenceSession();
             // It is advised to learn a sequence with at least 2 examples because generalizing a sequence from a single element is hard.
             // Also, we need to give positive examples continuously (i.e., we cannot skip any example).
             var input =
-                SequenceLearner.CreateStringRegion(
-                    "United States\nCarrie Dodson 100\nLeonard Robledo 75\nMargaret Cook 320\n" +
-                    "Canada\nConcetta Beck 350\nNicholas Sayers 90\nFrancis Terrill 2430\n" +
-                    "Great Britain\nNettie Pope 50\nMack Beeson 1070");
+                SequenceSession.CreateStringRegion(
+                    "United States\n Carrie Dodson 100\n Leonard Robledo 75\n Margaret Cook 320\n" +
+                    "Canada\n Concetta Beck 350\n Nicholas Sayers 90\n Francis Terrill 2430\n" +
+                    "New Zealand\n Nettie Pope 50\n Mack Beeson 1070");
             // Suppose we want to extract all last names from the input string.
-            var examples = new[] {
-                new MemberPrefix<StringRegion, StringRegion>(input, new[] {
-                    input.Slice(14, 20), // input => "Carrie"
-                    input.Slice(32, 39), // input => "Leonard"
+            session.AddConstraints(
+                new SequenceExample(input, new[]
+                {
+                    input.Slice(15, 21), // input => "Carrie"
+                    input.Slice(34, 41), // input => "Leonard"
                 })
-            };
+            );
 
-            SequenceProgram topRankedProg = SequenceLearner.Instance.Learn(examples);
-            if (topRankedProg == null) {
+            SequenceProgram topRankedProg = session.Learn();
+            if (topRankedProg == null)
+            {
                 Console.Error.WriteLine("Error: Learning fails!");
                 return;
             }
 
-            foreach (var r in topRankedProg.Run(input)) {
-                var output = r != null ? r.Value : "null";
+            foreach (StringRegion r in topRankedProg.Run(input))
+            {
+                string output = r != null ? r.Value : "null";
                 Console.WriteLine(output);
             }
         }
 
         /// <summary>
-        ///     Learns a program to extract a sequence of regions from a file.
+        ///     Learns a program to extract a sequence of regions using its preceding sibling as reference.
         /// </summary>
-        private static void LearnSequenceReferencingSibling() {
+        private static void LearnSequenceReferencingSibling()
+        {
+            var session = new SequenceSession();
             var input =
-                SequenceLearner.CreateStringRegion(
-                    "United States\nCarrie Dodson 100\nLeonard Robledo 75\nMargaret Cook 320\n" +
-                    "Canada\nConcetta Beck 350\nNicholas Sayers 90\nFrancis Terrill 2430\n" +
-                    "Great Britain\nNettie Pope 50\nMack Beeson 1070");
-            StringRegion[] areas = { input.Slice(0, 13), input.Slice(69, 75), input.Slice(134, 147) };
+                SequenceSession.CreateStringRegion(
+                    "United States\n Carrie Dodson 100\n Leonard Robledo 75\n Margaret Cook 320\n" +
+                    "Canada\n Concetta Beck 350\n Nicholas Sayers 90\n Francis Terrill 2430\n" +
+                    "New Zealand\n Nettie Pope 50\n Mack Beeson 1070");
+            // areas = { "United States", "Canada", "New Zealand" }
+            StringRegion[] areas = { input.Slice(0, 13), input.Slice(72, 78), input.Slice(140, 151) };
 
             // Suppose we want to extract all last names from the input string.
-            var examples = new[] {
-                new MemberPrefix<StringRegion, StringRegion>(input, new[] {
-                    input.Slice(14, 20), // input => "Carrie"
-                    input.Slice(32, 39), // input => "Leonard"
+            session.AddConstraints(
+                new SequenceExample(areas[0], new[]
+                {
+                    input.Slice(15, 21), // "United States" => "Carrie"
+                    input.Slice(34, 41), // "United States" => "Leonard"
                 })
-            };
+            );
 
-            SequenceProgram topRankedProg = SequenceLearner.Instance.Learn(examples);
-            if (topRankedProg == null) {
+            SequenceProgram topRankedProg = session.Learn();
+            if (topRankedProg == null)
+            {
                 Console.Error.WriteLine("Error: Learning fails!");
                 return;
             }
 
-            foreach (var a in areas
-                .SelectMany(area => topRankedProg.Run(area)
-                                                    .Select(output => new { Input = area, Output = output }))) {
-                var output = a.Output != null ? a.Output.Value : "null";
-                Console.WriteLine("\"{0}\" => \"{1}\"", a.Input, output);
+            // Note: we can't use SequenceProgram.Run(StringRegion) because of sibling referencing.
+            // Read the documentation for more information.
+            IEnumerable<IEnumerable<StringRegion>> outputSeq = topRankedProg.Run(areas);
+            foreach (Tuple<IEnumerable<StringRegion>, StringRegion> tup in outputSeq.ZipWith(areas))
+            {
+                foreach (StringRegion output in tup.Item1)
+                {
+                    Console.WriteLine("\"{0}\" => \"{1}\"", tup.Item2, output == null ? "null" : output.Value);
+                }
             }
         }
     }

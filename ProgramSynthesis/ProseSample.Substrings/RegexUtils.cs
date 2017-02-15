@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 
 namespace ProseSample.Substrings
@@ -60,15 +58,13 @@ namespace ProseSample.Substrings
         };
 
         private static Regex[] _leftTokens;
-        public static readonly RegularExpression Epsilon = RegularExpression.Create(new Token[0]);
 
         public static Regex[] LeftTokens =>
             _leftTokens ?? (_leftTokens = Tokens.Select(t => new Regex($"(?<={t})", RegexOptions.Compiled)).ToArray());
 
-        public static PositionMatch[] Run(this RegularExpression r, StringRegion v) => r.Run(v);
+        public static IEnumerable<PositionMatch> Run(this RegularExpression r, StringRegion v) => r.Run(v);
 
-        public static bool MatchesAt(this RegularExpression r, StringRegion v, uint pos)
-            => r.MatchesAt(v, pos);
+        public static bool MatchesAt(this RegularExpression r, StringRegion v, uint pos) => r.MatchesAt(v, pos);
 
         public static int BinarySearchBy<T>(this IList<T> list, Func<T, int> comparer)
         {

@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.ProgramSynthesis.Transformation.Json;
 using Microsoft.ProgramSynthesis.Wrangling.Constraints;
 using Newtonsoft.Json.Linq;
 
-namespace Transformation.Json {
-    internal static partial class Sample {
+namespace Transformation.Json
+{
+    internal static partial class Sample
+    {
         /// <summary>
         ///    Illustrates PROSE JSON To JSON capability.
         /// </summary>
-        internal static void JsonToJsonSample() {
+        internal static void JsonToJsonSample()
+        {
             // The original input file (which can be very large).
             JToken input = JToken.Parse(@"
 {
@@ -65,22 +67,22 @@ namespace Transformation.Json {
   ]
             ");
 
-            // Examples are given as a JsonTransformationExample object which takes an input and output.
-            IEnumerable<Constraint<JToken, JToken>> examples = new[]
-            {
-                new Example<JToken,JToken>(trainInput, trainOutput),
-            };
-            // Given just the examples, the best program is returned
-            Program topRankedProgram = Learner.Instance.Learn(examples);
 
-            if (topRankedProgram == null) {
+            // Given just the examples, the best program is returned
+            var session = new Session();
+            session.AddConstraints(new Example<JToken, JToken>(trainInput, trainOutput));
+            Program topRankedProgram = session.Learn();
+
+            if (topRankedProgram == null)
+            {
                 Console.Error.WriteLine("Error: failed to learn format name program.");
                 return;
             }
             // Run the program on the original input
             JToken output = topRankedProgram.Run(input);
 
-            if (output == null) {
+            if (output == null)
+            {
                 Console.Error.WriteLine("Error: failed to execute the program on the input.");
                 return;
             }
@@ -91,7 +93,8 @@ namespace Transformation.Json {
 
             Program deserializedProgram = Loader.Instance.Load(serializedProgram);
 
-            if (deserializedProgram == null) {
+            if (deserializedProgram == null)
+            {
                 Console.Error.WriteLine("Error: failed to load deserialized program.");
                 return;
             }
@@ -99,7 +102,8 @@ namespace Transformation.Json {
             // Run the deserialized program on the original input
             output = deserializedProgram.Run(input);
 
-            if (output == null) {
+            if (output == null)
+            {
                 Console.Error.WriteLine("Error: failed to execute the deserialized program on the input.");
                 return;
             }
