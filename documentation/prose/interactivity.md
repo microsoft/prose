@@ -36,7 +36,7 @@ To implement a `Session` for your own DSL, extend [`Wrangling.NonInteractiveSess
 if you want more control).
 
 ```csharp
-import Microsoft.ProgramSynthesis.Transformation.Text;
+using Microsoft.ProgramSynthesis.Transformation.Text;
 // construct a session
 var session = new Session();
 ```
