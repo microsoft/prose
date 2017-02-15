@@ -1036,6 +1036,10 @@ h1 {
     padding-bottom: .2rem;
 }
 
+.article #toc-wrapper + h1, .article h1:first-child {
+    margin-top: 0;
+}
+
 .header h1 {
     font-family: Raleway, Lato, sans-serif;
 }
