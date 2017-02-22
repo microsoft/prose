@@ -38,7 +38,7 @@ Support for .NET Core is forthcoming as soon as its MSBuild packaging stabilizes
 
 The SDK is released under a _non-commercial license_ for use in
 research, education, and non-commercial applications. See
-[the license](https://prose-playground.cloudapp.net/data/SDKLicense.pdf)
+[the license]({{ site.baseurl }}/SDKLicense.pdf)
 for details.
 
 
