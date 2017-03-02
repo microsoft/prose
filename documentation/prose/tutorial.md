@@ -159,7 +159,7 @@ static class Semantics
 ```
 This code illustrates several important points that you should keep in mind when designing a DSL:
 
-* DSL operators must be *total* (return a value for each possible combination of inputs) and *pure* (deterministic without observable side effects). A invalid input or any other exceptional situation should be handled not by throwing an exception, but by returning `null` instead. In PROSE, `null` is a valid value with a meaning "computation failed".
+* DSL operators must be *total* (return a value for each possible combination of inputs) and *pure* (deterministic without observable side effects). An invalid input or any other exceptional situation should be handled not by throwing an exception, but by returning `null` instead. In PROSE, `null` is a valid value with a meaning "computation failed".
 * Semantics functions should have the same name and signature as their corresponding DSL operators. They don't have access to the current input state -- if you need to access a DSL variable in scope, include it explicitly as a parameter. In our example, `x` is a parameter for both `AbsolutePosition` and `RegexPosition`.
 
 > **Note:** The `dslc` grammar compiler uses reflection to find definitions of external components of a grammar, such as semantics functions. It searches over the assemblies specified with `reference` statements in the grammar. Those assemblies must be built and present at given locations when you execute `dslc` (in a command-line or API form). If you build your semantics functions and your grammar definition in the same solution, make sure to separate them into different projects and make the grammar project depend on the semantics project, so that the latter one is built first.
@@ -170,7 +170,7 @@ Syntax and semantics above constitute a minimal DSL definition. They are suffici
 
 # Synthesis
 
-PROSE comes with a default synthesis strategy which we call [deductive backpropagation]({{ site.baseurl }}/documentation/prose/backpropagation). It also enables researches in the field of synthesis to develop their own strategies on top of its common API. However, in this tutorial we explain how to use backpropagation for synthesis of programs in our `SubstringExtraction` DSL.
+PROSE comes with a default synthesis strategy which we call [deductive backpropagation]({{ site.baseurl }}/documentation/prose/backpropagation). It also enables researchers in the field of synthesis to develop their own strategies on top of its common API. However, in this tutorial we explain how to use backpropagation for synthesis of programs in our `SubstringExtraction` DSL.
 
 Program synthesis starts with a specification: what do we want from a desired program? In PROSE, specifications are *inductive*: they specify an output of a desired program on some input state, or, more generally, some property of this output.  
 In this tutorial, we start with the simplest form of such a spec -- `ExampleSpec`, an input-output example. Given a spec, we invoke a learning session on it, generating a set of programs in the DSL that are consistent with the input-output examples in the spec.
@@ -201,7 +201,7 @@ A witness function is defined for a *parameter* of a DSL operator. In its simple
 For instance, the first witness function we'll write in this tutorial is defined for the parameter `posPair` of the rule `Substring(x, posPair)` of our `SubstringExtraction` DSL.
 It takes as input an `ExampleSpec` $\phi$ on an output of `Substring(x, posPair)`, and deduces a spec $\phi'$ on an output of `posPair` subexpression that is necessary (or even better, necessary and sufficient) for the entire expression to satisfy $\phi$.
 
-Consider a program `Substring(x, posPair)` that outputs `"PROSE"` on a given input state $\\{$ `x` $:=$ `"PROSE Rocks"` $\\}$. What could be a possible spec on `posPair`? Clearly, we know it precisely for the given example: `posPair`, whatever this program is, must evaluate to `(0, 5)` because this is the only occurrence of the string `"Rocks"` in the given input `"PROSE Rocks"`.
+Consider a program `Substring(x, posPair)` that outputs `"PROSE"` on a given input state $\\{$ `x` $:=$ `"PROSE Rocks"` $\\}$. What could be a possible spec on `posPair`? Clearly, we know it precisely for the given example: `posPair`, whatever this program is, must evaluate to `(0, 5)` because this is the only occurrence of the string `"PROSE"` in the given input `"PROSE Rocks"`.
 
 In a more complex example, however, there is no single answer. For instance, suppose *x* $=$ `"(555) 279-2261"`, and the corresponding desired output in a spec is `"2"`. In this case, the substring `"2"` could have been extracted from 3 different places in the input string.
 Therefore, instead of *witnessing* a single output value for `posPair` on a given input, in this case we witness a *disjunction* of three possible output values. A disjunction of possible outputs has its own representative spec type in PROSE -- `DisjunctiveExamplesSpec`.
