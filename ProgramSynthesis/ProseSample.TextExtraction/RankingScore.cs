@@ -11,7 +11,7 @@ namespace ProseSample.TextExtraction
         protected override double GetFeatureValueForVariable(VariableNode variable) => 0;
 
         [ExternFeatureMapping("Selection", 0)]
-        public IFeature ExternScore => new Substrings.RankingScore(Grammar.GrammarReferences["ProseSample.Substrings"]);
+        public IFeature ExternScore => new Substrings.RankingScore(Grammar.GrammarReferences["Substrings"]);
 
         [FeatureCalculator(nameof(Semantics.SplitLines))]
         public static double Score_SplitLines(double document) => document;

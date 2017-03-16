@@ -18,17 +18,8 @@ namespace ProseSample
 {
     internal static class Utils
     {
-        public static Grammar LoadGrammar(string grammarFile, params string[] prerequisiteGrammars)
+        public static Grammar LoadGrammar(string grammarFile)
         {
-            foreach (string prerequisite in prerequisiteGrammars)
-            {
-                var options = new CompilerOptions { InputGrammar = prerequisite };
-                var buildResult = DSLCompiler.Compile(options);
-                if (!buildResult.HasErrors) continue;
-                WriteColored(ConsoleColor.Magenta, buildResult.TraceDiagnostics);
-                return null;
-            }
-
             var compilationResult = DSLCompiler.ParseGrammarFromFile(grammarFile);
             if (compilationResult.HasErrors)
             {

@@ -39,6 +39,6 @@ namespace ProseSample.TextExtraction
 
         [ExternLearningLogicMapping("Selection")]
         public DomainLearningLogic ExternWitnessFunction
-            => new Substrings.WitnessFunctions(Grammar.GrammarReferences["ProseSample.Substrings"]);
+            => new Substrings.WitnessFunctions(Grammar.GrammarReferences["Substrings"]);
     }
 }

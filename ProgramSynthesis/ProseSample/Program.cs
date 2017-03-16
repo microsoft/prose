@@ -64,8 +64,13 @@ namespace ProseSample
 
         private static void LoadAndTestTextExtraction()
         {
-            var grammar = LoadGrammar("ProseSample.TextExtraction.grammar", "ProseSample.Substrings.grammar");
-            if (grammar == null) return;
+            var grammar = LoadGrammar("ProseSample.TextExtraction.grammar");
+            if (grammar == null)
+            {
+                WriteColored(ConsoleColor.Magenta,
+                             "Compilation of ProseSample.TextExtraction.grammar failed: skipping tests");
+                return;
+            }
 
             TestExtractionBenchmark(grammar, "areas");
             TestExtractionBenchmark(grammar, "popl13-erc");

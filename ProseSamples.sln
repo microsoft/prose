@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProseSample", "ProgramSynthesis\ProseSample\ProseSample.csproj", "{C7FC4D3C-3CAE-42B9-AFF9-83CB07A7872F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProseSample.Substrings.Semantics", "ProgramSynthesis\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj", "{997C015E-6C5F-495B-A6A7-648E0837EC6D}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProseSample.Substrings", "ProgramSynthesis\ProseSample.Substrings\ProseSample.Substrings.csproj", "{41E9A9B1-B013-4A87-9759-E3004FEF8A81}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProseSample.TextExtraction", "ProgramSynthesis\ProseSample.TextExtraction\ProseSample.TextExtraction.csproj", "{5AA217F9-DEAB-46BE-81BE-AFD00948AC50}"
