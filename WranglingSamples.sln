@@ -8,8 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extraction.Text", "Extracti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extraction.Json", "Extraction.Json\Extraction.Json.csproj", "{6C641F38-BDCF-489E-B8ED-1A1EDCB583BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transformation.Json", "Transformation.Json\Transformation.Json.csproj", "{C910707A-1D9B-486C-AF99-0AA6D65F5DDC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Split.Text", "Split.Text\Split.Text.csproj", "{9DB7BC54-174E-4480-99E4-A2E4C5677C6E}"
 EndProject
 Global
@@ -37,12 +35,6 @@ Global
 		{6C641F38-BDCF-489E-B8ED-1A1EDCB583BC}.RecompileAndRelease|Any CPU.Build.0 = Release|Any CPU
 		{6C641F38-BDCF-489E-B8ED-1A1EDCB583BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C641F38-BDCF-489E-B8ED-1A1EDCB583BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C910707A-1D9B-486C-AF99-0AA6D65F5DDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C910707A-1D9B-486C-AF99-0AA6D65F5DDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C910707A-1D9B-486C-AF99-0AA6D65F5DDC}.RecompileAndRelease|Any CPU.ActiveCfg = Release|Any CPU
-		{C910707A-1D9B-486C-AF99-0AA6D65F5DDC}.RecompileAndRelease|Any CPU.Build.0 = Release|Any CPU
-		{C910707A-1D9B-486C-AF99-0AA6D65F5DDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C910707A-1D9B-486C-AF99-0AA6D65F5DDC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DB7BC54-174E-4480-99E4-A2E4C5677C6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9DB7BC54-174E-4480-99E4-A2E4C5677C6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DB7BC54-174E-4480-99E4-A2E4C5677C6E}.RecompileAndRelease|Any CPU.ActiveCfg = Release|Any CPU
