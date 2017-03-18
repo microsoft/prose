@@ -3,6 +3,10 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 2.0.1 -- 2017/03/17
+
+Minor bug fix release.
+
 # Release 2.0.0 -- 2017/03/16
 
 We have bumped the major number this time around because this release includes a breaking change (and we are doing our
