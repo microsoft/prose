@@ -55,8 +55,7 @@ title: Resources
 %}
 
 ### Video of UC Berkeley Hackathon 2017
-**Note:** this recording is unprocessed, so its quality is not the highest.
-Also, the first hour of Part 1 has missing audio.
+**Warning:** this recording is unprocessed and **has no audio**, so its quality is not the highest.
 
 <div class="pure-g">
     <div class="pure-u-1 pure-u-md-10-24">
