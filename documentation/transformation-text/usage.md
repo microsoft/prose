@@ -190,7 +190,7 @@ although it will attempt to work on only a randomly selected sample when
 possible if too many inputs are provided. If selecting a subset of inputs
 to provide, they should be representative of the inputs the program will
 be run on.
-The inputs provided can accessed using [`.Inputs`](https://prose-docs.azurewebsites.net/html/P_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_Inputs.htm)
+The inputs provided can be accessed using [`.Inputs`](https://prose-docs.azurewebsites.net/html/P_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_Inputs.htm)
 and removed using [`.RemoveInputs()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_RemoveInputs.htm) or
 [`RemoveAllInputs()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_RemoveAllInputs.htm).
 
