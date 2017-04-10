@@ -54,27 +54,6 @@ title: Resources
                     venue="UC Berkeley Hackathon, January 2017"
 %}
 
-### Video of UC Berkeley Hackathon 2017
-**Warning:** this recording is unprocessed and **has no audio**, so its quality is not the highest.
-
-<div class="pure-g">
-    <div class="pure-u-1 pure-u-md-10-24">
-        <div class="h4 center my1">Part 1</div>
-        <video width="95%" controls>
-            <source src="https://onedrive.live.com/download?cid=4351012963A53652&resid=4351012963A53652%21349993&authkey=AFxwtx17h3S68k4">
-            Your browser does not support HTML5 video playback.
-        </video>        
-    </div>
-    <div class="pure-u-1-24 my1"></div>
-    <div class="pure-u-1 pure-u-md-10-24">
-        <div class="h4 center my1">Part 2</div>
-        <video width="95%" controls>
-            <source src="https://onedrive.live.com/download?cid=4351012963A53652&resid=4351012963A53652%21349994&authkey=APixllcRLAxStpw">
-            Your browser does not support HTML5 video playback.
-        </video>        
-    </div>
-</div>
-
 {% include talk.liquid.md title="Program Synthesis in the Industrial World: Inductive, Incremental, Interactive"
                     authors="Oleksandr Polozov, Sumit Gulwani, and the rest of the PROSE team"
                     slides="http://homes.cs.washington.edu/~polozov/papers/synt2016-prose-slides.pdf"
