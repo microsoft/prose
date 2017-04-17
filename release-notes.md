@@ -3,6 +3,32 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 2.1.0 -- 2017/04/17
+
+## New Features
+
+- Split.Text now supports fixed width files.
+- Transformation.Json now includes Transformation.Text support.  This means it can synthesize programs which not only
+  change the structure of a json document but also transform the values.
+
+## Bug fixes / Enhancements
+
+- A number of bug fixes/enhancements were made to Extraction.Json--especially for the scenario of handling
+  new-line delimited json (ndjson) documents or the similar case of having an input column containing a json
+  document in each row which you want to extract into multiple output columns.  These changes include:
+    - Supporting empty rows in ndjson documents.
+    - Handling json files with byte order marks (BOMs) at the beginning.
+    - Allowing different sets of properties and/or the properties appearing in different order when extracting
+      from a series of json documents.
+    - Supporting a `NamePrefix` constraint so that output column names can all be given a common prefix.
+- Tranformation.Text now accepts strongly typed number and date inputs in addition to strings improving both
+  performance and correctness for those cases.
+- Miscellaneous Transformation.Text date handling improvements (both performance and correctness)
+- Extraction.Json now supports JSON arrays that have only values -- eg. `[ "1", "2" ]`
+- Compound.Split API simplification: The InputStream constraint is no longer used to specify that the input comes
+  from a stream.  Instead, if a stream is passed to the session, it assumes that behavior automatically.
+- Split.File now supports new lines in quotes.
+
 # Release 2.0.1 -- 2017/03/17
 
 Minor bug fix release.
