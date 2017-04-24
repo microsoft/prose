@@ -3,6 +3,17 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 2.2.0 -- 2017/04/24
+
+## Bug fixes / Enhancements
+
+- Transformation.Text now supports scientific notation and more flexible ways of indicating that a number is negative
+  when parsing.  (It does not format numbers in these ways--only parses them.)
+- Transformation.Text's significant inputs support has been improved in cases where no program can be learned from the
+  current set of examples.
+- Some API usability improvements have been made to Matching.Text.
+- Miscellaneous performance and stability improvements.
+
 # Release 2.1.0 -- 2017/04/17
 
 ## New Features
