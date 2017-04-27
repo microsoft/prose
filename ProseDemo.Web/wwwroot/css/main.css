@@ -1,0 +1,64 @@
+﻿body {
+    padding-top: 100px;
+}
+
+.body-content {
+    padding: 0 75px !important;
+}
+
+#navbar .navbar-nav a {
+    display: flex;
+    -ms-align-items: center;
+    -o-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.glyph {
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+.pagination-detail button.btn.btn-dropdown {
+    margin-bottom: 12px;
+    margin-left: 12px;
+    min-width: 80px;
+}
+
+.btn {
+    margin: 0 10px !important;
+}
+
+.modal-content .modal-footer .btn {
+    width: 120px !important;
+}
+
+.popover .popover-content .btn {
+    margin-top: 6px !important;
+    min-width: 50px;
+    padding: 5px;
+}
+
+#navbar .progress-ring {
+    margin-top: 12px;
+    margin-left: 20px;
+}
+
+#navbar .progress-circle:after {
+    color: white;
+}
+
+.input-code {
+    font-family: Fira Code, Consolas, Inconsolata, Lucida Console, monospace;
+}
+
+@media (min-width: 540px) {
+    #dialogProgram .modal-dialog {
+        width: 1100px;
+    }
+}
+
+#dialogProgram pre {
+    overflow-y: scroll;
+    height: 40vh;
+}

@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Microsoft PROSE SDK Demo</title>
+
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+          asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+          asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.css"
+          asp-fallback-href="~/lib/bootstrap-table/dist/bootstrap-table.min.css"/>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="~/lib/Winstrap/dist/css/winstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/main.css"/>
+    <link rel="stylesheet" href="~/lib/dropzone/dist/min/dropzone.min.css"/>
+</head>
+<body>
+<div id="navbar" class="navbar navbar-inverse navbar-fixed-top type-t5">
+    <div class="navbar-local color-accent theme-alt">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand type-h4">PROSE SDK Demo</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a id="btnUpload" href="#">
+                            <span class="glyph glyph-upload" aria-hidden="true"></span>
+                            Upload data
+                        </a>
+                    </li>
+                    <li id="navDerive" class="dropdown hidden">
+                        <a id="btnDerive" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <span class="glyph glyph-add" aria-hidden="true"></span>
+                            Derive column
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">With a formula</a></li>
+                            <li id="ddDerive" role="separator" class="divider"></li>
+                        </ul>
+                    </li>
+
+                    <li id="navComplete" class="hidden">
+                        <a id="btnComplete" class="disabled" href="#">
+                            <span class="glyph glyph-play" aria-hidden="true"></span>
+                            Learn
+                        </a>
+                    </li>
+                    
+                    <li id="navProgram" class="hidden">
+                        <a id="btnProgram" href="#">
+                            <span class="glyph glyph-preview-link" aria-hidden="true"></span>
+                            Show program
+                        </a>
+                    </li>
+                    
+                    <li id="navCommit" class="hidden">
+                        <a id="btnCommit" class="disabled" href="#">
+                            <span class="glyph glyph-checkmark" aria-hidden="true"></span>
+                            Commit
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="progress-ring progress-medium center-block hidden">
+                            <div class="progress-circle"></div>
+                            <div class="progress-circle"></div>
+                            <div class="progress-circle"></div>
+                            <div class="progress-circle"></div>
+                            <div class="progress-circle"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="https://microsoft.github.io/prose" target="_blank">More info</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid body-content">
+    @RenderBody()
+</div>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"
+        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+        asp-fallback-test="window.jQuery">
+</script>
+<script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"
+        asp-fallback-src-include="~/lib/bootstrap-table/dist/bootstrap-table.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/extensions/editable/bootstrap-table-editable.min.js"
+        asp-fallback-src-include="~/lib/bootstrap-table/dist/extensions/editable/bootstrap-table-editable.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/extensions/export/bootstrap-table-export.min.js"
+        asp-fallback-src-include="~/lib/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"
+        asp-fallback-src="~/lib/dropzone/dist/min/dropzone.min.js"></script>
+<script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"
+        asp-fallback-src="~/lib/lodash/dist/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+<script src="~/lib/papaparse/papaparse.min.js"></script>
+<script src="~/lib/js-xlsx/dist/xlsx.core.min.js"></script>
+<script src="~/lib/tableExport.jquery.plugin/tableExport.min.js"></script>
+<script src="~/js/main.js"></script>
+
+@RenderSection("scripts", required: false)
+</body>
+</html>

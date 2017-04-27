@@ -1,0 +1,120 @@
+﻿<div class="container hidden" id="divDataLoad">
+    <form asp-controller="Home" asp-action="UploadData" class="dropzone" id="dataDropzone"></form>
+
+    <div class="putbox">
+        <div class="putbox-content">
+            <div class="content-title">Data limit:</div>
+            <form class="content-form">
+                <input id="inputDataLimit" type="number" class="form-control" value="1000"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-danger with-glyph alert-dismissible fade in hidden" role="alert" id="alertError">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">
+            <i class="glyph glyph-cancel"></i>
+        </span>
+    </button>
+    <span class="alert-glyph">
+        <i class="glyph glyph-warning"></i>
+    </span>
+    <div class="alert-title">No programs learned!</div>
+    <div class="row">
+        <div class="col-md-20">
+            <p id="alertContent"></p>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table id="data" data-classes="table theme-default table-hover table-no-bordered"
+           data-show-export="true"
+           data-smart-display="false" data-pagination="true" data-page-size="25" data-page-list="[10, 25, 50, 100, 500, 1000]"
+           data-filter-control="true" data-filter-show-clear="true"
+           data-search="true" data-show-columns="true">
+    </table>
+</div>
+
+<div class="modal modal-center-vertical" id="dialogDerivedColumnName" tabindex="-1" role="dialog"
+     aria-labelledby="modal-sample-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Derived column name?</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control derived-column-name" placeholder="Enter name">
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="btnDerivedColumnNameOk">OK</button>
+                <button type="reset" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-center-vertical" id="dialogDerivedFormula" tabindex="-1" role="dialog"
+     aria-labelledby="modal-sample-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Define a new derived column</h4>
+            </div>
+            <div class="modal-body">
+                <div class="content-form">
+                    <label for="inputDerivedColumnNameFormula">Derived column name</label>
+                    <input type="text" class="form-control derived-column-name" id="inputDerivedColumnNameFormula"
+                           placeholder="Enter name">
+                </div>
+                <div class="content-form">
+                    <label for="inputDerivedFormula">Please enter the formula using <code>row</code> as a parameter.</label>
+                    <textarea class="form-control input-code" id="inputDerivedFormula" rows="7" cols="60"
+                              placeholder="Enter the formula"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="btnDerivedFormulaOk">OK</button>
+                <button type="reset" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-center-vertical" id="dialogProgram" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Learned program</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#tabDescription" role="tab" data-toggle="tab">Description</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#tabXml" role="tab" data-toggle="tab">XML</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#tabHR" role="tab" data-toggle="tab">&ldquo;Human-readable&rdquo;</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#tabPython" role="tab" data-toggle="tab">Python</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content input-code">
+                    <div role="tabpanel" class="tab-pane active" id="tabDescription"></div>
+                    <div role="tabpanel" class="tab-pane" id="tabXml"></div>
+                    <div role="tabpanel" class="tab-pane" id="tabHR"></div>
+                    <div role="tabpanel" class="tab-pane" id="tabPython"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

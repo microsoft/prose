@@ -1,0 +1,26 @@
+{
+  "name": "prose-demo",
+  "authors": [
+    "PROSE Team <prose-contact@microsoft.com>",
+    "Alex Polozov <polozov@cs.washington.edu>"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1",
+    "bootstrap-table": "^1.11.1",
+    "Winstrap": "winstrap#^0.5.11",
+    "dropzone": "^4.3.0",
+    "papaparse": "^4.2.0",
+    "lodash": "^4.17.4",
+    "tableExport.jquery.plugin": "^1.8.1",
+    "js-xlsx": "^0.9.12"
+  }
+}
