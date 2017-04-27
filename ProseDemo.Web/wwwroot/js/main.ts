@@ -13,6 +13,46 @@ function insertColumn($data, name, index, editable?) {
     return data;
 }
 
+function onSplit() {
+    const source = $(this).attr("data-id");
+    const columns: any[] = $("#data").bootstrapTable("getOptions").columns[0];
+    const sourceIndex = _.findIndex(columns, c => c.field === source);
+    $(".progress-ring").removeClass("hidden");
+    $.ajax({
+        method: "POST",
+        url: "/Home/SplitText",
+        data: sourceIndex,
+        contentType: "application/json; charset=utf-8",
+        success: (response: ISTextLearnResponse, status, xhr) => {
+            $(".progress-ring").addClass("hidden");
+            const newColumns = _.range(response.output[0].length).map(i => {
+                return { field: "Column" + i, title: "Column" + i };
+            });
+            const newData = response.output.map(r => {
+                var result = {};
+                r.forEach((c, i) => result["Column" + i] = c);
+                return result;
+            });
+            $("#data").bootstrapTable("refreshOptions", { columns: newColumns, data: newData });
+
+            $("#tabDescription").html(`<pre class="input-code">${_.escape(response.description)}</pre>`);
+            $("#tabHR").html(`<pre class="input-code">${_.escape(response.programHumanReadable)}</pre>`);
+            $("#tabPython").html(`<pre class="input-code">${_.escape(response.programPython)}</pre>`);
+            $("#tabXml").html(`<pre class="input-code">${_.escape(response.programXML)}</pre>`);
+
+            $("#navProgram").removeClass("hidden");
+            $("#btnProgram").click(() => {
+                $("#dialogProgram").modal("show");
+            });
+        },
+        error: (xhr, status, error) => {
+            $("#alertContent").html(`${status}: ${error}`);
+            $("#alertError").removeClass("hidden");
+            $(".progress-ring").addClass("hidden");
+        }
+    });
+}
+
 function onDeriveViaFormula() {
     const $dialogFormula = $("#dialogDerivedFormula");
     const $inputFormula = $("#inputDerivedFormula");
@@ -64,7 +104,7 @@ function onSelectDeriveSource(e) {
                 url: "/Home/TextTransformation",
                 data: JSON.stringify({ examples: request, sourceColumn: sourceIndex }),
                 contentType: "application/json; charset=utf-8",
-                success: (response: ILearnResponse, status, xhr) => {
+                success: (response: ITTextLearnResponse, status, xhr) => {
                     data = $data.bootstrapTable("getData");
                     _.zip(data, response.output).forEach(r => r[0][dest] = r[1]);
                     $data.bootstrapTable("load", data);
@@ -113,6 +153,11 @@ function complete(results: PapaParse.ParseResult, dataLimit: number) {
     $ddDerive.nextAll().click(onSelectDeriveSource);
     $ddDerive.prev().click(onDeriveViaFormula);
     $("#navDerive").removeClass("hidden");
+
+    const $ulSplit = $("#navSplit ul");
+    $ulSplit.empty().append(columns.map(s => `<li data-id="${s.field}"><a href="#">${s.title}</a></li>`));
+    $ulSplit.children().click(onSplit);
+    $("#navSplit").removeClass("hidden");
 }
 
 Dropzone.options.dataDropzone = {

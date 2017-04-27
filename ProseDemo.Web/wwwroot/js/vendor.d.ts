@@ -3,9 +3,16 @@
 }
 
 interface ILearnResponse {
-    output: any[];
     description: string;
     programXML: string;
     programHumanReadable: string;
     programPython: string;
+}
+
+interface ITTextLearnResponse extends ILearnResponse {
+    output: any[];
+}
+
+interface ISTextLearnResponse extends ILearnResponse {
+    output: string[][];
 }

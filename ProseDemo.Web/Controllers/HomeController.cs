@@ -6,10 +6,16 @@ using CsvHelper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.ProgramSynthesis.AST;
+using Microsoft.ProgramSynthesis.Split.Text;
+using Microsoft.ProgramSynthesis.Split.Text.Semantics;
+using Microsoft.ProgramSynthesis.Split.Text.Translation.Python;
 using Microsoft.ProgramSynthesis.Utils;
 using ProseDemo.Web.Models;
+
 using TTExample = Microsoft.ProgramSynthesis.Transformation.Text.Example;
 using TTSession = Microsoft.ProgramSynthesis.Transformation.Text.Session;
+using STSession = Microsoft.ProgramSynthesis.Split.Text.SplitSession;
 
 namespace ProseDemo.Web.Controllers {
     public class HomeController : Controller {
@@ -45,6 +51,16 @@ namespace ProseDemo.Web.Controllers {
             return Json(output);
         }
 
+        [HttpPost]
+        public IActionResult SplitText([FromBody] int column) {
+            if (!_cache.TryGetValue(DataKey + HttpContext.Session.GetString(DataKey), out List<string[]> data))
+                return BadRequest("No data in the session. Please upload your dataset to the server first.");
+            var output = SplitText(data.Select(r => r[column]));
+            if (output == null)
+                return BadRequest("No program learned");
+            return Json(output);
+        }
+
         #region Learning
 
         public List<string[]> LoadData(Stream stream, int limit = int.MaxValue) {
@@ -58,7 +74,12 @@ namespace ProseDemo.Web.Controllers {
             return data.DeterministicallySample(limit).ToList();
         }
 
-        public LearnResponse TextTransformation(List<string[]> data, TextTransformationRequest request) {
+        public TTextLearnResponse TextTransformation(List<string[]> data, TextTransformationRequest request) {
+            /* TODO */
+            throw new NotImplementedException();
+        }
+
+        public STextLearnResponse SplitText(IEnumerable<string> column) {
             /* TODO */
             throw new NotImplementedException();
         }
