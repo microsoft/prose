@@ -6,20 +6,15 @@ title: Resources
 # Publications
 {: .title}
 
+## Framework
 {% include paper.liquid.md title="FlashMeta: A Framework for Inductive Program Synthesis"
                     authors="Oleksandr Polozov, Sumit Gulwani"
-                    pdf="http://homes.cs.washington.edu/~polozov/papers/oopsla2015-flashmeta.pdf"
-                    slides="http://homes.cs.washington.edu/~polozov/papers/oopsla2015-prose-slides.pdf"
+                    pdf="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/oopsla15-pbe.pdf"
+                    slides="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/oopsla15-pbe.pptx"
                     venue="SPLASH (OOPSLA) 2015"
 %}
 
-{% include paper.liquid.md title="Automated Data Extraction using Predictive Program Synthesis"
-                    authors="Mohammad Raza, Sumit Gulwani"
-                    pdf="https://research.microsoft.com/en-us/um/people/sumitg/pubs/aaai17.pdf"
-                    venue="AAAI 2017"
-%}
-
-
+## Applications
 {% include paper.liquid.md title="Automating String Processing in Spreadsheets using Input-Output Examples"
                     authors="Sumit Gulwani"
                     pdf="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/popl11-synthesis.pdf"
@@ -48,6 +43,21 @@ title: Resources
                     venue="PLDI 2015"
 %}
 
+
+{% include paper.liquid.md title="Learning Syntactic Program Transformations from Examples"
+                    authors="Reudismam Rolim, Gustavo Soares, Loris D’Antoni, Oleksandr Polozov, Sumit Gulwani, Rohit Gheyi, Ryo Suzukik, Björn Hartmann" 
+                    pdf="https://www.microsoft.com/en-us/research/wp-content/uploads/2017/04/icse2017-refactoring.pdf"
+                    venue="ICSE 2017"
+%}
+
+## Predictive Program Synthesis
+{% include paper.liquid.md title="Automated Data Extraction using Predictive Program Synthesis"
+                    authors="Mohammad Raza, Sumit Gulwani"
+                    pdf="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/12/aaai17.pdf"
+                    venue="AAAI 2017"
+%}
+
+## Ranking
 {% include paper.liquid.md title="Learning to Learn Programs from Examples: Going Beyond Program Structure"
                     authors="Kevin Ellis, Sumit Gulwani" 
                     pdf="https://www.microsoft.com/en-us/research/wp-content/uploads/2017/04/ranking-ijcai17.pdf"
@@ -55,7 +65,7 @@ title: Resources
 %}
 
 
-
+## User Interaction Models
 {% include paper.liquid.md title="User Interaction Models for Disambiguation in Programming by Example"
                     authors="Mikaël Mayer, Gustavo Soares, Maxim Grechkin, Vu Le, Mark Marron, Oleksandr Polozov, Rishabh Singh, Ben Zorn, Sumit Gulwani"
                     pdf="https://www.microsoft.com/en-us/research/wp-content/uploads/2015/11/uist15.pdf"
