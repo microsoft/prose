@@ -12,13 +12,13 @@ using Microsoft.ProgramSynthesis.Learning.Logging;
 using Microsoft.ProgramSynthesis.Learning.Strategies;
 using Microsoft.ProgramSynthesis.Specifications;
 using Microsoft.ProgramSynthesis.VersionSpace;
-using ProseTutorial.Substrings;
 
 namespace ProseTutorial
 {
     internal static class Utils
     {
-        public static ProgramNode Learn(Grammar grammar, Spec spec)
+        public static ProgramNode Learn(Grammar grammar, Spec spec,
+                                        Feature<double> scoreFeature, DomainLearningLogic witnessFunctions)
         {
             var engine =
                 new SynthesisEngine(grammar,
@@ -28,7 +28,7 @@ namespace ProseTutorial
                                         Strategies = new ISynthesisStrategy[]
                                         {
                                             new EnumerativeSynthesis(), 
-                                            new DeductiveSynthesis(new WitnessFunctions(grammar)),
+                                            new DeductiveSynthesis(witnessFunctions),
                                         },
                                         LogListener = new LogListener(),
                                     });
@@ -40,7 +40,6 @@ namespace ProseTutorial
                 Console.WriteLine(p);
             }*/
 
-            var scoreFeature = new RankingScore(grammar);
             ProgramNode bestProgram = consistentPrograms.TopK(scoreFeature).FirstOrDefault();
             if (bestProgram == null)
             {

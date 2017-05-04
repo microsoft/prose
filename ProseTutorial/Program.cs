@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.ProgramSynthesis;
@@ -33,7 +34,8 @@ namespace ProseTutorial
 
             StringRegion sdk = data.Slice(data.End - 3, data.End);
             Spec spec = ShouldConvert.Given(grammar).To(data, sdk);
-            Learn(grammar, spec);
+            Learn(grammar, spec,
+                  new Substrings.RankingScore(grammar), new Substrings.WitnessFunctions(grammar));
 
             TestFlashFillBenchmark(grammar, "emails");
         }
@@ -52,7 +54,9 @@ namespace ProseTutorial
                         t => State.Create(grammar.InputSymbol, RegionSession.CreateStringRegion(t.Item1)),
                         t => (object)RegionSession.CreateStringRegion(t.Item2));
             var spec = new ExampleSpec(examples);
-            ProgramNode program = Learn(grammar, spec);
+            ProgramNode program = Learn(grammar, spec,
+                                        new Substrings.RankingScore(grammar),
+                                        new Substrings.WitnessFunctions(grammar));
             foreach (Tuple<string, string> row in data.Skip(exampleCount))
             {
                 State input = State.Create(grammar.InputSymbol,
@@ -65,14 +69,23 @@ namespace ProseTutorial
         private static void LoadAndTestTextExtraction()
         {
             var grammar = ProseTutorial.TextExtraction.Language.Grammar;
+            if (grammar == null) return;
 
+            TestTextExtractionBenchmark(grammar, "countries");
+            TestTextExtractionBenchmark(grammar, "popl13-erc");
+        }
+
+        private static void TestTextExtractionBenchmark(Grammar grammar, string benchmark)
+        {
             StringRegion document;
-            LoadBenchmark("benchmarks/countries.txt", out document);
+            List<StringRegion> examples = LoadBenchmark($"benchmarks/{benchmark}.txt", out document);
             var input = State.Create(grammar.InputSymbol, document);
-            ProgramNode p = ProgramNode.Parse(
-                "LinesMap(SubStr(line, PosPair(AbsPos(line, 1), AbsPos(line, 5))), SplitLines(document))",
-                grammar, ASTSerializationFormat.HumanReadable);
-            var output = p.Invoke(input).ToEnumerable();
+            var spec = new PrefixSpec(input, examples);
+            ProgramNode program = Learn(grammar, spec,
+                                        new TextExtraction.RankingScore(grammar),
+                                        new TextExtraction.WitnessFunctions(grammar));
+            string[] output =
+                program.Invoke(input).ToEnumerable().Select(s => ((StringRegion) s).Value).ToArray();
             WriteColored(ConsoleColor.DarkCyan,
                          output.DumpCollection(openDelim: "", closeDelim: "", separator: "\n"));
         }

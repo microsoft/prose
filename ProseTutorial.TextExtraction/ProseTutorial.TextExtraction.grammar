@@ -19,7 +19,7 @@ StringRegion selection;
 
 @start IEnumerable<StringRegion> spans :=
 	LinesMap(selection, lines) = Map(\line: StringRegion => selection, lines);
-StringRegion selection := @subst[v := line] Substrings.sub;
+StringRegion selection := @id['Selection'] @subst[v := line] Substrings.sub;
 
 IEnumerable<StringRegion> lines := SplitLines(document);
 
