@@ -22,10 +22,20 @@ namespace ProseTutorial.TextExtraction
             var linesExamples = new Dictionary<State, IEnumerable<object>>();
             foreach (State input in spec.ProvidedInputs)
             {
-                var document = ((StringRegion)input[rule.Grammar.InputSymbol]);
+                var document = (StringRegion) input[rule.Grammar.InputSymbol];
                 var selectionPrefix = spec.PositiveExamples[input].Cast<StringRegion>();
 
-                linesExamples[input] = null; // <== deduce a prefix of line examples here
+                var linesContainingSelection = new List<StringRegion>();
+                foreach (StringRegion example in selectionPrefix)
+                {
+                    var startLine = GetLine(document, example.Start);
+                    var endLine = GetLine(document, example.End);
+                    if (startLine == null || endLine == null || startLine != endLine)
+                        return null;
+                    linesContainingSelection.Add(startLine);
+                }
+
+                linesExamples[input] = linesContainingSelection;
             }
             return new PrefixSpec(linesExamples);
         }
