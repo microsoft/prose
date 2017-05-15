@@ -3,6 +3,28 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 2.3.0 -- 2017/05/15
+
+*Note: We have had some reports of folks having trouble using the public nuget packages in VS2015 since the 2.0.0 release.
+We are aware of the issues and hope to have a fix soon.  In the meantime, the available packages should work in VS2017.*
+
+## Bug fixes / Enhancements
+
+- This release includes significant performance improvements including:
+    -	A long-standing memory leak was fixed in the core framework that affected learning performance.
+    -	Runtime performance improvements for generated python programs (on order of 2x faster).
+    -	Transformation.Text learning performance is improved.      
+    -	Transformation.Text significant inputs performance is improved.
+    -	Transformation.Text date/time parsing (both during learning and dat runtime) performance is improved.
+- Fixed bugs in Split.Text related to inconsistent number of occurrences of delimiters (e.g. space delimiter in phrases of
+  different lengths).
+-	When a delimiter is specified, Split.Text now ensures that the dominant format selected contains at least one delimiter
+  occurrence.
+-	Extraction.Json programs now contain metadata information indicating if they extract an object, an array or an object
+  which has only a single array property.
+-	Fix for a bug when generating programs for MergeColumns constraints with no separators/constants specified if there was
+  a constant string at the end.
+
 # Release 2.2.0 -- 2017/04/24
 
 ## Bug fixes / Enhancements
