@@ -8,6 +8,7 @@ using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Learning.Strategies;
 using Microsoft.ProgramSynthesis.Specifications;
 using Microsoft.ProgramSynthesis.Transformation.Text;
+using Microsoft.ProgramSynthesis.Transformation.Text.Features;
 using Microsoft.ProgramSynthesis.Transformation.Text.Semantics;
 
 namespace Transformation.Text
@@ -46,7 +47,9 @@ namespace Transformation.Text
             if (trainingExamples == null) throw new ArgumentNullException(nameof(trainingExamples));
             // Load Transformation.Text grammar
             Grammar grammar = Language.Grammar;
-            DomainLearningLogic learningLogic = new Witnesses(grammar);
+            DomainLearningLogic learningLogic = new Witnesses(grammar,
+                // This is currently required as a workaround for a bug.
+                ((RankingScore)Learner.Instance.ScoreFeature).Clone());
 
             // Setup configuration of synthesis process.
             var engine = new SynthesisEngine(grammar, new SynthesisEngine.Config
