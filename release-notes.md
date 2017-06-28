@@ -3,6 +3,50 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 3.0.0 -- 2017/06/28
+
+*This release fixes the issues using the nuget packages in VS2015 and VS2017 (when using old-style packages.config).*
+
+## Breaking Changes
+
+- De-serializing programs in human readable format is removed.  Human readable was never a reliable serialization format
+  (although it is nice for debugging purposes) because it does not contain enough information to guarantee backward compatibility.
+  We have removed de-serialization support to encourage the use of the XML serialization format.  This also means that the ANTLR
+  runtime dependency has been removed from our core nuget package.
+- The paraphrasing library is removed.  Transformation.Text still contains its separate support for the explanations feature.
+  In effect this is an implementation detail, but consumers may need to remove any DLL references they had to
+  Microsoft.ProgramSynthesis.Paraphrasing.
+- Moved Microsoft.ProgramSynthesis.Compiler.dll from the main nuget package to the compiler package.  Previously the compiler
+  package just contained the dslc.exe tool for compiling a grammar into source code so that it can be built into a DSL’s DLL,
+  now it also contains the DLL which is used for runtime parsing of grammar files.  This means that the core package which is all
+  you need if you are consuming prebuilt DSLs no longer has a dependency on ANTLR4.Runtime (but the compiler package does have
+  that dependency).
+- The netstandard1.6 libraries are now built for CoreClr 1.1.
+- The SDK now depends on System.Collections.Immutable version 1.3.0 (up from 1.2.0) and NewtonSoft.Json version 8.0.3 (up from 8.0.2).
+- All uses of Tuple have been replaced with ValueTuple.
+- Extraction.Json:
+    - No longer automatically treats arrays as objects.  Instead clients are expected to use constraints to control how arrays
+      are flattened.  Default is for arrays to turn into rows, but there is a new constraint which allows flattening them into
+      columns.
+
+## Bug fixes / Enhancements
+
+- Detection.DataType is a new DLL added to the package which when given a series of strings can detect the datatypes those 
+  string values represent (ie. number, date, etc.).
+- Extraction.Json:
+    - Fixed case where a single-line JSON was misidentified as NDJSON.
+- Transformation.Text:
+    - Rounding times.
+    - Rounding of scaled numbers.
+    - DayOfYear (1-366) format for dates.
+    - Performance improvements.
+    - Stability fixes.
+- Split.Text
+    - Field detection, expressiveness and error handling improvements.
+    - Performance improvements (especially for large string sizes).
+- Grammar files now support an annotation to indicate that a rule is deprecated (but kept in the grammar to allow deserialization
+  of programs learned on older versions).
+
 # Release 2.3.0 -- 2017/05/15
 
 *Note: We have had some reports of folks having trouble using the public nuget packages in VS2015 since the 2.0.0 release.
@@ -11,18 +55,18 @@ We are aware of the issues and hope to have a fix soon.  In the meantime, the av
 ## Bug fixes / Enhancements
 
 - This release includes significant performance improvements including:
-    -	A long-standing memory leak was fixed in the core framework that affected learning performance.
-    -	Runtime performance improvements for generated python programs (on order of 2x faster).
-    -	Transformation.Text learning performance is improved.      
-    -	Transformation.Text significant inputs performance is improved.
-    -	Transformation.Text date/time parsing (both during learning and dat runtime) performance is improved.
+    - A long-standing memory leak was fixed in the core framework that affected learning performance.
+    - Runtime performance improvements for generated python programs (on order of 2x faster).
+    - Transformation.Text learning performance is improved.      
+    - Transformation.Text significant inputs performance is improved.
+    - Transformation.Text date/time parsing (both during learning and dat runtime) performance is improved.
 - Fixed bugs in Split.Text related to inconsistent number of occurrences of delimiters (e.g. space delimiter in phrases of
   different lengths).
--	When a delimiter is specified, Split.Text now ensures that the dominant format selected contains at least one delimiter
+- When a delimiter is specified, Split.Text now ensures that the dominant format selected contains at least one delimiter
   occurrence.
--	Extraction.Json programs now contain metadata information indicating if they extract an object, an array or an object
+- Extraction.Json programs now contain metadata information indicating if they extract an object, an array or an object
   which has only a single array property.
--	Fix for a bug when generating programs for MergeColumns constraints with no separators/constants specified if there was
+- Fix for a bug when generating programs for MergeColumns constraints with no separators/constants specified if there was
   a constant string at the end.
 
 # Release 2.2.0 -- 2017/04/24
