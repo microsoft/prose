@@ -17,7 +17,7 @@ title: Release Notes
   In effect this is an implementation detail, but consumers may need to remove any DLL references they had to
   Microsoft.ProgramSynthesis.Paraphrasing.
 - Moved Microsoft.ProgramSynthesis.Compiler.dll from the main nuget package to the compiler package.  Previously the compiler
-  package just contained the dslc.exe tool for compiling a grammar into source code so that it can be built into a DSL’s DLL,
+  package just contained the dslc.exe tool for compiling a grammar into source code so that it can be built into a DSL's DLL,
   now it also contains the DLL which is used for runtime parsing of grammar files.  This means that the core package which is all
   you need if you are consuming prebuilt DSLs no longer has a dependency on ANTLR4.Runtime (but the compiler package does have
   that dependency).
