@@ -53,7 +53,7 @@ namespace Extraction.Text
 
             LearnSequenceReferencingSibling();
 
-            Console.ReadKey();
+            Console.WriteLine("\n\nDone.");
         }
 
         /// <summary>
@@ -487,7 +487,7 @@ namespace Extraction.Text
             // Note: we can't use SequenceProgram.Run(StringRegion) because of sibling referencing.
             // Read the documentation for more information.
             IEnumerable<IEnumerable<StringRegion>> outputSeq = topRankedProg.Run(areas);
-            foreach (Tuple<IEnumerable<StringRegion>, StringRegion> tup in outputSeq.ZipWith(areas))
+            foreach (ValueTuple<IEnumerable<StringRegion>, StringRegion> tup in outputSeq.ZipWith(areas))
             {
                 foreach (StringRegion output in tup.Item1)
                 {

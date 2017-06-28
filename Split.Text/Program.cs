@@ -154,7 +154,8 @@ namespace Split.Text
                     Console.Write("\t|\t");
                 }
             }
-            Console.ReadLine();
+
+            Console.WriteLine("\n\nDone.");
         }
     }
 }

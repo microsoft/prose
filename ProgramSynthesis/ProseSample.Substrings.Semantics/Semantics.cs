@@ -9,9 +9,9 @@ namespace ProseSample.Substrings
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public static class Semantics
     {
-        public static StringRegion SubStr(StringRegion v, Tuple<uint?, uint?> posPair)
-        {
-            uint? start = posPair.Item1, end = posPair.Item2;
+        public static StringRegion SubStr(StringRegion v, ValueTuple<uint?, uint?>? posPair) {
+            uint? start = posPair.Value.Item1;
+            uint? end = posPair.Value.Item2;
             if (start == null || end == null || start < v.Start || start > v.End || end < v.Start || end > v.End)
                 return null;
             return v.Slice((uint) start, (uint) end);
@@ -23,9 +23,9 @@ namespace ProseSample.Substrings
             return (uint) (k > 0 ? (v.Start + k - 1) : (v.End + k + 1));
         }
 
-        public static uint? RegPos(StringRegion v, Tuple<RegularExpression, RegularExpression> rr, int k)
+        public static uint? RegPos(StringRegion v, ValueTuple<RegularExpression, RegularExpression>? rr, int k)
         {
-            List<PositionMatch> ms = rr.Item1.Run(v).Where(m => rr.Item2.MatchesAt(v, m.Right)).ToList();
+            List<PositionMatch> ms = rr.Value.Item1.Run(v).Where(m => rr.Value.Item2.MatchesAt(v, m.Right)).ToList();
             int index = k > 0 ? (k - 1) : (ms.Count + k);
             return index < 0 || index >= ms.Count ? null : (uint?) ms[index].Right;
         }

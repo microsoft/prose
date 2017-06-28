@@ -1,5 +1,6 @@
 ﻿#reference 'Microsoft.ProgramSynthesis.Extraction.Text.Semantics, Version=1.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35';
 #reference 'file:ProseSample.Substrings.Semantics.dll';
+#reference 'file:System.ValueTuple.dll';
 
 using System.Text.RegularExpressions;
 using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
@@ -13,10 +14,10 @@ language ProseSample.Substrings;
 @complete feature double Score = RankingScore;
 
 @start StringRegion sub := SubStr(v, posPair);
-Tuple<uint?, uint?> posPair := PosPair(pos, pos) = Pair(pos, pos);
+ValueTuple<uint?, uint?>? posPair := PosPair(pos, pos) = Pair(pos, pos);
 uint? pos := AbsPos(v, k) | RegPos(v, rr, k);
 
-Tuple<RegularExpression, RegularExpression> rr := BoundaryPair(r, r) = Pair(r, r);
+ValueTuple<RegularExpression, RegularExpression>? rr := BoundaryPair(r, r) = Pair(r, r);
 RegularExpression r;
 
 @input StringRegion v;

@@ -28,7 +28,7 @@ namespace ProseSample.Substrings
                      i >= 0;
                      i = v.Value.IndexOf(desiredOutput.Value, i + 1, StringComparison.Ordinal))
                 {
-                    occurrences.Add(Tuple.Create(v.Start + (uint?) i, v.Start + (uint?) i + desiredOutput.Length));
+                    occurrences.Add(ValueTuple.Create(v.Start + (uint?) i, v.Start + (uint?) i + desiredOutput.Length));
                 }
                 ppExamples[input] = occurrences;
             }
@@ -60,7 +60,7 @@ namespace ProseSample.Substrings
             foreach (State input in spec.ProvidedInputs)
             {
                 var v = (StringRegion) input[rule.Body[0]];
-                var regexes = new List<Tuple<RegularExpression, RegularExpression>>();
+                var regexes = new List<object>();
                 foreach (uint pos in spec.DisjunctiveExamples[input])
                 {
                     MultiValueDictionary<Token, TokenMatch> rightMatches;
@@ -69,7 +69,8 @@ namespace ProseSample.Substrings
                     if (!v.Cache.TryGetAllMatchesEndingAt(pos, out leftMatches)) continue;
                     var leftRegexes = RegularExpression.LearnLeftMatches(v, pos, RegularExpression.DefaultTokenCount);
                     var rightRegexes = RegularExpression.LearnRightMatches(v, pos, RegularExpression.DefaultTokenCount);
-                    var regexPairs = from l in leftRegexes from r in rightRegexes select Tuple.Create(l, r);
+                    var regexPairs =
+                        from l in leftRegexes from r in rightRegexes select (object) ValueTuple.Create(l, r);
                     regexes.AddRange(regexPairs);
                 }
                 rrExamples[input] = regexes;
@@ -85,7 +86,7 @@ namespace ProseSample.Substrings
             foreach (State input in spec.ProvidedInputs)
             {
                 var v = (StringRegion) input[rule.Body[0]];
-                var rr = (Tuple<RegularExpression, RegularExpression>) regexBinding.Examples[input];
+                var rr = (ValueTuple<RegularExpression, RegularExpression>) regexBinding.Examples[input];
                 var ks = new List<object>();
                 foreach (uint pos in spec.DisjunctiveExamples[input])
                 {

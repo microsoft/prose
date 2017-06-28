@@ -29,6 +29,8 @@ namespace Transformation.Text
             LearnWithSession();
             // Convert program to string and back:
             SerializeProgram();
+
+            Console.WriteLine("\n\nDone.");
         }
 
         /// <summary>

@@ -18,6 +18,7 @@ namespace ProseSample
         {
             LoadAndTestSubstrings();
             LoadAndTestTextExtraction();
+            Console.WriteLine("\n\nDone.");
         }
 
         private static void LoadAndTestSubstrings()
@@ -25,13 +26,7 @@ namespace ProseSample
             var grammar = LoadGrammar("ProseSample.Substrings.grammar");
             if (grammar == null) return;
 
-            ProgramNode p = ProgramNode.Parse(@"SubStr(v, PosPair(AbsPos(v, -4), AbsPos(v, -1)))",
-                                              grammar,
-                                              ASTSerializationFormat.HumanReadable);
             StringRegion prose = new StringRegion("Microsoft Program Synthesis using Examples SDK", Semantics.Tokens);
-            State input = State.Create(grammar.InputSymbol, prose);
-            Console.WriteLine(p.Invoke(input));
-
             StringRegion sdk = prose.Slice(prose.End - 3, prose.End);
             Spec spec = ShouldConvert.Given(grammar).To(prose, sdk);
             Learn(grammar, spec, new Substrings.RankingScore(grammar), new Substrings.WitnessFunctions(grammar));
@@ -42,10 +37,10 @@ namespace ProseSample
         private static void TestFlashFillBenchmark(Grammar grammar, string benchmark, int exampleCount = 2)
         {
             string[] lines = File.ReadAllLines($"benchmarks/{benchmark}.tsv");
-            Tuple<string, string>[] data = lines.Select(l =>
+            ValueTuple<string, string>[] data = lines.Select(l =>
             {
                 var parts = l.Split(new[] { "\t" }, StringSplitOptions.RemoveEmptyEntries);
-                return Tuple.Create(parts[0], parts[1]);
+                return ValueTuple.Create(parts[0], parts[1]);
             }).ToArray();
             var examples = data.Take(exampleCount)
                                .ToDictionary(
@@ -54,7 +49,7 @@ namespace ProseSample
             var spec = new ExampleSpec(examples);
             ProgramNode program = Learn(grammar, spec, new Substrings.RankingScore(grammar),
                                         new Substrings.WitnessFunctions(grammar));
-            foreach (Tuple<string, string> row in data.Skip(exampleCount))
+            foreach (ValueTuple<string, string> row in data.Skip(exampleCount))
             {
                 State input = State.Create(grammar.InputSymbol, new StringRegion(row.Item1, Semantics.Tokens));
                 var output = (StringRegion) program.Invoke(input);

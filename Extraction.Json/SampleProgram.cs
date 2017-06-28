@@ -91,7 +91,7 @@ namespace Extraction.Json
             Console.WriteLine("No Joining Inner Array Table!");
             PrintTable(table);
 
-            Console.ReadKey();
+            Console.WriteLine("Done.");
         }
 
         private static void PrintTable(IEnumerable<TableRow<JsonRegion>> table)
