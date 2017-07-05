@@ -440,7 +440,7 @@ A feature can be *complete*, which means that it must be defined with some value
 A feature is defined in a DSL as follows:
 
 ```
-@complete double feature Score = SubstringExtraction.ScoreCalculator;
+@complete feature double Score = SubstringExtraction.ScoreCalculator;
 ```
 {: .language-dsl}
 Here `Score` is its name, `double` is its type, and `ScoreCalculator` is a *feature class* that holds calculator functions. To implement this feature class, we inherit from `Microsoft.ProgramSynthesis.Feature<T>`:
@@ -453,7 +453,7 @@ namespace SubstringExtraction
 {
     class ScoreCalculator : Feature<double>
     {
-        public RankingScore(Grammar grammar): base(grammar, "Score", isComplete: true) { }
+        public ScoreCalculator(Grammar grammar): base(grammar, "Score", isComplete: true) { }
             /// <summary>
             ///     Calculates the value of the feature represented by the current instance
             ///     for a given <see cref="T:Microsoft.ProgramSynthesis.AST.VariableNode" />
