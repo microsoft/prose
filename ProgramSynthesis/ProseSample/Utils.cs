@@ -13,6 +13,7 @@ using Microsoft.ProgramSynthesis.Learning.Logging;
 using Microsoft.ProgramSynthesis.Learning.Strategies;
 using Microsoft.ProgramSynthesis.Specifications;
 using Microsoft.ProgramSynthesis.VersionSpace;
+using Microsoft.ProgramSynthesis.Features;
 
 namespace ProseSample
 {
