@@ -3,7 +3,7 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
-# Release 3.1.2 -- 2017/07/18
+# Release 3.1.3 -- 2017/07/18
 
 ## Bug fixes / Enhancements
 
