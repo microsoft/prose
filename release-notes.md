@@ -3,6 +3,13 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 3.1.2 -- 2017/07/18
+
+## Bug fixes / Enhancements
+
+- Transformation.Text date/time support has been fixed to prefer ranges over rounding in some key cases.
+- A number of general stability and performance improvements.
+
 # Release 3.0.0 -- 2017/06/28
 
 *This release fixes the issues using the nuget packages in VS2015 and VS2017 (when using old-style packages.config).*
