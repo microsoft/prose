@@ -3,6 +3,28 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 3.2.0 -- 2017/08/16
+
+## New Features
+
+- A new Transformation.Tree DSL which may be used in scenarios such as code transformation/refactoring.
+- Transformation.Text improvements to date/time and number handling:
+    - European date/time and number formats
+    - Day of meek in month support (like 3rd monday in April, but note that specifying numbers as
+      ordinals like 3rd instead of 3 is not yet supported)
+    - Lowercase am/pm in times
+- Matching.Text now has the ability to generate representative examples and a regex description for each cluster.
+
+## Bug fixes / Enhancements
+
+- New Compound.Split streaming interface for running split programs on large files and the ability to specify a fill strategy for
+  filling values in non-rectangular tables.
+- Fixes for advanced scenarios related to creating new DSLs:
+    - A fix for a long-standing bug related to learning cache lookups in recursive grammars.
+    - A two-pass mode for dslc which allows strongly-typed program-fragment builders to be used in all code.
+- Extraction.Json no longer treats bare strings/numbers as valid json, so it won't learn a no-op program for them.
+- Miscellaneous correctness and performance improvements.
+
 # Release 3.1.3 -- 2017/07/18
 
 ## Bug fixes / Enhancements
