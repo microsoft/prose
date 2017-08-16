@@ -30,9 +30,7 @@ yo prose
 
 ## Is it cross-platform?
 Yes, PROSE SDK is supported on Windows, Linux, and macOS.
-Currently, the package is guaranteed to work on .NET 4.5+ and Mono.
-Support for .NET Core is forthcoming as soon as its MSBuild packaging stabilizes.
-
+Currently, the package is guaranteed to work on .NET 4.5+ and .NET Core.
 
 ## Where can I use it?
 
