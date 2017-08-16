@@ -7,6 +7,7 @@ using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Rules;
 using Microsoft.ProgramSynthesis.Specifications;
+using Microsoft.ProgramSynthesis.Utils.Caching;
 
 namespace ProseSample.Substrings
 {
@@ -63,9 +64,9 @@ namespace ProseSample.Substrings
                 var regexes = new List<object>();
                 foreach (uint pos in spec.DisjunctiveExamples[input])
                 {
-                    MultiValueDictionary<Token, TokenMatch> rightMatches;
+                    UnboundedMultiValueCache<Token, TokenMatch> rightMatches;
                     if (!v.Cache.TryGetAllMatchesStartingAt(pos, out rightMatches)) continue;
-                    MultiValueDictionary<Token, TokenMatch> leftMatches;
+                    UnboundedMultiValueCache<Token, TokenMatch> leftMatches;
                     if (!v.Cache.TryGetAllMatchesEndingAt(pos, out leftMatches)) continue;
                     var leftRegexes = RegularExpression.LearnLeftMatches(v, pos, RegularExpression.DefaultTokenCount);
                     var rightRegexes = RegularExpression.LearnRightMatches(v, pos, RegularExpression.DefaultTokenCount);
