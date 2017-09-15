@@ -3,6 +3,33 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 4.0.0 -- 2017/09/15
+
+## Breaking Changes
+
+- State.Create method has been split into two versions: CreateForLearning and CreateForExecution.  The CreateForLearning version 
+  can be slower but is necessary (as you might imagine from the name) when the state is going to be used for learning programs 
+  as opposed to just executing programs that were previously learned.
+- Moved CoreClr to .netstandard 2.0 – as part of this change upgraded some dependencies:
+    - System.ValueTuple 4.4.0 (up from 4.3.1)
+    - Newtonsoft.Json 10.03 (up from 8.0.2)
+    - Plus the move to .netstandard 2.0 and corresponding upgrade to related corefx packages (mostly moving to version 4.4.0)
+
+## New Features
+
+- A new API has been added for working with significant inputs which enables quick retrieval of some significant inputs and then
+  async calculation and later retrieval of additional significant inputs as they become available.
+- Matching.Text now exposes the DescriptionTokens property to enable rich-text rendering of pattern descriptions.
+
+## Bug fixes / Enhancements
+
+- Our nuget package should now work properly in both desktop .net and net core projects.
+- Compound.Split has a new constraint for specifying column delimiters.
+- Transformation.Text now supports the ISO week number format (eg. date is in week #32 of the year)
+- Better handline of empty json strings.
+- Robustness improvements for Split.Text – better handle input that is json with mixed delimiters as well as redundant examples.
+- Miscellaneous perf and correctness fixes
+
 # Release 3.2.0 -- 2017/08/16
 
 ## New Features
