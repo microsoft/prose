@@ -1,4 +1,4 @@
-﻿#reference 'Microsoft.ProgramSynthesis.Extraction.Text.Semantics, Version=1.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35';
+﻿#reference 'file:Microsoft.ProgramSynthesis.Extraction.Text.Semantics.dll';
 #reference 'file:ProseSample.Substrings.Semantics.dll';
 #reference 'file:System.ValueTuple.dll';
 

@@ -1,0 +1,3 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<!-- Intentionally blank.  Prevents msbuild from finding Directory.Build.props in parent directories. -->
+</Project>

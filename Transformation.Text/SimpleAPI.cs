@@ -62,9 +62,9 @@ namespace Transformation.Text
             // Convert the examples in the format expected by Microsoft.ProgramSynthesis.
             // Internally, Transformation.Text represents strings as ValueSubstrings to save on
             //  allocating new strings for each substring.
-            // Could also use InputRow.AsState() to construct the input state.
+            // Could also use InputRow.AsStateForLearning() to construct the input state.
             Dictionary<State, object> trainExamples = trainingExamples.ToDictionary(
-                t => State.Create(grammar.InputSymbol, new[] { ValueSubstring.Create(t.Key) }),
+                t => State.CreateForLearning(grammar.InputSymbol, new[] { ValueSubstring.Create(t.Key) }),
                 t => (object) ValueSubstring.Create(t.Value));
             var spec = new ExampleSpec(trainExamples);
             // Learn an entire Transformation.Text program (i.e. start at the grammar's start symbol)
@@ -77,7 +77,7 @@ namespace Transformation.Text
                 task.AdditionalInputs =
                     additionalInputs.Select(
                                         input =>
-                                            State.Create(grammar.InputSymbol, new[] { ValueSubstring.Create(input) }))
+                                            State.CreateForLearning(grammar.InputSymbol, new[] { ValueSubstring.Create(input) }))
                                     .ToList();
             }
             IEnumerable<ProgramNode> topk = engine.Learn(task).RealizedPrograms;
@@ -94,9 +94,9 @@ namespace Transformation.Text
         public string Run(string input)
         {
             Grammar grammar = Language.Grammar;
-            State inputState = new InputRow(input).AsState();
+            State inputState = new InputRow(input).AsStateForExecution();
             // Same as above without using the InputRow class:
-            inputState = State.Create(grammar.InputSymbol, new[] { ValueSubstring.Create(input) });
+            inputState = State.CreateForExecution(grammar.InputSymbol, new[] { ValueSubstring.Create(input) });
             var result = (ValueSubstring) ProgramNode.Invoke(inputState);
             return result?.Value;
         }

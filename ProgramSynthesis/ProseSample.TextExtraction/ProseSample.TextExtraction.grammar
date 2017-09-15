@@ -1,5 +1,5 @@
-﻿#reference 'Microsoft.ProgramSynthesis.Utils, Version=1.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35';
-#reference 'Microsoft.ProgramSynthesis.Extraction.Text.Semantics, Version=1.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35';
+﻿#reference 'file:Microsoft.ProgramSynthesis.Utils.dll';
+#reference 'file:Microsoft.ProgramSynthesis.Extraction.Text.Semantics.dll';
 #reference 'file:ProseSample.TextExtraction.dll';
 #reference 'file:ProseSample.Substrings.dll';
 

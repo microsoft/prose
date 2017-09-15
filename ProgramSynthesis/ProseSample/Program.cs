@@ -44,14 +44,14 @@ namespace ProseSample
             }).ToArray();
             var examples = data.Take(exampleCount)
                                .ToDictionary(
-                                   t => State.Create(grammar.InputSymbol, new StringRegion(t.Item1, Semantics.Tokens)),
+                                   t => State.CreateForLearning(grammar.InputSymbol, new StringRegion(t.Item1, Semantics.Tokens)),
                                    t => (object) new StringRegion(t.Item2, Semantics.Tokens));
             var spec = new ExampleSpec(examples);
             ProgramNode program = Learn(grammar, spec, new Substrings.RankingScore(grammar),
                                         new Substrings.WitnessFunctions(grammar));
             foreach (ValueTuple<string, string> row in data.Skip(exampleCount))
             {
-                State input = State.Create(grammar.InputSymbol, new StringRegion(row.Item1, Semantics.Tokens));
+                State input = State.CreateForExecution(grammar.InputSymbol, new StringRegion(row.Item1, Semantics.Tokens));
                 var output = (StringRegion) program.Invoke(input);
                 WriteColored(ConsoleColor.DarkCyan, $"{row.Item1} => {output.Value}");
             }
@@ -75,7 +75,7 @@ namespace ProseSample
         {
             StringRegion document;
             List<StringRegion> examples = LoadBenchmark($"benchmarks/{benchmark}.txt", out document);
-            var input = State.Create(grammar.InputSymbol, document);
+            var input = State.CreateForLearning(grammar.InputSymbol, document);
             var spec = new PrefixSpec(input, examples);
             ProgramNode program = Learn(grammar, spec, new TextExtraction.RankingScore(grammar),
                                         new TextExtraction.WitnessFunctions(grammar));
