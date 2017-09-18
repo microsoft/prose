@@ -49,7 +49,7 @@ namespace ProseDemo {
                 }
             }
 
-            return tokens == null ? "<UNKNOWN>" : string.Join(" _ ", tokens.Select(TokenDescription));
+            return tokens == null ? "<UNKNOWN>" : string.Join(" ", tokens.Select(TokenDescription));
         }
 
         public static string[] GetPatterns(this MTProgram program) => program
@@ -60,7 +60,7 @@ namespace ProseDemo {
 
     public static class ColumnMatching {
         private const int MaxDisjuncts = 6;
-        private static readonly int? SampleSize = 100;
+        private static readonly int? SampleSize = 30;
 
         public static void Main(string[] args) {
             Console.OutputEncoding = Encoding.Unicode;

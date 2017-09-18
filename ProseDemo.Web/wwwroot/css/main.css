@@ -50,6 +50,7 @@
 
 .input-code {
     font-family: Fira Code, Consolas, Inconsolata, Lucida Console, monospace;
+    white-space: pre-wrap; /* Since CSS 2.1 */
 }
 
 @media (min-width: 540px) {
