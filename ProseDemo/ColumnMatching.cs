@@ -60,7 +60,6 @@ namespace ProseDemo {
 
     public static class ColumnMatching {
         private const int MaxDisjuncts = 6;
-        private static readonly int? SampleSize = 30;
 
         public static void Main(string[] args) {
             Console.OutputEncoding = Encoding.Unicode;
@@ -81,7 +80,7 @@ namespace ProseDemo {
 
         private static List<int>[] ProfileText(List<string> column) {
             Console.WriteLine("Profiling the 'desc' column...\n");
-            Program discriminator = Profile(column, SampleSize);
+            Program discriminator = Profile(column);
             string[] patterns = discriminator.GetPatterns();
             for (var i = 0; i < patterns.Length; i++) {
                 string pattern = patterns[i];

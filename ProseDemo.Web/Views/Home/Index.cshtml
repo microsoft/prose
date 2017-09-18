@@ -28,6 +28,10 @@
     </div>
 </div>
 
+<div id="splitInstructions" class="hidden" style="margin: 10px">
+    Click on a row to provide a splitting example, or press "Learn".
+</div>
+
 <div class="table-responsive">
     <table id="data" data-classes="table theme-default table-hover table-no-bordered"
            data-show-export="true"
@@ -35,6 +39,25 @@
            data-filter-control="true" data-filter-show-clear="true"
            data-search="true" data-show-columns="true">
     </table>
+</div>
+
+<div class="modal modal-center-vertical" id="dialogSplitExample" tabindex="-1" role="dialog"
+     aria-labelledby="modal-sample-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Splitting example</h4>
+            </div>
+            <div class="modal-body">
+                <label for="inputSplitExample">Please insert pipes (|) to separate the desired field examples.</label>
+                <input type="text" class="form-control derived-column-name" id="inputSplitExample" style="width: 500px">
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="btnSplitExampleOk">OK</button>
+                <button type="reset" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal modal-center-vertical" id="dialogDerivedColumnName" tabindex="-1" role="dialog"

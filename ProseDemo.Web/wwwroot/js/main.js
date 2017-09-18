@@ -16,43 +16,63 @@ function onSplit() {
     var source = $(this).attr("data-id");
     var columns = $("#data").bootstrapTable("getOptions").columns[0];
     var sourceIndex = _.findIndex(columns, function (c) { return c.field === source; });
-    $(".progress-ring").removeClass("hidden");
-    $.ajax({
-        method: "POST",
-        url: "/Home/SplitText",
-        data: sourceIndex,
-        contentType: "application/json; charset=utf-8",
-        success: function (response, status, xhr) {
-            $(".progress-ring").addClass("hidden");
-            var newColumns = _.range(response.output[0].length).map(function (i) {
-                return { field: "Column" + i, title: "Column" + i };
-            });
-            var newData = response.output.map(function (r) {
-                var result = {};
-                r.forEach(function (c, i) { return result["Column" + i] = c; });
-                return result;
-            });
-            $("#data").bootstrapTable("refreshOptions", { columns: newColumns, data: newData });
-            $("#tabDescription").html("<pre class=\"input-code\">" + _.escape(response.description) + "</pre>");
-            $("#tabHR").html("<pre class=\"input-code\">" + _.escape(response.programHumanReadable) + "</pre>");
-            $("#tabPython").html("<pre class=\"input-code\">" + _.escape(response.programPython) + "</pre>");
-            $("#tabXml").html("<pre class=\"input-code\">" + _.escape(response.programXML) + "</pre>");
-            $("#navProgram").removeClass("hidden");
-            $("#btnProgram").click(function () {
-                $("#dialogProgram").modal("show");
-            });
-        },
-        error: function (xhr, status, error) {
-            $("#alertContent").html(status + ": " + error);
-            $("#alertError").removeClass("hidden");
-            $(".progress-ring").addClass("hidden");
-        }
+    $("#splitInstructions").removeClass("hidden");
+    $("#navComplete").removeClass("hidden");
+    $("#btnComplete").removeClass("disabled");
+    var splitExamples = {};
+    $("#data").on("click-row.bs.table", function (e, row, $el, field) {
+        var input = row[field];
+        var $inputSplit = $("#inputSplitExample");
+        $inputSplit.val(input);
+        $("#btnSplitExampleOk").click(function () {
+            var split = $inputSplit.val();
+            splitExamples[$el.attr("data-index")] = split.split("|");
+            $("#dialogSplitExample").modal("hide");
+        });
+        $("#dialogSplitExample").modal("show");
+    });
+    $("#btnComplete").click(function () {
+        $(".progress-ring").removeClass("hidden");
+        $("#data").off("click-row.bs.table");
+        $.ajax({
+            method: "POST",
+            url: "/Home/SplitText",
+            data: JSON.stringify({ sourceColumn: sourceIndex, examples: splitExamples }),
+            contentType: "application/json; charset=utf-8",
+            success: function (response, status, xhr) {
+                $(".progress-ring").addClass("hidden");
+                var newColumns = _.range(response.output[0].length).map(function (i) {
+                    return { field: "Column" + i, title: "Column" + i };
+                });
+                var newData = response.output.map(function (r) {
+                    var result = {};
+                    r.forEach(function (c, i) { return result["Column" + i] = c; });
+                    return result;
+                });
+                $("#data").bootstrapTable("refreshOptions", { columns: newColumns, data: newData });
+                $("#tabDescription").html("<pre class=\"input-code\">" + _.escape(response.description) + "</pre>");
+                $("#tabHR").html("<pre class=\"input-code\">" + _.escape(response.programHumanReadable) + "</pre>");
+                $("#tabPython").html("<pre class=\"input-code\">" + _.escape(response.programPython) + "</pre>");
+                $("#tabXml").html("<pre class=\"input-code\">" + _.escape(response.programXML) + "</pre>");
+                $("#navProgram").removeClass("hidden");
+                $("#btnProgram").click(function () {
+                    $("#dialogProgram").modal("show");
+                });
+            },
+            error: function (xhr, status, error) {
+                $("#alertContent").html(status + ": " + error);
+                $("#alertError").removeClass("hidden");
+                $(".progress-ring").addClass("hidden");
+            }
+        });
+        $("#splitInstructions").addClass("hidden");
     });
 }
 function onDeriveViaFormula() {
     var $dialogFormula = $("#dialogDerivedFormula");
     var $inputFormula = $("#inputDerivedFormula");
     var $inputDerivedColumnName = $("#dialogDerivedFormula input.derived-column-name");
+    $inputDerivedColumnName.val("");
     $("#btnDerivedFormulaOk").click(function () {
         var formula = $inputFormula.val();
         var dest = $inputDerivedColumnName.val();
@@ -163,7 +183,7 @@ function complete(results, dataLimit) {
     var $ulSplit = $("#navSplit ul");
     $ulSplit.empty().append(columns.map(function (s) { return "<li data-id=\"" + s.field + "\"><a href=\"#\">" + s.title + "</a></li>"; }));
     $ulSplit.children().click(onSplit);
-    //$("#navSplit").removeClass("hidden");
+    $("#navSplit").removeClass("hidden");
 }
 Dropzone.options.dataDropzone = {
     init: function () {

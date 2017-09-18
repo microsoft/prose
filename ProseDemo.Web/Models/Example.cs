@@ -14,4 +14,9 @@ namespace ProseDemo.Web.Models {
         public int? SourceColumn { get; set; }
         public Example[] Examples { get; set; }
     }
+
+    public class SplitTextRequest {
+        public int? SourceColumn { get; set; }
+        public Dictionary<int, string[]> Examples { get; set; }
+    }
 }

@@ -17,39 +17,61 @@ function onSplit() {
     const source = $(this).attr("data-id");
     const columns: any[] = $("#data").bootstrapTable("getOptions").columns[0];
     const sourceIndex = _.findIndex(columns, c => c.field === source);
-    $(".progress-ring").removeClass("hidden");
-    $.ajax({
-        method: "POST",
-        url: "/Home/SplitText",
-        data: sourceIndex,
-        contentType: "application/json; charset=utf-8",
-        success: (response: ISTextLearnResponse, status, xhr) => {
-            $(".progress-ring").addClass("hidden");
-            const newColumns = _.range(response.output[0].length).map(i => {
-                return { field: "Column" + i, title: "Column" + i };
-            });
-            const newData = response.output.map(r => {
-                var result = {};
-                r.forEach((c, i) => result["Column" + i] = c);
-                return result;
-            });
-            $("#data").bootstrapTable("refreshOptions", { columns: newColumns, data: newData });
 
-            $("#tabDescription").html(`<pre class="input-code">${_.escape(response.description)}</pre>`);
-            $("#tabHR").html(`<pre class="input-code">${_.escape(response.programHumanReadable)}</pre>`);
-            $("#tabPython").html(`<pre class="input-code">${_.escape(response.programPython)}</pre>`);
-            $("#tabXml").html(`<pre class="input-code">${_.escape(response.programXML)}</pre>`);
-
-            $("#navProgram").removeClass("hidden");
-            $("#btnProgram").click(() => {
-                $("#dialogProgram").modal("show");
+    $("#splitInstructions").removeClass("hidden");
+    $("#navComplete").removeClass("hidden");
+    $("#btnComplete").removeClass("disabled");
+    let splitExamples = {};
+    $("#data").on("click-row.bs.table",
+        (e, row, $el, field) => {
+            const input = row[field];
+            const $inputSplit = $("#inputSplitExample");
+            $inputSplit.val(input);
+            $("#btnSplitExampleOk").click(() => {
+                const split = $inputSplit.val() as String;
+                splitExamples[$el.attr("data-index")] = split.split("|");
+                $("#dialogSplitExample").modal("hide");
             });
-        },
-        error: (xhr, status, error) => {
-            $("#alertContent").html(`${status}: ${error}`);
-            $("#alertError").removeClass("hidden");
-            $(".progress-ring").addClass("hidden");
-        }
+            $("#dialogSplitExample").modal("show");
+        });
+
+    $("#btnComplete").click(() => {
+        $(".progress-ring").removeClass("hidden");
+        $("#data").off("click-row.bs.table");
+        $.ajax({
+            method: "POST",
+            url: "/Home/SplitText",
+            data: JSON.stringify({ sourceColumn: sourceIndex, examples: splitExamples }),
+            contentType: "application/json; charset=utf-8",
+            success: (response: ISTextLearnResponse, status, xhr) => {
+                $(".progress-ring").addClass("hidden");
+                const newColumns = _.range(response.output[0].length).map(i => {
+                    return { field: "Column" + i, title: "Column" + i };
+                });
+                const newData = response.output.map(r => {
+                    var result = {};
+                    r.forEach((c, i) => result["Column" + i] = c);
+                    return result;
+                });
+                $("#data").bootstrapTable("refreshOptions", { columns: newColumns, data: newData });
+
+                $("#tabDescription").html(`<pre class="input-code">${_.escape(response.description)}</pre>`);
+                $("#tabHR").html(`<pre class="input-code">${_.escape(response.programHumanReadable)}</pre>`);
+                $("#tabPython").html(`<pre class="input-code">${_.escape(response.programPython)}</pre>`);
+                $("#tabXml").html(`<pre class="input-code">${_.escape(response.programXML)}</pre>`);
+
+                $("#navProgram").removeClass("hidden");
+                $("#btnProgram").click(() => {
+                    $("#dialogProgram").modal("show");
+                });
+            },
+            error: (xhr, status, error) => {
+                $("#alertContent").html(`${status}: ${error}`);
+                $("#alertError").removeClass("hidden");
+                $(".progress-ring").addClass("hidden");
+            }
+        });
+        $("#splitInstructions").addClass("hidden");
     });
 }
 
@@ -57,6 +79,7 @@ function onDeriveViaFormula() {
     const $dialogFormula = $("#dialogDerivedFormula");
     const $inputFormula = $("#inputDerivedFormula");
     const $inputDerivedColumnName = $("#dialogDerivedFormula input.derived-column-name");
+    $inputDerivedColumnName.val("");
     $("#btnDerivedFormulaOk").click(() => {
         const formula = $inputFormula.val();
         const dest = $inputDerivedColumnName.val();
@@ -178,7 +201,7 @@ function complete(results: PapaParse.ParseResult, dataLimit: number) {
     const $ulSplit = $("#navSplit ul");
     $ulSplit.empty().append(columns.map(s => `<li data-id="${s.field}"><a href="#">${s.title}</a></li>`));
     $ulSplit.children().click(onSplit);
-    //$("#navSplit").removeClass("hidden");
+    $("#navSplit").removeClass("hidden");
 }
 
 Dropzone.options.dataDropzone = {

@@ -53,10 +53,13 @@ namespace ProseDemo.Web.Controllers {
         }
 
         [HttpPost]
-        public IActionResult SplitText([FromBody] int column) {
+        public IActionResult SplitText([FromBody] SplitTextRequest request) {
             if (!_cache.TryGetValue(DataKey + HttpContext.Session.GetString(DataKey), out List<string[]> data))
                 return BadRequest("No data in the session. Please upload your dataset to the server first.");
-            STextLearnResponse output = SplitText(data.Select(r => r[column]));
+            if (request.SourceColumn == null)
+                return BadRequest("Source column not specified.");
+            STextLearnResponse output = 
+                SplitText(data.Select(r => r[request.SourceColumn.Value]).ToArray(), request.Examples);
             if (output == null)
                 return BadRequest("No program learned");
             return Json(output);
@@ -110,10 +113,15 @@ namespace ProseDemo.Web.Controllers {
             }
         }
 
-        public STextLearnResponse SplitText(IEnumerable<string> column) {
+        public STextLearnResponse SplitText(string[] column, Dictionary<int, string[]> examples) {
             using (var session = new STSession()) {
                 session.AddInputs(column.Select(STSession.CreateStringRegion));
                 session.AddConstraints(new IncludeDelimitersInOutput(false));
+                foreach (var kvp in examples) {
+                    for (var i = 0; i < kvp.Value.Length; i++) {
+                        session.AddConstraints(new NthExampleConstraint(column[kvp.Key], i, kvp.Value[i]));
+                    }
+                }
 
                 IEnumerable<SplitCell[]> output = session.LearnOutputs();
                 SplitProgram program = session.Learn(); // cached
