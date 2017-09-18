@@ -1,5 +1,11 @@
-﻿interface JQuery {
-    bootstrapTable(options: Object | string, ...params);
+﻿interface IBootstrapTable {
+    defaults: any;
+    columns: { [index: number]: any };
+}
+
+interface JQuery {
+    bootstrapTable(options?: any): IBootstrapTable;
+    bootstrapTable(options: Object | string, ...params) : IBootstrapTable;
 }
 
 interface ILearnResponse {

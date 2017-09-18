@@ -495,3 +495,4 @@ paket.exe
 paket.lock
 *.tss
 *.js.map
+package-lock.json

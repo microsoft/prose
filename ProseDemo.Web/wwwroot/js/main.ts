@@ -105,7 +105,7 @@ function onSelectDeriveSource(e) {
                 data: JSON.stringify({ examples: request, sourceColumn: sourceIndex }),
                 contentType: "application/json; charset=utf-8",
                 success: (response: ITTextLearnResponse, status, xhr) => {
-                    data = $data.bootstrapTable("getData");
+                    data = ($data.bootstrapTable("getData")) as any;
                     _.zip(data, response.output).forEach(r => r[0][dest] = r[1]);
                     $data.bootstrapTable("load", data);
                     $(".progress-ring").addClass("hidden");
@@ -176,7 +176,7 @@ Dropzone.options.dataDropzone = {
 };
 
 $(() => {
-    $.fn.bootstrapTable.defaults.icons.export = "glyph glyph-download";
+    ($.fn.bootstrapTable as any).defaults.icons.export = "glyph glyph-download";
     $("#btnUpload").click(() => {
         $("#divDataLoad").toggleClass("hidden");
     });

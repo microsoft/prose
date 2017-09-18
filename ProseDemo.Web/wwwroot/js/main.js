@@ -97,7 +97,7 @@ function onSelectDeriveSource(e) {
                 data: JSON.stringify({ examples: request, sourceColumn: sourceIndex }),
                 contentType: "application/json; charset=utf-8",
                 success: function (response, status, xhr) {
-                    data = $data.bootstrapTable("getData");
+                    data = ($data.bootstrapTable("getData"));
                     _.zip(data, response.output).forEach(function (r) { return r[0][dest] = r[1]; });
                     $data.bootstrapTable("load", data);
                     $(".progress-ring").addClass("hidden");
