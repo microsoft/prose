@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace ProseDemo.Web.Models {
     public class TTextLearnResponse : Response {
         public object[] Output { get; set; }
+        public List<int> SignificantInputs { get; set; }
     }
 
     public class STextLearnResponse : Response {

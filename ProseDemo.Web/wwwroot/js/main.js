@@ -90,6 +90,7 @@ function onSelectDeriveSource(e) {
             $navComplete.removeClass("disabled");
         });
         $("#btnComplete").click(function () {
+            $("#navQuestions").addClass("hidden");
             $(".progress-ring").removeClass("hidden");
             var request = Object.getOwnPropertyNames(examples).map(function (k) {
                 return { row: parseInt(k), output: examples[k] };
@@ -108,6 +109,23 @@ function onSelectDeriveSource(e) {
                     $("#tabHR").html("<pre class=\"input-code\">" + _.escape(response.programHumanReadable) + "</pre>");
                     $("#tabPython").html("<pre class=\"input-code\">" + _.escape(response.programPython) + "</pre>");
                     $("#tabXml").html("<pre class=\"input-code\">" + _.escape(response.programXML) + "</pre>");
+                    if (response.significantInputs && response.significantInputs.length > 0) {
+                        var $ulQuestions = $("#navQuestions ul");
+                        $ulQuestions.empty().append(response.significantInputs.map(function (i) {
+                            var input = data[i][source];
+                            return "<li data-id=\"" + i + "\"><a href=\"#\">" + input + "</a></li>";
+                        }));
+                        $ulQuestions.children().click(function () {
+                            var rowIndex = parseInt($(this).attr("data-id"));
+                            var pageSize = $data.bootstrapTable("getOptions").pageSize;
+                            var page = 1 + Math.floor(rowIndex / pageSize);
+                            $data.bootstrapTable("selectPage", page);
+                            var $tr = $("tr[data-index='" + rowIndex + "']");
+                            $tr.addClass("danger");
+                            $(window).scrollTo($tr, { duration: 200 });
+                        });
+                        $("#navQuestions").removeClass("hidden");
+                    }
                     $("#navProgram").removeClass("hidden");
                     $("#btnProgram").click(function () {
                         $("#dialogProgram").modal("show");
@@ -145,7 +163,7 @@ function complete(results, dataLimit) {
     var $ulSplit = $("#navSplit ul");
     $ulSplit.empty().append(columns.map(function (s) { return "<li data-id=\"" + s.field + "\"><a href=\"#\">" + s.title + "</a></li>"; }));
     $ulSplit.children().click(onSplit);
-    $("#navSplit").removeClass("hidden");
+    //$("#navSplit").removeClass("hidden");
 }
 Dropzone.options.dataDropzone = {
     init: function () {

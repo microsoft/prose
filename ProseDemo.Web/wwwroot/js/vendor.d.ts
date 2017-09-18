@@ -1,5 +1,6 @@
 ﻿interface IBootstrapTable {
     defaults: any;
+    pageSize: number;
     columns: { [index: number]: any };
 }
 
@@ -17,6 +18,7 @@ interface ILearnResponse {
 
 interface ITTextLearnResponse extends ILearnResponse {
     output: any[];
+    significantInputs: number[];
 }
 
 interface ISTextLearnResponse extends ILearnResponse {

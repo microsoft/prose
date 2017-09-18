@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using CsvHelper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -42,10 +43,10 @@ namespace ProseDemo.Web.Controllers {
         }
 
         [HttpPost]
-        public IActionResult TextTransformation([FromBody] TextTransformationRequest request) {
+        public async Task<IActionResult> TextTransformation([FromBody] TextTransformationRequest request) {
             if (!_cache.TryGetValue(DataKey + HttpContext.Session.GetString(DataKey), out List<string[]> data))
                 return BadRequest("No data in the session. Please upload your dataset to the server first.");
-            TTextLearnResponse output = TextTransformation(data, request);
+            TTextLearnResponse output = await TextTransformation(data, request);
             if (output == null)
                 return BadRequest("No program learned");
             return Json(output);
@@ -72,9 +73,10 @@ namespace ProseDemo.Web.Controllers {
             return data.DeterministicallySample(limit).ToList();
         }
 
-        public TTextLearnResponse TextTransformation(List<string[]> data, TextTransformationRequest request) {
+        public async Task<TTextLearnResponse> TextTransformation(List<string[]> data, TextTransformationRequest request) {
             using (var session = new TTSession()) {
                 InputRow[] rows = data.Select(r => new InputRow(r)).ToArray();
+                session.AddInputs(rows.Take(100));
                 IEnumerable<TTExample> constraints = 
                     request.Examples.Select(e => new TTExample(rows[e.Row], e.Output));
                 session.AddConstraints(constraints);
@@ -88,10 +90,18 @@ namespace ProseDemo.Web.Controllers {
                 session.UseInputsInLearn = false;
 
 
-                Microsoft.ProgramSynthesis.Transformation.Text.Program program = session.Learn();
+                var program = session.Learn();
+                var significantInputs = await session.GetSignificantInputsAsync();
+                var siIndices = new List<int>();
+                for (var i = 0; i < rows.Length; i++) {
+                    if (significantInputs.Any(si => si.Input.Equals(rows[i])))
+                        siIndices.Add(i);
+                }
+                
                 if (program == null) return null;
                 return new TTextLearnResponse {
                     Output = rows.Select(program.Run).ToArray(),
+                    SignificantInputs = siIndices,
                     Description = program.Describe(),
                     ProgramHumanReadable = program.Serialize(ASTSerializationFormat.HumanReadable),
                     ProgramXML = program.Serialize(ASTSerializationFormat.XML),
