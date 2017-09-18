@@ -84,6 +84,8 @@ function onSelectDeriveSource(e) {
 
         const $data = $("#data");
         let columns: any[] = $data.bootstrapTable("getOptions").columns[0];
+        const destIndex = _.findIndex(columns, c => c.field === dest);
+        if (destIndex >= 0) return;
         const sourceIndex = _.findIndex(columns, c => c.field === source);
         let data = insertColumn($data, dest, sourceIndex + 1, true);
 

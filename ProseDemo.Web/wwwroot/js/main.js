@@ -76,6 +76,9 @@ function onSelectDeriveSource(e) {
         $dialogDerivedColumnName.modal("hide");
         var $data = $("#data");
         var columns = $data.bootstrapTable("getOptions").columns[0];
+        var destIndex = _.findIndex(columns, function (c) { return c.field === dest; });
+        if (destIndex >= 0)
+            return;
         var sourceIndex = _.findIndex(columns, function (c) { return c.field === source; });
         var data = insertColumn($data, dest, sourceIndex + 1, true);
         var examples = {};
