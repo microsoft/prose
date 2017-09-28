@@ -39,16 +39,6 @@ programming by example, his code has been deployed as the hint mechanism in MSR'
 Mark has been at Microsoft for 15 years, spending about half of that time in MSR.  He graduated from Carnegie Mellon University and spent a year nearby working on certifying compilation and proof carrying code with Cedilla Systems.  At Microsoft, he worked on Bartok, an optimizing ahead-of-time compiler and runtime system for C#, for a long time.  As part of that work in MSR, he contributed to research in garbage collection, software transactional memory, and the Singularity managed OS project.  He then worked on generics, separate compilation, and System C# as part of the Midori incubation effort.  After a year and a half learning about Azure Storage, he is excited to have returned to the field of programming languages on the PROSE team.
 {% include about-row-end.liquid.html %}
 
-{% include about-row-start.liquid.html name="Alex Polozov" img="Alex-Polozov.jpg" link="https://alexpolozov.com" %}
-Alex is a PhD student at University
-of Washington, Seattle, USA, and a researcher/software engineer at Microsoft. His passion lies
-in research and implementation of solutions that automate repetitive programming tasks for
-engineers, consumers, and educators. Alex initiated the program synthesis framework that forms
-the core of Microsoft PROSE SDK, and continues to lead its development.
-Before joining the team, he worked on automatic problem
-generation for intelligent tutoring systems in [Center for Game Science](http://centerforgamescience.org/), programming languages for data wrangling, and linguistic algorithms for [Yandex](https://www.yandex.com/).
-{% include about-row-end.liquid.html %}
-
 {% include about-row-start.liquid.html name="Mohammad Raza" img="Mohammad-Raza.jpg" link="https://www.microsoft.com/en-us/research/people/moraza/" %}
 Mohammad's background and interests
 are in formal methods for reasoning about computer programs. He holds a PhD in Computer Science from Imperial College London and a Masters in Mathematics from the University of Cambridge. He works on the development of
@@ -80,12 +70,25 @@ explored techniques for synthesizing distributed protocols and loop-free program
 His research interests include formal methods and program synthesis, and he very much enjoys building systems to demonstrate the practicality of his research.
 {% include about-row-end.liquid.html %}
 
+
+
+{% include about-row-start.liquid.html name="Gustavo Soares" img="Gustavo-Soares.jpg" link="http://gustavoasoares.github.io/" %}
+Gustavo is a Research Software Engineer in the PROSE team.  Previously, he was an Assistant Professor in the Department of Computing 
+and Systems at the Federal University of Campina Grande (UFCG), Brazil, and worked as a postdoc at UC Berkeley with Bjoern Hartmann. He
+ completed his PhD at UFCG under supervision of Rohit Gheyi in 2014. His research was awarded the
+  ACM SIGPLAN John Vlissides Award and the CAPES Award for Best CS PhD Thesis in Brazil. Gustavo's research interests include program synthesis,
+   HCI, and software engineering. In the PROSE Team, his currently focused on developing techniques to perform tree transformations 
+   by example. 
+{% include about-row-end.liquid.html %}
+
 </div>
 
 # Alumni
 {: .center .py2}
 
 <div class="center py2" markdown="1">
+
+{% include about-image.liquid.html name="Alex Polozov" img="Alex-Polozov.jpg" link="https://alexpolozov.com" %}
 
 {% include about-image.liquid.html name="Allen Cypher" img="Allen-Cypher.jpg" link="http://acypher.com" %}
 
