@@ -73,7 +73,7 @@ His research interests include formal methods and program synthesis, and he very
 
 
 {% include about-row-start.liquid.html name="Gustavo Soares" img="Gustavo-Soares.jpg" link="http://gustavoasoares.github.io/" %}
-Gustavo is a Research Software Engineer in the PROSE team.  Previously, he was an Assistant Professor in the Department of Computing 
+Gustavo is a Researcher in the PROSE team.  Previously, he was an Assistant Professor in the Department of Computing 
 and Systems at the Federal University of Campina Grande (UFCG), Brazil, and worked as a postdoc at UC Berkeley with Bjoern Hartmann. He
  completed his PhD at UFCG under supervision of Rohit Gheyi in 2014. His research was awarded the
   ACM SIGPLAN John Vlissides Award and the CAPES Award for Best CS PhD Thesis in Brazil. Gustavo's research interests include program synthesis,
