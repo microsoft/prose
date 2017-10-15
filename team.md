@@ -70,7 +70,17 @@ explored techniques for synthesizing distributed protocols and loop-free program
 His research interests include formal methods and program synthesis, and he very much enjoys building systems to demonstrate the practicality of his research.
 {% include about-row-end.liquid.html %}
 
-
+{% include about-row-start.liquid.html 
+	name="Titus Barik" img="Titus-Barik.jpg" 
+	link="http://www.barik.net/" %}
+Titus' research interests lie at the intersection of human-computer
+interaction and software engineering. He applies mixed-method approaches to
+understand difficulties practitioners face within the domains of software
+engineering, data science, and end-user programming. Within PROSE, Titus works
+closely with product teams at Microsoft to pinpoint opportunities to leverage
+program synthesis technology, and conducts usability and design research to
+learn how practitioners can more effectively interact with software tools.
+{% include about-row-end.liquid.html %}
 
 {% include about-row-start.liquid.html name="Gustavo Soares" img="Gustavo-Soares.jpg" link="http://gustavoasoares.github.io/" %}
 Gustavo is a Researcher in the PROSE team.  Previously, he was an Assistant Professor in the Department of Computing 
