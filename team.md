@@ -91,6 +91,16 @@ and Systems at the Federal University of Campina Grande (UFCG), Brazil, and work
    by example. 
 {% include about-row-end.liquid.html %}
 
+{% include about-row-start.liquid.html name="Alan Leung" img="Alan-Leung.jpg" link="https://alan.leung.work/" %}
+Alan Leung obtained his PhD in 2017 from the University of California, San
+Diego, where he was a member of the Programming Systems Group advised by Sorin
+Lerner. His dissertation investigated interactive program synthesis techniques
+for constructing parsers and lexers by example. 
+Previously, he was a circuit design engineer at Intel, where he designed and
+implemented microprocessor caches. He holds a BS in Electrical and Computer
+Engineering from Cornell University.
+{% include about-row-end.liquid.html %}
+
 </div>
 
 # Alumni
