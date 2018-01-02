@@ -111,6 +111,11 @@ techniques for generating efficient programs from PROSE framework, writing trans
 generated program can be serialized into and integration of PROSE technology with partners.
 {% include about-row-end.liquid.html %}
 
+{% include about-row-start.liquid.html name="Ivan Radiček" img="Ivan-Radicek.jpg" link="https://www.radicek.com/" %}
+Ivan is a Researcher in the PROSE team. Previously, he was a research assistant at TU Wien ([Formal Methods in Systems Engineering](http://forsyte.at/) group),
+where he worked on applying formal methods and programming languages in programming education and cost analysis.
+Ivan's research interests include program synthesis, programming languages, and software engineering.
+
 </div>
 
 # Alumni
