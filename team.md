@@ -101,6 +101,16 @@ implemented microprocessor caches. He holds a BS in Electrical and Computer
 Engineering from Cornell University.
 {% include about-row-end.liquid.html %}
 
+{% include about-row-start.liquid.html name="Kunal Pathak" img="Kunal-Pathak.jpg" link="https://github.com/kunalspathak/" %}
+Kunal Pathak started in Microsoft in 2009 after receiving a Masters in Computer Science from Rochester Institute of Technology. 
+His specialization was in programming languages and developer tools. Prior joining PROSE team, he was part of 
+[Chakra](https://github.com/Microsoft/ChakraCore) team working on performance and memory optimization of the compiler.
+He was also part of an ambitious project to [enable node.js to run with Chakra engine](https://github.com/nodejs/node/pull/4765) and 
+earned the collaborator status of node.js repository. In PROSE team, Kunal works on devising 
+techniques for generating efficient programs from PROSE framework, writing translators for various programming languages that the 
+generated program can be serialized into and integration of PROSE technology with partners.
+{% include about-row-end.liquid.html %}
+
 </div>
 
 # Alumni
