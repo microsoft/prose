@@ -39,6 +39,23 @@ programming by example, his code has been deployed as the hint mechanism in MSR'
 Mark has been at Microsoft for 15 years, spending about half of that time in MSR.  He graduated from Carnegie Mellon University and spent a year nearby working on certifying compilation and proof carrying code with Cedilla Systems.  At Microsoft, he worked on Bartok, an optimizing ahead-of-time compiler and runtime system for C#, for a long time.  As part of that work in MSR, he contributed to research in garbage collection, software transactional memory, and the Singularity managed OS project.  He then worked on generics, separate compilation, and System C# as part of the Midori incubation effort.  After a year and a half learning about Azure Storage, he is excited to have returned to the field of programming languages on the PROSE team.
 {% include about-row-end.liquid.html %}
 
+{% include about-row-start.liquid.html name="Arjun Radhakrishna" img="Arjun-Radhakrishna.jpg" link="https://arjunradhakrishna.github.io/" %}
+Arjun is interested in the use of Formal Methods and Program Synthesis
+techniques to aid programmers in designing reliable and correct systems.
+Arjun graduated with a PhD from IST Austria in 2014, advised by Thomas
+A. Henzinger.
+His dissertation on the use of quantitative techniques in formal
+verification and synthesis was awarded the ACM SIGBED Paul Caspi
+Dissertation Award in recognition of an outstanding doctoral
+dissertation that significantly advances the state of the art in the
+science of embedded systems.
+During his stint as a Post-doctoral Researcher in the group of Rajeev
+Alur at the University of Pennsylvania, he developed novel
+divide-and-conquer program synthesis strategies. Syntax-guided Synthesis
+[SyGuS](http://www.sygus.org) solvers based on these strategies have won
+the SyGuS competition for two years running.
+{% include about-row-end.liquid.html %}
+
 {% include about-row-start.liquid.html name="Mohammad Raza" img="Mohammad-Raza.jpg" link="https://www.microsoft.com/en-us/research/people/moraza/" %}
 Mohammad's background and interests
 are in formal methods for reasoning about computer programs. He holds a PhD in Computer Science from Imperial College London and a Masters in Mathematics from the University of Cambridge. He works on the development of
