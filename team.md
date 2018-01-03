@@ -115,6 +115,23 @@ generated program can be serialized into and integration of PROSE technology wit
 Ivan is a Researcher in the PROSE team. Previously, he was a research assistant at TU Wien ([Formal Methods in Systems Engineering](http://forsyte.at/) group),
 where he worked on applying formal methods and programming languages in programming education and cost analysis.
 Ivan's research interests include program synthesis, programming languages, and software engineering.
+{% include about-row-end.liquid.html %}
+
+{% include about-row-start.liquid.html name="Ashish Tiwari" link="http://www.csl.sri.com/users/tiwari" %}
+Ashish Tiwari received his B.Tech degree in Computer Science from the 
+Indian Institute of Technology, Kanpur in 1995, and his Ph.D. in Computer 
+Science from the State University of New York at Stony Brook in 2000. 
+He has published over 75 peer-reviewed research papers in the areas of 
+formal methods, static program analysis, automated deduction, synthesis, 
+hybrid systems, and symbolic computation.  His work on automated 
+abstractions of hybrid systems and program synthesis is widely cited.
+Dr. Tiwari has served as a PI or co-PI on several National Science Foundation 
+(NSF) and National Aeronautics and Space Administration (NASA) funded grants.  
+He was a Staff Scientist in the Formal Methods group of the Computer Science
+Laboratory at SRI International before joining the PROSE team.
+{% include about-row-end.liquid.html %}
+
+
 
 </div>
 
