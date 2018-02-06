@@ -6,9 +6,9 @@
   
   <ItemGroup>
     <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.Common" Version="0.0.0-private" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.DslcTargets" Version="0.0.0-private" />
-    <DotNetCliToolReference Include="Microsoft.ProgramSynthesis.Dslc" Version="0.0.0-private" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Common" Version="5.0.1" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.DslcTargets" Version="5.0.1" />
+    <DotNetCliToolReference Include="Microsoft.ProgramSynthesis.Dslc" Version="5.0.1" />
   </ItemGroup>
 
 </Project>

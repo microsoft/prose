@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
@@ -11,8 +11,8 @@
   <ItemGroup>
     <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
     <ProjectReference Include="..\ProseSample.Substrings\ProseSample.Substrings.csproj" />
-    <PackageReference Include="Microsoft.ProgramSynthesis" Version="0.0.0-private" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.Compiler" Version="0.0.0-private" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="5.0.1" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Compiler" Version="5.0.1" />
   </ItemGroup>
 
 </Project>
