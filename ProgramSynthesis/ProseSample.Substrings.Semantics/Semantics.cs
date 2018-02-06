@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
+using Microsoft.ProgramSynthesis.DslLibrary;
+using Microsoft.ProgramSynthesis.Utils;
 
 namespace ProseSample.Substrings
 {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public static class Semantics
     {
-        public static StringRegion SubStr(StringRegion v, ValueTuple<uint?, uint?>? posPair) {
+        public static StringRegion SubStr(StringRegion v, Record<uint?, uint?>? posPair) {
             uint? start = posPair.Value.Item1;
             uint? end = posPair.Value.Item2;
             if (start == null || end == null || start < v.Start || start > v.End || end < v.Start || end > v.End)
@@ -23,7 +24,7 @@ namespace ProseSample.Substrings
             return (uint) (k > 0 ? (v.Start + k - 1) : (v.End + k + 1));
         }
 
-        public static uint? RegPos(StringRegion v, ValueTuple<RegularExpression, RegularExpression>? rr, int k)
+        public static uint? RegPos(StringRegion v, Record<RegularExpression, RegularExpression>? rr, int k)
         {
             List<PositionMatch> ms = rr.Value.Item1.Run(v).Where(m => rr.Value.Item2.MatchesAt(v, m.Right)).ToList();
             int index = k > 0 ? (k - 1) : (ms.Count + k);

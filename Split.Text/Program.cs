@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
+using Microsoft.ProgramSynthesis.DslLibrary;
 using Microsoft.ProgramSynthesis.Split.Text;
 using Microsoft.ProgramSynthesis.Split.Text.Semantics;
 

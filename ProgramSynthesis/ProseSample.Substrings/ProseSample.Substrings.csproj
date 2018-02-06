@@ -1,68 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{41E9A9B1-B013-4A87-9759-E3004FEF8A81}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProseSample.Substrings</RootNamespace>
-    <AssemblyName>ProseSample.Substrings</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFramework>net45</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  
   <ItemGroup>
-    <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj">
-      <Project>{997C015E-6C5F-495B-A6A7-648E0837EC6D}</Project>
-      <Name>ProseSample.Substrings.Semantics</Name>
-    </ProjectReference>
-    <PackageReference Include="Microsoft.ProgramSynthesis.Compiler" Version="4.0.0" />
+    <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Common" Version="0.0.0-private" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.DslcTargets" Version="0.0.0-private" />
+    <DotNetCliToolReference Include="Microsoft.ProgramSynthesis.Dslc" Version="0.0.0-private" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ProseSample.Substrings.grammar">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <AssemblyReference Include="$(MSBuildThisFileDirectory)../ProseSample.Substrings.Semantics/$(OutDir)ProseSample.Substrings.Semantics.dll" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <DslAssemblyPaths Include="@(AssemblyReference -> '%(RootDir)%(Directory)')" />
-    <!-- Fix the double-backslash-in-quoted-strings problem on Windows. See http://weblogs.asp.net/jongalloway/_5B002E00_NET-Gotcha_5D00_-Commandline-args-ending-in-_5C002200_-are-subject-to-CommandLineToArgvW-whackiness -->
-    <DslAssemblyPathsFixedSlash Include="@(DslAssemblyPaths -&gt; Replace('\', '/'))" />
-  </ItemGroup>
-  <PropertyGroup>
-    <DslOutputGrammar>$(TargetDir)ProseSample.Substrings.Language.g.cs</DslOutputGrammar>
-  </PropertyGroup>
-  <Target Name="CompileGrammar">
-    <Message Importance="High" Text="Compiling Substrings grammar..." />
-    <Exec Command="&quot;$(SolutionDir)packages\Microsoft.ProgramSynthesis.Compiler\tools\dslc.exe&quot; -p &quot;@(DslAssemblyPathsFixedSlash)&quot; -o &quot;$(DslOutputGrammar)&quot; -- &quot;$(ProjectDir)ProseSample.Substrings.grammar&quot;" />
-    <ItemGroup>
-      <Compile Include="$(DslOutputGrammar)" />
-    </ItemGroup>
-  </Target>
-  <PropertyGroup>
-    <CoreCompileDependsOn>CompileGrammar;$(CoreCompileDependsOn)</CoreCompileDependsOn>
-  </PropertyGroup>
+
 </Project>

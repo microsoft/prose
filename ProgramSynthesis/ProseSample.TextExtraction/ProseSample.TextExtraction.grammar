@@ -1,11 +1,7 @@
-﻿#reference 'file:Microsoft.ProgramSynthesis.Utils.dll';
-#reference 'file:Microsoft.ProgramSynthesis.Extraction.Text.Semantics.dll';
-#reference 'file:ProseSample.TextExtraction.dll';
-#reference 'file:ProseSample.Substrings.dll';
-
-using System.Text.RegularExpressions;
-using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
+﻿using System.Text.RegularExpressions;
+using Microsoft.ProgramSynthesis.DslLibrary;
 using ProseSample.TextExtraction;
+
 using semantics ProseSample.TextExtraction.Semantics;
 using learners ProseSample.TextExtraction.WitnessFunctions;
 using grammar Substrings=ProseSample.Substrings.Language.Grammar;

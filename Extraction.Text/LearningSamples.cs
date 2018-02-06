@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.ProgramSynthesis.AST;
+using Microsoft.ProgramSynthesis.DslLibrary;
 using Microsoft.ProgramSynthesis.Extraction.Text;
 using Microsoft.ProgramSynthesis.Extraction.Text.Constraints;
-using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 using Microsoft.ProgramSynthesis.Utils;
 using Microsoft.ProgramSynthesis.VersionSpace;
 using Microsoft.ProgramSynthesis.Wrangling;
@@ -487,7 +487,7 @@ namespace Extraction.Text
             // Note: we can't use SequenceProgram.Run(StringRegion) because of sibling referencing.
             // Read the documentation for more information.
             IEnumerable<IEnumerable<StringRegion>> outputSeq = topRankedProg.Run(areas);
-            foreach (ValueTuple<IEnumerable<StringRegion>, StringRegion> tup in outputSeq.ZipWith(areas))
+            foreach (Record<IEnumerable<StringRegion>, StringRegion> tup in outputSeq.ZipWith(areas))
             {
                 foreach (StringRegion output in tup.Item1)
                 {

@@ -1,74 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C7FC4D3C-3CAE-42B9-AFF9-83CB07A7872F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProseSample</RootNamespace>
-    <AssemblyName>ProseSample</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFramework>net45</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  
   <ItemGroup>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils.cs" />
+    <None Include="..\benchmarks\*" Link="benchmarks\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\ProseSample.Substrings\ProseSample.Substrings.grammar" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+  
   <ItemGroup>
-    <None Include="..\benchmarks\emails.tsv">
-      <Link>benchmarks\emails.tsv</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
+    <ProjectReference Include="..\ProseSample.Substrings\ProseSample.Substrings.csproj" />
+    <ProjectReference Include="..\ProseSample.TextExtraction\ProseSample.TextExtraction.csproj" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="0.0.0-private" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\benchmarks\areas.txt">
-      <Link>benchmarks\areas.txt</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\benchmarks\popl13-erc.txt">
-      <Link>benchmarks\popl13-erc.txt</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj">
-      <Project>{997C015E-6C5F-495B-A6A7-648E0837EC6D}</Project>
-      <Name>ProseSample.Substrings.Semantics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProseSample.Substrings\ProseSample.Substrings.csproj">
-      <Project>{41e9a9b1-b013-4a87-9759-e3004fef8a81}</Project>
-      <Name>ProseSample.Substrings</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProseSample.TextExtraction\ProseSample.TextExtraction.csproj">
-      <Project>{5aa217f9-deab-46be-81be-afd00948ac50}</Project>
-      <Name>ProseSample.TextExtraction</Name>
-    </ProjectReference>
-    <PackageReference Include="Microsoft.ProgramSynthesis.Compiler" Version="4.0.0" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

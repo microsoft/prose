@@ -1,6 +1,6 @@
 ﻿using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.AST;
-using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
+using Microsoft.ProgramSynthesis.DslLibrary;
 using Microsoft.ProgramSynthesis.Features;
 
 namespace ProseSample.TextExtraction

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
+using Microsoft.ProgramSynthesis.DslLibrary;
 
 namespace ProseSample.TextExtraction
 {

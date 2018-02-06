@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.AST;
 using Microsoft.ProgramSynthesis.Compiler;
+using Microsoft.ProgramSynthesis.DslLibrary;
 using Microsoft.ProgramSynthesis.Extraction.Text;
-using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
 using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Learning.Logging;
 using Microsoft.ProgramSynthesis.Learning.Strategies;
@@ -19,9 +20,12 @@ namespace ProseSample
 {
     internal static class Utils
     {
-        public static Grammar LoadGrammar(string grammarFile)
+        public static Grammar LoadGrammar(string grammarFile, IReadOnlyList<CompilerReference> assemblyReferences)
         {
-            var compilationResult = DSLCompiler.ParseGrammarFromFile(grammarFile);
+            var compilationResult = DSLCompiler.Compile(new CompilerOptions() {
+                InputGrammarText = File.ReadAllText(grammarFile),
+                References = assemblyReferences
+            });
             if (compilationResult.HasErrors)
             {
                 WriteColored(ConsoleColor.Magenta, compilationResult.TraceDiagnostics);

@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.ProgramSynthesis.Extraction.Json;
 using Microsoft.ProgramSynthesis.Extraction.Json.Constraints;
-using Microsoft.ProgramSynthesis.Wrangling.Json;
-using Microsoft.ProgramSynthesis.Wrangling.Schema;
 using Microsoft.ProgramSynthesis.Wrangling.Schema.TableOutput;
-using Microsoft.ProgramSynthesis.Wrangling.Schema.TreeOutput;
 
 namespace Extraction.Json
 {
@@ -62,18 +59,10 @@ namespace Extraction.Json
                 return;
             }
 
-            // Run the program and obtain the tree output
-            ITreeOutput<JsonRegion> tree = program.Run(jsonText);
-
-            // Run the program and obtain the table output using outer join semantics
-            IEnumerable<TableRow<JsonRegion>> outerJoinTable = program.RunTable(jsonText, TreeToTableSemantics.OuterJoin);
-            Console.WriteLine("OuterJoin Semantic Table!");
-            PrintTable(outerJoinTable);
-
-            // Run the program and obtain the table output using inner join semantics
-            IEnumerable<TableRow<JsonRegion>> innerJoinTable = program.RunTable(jsonText, TreeToTableSemantics.InnerJoin);
-            Console.WriteLine("InnerJoin Semantic Table!");
-            PrintTable(innerJoinTable);
+            // Run the program and obtain the table
+            ITable<string> table = program.Run(jsonText);
+            Console.WriteLine("Joining Inner Array Table!");
+            PrintTable(table);
 
             // Option 2: No Joining Inner Arrays
             var noJoinSession = new Session();
@@ -87,21 +76,20 @@ namespace Extraction.Json
             }
 
             // Run the program and obtain the table output
-            IEnumerable<TableRow<JsonRegion>> table = noJoinProgram.RunTable(jsonText);
+            table = noJoinProgram.Run(jsonText);
             Console.WriteLine("No Joining Inner Array Table!");
             PrintTable(table);
 
             Console.WriteLine("Done.");
         }
 
-        private static void PrintTable(IEnumerable<TableRow<JsonRegion>> table)
+        private static void PrintTable(IEnumerable<IEnumerable<string>> table)
         {
-            foreach (TableRow<JsonRegion> row in table)
+            foreach (IEnumerable<string> row in table)
             {
-                foreach (KeyValuePair<string, JsonRegion> cell in row.Value)
+                foreach (string cell in row)
                 {
-                    string value = cell.Value == null ? "null" : cell.Value.Value;
-                    Console.Write($"<{cell.Key}:{value}>, ");
+                    Console.Write($"{cell ?? "null"}, ");
                 }
                 Console.WriteLine();
             }

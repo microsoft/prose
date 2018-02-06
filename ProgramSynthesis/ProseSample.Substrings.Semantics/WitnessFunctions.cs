@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.ProgramSynthesis;
-using Microsoft.ProgramSynthesis.Extraction.Text.Semantics;
+using Microsoft.ProgramSynthesis.DslLibrary;
 using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Rules;
 using Microsoft.ProgramSynthesis.Specifications;
+using Microsoft.ProgramSynthesis.Utils;
 using Microsoft.ProgramSynthesis.Utils.Caching;
 
 namespace ProseSample.Substrings
@@ -29,7 +30,7 @@ namespace ProseSample.Substrings
                      i >= 0;
                      i = v.Value.IndexOf(desiredOutput.Value, i + 1, StringComparison.Ordinal))
                 {
-                    occurrences.Add(ValueTuple.Create(v.Start + (uint?) i, v.Start + (uint?) i + desiredOutput.Length));
+                    occurrences.Add(Record.Create(v.Start + (uint?) i, v.Start + (uint?) i + desiredOutput.Length));
                 }
                 ppExamples[input] = occurrences;
             }
@@ -71,7 +72,7 @@ namespace ProseSample.Substrings
                     var leftRegexes = RegularExpression.LearnLeftMatches(v, pos, RegularExpression.DefaultTokenCount);
                     var rightRegexes = RegularExpression.LearnRightMatches(v, pos, RegularExpression.DefaultTokenCount);
                     var regexPairs =
-                        from l in leftRegexes from r in rightRegexes select (object) ValueTuple.Create(l, r);
+                        from l in leftRegexes from r in rightRegexes select (object) Record.Create(l, r);
                     regexes.AddRange(regexPairs);
                 }
                 rrExamples[input] = regexes;
@@ -87,7 +88,7 @@ namespace ProseSample.Substrings
             foreach (State input in spec.ProvidedInputs)
             {
                 var v = (StringRegion) input[rule.Body[0]];
-                var rr = (ValueTuple<RegularExpression, RegularExpression>) regexBinding.Examples[input];
+                var rr = (Record<RegularExpression, RegularExpression>) regexBinding.Examples[input];
                 var ks = new List<object>();
                 foreach (uint pos in spec.DisjunctiveExamples[input])
                 {
