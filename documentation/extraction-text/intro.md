@@ -135,18 +135,4 @@ Wild Shrimp   (111)  222-3333   1
 
 **Read more:** [ConvertFrom-String: Example-based text parsing](https://blogs.msdn.microsoft.com/powershell/2014/10/31/convertfrom-string-example-based-text-parsing/).
 
-## Prose Playground
-
-In [**Prose Playground**](https://prose-playground.cloudapp.net/), users extract hierarchical data by highlighting various fields using colors.
-
-<a href="{{ site.baseurl }}/img/extraction-full.png" class="popup-image mfp-image"
-   title="Data extraction by examples in PROSE Playground">
-    <img class="pure-img mx-auto" src="{{ site.baseurl }}/img/extraction.png">
-</a>
-
-Although the learning in **Playground** is similar to that of **ConvertFrom-String** (learning fields in document order and fields reference each other), it is more complicated due to its interactive nature.
-
-Because at each step users can only give one example, most of the existing fields are not affected. This allows **Playground** to cache most of the learning result from the previous step. However, since users can give example for *any* field, all fields depending on it will be affected. **Playground** has to visit the field dependency graph to relearn the affected fields, if necessary.
-
-**Read more:** [User Interaction Models for Disambiguation in Programming by Example](http://research.microsoft.com/en-us/um/people/sumitg/pubs/uist15.pdf)
 

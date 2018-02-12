@@ -144,24 +144,6 @@ foreach(var input in session.Inputs)
 | Greta  | Hermansson | Hermansson, G. |
 | Kettil | Hansson    | Hansson, K.    |
 | Etelka | bala       | bala, E.       |
- 
-
-## Paraphrasing
-
-Simply running the program, doesn&apos;t explain why the results were what
-they were and could be misleading in some cases. While we do not expect the
-user to understand code, they may be able to follow a natural language
-description of the program genererated by PROSE&apos;s [paraphrasing support](https://prose-docs.azurewebsites.net/html/N_Microsoft_ProgramSynthesis_Paraphrasing.htm).
-Given language files written for each pair of DSL and natural language,
-PROSE can translate a program like the running example into a string like
-"Concatenate [`Input2`], the constant string '`, `', the first letter of [`Input1`], and the constant string '`.`'.".
-Since more than one program can be synthesized, that paraphrasing can
-actually be made interactive. For example, "letter" could be a drop-down
-menu allowing the user to change it to "captial letter" or "character",
-corresponding to other programs synthesized when learning more than just
-the top program.
-See [Playground]({{ site.baseurl }}/playground) for a demo of interactive
-paraphasing for text/web extraction.
 
 
 ## DSL-specific

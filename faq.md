@@ -12,9 +12,6 @@ The SDK is used through .NET APIs.
 See the [tutorial]({{ site.baseurl }}/documentation/prose/tutorial) for how to get
 started and the documentation links on the sidebar for more details.
 
-Also, the [Playground]({{ site.baseurl }}/playground) provides a web interface for trying
-out the text and web extraction features.
-
 
 ## How do I install it?
 
