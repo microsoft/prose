@@ -70,7 +70,7 @@ namespace Transformation.Json
 
             // Given just the examples, the best program is returned
             var session = new Session();
-            session.AddConstraints(new Example<JToken, JToken>(trainInput, trainOutput));
+            session.Constraints.Add(new Example<JToken, JToken>(trainInput, trainOutput));
             Program topRankedProgram = session.Learn();
 
             if (topRankedProgram == null)

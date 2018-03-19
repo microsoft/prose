@@ -34,13 +34,13 @@ namespace Microsoft.ProgramSynthesis.Compound.Split.Sample
             var constraints = new Constraint[] { new SimpleDelimiter() };
 
             var stringSession = new Session();
-            stringSession.AddInputs(inputRegion);
-            stringSession.AddConstraints(constraints);
+            stringSession.Inputs.Add(inputRegion);
+            stringSession.Constraints.Add(constraints);
 
             var streamSession = new Session();
             // Create stream from string
-            streamSession.AddInputs(new StringReader(input));
-            streamSession.AddConstraints(constraints);
+            streamSession.AddInputsFromReaders(new StringReader(input));
+            streamSession.Constraints.Add(constraints);
 
             Session[] sessions = { stringSession, streamSession };
             foreach (Session session in sessions)
@@ -84,35 +84,35 @@ namespace Microsoft.ProgramSynthesis.Compound.Split.Sample
             // we first consider the case where we do not know if the file is delimited or fixed width, 
             // and would like to determine the file type and metadata
             Session session = new Session();
-            session.AddConstraints(new SimpleDelimiterOrFixedWidth());
+            session.Constraints.Add(new SimpleDelimiterOrFixedWidth());
 
             // we first check the sample fixed-width file
-            session.AddInputs(Session.CreateStringRegion(fixedWidthFile));
+            session.Inputs.Add(Session.CreateStringRegion(fixedWidthFile));
             Program program = session.Learn();
             Console.WriteLine($"Inferring the fixed-width file properties without knowing the file format:");
             PrintProperties(program);
 
             // we now check the sample delimited file
-            session.RemoveAllInputs();
-            session.AddInputs(Session.CreateStringRegion(delimitedFile));
+            session.Inputs.Clear();
+            session.Inputs.Add(Session.CreateStringRegion(delimitedFile));
             program = session.Learn();
             Console.WriteLine($"Inferring the delimited file properties without knowing the file format:");
             PrintProperties(program);
             
             // we now consider the case where we know that the file is fixed-width and just want to get the metadata such as column start positions
-            session.RemoveAllInputs();
-            session.RemoveAllConstraints();
-            session.AddConstraints(new FixedWidth());
-            session.AddInputs(Session.CreateStringRegion(fixedWidthFile));
+            session.Inputs.Clear();
+            session.Constraints.Clear();
+            session.Constraints.Add(new FixedWidth());
+            session.Inputs.Add(Session.CreateStringRegion(fixedWidthFile));
             program = session.Learn();
             Console.WriteLine($"Inferring the fixed width file properties when we know the format is fixed-width:");
             PrintProperties(program);
 
             // we now consider the case where we know the file is delimited and just want to get the metadata such as delimiters used
-            session.RemoveAllInputs();
-            session.RemoveAllConstraints();
-            session.AddConstraints(new SimpleDelimiter());
-            session.AddInputs(Session.CreateStringRegion(delimitedFile));
+            session.Inputs.Clear();
+            session.Constraints.Clear();
+            session.Constraints.Add(new SimpleDelimiter());
+            session.Inputs.Add(Session.CreateStringRegion(delimitedFile));
             program = session.Learn();
             Console.WriteLine($"Inferring the delimited file properties when we know the format is delimited:");
             PrintProperties(program);

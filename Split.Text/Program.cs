@@ -22,10 +22,10 @@ namespace Split.Text
                 SplitSession.CreateStringRegion("U109 Adam Jay Lucas (New Zealand)"),
                 SplitSession.CreateStringRegion("R342 Carrie Dodson (United States)")
             };
-            splitSession.AddInputs(inputs);
+            splitSession.Inputs.Add(inputs);
 
             // add the constraint to include all delimiters in the program output
-            splitSession.AddConstraints(new IncludeDelimitersInOutput(true));
+            splitSession.Constraints.Add(new IncludeDelimitersInOutput(true));
 
             // call the learn function to learn a splitting program from the given input examples
             SplitProgram program = splitSession.Learn();
@@ -58,8 +58,8 @@ namespace Split.Text
             }
 
             // learn a program to extract only the fields and no delimiters
-            splitSession.RemoveAllConstraints();
-            splitSession.AddConstraints(new IncludeDelimitersInOutput(false));
+            splitSession.Constraints.Clear();
+            splitSession.Constraints.Add(new IncludeDelimitersInOutput(false));
             SplitProgram programWithoutDelimiters = splitSession.Learn();
             if (programWithoutDelimiters == null)
             {
@@ -96,18 +96,18 @@ namespace Split.Text
             }
 
             // provide output examples to learn a program that produces a different splitting (separates the first name)
-            splitSession.RemoveAllConstraints();
-            splitSession.AddInputs(newInputs);
-            splitSession.AddConstraints(new IncludeDelimitersInOutput(false));
+            splitSession.Constraints.Clear();
+            splitSession.Inputs.Add(newInputs);
+            splitSession.Constraints.Add(new IncludeDelimitersInOutput(false));
             // provide examples of the desired splitting: the example input string to split, the index of the split cell in the output, and the value desired in that split cell 
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[0].Value, 0, "PE5"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[0].Value, 1, "Leonard"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[0].Value, 2, "Robledo"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[0].Value, 3, "Australia"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[1].Value, 0, "U109"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[1].Value, 1, "Adam"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[1].Value, 2, "Jay Lucas"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[1].Value, 3, "New Zealand"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[0].Value, 0, "PE5"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[0].Value, 1, "Leonard"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[0].Value, 2, "Robledo"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[0].Value, 3, "Australia"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[1].Value, 0, "U109"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[1].Value, 1, "Adam"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[1].Value, 2, "Jay Lucas"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[1].Value, 3, "New Zealand"));
             SplitProgram programFromExamples = splitSession.Learn();
             if (programFromExamples == null)
             {
@@ -127,16 +127,16 @@ namespace Split.Text
             }
 
             // provide different examples to learn a program that separates the last name rather than the first
-            splitSession.RemoveAllConstraints();
-            splitSession.AddConstraints(new IncludeDelimitersInOutput(false));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[0].Value, 0, "PE5"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[0].Value, 1, "Leonard"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[0].Value, 2, "Robledo"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[0].Value, 3, "Australia"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[1].Value, 0, "U109"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[1].Value, 1, "Adam Jay"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[1].Value, 2, "Lucas"));
-            splitSession.AddConstraints(new NthExampleConstraint(inputs[1].Value, 3, "New Zealand"));
+            splitSession.Constraints.Clear();
+            splitSession.Constraints.Add(new IncludeDelimitersInOutput(false));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[0].Value, 0, "PE5"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[0].Value, 1, "Leonard"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[0].Value, 2, "Robledo"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[0].Value, 3, "Australia"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[1].Value, 0, "U109"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[1].Value, 1, "Adam Jay"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[1].Value, 2, "Lucas"));
+            splitSession.Constraints.Add(new NthExampleConstraint(inputs[1].Value, 3, "New Zealand"));
             SplitProgram programFromDifferentExamples = splitSession.Learn();
             if (programFromDifferentExamples == null)
             {

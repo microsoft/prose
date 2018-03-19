@@ -6,9 +6,11 @@ using Microsoft.ProgramSynthesis.AST;
 using Microsoft.ProgramSynthesis.DslLibrary;
 using Microsoft.ProgramSynthesis.Extraction.Text;
 using Microsoft.ProgramSynthesis.Extraction.Text.Constraints;
+using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Utils;
 using Microsoft.ProgramSynthesis.VersionSpace;
 using Microsoft.ProgramSynthesis.Wrangling;
+
 
 namespace Extraction.Text
 {
@@ -67,7 +69,7 @@ namespace Extraction.Text
             // Only one example because we extract one region from one file.
             // Position specifies the location between two characters in the file. It starts at 0 (the beginning of the file).
             // An example is identified by a pair of start and end positions.
-            session.AddConstraints(new RegionExample(input, input.Slice(7, 13))); // "Carrie Dodson 100" => "Dodson"
+            session.Constraints.Add(new RegionExample(input, input.Slice(7, 13))); // "Carrie Dodson 100" => "Dodson"
 
             RegionProgram topRankedProg = session.Learn();
             if (topRankedProg == null)
@@ -97,7 +99,7 @@ namespace Extraction.Text
             StringRegion input1 = RegionSession.CreateStringRegion("Carrie Dodson 100");
             StringRegion input2 = RegionSession.CreateStringRegion("Leonard Robledo 75");
 
-            session.AddConstraints(
+            session.Constraints.Add(
                 new RegionExample(input1, input1.Slice(7, 13)), // "Carrie Dodson 100" => "Dodson"
                 new RegionExample(input2, input2.Slice(8, 15)) // "Leonard Robledo 75" => "Robledo"
             );
@@ -132,7 +134,7 @@ namespace Extraction.Text
             StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
 
             // Suppose we want to extract "100", "320".
-            session.AddConstraints(
+            session.Constraints.Add(
                 new RegionExample(records[0], records[0].Slice(14, 17)), // "Carrie Dodson 100" => "100"
                 new RegionNegativeExample(records[1], records[1]) // no extraction in "Leonard Robledo NA"
             );
@@ -164,14 +166,14 @@ namespace Extraction.Text
             StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
 
             // Suppose we want to extract "100", "75", and "***".
-            session.AddConstraints(new RegionExample(records[0], records[0].Slice(14, 17)));
+            session.Constraints.Add(new RegionExample(records[0], records[0].Slice(14, 17)));
                 // "Carrie Dodson 100" => "100"
 
             // Additional references help Extraction.Text observe the behavior of the learnt programs on unseen data.
             // In this example, if we do not use additional references, Extraction.Text may learn a program that extracts the first number.
             // On the contrary, if other references are present, it knows that this program is not applicable on the third record "Margaret Cook ***",
             // and promotes a more applicable program.
-            session.AddInputs(records.Skip(1));
+            session.Inputs.Add(records.Skip(1));
 
             RegionProgram topRankedProg = session.Learn();
             if (topRankedProg == null)
@@ -199,7 +201,7 @@ namespace Extraction.Text
             StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
 
             // Suppose we want to extract the number out of a record
-            session.AddConstraints(
+            session.Constraints.Add(
                 new RegionExample(records[0], records[0].Slice(14, 17)), // "Carrie Dodson 100" => "100"
                 new RegionExample(records[1], records[1].Slice(34, 36)) // "Leonard Robledo 75" => "75"
             );
@@ -232,7 +234,7 @@ namespace Extraction.Text
             StringRegion[] firstNames = { input.Slice(0, 6), input.Slice(18, 25), input.Slice(37, 45) };
 
             // Suppose we want to extract the number w.r.t the first name
-            session.AddConstraints(
+            session.Constraints.Add(
                 new RegionExample(firstNames[0], records[0].Slice(14, 17)), // "Carrie" => "100"
                 new RegionExample(firstNames[1], records[1].Slice(34, 36)) // "Leonard" => "75"
             );
@@ -265,7 +267,7 @@ namespace Extraction.Text
             StringRegion[] numbers = { input.Slice(14, 17), input.Slice(34, 36), input.Slice(51, 54) };
 
             // Suppose we want to extract the first name w.r.t the number
-            session.AddConstraints(
+            session.Constraints.Add(
                 new RegionExample(numbers[0], records[0].Slice(0, 6)), // "Carrie" => "100"
                 new RegionExample(numbers[1], records[1].Slice(18, 25)) // "Leonard" => "75"
             );
@@ -293,7 +295,7 @@ namespace Extraction.Text
             var session = new RegionSession();
             StringRegion input = RegionSession.CreateStringRegion("Carrie Dodson 100");
 
-            session.AddConstraints(new RegionExample(input, input.Slice(14, 17))); // "Carrie Dodson 100" => "Dodson"
+            session.Constraints.Add(new RegionExample(input, input.Slice(14, 17))); // "Carrie Dodson 100" => "Dodson"
 
             IEnumerable<RegionProgram> topKPrograms = session.LearnTopK(3);
 
@@ -324,7 +326,7 @@ namespace Extraction.Text
             var session = new RegionSession();
             StringRegion input = RegionSession.CreateStringRegion("Carrie Dodson 100");
 
-            session.AddConstraints(new RegionExample(input, input.Slice(14, 17))); // "Carrie Dodson 100" => "Dodson"
+            session.Constraints.Add(new RegionExample(input, input.Slice(14, 17))); // "Carrie Dodson 100" => "Dodson"
 
             ProgramSet allPrograms = session.LearnAll().ProgramSet;
             IEnumerable<ProgramNode> topKPrograms = allPrograms.TopK(RegionLearner.Instance.ScoreFeature, 3);
@@ -369,10 +371,15 @@ namespace Extraction.Text
             Regex lookAheadRegex = null;
             Regex matchingRegex = new Regex("\\d+");
 
-            IEnumerable<RegionProgram> topRankedPrograms = RegionLearner.Instance.LearnTopK(examples, null, 1,
+            IEnumerable<RegionProgram> topRankedPrograms = RegionLearner.Instance.LearnTopK(examples, 
+                                                                                            RegionLearner.Instance.ScoreFeature,
+                                                                                            1,
+                                                                                            null,
+                                                                                            default(ProgramSamplingStrategy),
+                                                                                            null,
                                                                                             lookBehindRegex,
                                                                                             matchingRegex,
-                                                                                            lookAheadRegex);
+                                                                                            lookAheadRegex).TopPrograms;
 
             RegionProgram topRankedProg = topRankedPrograms.FirstOrDefault();
             if (topRankedProg == null)
@@ -397,7 +404,7 @@ namespace Extraction.Text
             var session = new RegionSession();
             StringRegion input = RegionSession.CreateStringRegion("Carrie Dodson 100");
 
-            session.AddConstraints(new RegionExample(input, input.Slice(7, 13))); // "Carrie Dodson 100" => "Dodson"
+            session.Constraints.Add(new RegionExample(input, input.Slice(7, 13))); // "Carrie Dodson 100" => "Dodson"
 
             RegionProgram topRankedProg = session.Learn();
             if (topRankedProg == null)
@@ -432,7 +439,7 @@ namespace Extraction.Text
                     "Canada\n Concetta Beck 350\n Nicholas Sayers 90\n Francis Terrill 2430\n" +
                     "New Zealand\n Nettie Pope 50\n Mack Beeson 1070");
             // Suppose we want to extract all last names from the input string.
-            session.AddConstraints(
+            session.Constraints.Add(
                 new SequenceExample(input, new[]
                 {
                     input.Slice(15, 21), // input => "Carrie"
@@ -469,7 +476,7 @@ namespace Extraction.Text
             StringRegion[] areas = { input.Slice(0, 13), input.Slice(72, 78), input.Slice(140, 151) };
 
             // Suppose we want to extract all last names from the input string.
-            session.AddConstraints(
+            session.Constraints.Add(
                 new SequenceExample(areas[0], new[]
                 {
                     input.Slice(15, 21), // "United States" => "Carrie"

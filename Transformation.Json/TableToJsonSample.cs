@@ -18,7 +18,7 @@ namespace Transformation.Json
 
             // Option 1: Automatically transform a table to a JSON file
             var autoSession = new TableToJsonSession();
-            autoSession.AddConstraints(new AutoTransform(inputTable));
+            autoSession.Constraints.Add(new AutoTransform(inputTable));
 
             var autoProgram = autoSession.Learn();
 
@@ -55,7 +55,7 @@ namespace Transformation.Json
             }";
             var trainOutputToken = JToken.Parse(trainOuput);
 
-            byExampleSession.AddConstraints(new TableToJsonExample(trainInputTable, trainOutputToken));
+            byExampleSession.Constraints.Add(new TableToJsonExample(trainInputTable, trainOutputToken));
 
             // Learn a Table to Json transformation program from the example
             var byExampleProgram = byExampleSession.Learn();

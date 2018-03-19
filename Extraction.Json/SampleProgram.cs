@@ -40,7 +40,7 @@ namespace Extraction.Json
             // Option 1: Joining Inner Arrays
             // Learn a program with the constraint to flatten the entire document.
             var session = new Session();
-            session.AddConstraints(new FlattenDocument(jsonText));
+            session.Constraints.Add(new FlattenDocument(jsonText));
             Program program = session.Learn();
 
             if (program == null)
@@ -66,7 +66,7 @@ namespace Extraction.Json
 
             // Option 2: No Joining Inner Arrays
             var noJoinSession = new Session();
-            noJoinSession.AddConstraints(new FlattenDocument(jsonText), new NoJoinInnerArrays());
+            noJoinSession.Constraints.Add(new FlattenDocument(jsonText), new NoJoinInnerArrays());
             Program noJoinProgram = noJoinSession.Learn();
 
             if (noJoinProgram == null)

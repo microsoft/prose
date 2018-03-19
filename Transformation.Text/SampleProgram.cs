@@ -249,13 +249,10 @@ namespace Transformation.Text
 
         private static void LearnWithSession()
         {
-            Session session = new Session
-            {
-                AllowBackgroundComputations = true
-            };
+            Session session = new Session();
 
-            session.AddInputs(new InputRow("02/04/1953"), new InputRow("04/02/1962"), new InputRow("27/08/1998"));
-            session.AddConstraints(new Example(new InputRow("02/04/1953"), "1953-04-02"));
+            session.Inputs.Add(new InputRow("02/04/1953"), new InputRow("04/02/1962"), new InputRow("27/08/1998"));
+            session.Constraints.Add(new Example(new InputRow("02/04/1953"), "1953-04-02"));
             Program topRankedProgram = session.Learn();
 
             if (topRankedProgram == null)
