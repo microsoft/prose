@@ -3,6 +3,78 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 6.0.0 -- 2018/03/19
+
+## Breaking Changes
+
+- Our session base class no longer implements `IDisposable`, and its serialization format has changed because the 
+  `AllowBackgroundComputations` member has been deleted.
+  
+- Session constraints and inputs are now maintained in smart collections rather than having custom Add/Remove methods.
+    - For most consuming code the fix is just to replace calls to `session.AddConstraints` with `session.Constraints.Add`
+      and `session.AddInputs` with `session.Inputs.Add` 
+- The Python and Java translators now all take an OptimizeFor parameter which does NOT have a default value.  Callers
+  should specify a value of OptimizeFor.Performance or OptimizeFor.Readability (where readability means that the program
+  synthesized should be as easy as possible for humans to read and understand even if that means some reduction in the
+  speed of execution for that program).
+  
+- Matching.Text no longer allows specifying negative examples or positive examples that are marked as hard constraints.
+  Since the current implementation treats all examples as soft constraints, the API now makes that explicit.  Similarly,
+  the `DisjunctionLimit` constraint is also always a soft constraint.
+  
+- Transformation.Text's `GetSignificantInputClustersAsync` method has been removed and replaced with
+  `GetSignificantInputsAsync`.
+
+## New Features
+
+- Extraction.Pdf is a new library in our Lab package which enables automatic extraction of structured tables from PDF
+  documents.  (Unlike almost all of our other libraries, this is only supported on .Net Desktop because it depends on a
+  native library which is only available for windows.)
+  
+- Compound.Split
+    - Now supports Multi-record splitting which enables splitting of files with key-value pairs and pivoting the results
+      into a table with the keys as columns.
+
+## Bug Fixes / Enhancements
+
+- The `LearnTopK` method on `Session` has a new optional parameter for requesting not only the top K programs but also a
+  random sample of additional programs learned.
+  
+- The dependency on the native Z3 library has been removed.
+
+- Improvements to translation of programs.
+    - Avoid lifting constants if translator is not opted for Performance.
+    - Modify Python translator to not create classes for simple programs.
+    - Perform Constant propagation, Copy propagation and Common subexpression optimization on translated programs
+      (Java and Python).
+    - Other readability improvements like aliasing in Python and shortening Python operator names.
+    - Compound.Split now supports Python translations for simple delimiter and fixed width cases.  In an upcoming release all
+      Compound.Split programs will support Python translation.
+    - Specific to Transformation.Text
+        - By default the generated program has a more natural function signature with an argument for each input column
+          that is named appropriately rather than a taking a single dictionary of the inputs.
+        - Programs produced use the more idiomatic + for concat and [:] for slice in appropriate places.
+        - Dead-code elimination.
+        - Function calls are not inlined but variables and literals are.
+        - An extra variable is no longer created for the return value of a function.
+- Extraction.Web
+    - No longer escapes certain occurrences of hyphen in CSS selectors (when it occurs between two letters, a very common
+      case) making them more readable.
+    - Now supports entity-based extraction programs that include operators to extract data with respect to surrounding
+      entities in the DOM context (e.g. extracting dates from bill receipts across different formats and providers).
+    - A new previous program constraint which enables incremental table learning where a previously synthesized program can
+      be supplied when synthesizing a new program which adds additional row/column selection information.  This can bring
+      significant perf benefits for synthesizing programs to extract large tables.
+    - Case insensitive text matching.
+    - Possibly null values  are prevented in single column extractions.
+    - Improved predicate learning to most specific and smallest selectors.
+- Split.Text (and by extension Compound.Split)
+    - Improvements to fixed width file detection including:
+        - Better number data type recognition to include numbers preceded by “+/-“.
+        - Reduced false positive left aligned column detection.
+- Transformation.Text
+    - Fixed a bug in datetime rounding learning where sometimes too many dates were rounded.
+
 # Release 5.1.0 -- 2018/02/07
 
 ## Breaking Changes
@@ -59,7 +131,7 @@ title: Release Notes
     - Split.Text
     - Extraction.Json
 
-## Bug fixes / Enhancements
+## Bug Fixes / Enhancements
 
 - Compound.Split:
     - Considers more lines when determining the column delimiter.
@@ -213,7 +285,7 @@ We are aware of the issues and hope to have a fix soon.  In the meantime, the av
 
 - This release includes significant performance improvements including:
     - A long-standing memory leak was fixed in the core framework that affected learning performance.
-    - Runtime performance improvements for generated python programs (on order of 2x faster).
+    - Runtime performance improvements for generated Python programs (on order of 2x faster).
     - Transformation.Text learning performance is improved.      
     - Transformation.Text significant inputs performance is improved.
     - Transformation.Text date/time parsing (both during learning and dat runtime) performance is improved.
