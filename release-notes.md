@@ -27,10 +27,6 @@ title: Release Notes
 
 ## New Features
 
-- Extraction.Pdf is a new library in our Lab package which enables automatic extraction of structured tables from PDF
-  documents.  (Unlike almost all of our other libraries, this is only supported on .Net Desktop because it depends on a
-  native library which is only available for windows.)
-  
 - Compound.Split
     - Now supports Multi-record splitting which enables splitting of files with key-value pairs and pivoting the results
       into a table with the keys as columns.
