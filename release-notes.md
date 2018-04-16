@@ -3,6 +3,42 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 6.1.0 -- 2018/04/16
+
+## New Features
+
+- Compound.Split
+    - Can now extract the schema of a fixed width file from a free-form text file description of the schema and use that to 
+      learn an extraction program.
+
+## Bug Fixes / Enhancements
+
+- Compound.Split
+    - Fixed width inference (for cases where the schema file is not available) is improved to prevent splitting inside
+      standard data types.
+    - Python translation now produces code that calls Pandas for supported CSV and fixed-width files.
+
+- Extraction.Web
+    - The NormalizeHtml method is now significantly simpler and more robust.
+    - Now supports table constraints in which some cell examples are soft constraints (that is, they need not necessarily
+      be satisfied but they help to converge to correct programs).  This can be useful in interactive settings where if the
+      user provides new examples after a previous learning round, then any output of the previous learning round which the user
+      has not changed can be treated as soft constraints.
+
+- Transformation.Text
+    - Learning performance improvements.
+    - Improved readability of learned programs through constant folding.
+    - Fixes to conditional program learning such that the correct program is learned and returned in more cases instead of the
+      system indicating that it could not learn a program.  Also conditional patterns are better clustered together.
+
+- Changes that only affect those building their own DSLs.
+    - The PROSE grammar specification language has been changed to only allow binding single variables in let expressions.
+      None of our existing grammars used a let with multiple variables, and we decided to simplify the grammar handling logic
+      by enforcing this as a constraint.
+    - AST “holes” now have Ids and are equal if they have the same symbol and id.
+    - There is a new subprogram translator extension point interface which enables pattern based code generators to be plugged
+      into the overall translation system.
+
 # Release 6.0.0 -- 2018/03/19
 
 ## Breaking Changes
@@ -392,6 +428,6 @@ fixes.
 
 First public release. Added support for .NET Core as well as several new DSLs.
 
-# Release 0.1.1-preview -- 2015/10/29
+# Release 0.1.1 -- 2015/10/29
 
 First public preview.
