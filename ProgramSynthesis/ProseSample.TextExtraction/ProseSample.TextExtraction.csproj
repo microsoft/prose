@@ -7,12 +7,12 @@
   <ItemGroup>
     <None Include="ProseSample.TextExtraction.grammar" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
     <ProjectReference Include="..\ProseSample.Substrings\ProseSample.Substrings.csproj" />
-    <PackageReference Include="Microsoft.ProgramSynthesis" Version="6.1.0" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.Compiler" Version="6.1.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="6.2.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Compiler" Version="6.2.0" />
   </ItemGroup>
-
 </Project>
+
