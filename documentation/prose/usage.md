@@ -716,7 +716,7 @@ Microsoft Program Synthesis using Examples framework:
 
 [^4]: The common recipe that we use in our development is to reference the semantics DLL from the main project in a Visual Studio solution. This way, the semantics DLL is automatically copied to the target subdirectory on each build next to the main executable, and you can refer to it in the grammar string by simply using its filename. Alternatively, you can specify additional library paths as extra parameters to the `LoadGrammar` method.
 
-
+<br /><br /><br /><br />
 {% include incorrect-doc-warning.html %}
 
 
