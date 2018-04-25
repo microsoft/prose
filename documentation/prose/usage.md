@@ -3,8 +3,6 @@ date: 2015-08-31T15:02:56-07:00
 title: Usage
 ---
 
-{% include outdated.html %}
-
 {% include toc.liquid.md %}
 
 # Terminology
@@ -35,7 +33,7 @@ recursive invocations of `Invoke`.
 The Microsoft.ProgramSynthesis package unites the core pieces of the meta-synthesizer.
 Here are the included assemblies:
 
--   **Microsoft.ProgramSynthesis** includes the core functionality for manipulating
+-   **Microsoft.ProgramSynthesis.** includes the core functionality for manipulating
     ASTs, validating DSLs, maintain a DSL and a set of its operators,
     and core infrastructure for the synthesis algorithms.
 -   **dslc.exe** is a DSL compiler. This is the executable that
@@ -46,6 +44,7 @@ Here are the included assemblies:
     standard operators and strategies.
 -   **Microsoft.ProgramSynthesis.Utils** is a collection of utility methods that are used
     in different parts of the project.
+
 
 A typical workflow of a DSL designer consists of the following steps:
 
@@ -629,7 +628,7 @@ hence the name.
 An abstract `ProgramSet` class defines the following contract:
 
 ```csharp
-public abstract class ProgramSet
+public abstract class ProgramSet : ILanguage
 {
     protected ProgramSet(Symbol symbol)
     {
