@@ -719,6 +719,5 @@ Microsoft Program Synthesis using Examples framework:
 
 {% include toc.liquid.md %}
 
-{% include incorrect-doc-warning.html %}
 
 {% include toc.liquid.md %}
