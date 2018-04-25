@@ -3,6 +3,35 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 6.2.0 -- 2018/04/25
+
+## Breaking Changes
+
+- Matching.Text
+    - The `Patterns` property has been removed.  Patterns should be retrieved by calling the `LearnPatterns()`
+      method on the session object instead.
+
+## New Features
+
+- Changes that only affect those building their own DSLs
+    - The [Samples](https://github.com/microsoft/prose) contain a new DSL Authoring tutorial.
+
+## Bug Fixes / Enhancements
+
+- Compound.Split
+    - The system now attempts to learn an ingestion program that obeys standard CSV quoting first
+      and then falls back to the more flexible strategy only if the standard doesn’t work.
+- Extraction.Web
+    - Fixed bugs with case insensitive comparisons and normalization.
+- Matching.Text
+    - Fixed a bug in the handling of cancellation tokens.  Now we check for cancellation much more frequently.
+    - Fixed handling of null strings.
+    - Improved readability and performance of python translations.
+- Transformation.Text
+    - Significant inputs has improved performance and accuracy.
+- Common Framework
+    - The interface for implementing a subprogram translator has been enhanced.
+
 # Release 6.1.0 -- 2018/04/16
 
 ## New Features
@@ -31,7 +60,7 @@ title: Release Notes
     - Fixes to conditional program learning such that the correct program is learned and returned in more cases instead of the
       system indicating that it could not learn a program.  Also conditional patterns are better clustered together.
 
-- Changes that only affect those building their own DSLs.
+- Changes that only affect those building their own DSLs
     - The PROSE grammar specification language has been changed to only allow binding single variables in let expressions.
       None of our existing grammars used a let with multiple variables, and we decided to simplify the grammar handling logic
       by enforcing this as a constraint.
