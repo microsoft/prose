@@ -57,7 +57,7 @@ A typical workflow of a DSL designer consists of the following steps:
     a `Grammar` object:
     *  At compile-time, invoke the DSL compiler **dslc.exe**
         manually on a \*.grammar file with a DSL definition. Deploy the
-        resulting serialized \*.grammar.xml file with your application.
+        resulting serialized \*.grammar.xml file with yo  ur application.
         At run-time, deserialize it using `Grammar.Deserialize` method.
     *  Deploy the **dslc.exe** and the \*.grammar file with your
         application. At run-time, compile your DSL definition in memory
@@ -68,13 +68,12 @@ A typical workflow of a DSL designer consists of the following steps:
 The main class `Grammar` represents a context-free grammar as a
 set of DSL rules and a list of references to operators’ semantics and/or
 custom operator learners, implemented in C\# in a separate assembly. The
-method `DSLCompiler.LoadGrammar` loads a grammar definition from a string.
+method `DSLCompiler.Compile` loads a grammar definition from a string.
 Multiple examples of its usage can be found in our [sample repository](https://github.com/microsoft/prose).
 
 Here’s a typical language definition:
 
 ```
-reference 'TestSemantics.dll';
 using TestSemantics;
 using semantics TestSemantics.FlashFill;
 using learners TestSemantics.FlashFill.Learners;
@@ -93,14 +92,12 @@ Regex r;
 NOTE: The operators `ConstStr`, `SubStr`, `CPos` and `Pos` are defined in
 [Black-box operators](#black-box-operators) below.
 
-First, we reference external assemblies with our implementation of
-operators’ semantics and/or custom operator learners. Second, we
-reference any namespaces for external typename lookup. Finally, we
+First, we reference any namespaces for external typename lookup. Then, we
 specify the static classes for semantics and learners. There may be
-several **reference**, **using**, **using semantics**, and **using learners** instructions. In this example,
+several **using**, **using semantics**, and **using learners** instructions. In this example,
 `TestSemantics.FlashFill` is a static class defined in the
-assembly “TestSemantics.dll”, as is
-`TestSemantics.FlashFill.Learners`.
+assembly “TestSemantics.dll” (which we pass as a reference in the DSLCompiler.Compile invocation)
+as is `TestSemantics.FlashFill.Learners`.
 
 Next, we specify the language name and its rules in a form of a
 context-free grammar (BNF). Each **nonterminal** rule has a symbol on
@@ -328,7 +325,6 @@ Consider the following grammar for various filters of an array of
 strings:
 
 ```
-reference 'TestSemantics.dll';
 using TestSemantics;
 using semantics TestSemantics.Flare;
 using learners TestSemantics.Flare.Learners;
@@ -377,7 +373,6 @@ One can capture functional semantics in an explicit
 lambda function in the grammar:
 
 ```
-reference 'TestSemantics.dll';
 using semantics TestSemantics.Flare;
 using learners TestSemantics.Flare.Learners;
 
@@ -464,22 +459,13 @@ Definition and usage of custom DSLs starts with the following steps:
     generators in a separate assembly. Make sure that it is accessible
     at a path specified in the grammar string[^4].
 3.  Load the grammar into a `Grammar` object:
-    * Either programmatically using `DSLCompiler.LoadGrammar`
-        or `DSLCompiler.LoadGrammarFromFile`.
-    * Or in two steps, with manual DSL compilation using
-        **dslc.exe** and loading the serialized `Grammar`
-        object using `Grammar.Deserialize`.
-4.  Use this `Grammar` object to parse specific AST strings into
-    ASTs and invoke these ASTs on states.
+    * Option 1: programmatically using `DSLCompiler.Compile`.   
 
-## AST parsing and printing
-
-The example below shows the last steps, assuming loading the grammar
+The example below shows how to compile the grammar
 programmatically (option “a”):
 
 ```csharp
  const string TestFlareGrammar = @"
-         reference 'TestSemantics.dll';
          using TestSemantics;
          using semantics TestSemantics.Flare;
          language Flare;
@@ -487,90 +473,13 @@ programmatically (option “a”):
          Regex r;
          StringFilter f := Match(r) | FTrue();
          @start string[] P := Selected(f, v) = Filter(f, v);";
-var grammar = DSLCompiler.LoadGrammar(TestFlareGrammar).Value;
-var ast = grammar.ParseAST("Selected(Match(new Regex(\"[a-z]+\")), v)",
-    ASTSerializationFormat.HumanReadable);
-var state = new State(grammar.InputSymbol, new[] {"1", "ab", ""});
-Assert.That(ast.Invoke(state), Is.EqualTo(new[] {"ab"}).AsCollection);
-```
-
-The second (optional) parameter of the `ParseAST` method
-specifies the serialized format of the program. As of now, two formats
-are supported: XML and human-readable AST syntax (shown above), with XML
-being the default. Parsing human-readable AST syntax requires ANTLR, so
-it is not supported if no third-party dependencies are allowed at
-runtime. If you want to build **Microsoft.ProgramSynthesis** *without* support for
-human-readable AST (and, consequently, without ANTLR dependency), use
-the build configuration “ReleaseNoHumanReadableAsts” for this project
-instead of “Release”.
-
-To serialize the AST $p$ into a string representation, call
-`p.PrintAST`. This method also accepts an optional **format**
-parameter, with XML being the default.
-
-Note that explicit lambda functions are part of the implementation of a
-concept rule. The AST that is being parsed should reflect its formal
-interface, not the implementation. In other words, your final ASTs
-should only use the terms from the left-hand side of an “=” sign, and
-nothing from the right-hand side. Here’s an example of AST parsing for a
-grammar with explicit lambda functions:
-
-```csharp
-const string TestFlareGrammar = @"
-   reference 'TestSemantics.dll';
-   using semantics TestSemantics.Flare;
-   using learners TestSemantics.Flare.Learners;
-   language Flare;
-   @input string[] v;
-   Regex r;
-   bool f := Match(x, r) | True();
-   @start string[] P := Selected(v, f) = Filter(\x: string => f, v);
-";
-var grammar = DSLCompiler.LoadGrammar(TestFlareGrammar).Value;
-var ast = grammar.ParseAST("Selected(v, Match(x, new Regex(\"[a-z]+\")))")",
-    ASTSerializationFormat.HumanReadable);
-var state = new State(grammar.InputSymbol, new[] {"1", "ab", ""});
-Assert.That(ast.Invoke(state), Is.EqualTo(new[] {"ab"}).AsCollection);
-```
-
-You can also parse ASTs with arbitrary symbols as roots, not only the
-start symbol of the grammar. To do so, call `p.ParseAST` where
-$p$ is a root `Symbol` variable. The call `grammar.ParseAST(s)`
-is equivalent to `grammar.StartSymbol.ParseAST(s)`.
-
-## DSL Compiler
-
-The DSL compiler **dslc.exe** is a command-line tool that takes a
-grammar definition file, and compiles it into a serialized format,
-potentially emitting any warnings/errors on the way. The command-line
-usage is shown below:
-
-```
-Microsoft Program Synthesis using Examples DSL Compiler 0.5.0.180-9c4db2d
-Created by Microsoft Program Synthesis using Examples team (prose-contact@microsoft.com), 2014-2015.
-Usage: dslc.exe [options] INPUT_GRAMMAR
-
-  -p, --path               Additional directories to locate assembly
-                           references, separated by semicolons.
-
-  -o, --output             (Default: "<DSLName>.grammar.xml") Output file for
-                           the serialized grammar object.
-
-  -v, --verbosity          (Default: Normal) Define verbosity level of
-                           messages printed by the compiler. Possible values:
-                           Silent=0, Errors=1, Warnings=2,
-                           Normal (Errors | Warnings), Debug=4,
-                           Verbose (Normal | Debug).
-
-  -w, --warn-categories    (Default: All) Define categories of warnings/errors
-                           that should be validated, separated by semicolons.
-                           Possible values: None, Core, Syntax, Semantics,
-                           Learning, Features, All.
-
-  --indent                 Indent the XML in the serialized grammar file.
-
-  --help                   Display this help screen.
-
+         
+         
+var grammar = DSLCompiler.Compile(new CompilerOptions()
+    {
+        InputGrammarText = TestFlareGrammar,
+        References = CompilerReference.FromAssemblyFiles(typeof(Program).GetTypeInfo().Assembly)
+    }).Value;
 ```
 
 ## Partial programs
