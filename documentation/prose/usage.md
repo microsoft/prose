@@ -710,11 +710,15 @@ Microsoft Program Synthesis using Examples framework:
  Union of version spaces for the rules | `Symbol s` <br/> `ProgramSet v1, …, vk` | `new UnionProgramSet(s, v1, …, vk)`
  Join of version spaces for the parameters |  `Symbol s` <br/> `GrammarRule r // r.Head == s` <br/> `ProgramSet v1, …, vk` | `new JoinProgramSet(r, v1, …, vk)`
 
-
 [^1]: In other words, **null** is used as a special value $\bot$ that is typically found in a formal definition of a language.
 
 [^3]: Following Haskell syntax, we start our lambda functions with the “\\” character, which is supposed to approximately represent the letter $\lambda$.
 
 [^4]: The common recipe that we use in our development is to reference the semantics DLL from the main project in a Visual Studio solution. This way, the semantics DLL is automatically copied to the target subdirectory on each build next to the main executable, and you can refer to it in the grammar string by simply using its filename. Alternatively, you can specify additional library paths as extra parameters to the `LoadGrammar` method.
 
-{% include outdated.html %}
+
+{% include toc.liquid.md %}
+
+{% include incorrect-doc-warning.html %}
+
+{% include toc.liquid.md %}
