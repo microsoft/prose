@@ -1,6 +1,6 @@
 ---
 date: 2015-08-31T15:02:56-07:00
-title: Usage[^2]
+title: Usage
 ---
 
 {% include toc.liquid.md %}
@@ -711,8 +711,6 @@ Microsoft Program Synthesis using Examples framework:
  Join of version spaces for the parameters |  `Symbol s` <br/> `GrammarRule r // r.Head == s` <br/> `ProgramSet v1, …, vk` | `new JoinProgramSet(r, v1, …, vk)`
 
 [^1]: In other words, **null** is used as a special value $\bot$ that is typically found in a formal definition of a language.
-
-[^2]: Keeping documentation up to date is a challenge. 
 
 [^3]: Following Haskell syntax, we start our lambda functions with the “\\” character, which is supposed to approximately represent the letter $\lambda$.
 
