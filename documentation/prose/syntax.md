@@ -14,7 +14,6 @@ This document describes the syntax of PROSE v1 DSL grammars.
 The basic structure of a `*.grammar` file is as follows:
 
 ```
-<References>
 <Namespace usings>
 <Semantics usings>
 <Learner usings>
@@ -29,42 +28,6 @@ language <Name>;
 
 It first specifies some metadata about the DSL, and then describes it as a grammar. A PROSE language is represented as a [context-free grammar](https://en.wikipedia.org/wiki/Context-free_grammar) – *i.e.,* as a set of *rules*, where each *symbol* on the left-hand side is bound to a set of possible expansions of this symbol on the right-hand side.
 
-# References
-
-A PROSE grammar may reference any .NET assembly. During compilation, it will be resolved via standard assembly resolution rules of the current .NET runtime (desktop, Mono, or Core).
-In particular, note that the referenced assembly may be a *compiled language assembly*.
-
-There are two syntax forms for specifying a reference.
-
-## File reference
-
-```
-#reference 'file:<Filename>';
-```
-{: .language-bnf}
-
-Reference an assembly via its absolute or relative path. The compiler will look for it in the provided list of *library paths* (`dslc -p`). This list always includes the directory of the currently executing assembly and the current working directory.
-**Example:**
-
-```
-#reference 'file:TestLanguage.Semantics.dll';
-```
-{: .language-bnf}
-
-## Qualified assembly reference
-
-```
-#reference '<AssemblyQualifiedName>';
-```
-{: .language-bnf}
-
-Reference an assembly via its assembly qualified name. The compiler will load it using [`Assembly.Load`](https://msdn.microsoft.com/en-us/library/ky3942xh.aspx) and its standard probing mechanism of the current .NET runtime.
-**Example:**
-
-```
-#reference 'System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a';
-```
-{: .language-bnf}
 
 # Usings
 
