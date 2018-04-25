@@ -593,20 +593,19 @@ of this specification type, and learns a set of programs  $\tilde{P}$
 that are consistent with $\varphi$.
 
 A synthesis strategy is represented as a class inheriting
-`Microsoft.ProgramSynthesis.Learning.SynthesisStrategy<TSpec, TConfig>`,
+`Microsoft.ProgramSynthesis.Learning.SynthesisStrategy<TSpec>`,
 which specifies the following contract:
 
 ```csharp
-public abstract class SynthesisStrategy<TSpec, TConfig> : ISynthesisStrategy
-        where TSpec : Spec where TConfig : StrategyConfig, new()
+public abstract class SynthesisStrategy<TSpec> : ISynthesisStrategy
+        where TSpec : Spec 
 {
     void Initialize(SynthesisEngine engine);
-    abstract Optional<ProgramSet> LearnSymbol(SynthesisEngine engine, LearningTask<TSpec> task, CancellationToken cancel);
+    abstract Optional<ProgramSet> Learn(SynthesisEngine engine, LearningTask task, CancellationToken cancel);
     bool CanCall(Spec spec);
 }
 ```
-Here `TSpec` is a supported specification type, `TConfig` is a type of
-a configuration that will be passed to the strategy constructor, `LearnSymbol`
+Here `TSpec` is a supported specification type, `Learn`
 is the main learning method, and `CanCall` is the function that determines
 whether this synthesis strategy supports learning for a given
 specification `spec` (in the default implementation, the result is
