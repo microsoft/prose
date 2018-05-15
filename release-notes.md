@@ -3,6 +3,48 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 6.3.0 -- 2018/05/15
+
+## Breaking Changes
+
+- Matching.Text
+    - ForbidConstantTokens constraint has been removed.
+- Transformation.Tree
+    - Utils.Parse has been renamed to Utils.ParseStatementIgnoreWhiteSpace
+    
+## New Features
+
+- Compound.Split
+    - Key/Value extraction now supports fixed width extraction such as where the keys and values are in a table where
+      the values all start at the same column position.
+    - Now supports skipping empty, comment and footer records.
+- Transformation.Text
+    - Now supports pluggable Entity Detectors specified in a constraint.
+
+## Bug Fixes / Enhancements
+
+- Common Framework
+    - PROSE now depends on a slightly older version of Newtonsoft.Json (v9.0.1) for .Net Framework consumers.  For
+      .Net Core PROSE still requires Newtonsoft.Json v10.0.3.
+    - Code produced by the Java translation now makes fewer allocations in some scenarios.
+    - Our Python translation now produces more readable string literals.
+- Compound.Split
+    - The Python produced for cases which pandas cannot handle is improved with function names and parameters that
+      align with pandas, documentation on public parts and simpler generated code.
+- Extraction.Web
+    - When learning a new program, soft constraints are now used for any columns where the user has not changed the
+      examples instead of only if the user has added new columns but not changed examples for any previous columns.
+    - Significant improvement in learn times.
+    - Text comparisons are now insensitive to whitespace characters.
+- Transformation.Text
+    - Python translation is now more readable in many cases.
+- Transformation.Tree
+    - DSL rewritten to support additional scenarios.
+    - The Program class now has a field to expose a list of learned transformation rule programs. Each transformation
+      rule exposes an Edit program. In this way, users can pick which of the learned edits  they want to apply and
+      apply them to specific nodes bypassing the filter checking.
+    - Performance improvements.
+
 # Release 6.2.0 -- 2018/04/25
 
 ## Breaking Changes
