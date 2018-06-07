@@ -15,7 +15,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 2. Clone this repository: 
 
 ```
-git clone https://github.com/Microsoft/prose.git
+git clone https://github.com/Microsoft/prose
 cd prose\DslAuthoringTutorial\part1a
 ```
 
