@@ -3,6 +3,71 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 6.4.0 -- 2018/06/26
+
+## Breaking Changes
+
+- Common Framework
+    - When running on CoreClr, we now require runtime version 2.0.3 or newer.  Previously we had workarounds for a CoreClr bug that was fixed in 2.0.3, but those are now removed. 
+- Compound.Split
+    - Learning fixed width programs from a schema file is now specified by a constraint which contains a schema file parameter.
+- Extraction.Json
+    - New default behavior not to automatically join inner arrays.  The old behavior may be requested by supplying the new constraint ‘JoinInnerArrays’.  (Previous constraint ‘NoJoinInnerArrays’ has been removed.)
+    - Inputs can now be used as an implicit flatten constraint, and the old explicit FlattenDocument constraint is removed.
+    - Flattening top-level arrays is only applied when there is only one.  If multiple top-level arrays are present, they are all preserved.
+    - Constraints are renamed to make their meaning clearer:
+        - JoinInnerArrays -> JoinAllArrays
+        - NormalizeArrays -> JoinSingleTopArray
+        - SplitTopArrayToColumns -> SplitTopArrays
+
+## New Features
+
+- Common Framework
+    - VSA data structures now support Serialization and Deserialization
+- Compound.Split
+    - Now handles small fixed-width files.
+    - Now supports selecting a subset of columns for the output.
+- Detection:
+    - Data type detection now supports detecting bit types.
+    - Data type detection now takes a CultureInfo parameter and supports identifying a type from multiple string values—not just one.
+    - Improved data type detection algorithms have been implemented for numbers, dates, Booleans and categorical values.
+- Extraction.Json
+    - Now supports trailing commas.
+
+## Bug Fixes / Enhancements
+
+- Compound.Split
+    - Improved learning of header/skip.
+    - It is now possible to construct a program from a ProgramProperties structure (which can be extracted from a learned program).
+    - It is also now possible to override some learned properties.  This supports the scenario where a program is learned from an input file, metadata is presented to the user, and then the user can override some of that metadata before using a final program based on the modified properties.
+- Extraction.Json
+    - New NormalizeArray constraint which directs the system to flatten only one array—either with a specified path or the first, top array if no path is specified.
+- Extraction.Web
+    - Now supports specialized selectors for HTML tables to ensure they are always handled when possible.
+    - Dashes are no longer escaped in CSS selectors making them more readable.
+    - Now supports boundary-based semantics for row-selectors in web table programs.
+    - Increased maximum allowed offset for satisfying examples to 5.
+    - Row selectors may now satisfy examples up to the maximum permitted offset if an exact match cannot be found.
+    - Previous program constraint is now used to ensure partial success—that is we always satisfy any previously satisfied columns for which the examples have not changed (in preference to success on any new columns).
+    - When new examples are given in a session where a learn was previously performed, if the new program no longer satisfies previously satisfied columns, we now consider those columns satisfied if the previous column examples shift by less than some number of rows specified as a threshold in the public API.  If they aren’t satisfied at all or the shifting is greater than that number of rows, then the system falls back to the previously learned program to ensure that the previously satisfied columns are still satisfied.
+    - An issue was fixed so that we now ensure correct alignment when the row selector has been previously computed.
+- Matching.Text
+    - Fixed a bug in the python translation which didn’t properly quote regexes.
+- Split.Text
+    - Improved detection of time expressions.
+- Transformation.Text
+    - Python translation no longer exposes the Substring type unless optimizing for performance in order to simplify the generated code.
+    - Python translation now special cases a common idiom in the translation.text DSL related to regex matching and turns it into simpler code.
+    - Improved readability of python translation for some datetime programs.
+    - Generated programs that use regular expressions now contain simpler/easier to read expressions in a number of cases.
+    - Datetime parsing now allows leading zeros to be optional.
+- Transformation.Tree
+    - Performance improved.
+    - Fixed an issue in the Order By conversion.
+    - Fixed issues with the generation of join expressions.
+    - Table name analysis is now more robust with respect to qualified names, cases and quoted names.
+    - Program now exposes separate methods for finding the nodes that should be changed and for performing the transformation instead of just doing the whole operation in a single method call.
+
 # Release 6.3.0 -- 2018/05/15
 
 ## Breaking Changes
