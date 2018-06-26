@@ -60,7 +60,6 @@ title: Release Notes
     - Python translation now special cases a common idiom in the translation.text DSL related to regex matching and turns it into simpler code.
     - Improved readability of python translation for some datetime programs.
     - Generated programs that use regular expressions now contain simpler/easier to read expressions in a number of cases.
-    - Datetime parsing now allows leading zeros to be optional.
 - Transformation.Tree
     - Performance improved.
     - Fixed an issue in the Order By conversion.
