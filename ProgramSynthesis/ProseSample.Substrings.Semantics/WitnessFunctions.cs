@@ -65,9 +65,9 @@ namespace ProseSample.Substrings
                 var regexes = new List<object>();
                 foreach (uint pos in spec.DisjunctiveExamples[input])
                 {
-                    UnboundedMultiValueCache<Token, TokenMatch> rightMatches;
+                    UnboundedCache<Token, TokenMatch> rightMatches;
                     if (!v.Cache.TryGetAllMatchesStartingAt(pos, out rightMatches)) continue;
-                    UnboundedMultiValueCache<Token, TokenMatch> leftMatches;
+                    UnboundedCache<Token, TokenMatch> leftMatches;
                     if (!v.Cache.TryGetAllMatchesEndingAt(pos, out leftMatches)) continue;
                     var leftRegexes = RegularExpression.LearnLeftMatches(v, pos, RegularExpression.DefaultTokenCount);
                     var rightRegexes = RegularExpression.LearnRightMatches(v, pos, RegularExpression.DefaultTokenCount);
