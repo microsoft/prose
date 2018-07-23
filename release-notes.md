@@ -3,6 +3,39 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 6.5.0 -- 2018/07/23
+
+## New Features
+
+- Extraction.Web:
+    - Now supports predictive table extraction from webpages (that is, from 0 examples).
+
+## Bug Fixes / Enhancements
+
+- Common framework:
+    - Added support for a common extension hook for custom entity detectors.  This hook is currently used in 
+      Extraction.Web and Transformation.Text but could theoretically be supported in any DSL. 
+- Compound.Split:
+    - Now supports fixed-width schema files which are themselves delimited.
+- Detection:
+    - Fixed a bug where running detection on a set of empty strings produced a NullReferenceException.
+    - Fixed a bug where numbers of the form \d+\.\d+ were not recognized correctly.
+- Extraction.Json:
+    - Added a parameter to enable/disable support for trailing commas in java translation.  The library we use for json
+      parsing in java (Jackson) has support for trailing commas in newer versions, but some environments only allow the
+      older version of Jackson which does not have this support.
+    - Now has a new constraint to automatically flatten a json document.  When this constraint is used, it’s possible to
+      translate the learned program to python which builds on the pandas library.
+- Extraction.Web:
+    - Improved nth-child selection ranking in predictive extraction.  Nth-child selection is important for detecting
+      table columns in some cases, but in others it can introduce a lot of noise.  The system now uses nth-child
+      selection only as a fall-back if prominent tables cannot be detected otherwise.
+    - Text normalization (which currently ensures that text to node matching is whitespace insensitive) has been
+      extended to insensitivity of other special characters such as variations in quotes, dashes, ellipses, etc.
+- Transformation.Text:
+    - Readability of python translations is improved in some cases by removing unnecessary wrapping functions/classes.
+    - Python translator now creates much more readable translations for programs including date time rounding.
+
 # Release 6.4.0 -- 2018/06/26
 
 ## Breaking Changes
