@@ -12,16 +12,18 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
 + Option 3: Install Visual Studio Code (See instructions in the Linux and Mac section) 
 
-2. Clone this repository: 
+2. Install .NET Core SDK (https://www.microsoft.com/net/download/)
+
+3. Clone this repository: 
 
 ```
 git clone https://github.com/Microsoft/prose.git
 cd prose\DslAuthoringTutorial\part1a
 ```
 
-3. Open the project solution (prose.sln) in Visual Studio.
+4. Open the project solution (prose.sln) in Visual Studio.
 
-4. Build the project: Solution Explorer -> Right-Click on Solution 'ProseTutorial' -> Build 
+5. Build the project: Solution Explorer -> Right-Click on Solution 'ProseTutorial' -> Build 
 
 ## Set up (Linux and Mac).
 
@@ -29,7 +31,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
 + Download and install VS Code (https://code.visualstudio.com/Download)
 
-+ Install .Net core SDK (https://www.microsoft.com/net/download/linux)
++ Install .NET Core SDK (https://www.microsoft.com/net/download/linux)
 
 + Install VS Code extension for C#. (https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 
