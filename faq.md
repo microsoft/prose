@@ -33,7 +33,7 @@ Currently, the package is guaranteed to work on .NET 4.5+ and .NET Core.
 
 The SDK is released under a _non-commercial license_ for use in
 research, education, and non-commercial applications. See
-[the license]({{ site.baseurl }}/SDKLicense.pdf)
+[the license]({{ site.baseurl }}/LICENSE.txt)
 for details.
 
 
