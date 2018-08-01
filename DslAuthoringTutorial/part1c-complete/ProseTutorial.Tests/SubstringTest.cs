@@ -35,7 +35,11 @@ namespace ProseTutorial {
             //the output is correct
             var programs = learnedSet.RealizedPrograms;
             var output = programs.First().Invoke(input) as string;
-            Assert.AreEqual("Feb", output);
+            Assert.AreEqual("Feb", output); 
+
+            var differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "15-Jan-2000");
+            output = programs.First().Invoke(differentInput) as string;
+            Assert.AreEqual("Jan", output); 
         }
 
         [TestMethod]
@@ -56,6 +60,9 @@ namespace ProseTutorial {
             Assert.AreEqual("16", output);
             output = firstProgram.Invoke(secondInput) as string;
             Assert.AreEqual("12", output);
+            var differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "15-Apr-1500");
+            output = programs.First().Invoke(differentInput) as string;
+            Assert.AreEqual("00", output);
         }
 
         [TestMethod]
@@ -95,6 +102,9 @@ namespace ProseTutorial {
             Assert.AreEqual("Gustavo Soares", output);
             output = programs.First().Invoke(secondInput) as string;
             Assert.AreEqual("Titus Barik", output);
+            var differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "(Alan Leung)");
+            output = programs.First().Invoke(differentInput) as string;
+            Assert.AreEqual("Alan Leung", output);
         }
 
         [TestMethod]
@@ -134,6 +144,9 @@ namespace ProseTutorial {
             Assert.AreEqual("Soares", output);
             var output2 = programs.First().Invoke(secondInput) as string;
             Assert.AreEqual("Gulwani", output2);
+            var differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "Alan Leung");
+            output = programs.First().Invoke(differentInput) as string;
+            Assert.AreEqual("Leung", output);
         }
 
         [TestMethod]
