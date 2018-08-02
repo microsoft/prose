@@ -46,7 +46,7 @@ JToken trainOutput = JToken.Parse(@"
 ]");
 
 var session = new Session();
-session.AddConstraints(new Example<JToken,JToken>(trainInput, trainOutput));
+session.Constraints.Add(new Example<JToken,JToken>(trainInput, trainOutput));
 Program program = session.Learn();
 ```
 

@@ -27,7 +27,7 @@ The below snippet illustrates a learning session to generate such program from t
 string jsonText = ...
 
 var session = new Session();
-session.AddConstraints(new FlattenDocument(jsonText));
+session.Constraints.Add(new FlattenDocument(jsonText));
 Program program = session.Learn();
 ```
 
@@ -35,7 +35,7 @@ Clients may add `NoJoinInnerArrays` constraint to the session to learn `non-join
 
 ```csharp
 var noJoinSession = new Session();
-noJoinSession.AddConstraints(new FlattenDocument(jsonText), new NoJoinInnerArrays());
+noJoinSession.Constraints.Add(new FlattenDocument(jsonText), new NoJoinInnerArrays());
 Program noJoinProgram = noJoinSession.Learn();
 ```
 

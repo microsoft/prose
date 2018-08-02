@@ -26,13 +26,13 @@ var inputs = new List<StringRegion> {
        SplitSession.CreateStringRegion("U109 Adam Jay Lucas (New Zealand)"),
        SplitSession.CreateStringRegion("R342 Carrie Dodson (United States)")
 };
-splitSession.AddInputs(inputs);
+splitSession.Inputs.Add(inputs);
 ```
 
 Each row of text in the input data is added as a `StringRegion` object created from the text content in that row. If we want we can also add some constraints to the session to specify basic properties of the desired splitting, such as whether we want to include the delimiters in the resulting split or not. If we do not want delimiters in the output, we can specify with a constraint as follows:
 
 ```csharp
-splitSession.AddConstraints(new IncludeDelimitersInOutput(false));
+splitSession.Constraints.Add(new IncludeDelimitersInOutput(false));
 ```
 
 We can clear any constraints provided in the session at any time by calling the `splitSession.RemoveAllConstraints()` method. 
@@ -88,14 +88,14 @@ Executing the predictively learnt program on the three inputs given above, and h
 If the user desires a different split, then they can provide *examples constraints* to specify what kind of split they would like. For instance, if the user wants to separate the first name into a different split cell, then they can provide examples on some of the input rows as follows:
 
 ```csharp
-splitSession.AddConstraints(new NthExampleConstraint(inputs[0].Value, 0, "PE5"));
-splitSession.AddConstraints(new NthExampleConstraint(inputs[0].Value, 1, "Leonard"));
-splitSession.AddConstraints(new NthExampleConstraint(inputs[0].Value, 2, "Robledo"));
-splitSession.AddConstraints(new NthExampleConstraint(inputs[0].Value, 3, "Australia"));
-splitSession.AddConstraints(new NthExampleConstraint(inputs[1].Value, 0, "U109"));
-splitSession.AddConstraints(new NthExampleConstraint(inputs[1].Value, 1, "Adam"));
-splitSession.AddConstraints(new NthExampleConstraint(inputs[1].Value, 2, "Jay Lucas"));
-splitSession.AddConstraints(new NthExampleConstraint(inputs[1].Value, 3, "New Zealand"));
+splitSession.Constraints.Add(new NthExampleConstraint(inputs[0].Value, 0, "PE5"));
+splitSession.Constraints.Add(new NthExampleConstraint(inputs[0].Value, 1, "Leonard"));
+splitSession.Constraints.Add(new NthExampleConstraint(inputs[0].Value, 2, "Robledo"));
+splitSession.Constraints.Add(new NthExampleConstraint(inputs[0].Value, 3, "Australia"));
+splitSession.Constraints.Add(new NthExampleConstraint(inputs[1].Value, 0, "U109"));
+splitSession.Constraints.Add(new NthExampleConstraint(inputs[1].Value, 1, "Adam"));
+splitSession.Constraints.Add(new NthExampleConstraint(inputs[1].Value, 2, "Jay Lucas"));
+splitSession.Constraints.Add(new NthExampleConstraint(inputs[1].Value, 3, "New Zealand"));
 ```
 
 Each `NthExampleConstraint` takes three parameters: the input text on which the program will execute (the entire string), the index of the output split cell for which this example is being given, and the text value desired in that split cell. The examples constraints given above describe each of the four split cells that are desired for the first two inputs that have been given in this session. After calling `Learn()` with these constraints, we obtain a program that produces the following output splitting on the three inputs given in this session:

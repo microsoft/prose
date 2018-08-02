@@ -7,7 +7,7 @@ title: Text Transformation – Usage
 
 The `Transformation.Text` API is accessed through the
 [`Transformation.Text.Session`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Session.htm) class.
-The primary methods are [`AddConstraints()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_AddConstraints.htm) which adds examples (or other
+The primary methods are [`Constraints.Add()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_Constraints.Add.htm) which adds examples (or other
 constraints) to a session and [`Learn()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_Learn.htm) which
 and learns a [`Transformation.Text` program](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Program.htm) consistent with those examples.
 In order to use `Transformation.Text`, you need assembly references to
@@ -25,7 +25,7 @@ IEnumerable<Example> examples = new[]
 {
     new Example(new InputRow("Greta Hermansson"), "Hermansson, G.")
 };
-session.AddConstraints(examples);
+session.Constraints.Add(examples);
 Program program = session.Learn();
 object output = program.Run(new InputRow("Kettil Hansson")); // output is "Hansson, K."
 ```
@@ -42,7 +42,7 @@ implement `Transformation.Text`&apos;s [`IRow`](https://prose-docs.azurewebsites
 
 ```csharp
 var session = new Session();
-session.AddConstraints(new Example(new InputRow("Greta", "Hermansson"), "Hermansson, G."))
+session.Constraints.Add(new Example(new InputRow("Greta", "Hermansson"), "Hermansson, G."))
 Program program = session.Learn();
 string output = program.Run(new InputRow("Kettil", "Hansson")) as string; // output is "Hansson, K.
 ```
@@ -69,7 +69,7 @@ var examples = new[]
     new Example(new InputRow("212-555-0183"), "212-555-0183"),
     new Example(new InputRow("(212) 555 0183"), "212-555-0183")
 };
-session.AddConstraints(examples);
+session.Constraints.Add(examples);
 Program program = session.Learn();
 string output = program.Run(new InputRow("425 311 1234")) as string; // output is "425-311-1234"
 ```
@@ -83,10 +83,10 @@ The code for that workflow might look something like this:
 
 ```csharp
 var session = new Session();
-session.AddConstraints(new Example(new InputRow("212-555-0183"), "212-555-0183"));
+session.Constraints.Add(new Example(new InputRow("212-555-0183"), "212-555-0183"));
 Program program = session.Learn();
 // ... check program and find it is does not work as desired.
-session.AddConstraints(new Example(new InputRow("(212) 555 0183"), "212-555-0183"));
+session.Constraints.Add(new Example(new InputRow("(212) 555 0183"), "212-555-0183"));
 program = session.Learn();
 string output = program.Run(new InputRow("425 311 1234")) as string; // output is "425-311-1234"
 ```
@@ -101,9 +101,9 @@ can take those inputs and use them to help decide which program to return.
 
 ```csharp
 var session = new Session();
-session.AddInputs(new InputRow("04/02/1962"),
+session.Inputs.Add(new InputRow("04/02/1962"),
                   new InputRow("27/08/1998"));
-session.AddConstraints(new Example(new InputRow("02/04/1953"), "1953-04-02"));
+session.Constraints.Add(new Example(new InputRow("02/04/1953"), "1953-04-02"));
 Program program = session.Learn();
 string output = program.Run("31/01/1983") as string; // output is "1983-01-31"
 ```
@@ -123,7 +123,7 @@ it should try to learn; it returns the top `k` ranked programs
 
 ```csharp
 var session = new Session();
-session.AddConstraints(new Example(new InputRow("Greta Hermansson"), "Hermansson, G."));
+session.Constraints.Add(new Example(new InputRow("Greta Hermansson"), "Hermansson, G."));
 // Learn top 10 programs instead of just the single top program.
 IReadOnlyList<Program> programs = session.LearnTopK(k: 10);
 foreach (Program program in programs)
@@ -142,7 +142,7 @@ access the programs, use [`ComputeTopKOutputsAsync()`](https://prose-docs.azurew
 
 ```csharp
 var session = new Session();
-session.AddConstraints(new Example(new InputRow("Greta Hermansson"), "Hermansson, G."));
+session.Constraints.Add(new Example(new InputRow("Greta Hermansson"), "Hermansson, G."));
 IReadOnlyList<object> outputs = await session.ComputeTopKOutputsAsync(new InputRow("Kettil hansson"), k: 10);
 foreach (object output in outputs)
 {
@@ -159,7 +159,7 @@ In order to do so, PROSE supports serializing programs:
 
 ```csharp
 var session = new Session();
-session.AddConstraints(new Example(new InputRow("Kettil Hansson"), "Hansson, K."));
+session.Constraints.Add(new Example(new InputRow("Kettil Hansson"), "Hansson, K."));
 Program program = session.Learn();
 // Programs can be serialized using .Serialize().
 string serializedProgram = program.Serialize();
@@ -183,7 +183,7 @@ which encapsulates learning a program for a single task, often refined
 over the course of multiple learning calls.
 
 The collection of all known inputs should be provided using
-[`.AddInputs()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_AddInputs.htm).
+[`.Inputs.Add()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_Inputs.Add.htm).
 `Transformation.Text` can make good use of around one hundred inputs;
 providing over a thousand may cause performance issues for some operations,
 although it will attempt to work on only a randomly selected sample when
@@ -195,7 +195,7 @@ and removed using [`.RemoveInputs()`](https://prose-docs.azurewebsites.net/html/
 [`RemoveAllInputs()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_RemoveAllInputs.htm).
 
 The main input to the learning procedure is a set of **constraints**,
-primarily examples, which are provided using [`.AddConstraints()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_AddConstraints_1.htm).
+primarily examples, which are provided using [`.Constraints.Add()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_Constraints.Add_1.htm).
 The following are common constraints used with `Transformation.Text`:
 
 * **[`Example`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Example.htm)** (or [`Example<IRow, object>`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Wrangling_Constraints_Example_2.htm)). The most common constraint. Asserts what the output

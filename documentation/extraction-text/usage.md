@@ -106,7 +106,7 @@ var session = new RegionSession();
 var input1 = RegionSession.CreateStringRegion("Carrie Dodson 100");
 var input2 = RegionSession.CreateStringRegion("Leonard Robledo 75");
 
-session.AddConstraints(
+session.Constraints.Add(
     new RegionExample<StringRegion>(input1, input1.Slice(7, 13)), // "Carrie Dodson 100" => "Dodson"
     new RegionExample<StringRegion>(input2, input2.Slice(8, 15)) // "Leonard Robledo 75" => "Robledo"
 );
@@ -151,7 +151,7 @@ StringRegion input = RegionSession.CreateStringRegion("Carrie Dodson 100\nLeonar
 StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
 
 // Suppose we want to extract "100", "320".
-session.AddConstraints(
+session.Constraints.Add(
     new RegionExample(records[0], records[0].Slice(14, 17)), // "Carrie Dodson 100" => "100"
     new RegionNegativeExample(records[1], records[1]) // no extraction in "Leonard Robledo NA"
 );
@@ -179,13 +179,13 @@ StringRegion input = RegionSession.CreateStringRegion("Carrie Dodson 100\nLeonar
 StringRegion[] records = { input.Slice(0, 17), input.Slice(18, 36), input.Slice(37, 54) };
 
 // Suppose we want to extract "100", "75", and "***".
-session.AddConstraints(new RegionExample(records[0], records[0].Slice(14, 17))); // "Carrie Dodson 100" => "100"
+session.Constraints.Add(new RegionExample(records[0], records[0].Slice(14, 17))); // "Carrie Dodson 100" => "100"
 
 // Additional references help Extraction.Text observe the behavior of the learnt programs on unseen data.
 // In this example, if we do not use additional references, Extraction.Text may learn a program that extracts the first number.
 // On the contrary, if other references are present, it knows that this program is not applicable on the third record "Margaret Cook ***",
 // and promotes a more applicable program.
-session.AddInputs(records.Skip(1));
+session.Inputs.Add(records.Skip(1));
 
 RegionProgram topRankedProg = session.Learn();
 
@@ -286,7 +286,7 @@ var input = SequenceSession.CreateStringRegion(
     "Great Britain\n Nettie Pope 50\n Mack Beeson 1070");
     
 // Suppose we want to extract all last names from the input string.
-session.AddConstraints(
+session.Constraints.Add(
     new SequenceExample(input, new[] {
                             input.Slice(15, 21), // input => "Carrie"
                             input.Slice(34, 41), // input => "Leonard"
@@ -318,7 +318,7 @@ There are usually a large number of programs consistent with any given set of ex
 var session = new RegionSession();
 StringRegion input = RegionSession.CreateStringRegion("Carrie Dodson 100");
 
-session.AddConstraints(new RegionExample(input, input.Slice(14, 17))); // "Carrie Dodson 100" => "Dodson"
+session.Constraints.Add(new RegionExample(input, input.Slice(14, 17))); // "Carrie Dodson 100" => "Dodson"
 
 IEnumerable<RegionProgram> topKPrograms = session.LearnTopK(3);
 
@@ -346,7 +346,7 @@ foreach (RegionProgram prog in topKPrograms)
 var session = new RegionSession();
 StringRegion input = RegionSession.CreateStringRegion("Carrie Dodson 100");
 
-session.AddConstraints(new RegionExample(input, input.Slice(14, 17))); // "Carrie Dodson 100" => "Dodson"
+session.Constraints.Add(new RegionExample(input, input.Slice(14, 17))); // "Carrie Dodson 100" => "Dodson"
 
 ProgramSet allPrograms = session.LearnAll().ProgramSet;
 IEnumerable<ProgramNode> topKPrograms = allPrograms.TopK(RegionLearner.Instance.ScoreFeature, 3);

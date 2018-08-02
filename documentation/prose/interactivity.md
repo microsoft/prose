@@ -46,7 +46,7 @@ var session = new Session();
 
 The collection of all known inputs the program is expected to be run on
 should be provided using
-[`.AddInputs()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_AddInputs.htm).
+[`.Inputs.Add()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_Inputs.Add.htm).
 If that set is large, then providing all of them may not be worthwhile
 (as the algorithms will only have time to consider a subset anyway).
 If selecting a subset of inputs to provide, they should be representative
@@ -62,7 +62,7 @@ is likely needed for](#significant-inputs).
 
 ```csharp
 // provide some inputs
-session.AddInputs(new InputRow("Greta", "Hermansson"),
+session.Inputs.Add(new InputRow("Greta", "Hermansson"),
                   new InputRow("Kettil", "Hansson"),
                   new InputRow("Etelka", "bala"));
 ```
@@ -84,14 +84,14 @@ in the DSL being synthesized. For example, for
 the type of constraints is `Constraint<IRow, object>`.
 
 In order to provide constraints to a `Session`, use
-[`.AddConstraints()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_AddConstraints.htm).
+[`.Constraints.Add()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_Constraints.Add.htm).
 The constraints provided can accessed using [`.Constraints`](https://prose-docs.azurewebsites.net/html/P_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_Constraints.htm)
 and removed using [`.RemoveConstraints()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_RemoveConstraints.htm) or
 [`.RemoveAllConstraints()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_RemoveAllConstraints.htm).
 
 ```csharp
 // give an example
-session.AddConstraints(new Example(new InputRow("Greta", "Hermansson"), "Hermansson, G."))
+session.Constraints.Add(new Example(new InputRow("Greta", "Hermansson"), "Hermansson, G."))
 ```
 
 
