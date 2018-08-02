@@ -123,17 +123,17 @@ it should try to learn; it returns the top `k` ranked programs
 
 ```csharp
 var session = new Session();
-session.Constraints.Add(new Example(new InputRow("Greta Hermansson"), "Hermansson, G."));
+session.Constraints.Add(new Example(new InputRow("Greta Hermansson"), "Hermansson"));
 // Learn top 10 programs instead of just the single top program.
 IReadOnlyList<Program> programs = session.LearnTopK(k: 10);
 foreach (Program program in programs)
 {
-    Console.WriteLine(program.Run(new InputRow("Kettil hansson"))); // note "hansson" is lowercase
+    Console.WriteLine(program.Run(new InputRow("Kettil Hansson Smith"))); // note that this input has a middle name
 }
 ```
 
-The first several programs output "hansson, K.", but after that one outputs
-"Hansson, K.". This could be used to ask the user which they meant or to do
+The first several programs output "Smith", but after that one outputs
+"Hansson Smith". This could be used to ask the user which they meant or to do
 automated reranking of the top results based on some logic other than
 `Transformation.Text`&apos;s internal ranking system.
 
@@ -142,8 +142,8 @@ access the programs, use [`ComputeTopKOutputsAsync()`](https://prose-docs.azurew
 
 ```csharp
 var session = new Session();
-session.Constraints.Add(new Example(new InputRow("Greta Hermansson"), "Hermansson, G."));
-IReadOnlyList<object> outputs = await session.ComputeTopKOutputsAsync(new InputRow("Kettil hansson"), k: 10);
+session.Constraints.Add(new Example(new InputRow("Greta Hermansson"), "Hermansson"));
+IReadOnlyList<object> outputs = await session.ComputeTopKOutputsAsync(new InputRow("Kettil Hansson Smith"), k: 10);
 foreach (object output in outputs)
 {
     Console.WriteLine(output);
