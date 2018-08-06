@@ -3,80 +3,81 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Microsoft.ProgramSynthesis;
+using Microsoft.ProgramSynthesis.AST;
 using Microsoft.ProgramSynthesis.Compiler;
 using Microsoft.ProgramSynthesis.Diagnostics;
 using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Specifications;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.ProgramSynthesis.Learning.Strategies;
+using Microsoft.ProgramSynthesis.VersionSpace;
 
 namespace ProseTutorial {
     [TestClass]
     public class SubstringTest {
-
         private const string GrammarPath = @"../../../../ProseTutorial/synthesis/grammar/substring.grammar";
 
         [TestMethod]
         public void TestLearnSubstringPositiveAbsPos() {
             //parse grammar file 
-            var grammar = CompileGrammar();
+            Result<Grammar> grammar = CompileGrammar();
             //configure the prose engine 
-            var prose = ConfigureSynthesis(grammar.Value);
+            SynthesisEngine prose = ConfigureSynthesis(grammar.Value);
 
             //create the example
-            var input = State.CreateForExecution(grammar.Value.InputSymbol, "19-Feb-1960");
+            State input = State.CreateForExecution(grammar.Value.InputSymbol, "19-Feb-1960");
             var examples = new Dictionary<State, object> { { input, "Feb" } };
             var spec = new ExampleSpec(examples);
 
             //learn the set of programs that satisfy the spec 
-            var learnedSet = prose.LearnGrammar(spec);
+            ProgramSet learnedSet = prose.LearnGrammar(spec);
 
             //run the first synthesized program in the same input and check if 
             //the output is correct
-            var programs = learnedSet.RealizedPrograms;
+            IEnumerable<ProgramNode> programs = learnedSet.RealizedPrograms;
             var output = programs.First().Invoke(input) as string;
-            Assert.AreEqual("Feb", output); 
+            Assert.AreEqual("Feb", output);
 
-            var differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "15-Jan-2000");
+            State differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "15-Jan-2000");
             output = programs.First().Invoke(differentInput) as string;
-            Assert.AreEqual("Jan", output); 
+            Assert.AreEqual("Jan", output);
         }
 
         [TestMethod]
         public void TestLearnSubstringPositiveAbsPosSecOcurrence() {
-            var grammar = CompileGrammar();
-            var prose = ConfigureSynthesis(grammar.Value);
+            Result<Grammar> grammar = CompileGrammar();
+            SynthesisEngine prose = ConfigureSynthesis(grammar.Value);
 
-            var firstInput = State.CreateForExecution(grammar.Value.InputSymbol, "16-Feb-2016");
-            var secondInput = State.CreateForExecution(grammar.Value.InputSymbol, "14-Jan-2012");
+            State firstInput = State.CreateForExecution(grammar.Value.InputSymbol, "16-Feb-2016");
+            State secondInput = State.CreateForExecution(grammar.Value.InputSymbol, "14-Jan-2012");
             var examples = new Dictionary<State, object> { { firstInput, "16" }, { secondInput, "12" } };
             var spec = new ExampleSpec(examples);
 
-            var learnedSet = prose.LearnGrammar(spec);
+            ProgramSet learnedSet = prose.LearnGrammar(spec);
 
-            var programs = learnedSet.RealizedPrograms;
-            var firstProgram = programs.First();
+            IEnumerable<ProgramNode> programs = learnedSet.RealizedPrograms;
+            ProgramNode firstProgram = programs.First();
             var output = firstProgram.Invoke(firstInput) as string;
             Assert.AreEqual("16", output);
             output = firstProgram.Invoke(secondInput) as string;
             Assert.AreEqual("12", output);
-            var differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "15-Apr-1500");
+            State differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "15-Apr-1500");
             output = programs.First().Invoke(differentInput) as string;
             Assert.AreEqual("00", output);
         }
 
         [TestMethod]
         public void TestLearnSubstringPositiveAbsPosSecOcurrenceOneExp() {
-            var grammar = CompileGrammar();
-            var prose = ConfigureSynthesis(grammar.Value);
+            Result<Grammar> grammar = CompileGrammar();
+            SynthesisEngine prose = ConfigureSynthesis(grammar.Value);
 
-            var firstInput = State.CreateForExecution(grammar.Value.InputSymbol, "16-Feb-2016");
+            State firstInput = State.CreateForExecution(grammar.Value.InputSymbol, "16-Feb-2016");
             var examples = new Dictionary<State, object> { { firstInput, "16" } };
             var spec = new ExampleSpec(examples);
 
-            var learnedSet = prose.LearnGrammar(spec);
+            ProgramSet learnedSet = prose.LearnGrammar(spec);
 
-            var programs = learnedSet.RealizedPrograms;
+            IEnumerable<ProgramNode> programs = learnedSet.RealizedPrograms;
             var output = programs.First().Invoke(firstInput) as string;
             Assert.AreEqual("16", output);
 
@@ -87,86 +88,85 @@ namespace ProseTutorial {
 
         [TestMethod]
         public void TestLearnSubstringNegativeAbsPos() {
-            var grammar = CompileGrammar();
-            var prose = ConfigureSynthesis(grammar.Value);
+            Result<Grammar> grammar = CompileGrammar();
+            SynthesisEngine prose = ConfigureSynthesis(grammar.Value);
 
-            var firstInput = State.CreateForExecution(grammar.Value.InputSymbol, "(Gustavo Soares)");
-            var secondInput = State.CreateForExecution(grammar.Value.InputSymbol, "(Titus Barik)");
-            var examples = new Dictionary<State, object> { { firstInput, "Gustavo Soares" }, { secondInput, "Titus Barik" } };
+            State firstInput = State.CreateForExecution(grammar.Value.InputSymbol, "(Gustavo Soares)");
+            State secondInput = State.CreateForExecution(grammar.Value.InputSymbol, "(Titus Barik)");
+            var examples =
+                new Dictionary<State, object> { { firstInput, "Gustavo Soares" }, { secondInput, "Titus Barik" } };
             var spec = new ExampleSpec(examples);
 
-            var learnedSet = prose.LearnGrammar(spec);
+            ProgramSet learnedSet = prose.LearnGrammar(spec);
 
-            var programs = learnedSet.RealizedPrograms;
+            IEnumerable<ProgramNode> programs = learnedSet.RealizedPrograms;
             var output = programs.First().Invoke(firstInput) as string;
             Assert.AreEqual("Gustavo Soares", output);
             output = programs.First().Invoke(secondInput) as string;
             Assert.AreEqual("Titus Barik", output);
-            var differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "(Alan Leung)");
+            State differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "(Alan Leung)");
             output = programs.First().Invoke(differentInput) as string;
             Assert.AreEqual("Alan Leung", output);
         }
 
         [TestMethod]
         public void TestLearnSubstringNegativeAbsPosRanking() {
-            var grammar = CompileGrammar();
-            var prose = ConfigureSynthesis(grammar.Value);
+            Result<Grammar> grammar = CompileGrammar();
+            SynthesisEngine prose = ConfigureSynthesis(grammar.Value);
 
-            var firstInput = State.CreateForExecution(grammar.Value.InputSymbol, "(Gustavo Soares)");
+            State firstInput = State.CreateForExecution(grammar.Value.InputSymbol, "(Gustavo Soares)");
             var examples = new Dictionary<State, object> { { firstInput, "Gustavo Soares" } };
             var spec = new ExampleSpec(examples);
 
-            var scoreFeature = new RankingScore(grammar.Value);
-            var topPrograms = prose.LearnGrammarTopK(spec, scoreFeature, 1, null);
-            var topProgram = topPrograms.RealizedPrograms.First();
+            RankingScore scoreFeature = new RankingScore(grammar.Value);
+            ProgramSet topPrograms = prose.LearnGrammarTopK(spec, scoreFeature, 1, null);
+            ProgramNode topProgram = topPrograms.RealizedPrograms.First();
 
             var output = topProgram.Invoke(firstInput) as string;
             Assert.AreEqual("Gustavo Soares", output);
-            var secondInput = State.CreateForExecution(grammar.Value.InputSymbol, "(Titus Barik)");
+            State secondInput = State.CreateForExecution(grammar.Value.InputSymbol, "(Titus Barik)");
             output = topProgram.Invoke(secondInput) as string;
             Assert.AreEqual("Titus Barik", output);
         }
 
         [TestMethod]
-        public void TestLearnSubstringTwoExamples()
-        {
-            var grammar = CompileGrammar();
-            var prose = ConfigureSynthesis(grammar.Value);
+        public void TestLearnSubstringTwoExamples() {
+            Result<Grammar> grammar = CompileGrammar();
+            SynthesisEngine prose = ConfigureSynthesis(grammar.Value);
 
-            var firstInput = State.CreateForExecution(grammar.Value.InputSymbol, "Gustavo Soares");
-            var secondInput = State.CreateForExecution(grammar.Value.InputSymbol, "Sumit Gulwani");
+            State firstInput = State.CreateForExecution(grammar.Value.InputSymbol, "Gustavo Soares");
+            State secondInput = State.CreateForExecution(grammar.Value.InputSymbol, "Sumit Gulwani");
             var examples = new Dictionary<State, object> { { firstInput, "Soares" }, { secondInput, "Gulwani" } };
             var spec = new ExampleSpec(examples);
 
-            var learnedSet = prose.LearnGrammar(spec);
-            var programs = learnedSet.RealizedPrograms;
+            ProgramSet learnedSet = prose.LearnGrammar(spec);
+            IEnumerable<ProgramNode> programs = learnedSet.RealizedPrograms;
             var output = programs.First().Invoke(firstInput) as string;
             Assert.AreEqual("Soares", output);
             var output2 = programs.First().Invoke(secondInput) as string;
             Assert.AreEqual("Gulwani", output2);
-            var differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "Alan Leung");
+            State differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "Alan Leung");
             output = programs.First().Invoke(differentInput) as string;
             Assert.AreEqual("Leung", output);
         }
 
         [TestMethod]
-        public void TestLearnSubstringOneExample()
-        {
-            var grammar = CompileGrammar();
-            var prose = ConfigureSynthesis(grammar.Value);
+        public void TestLearnSubstringOneExample() {
+            Result<Grammar> grammar = CompileGrammar();
+            SynthesisEngine prose = ConfigureSynthesis(grammar.Value);
 
-            var input = State.CreateForExecution(grammar.Value.InputSymbol, "Gustavo Soares");
+            State input = State.CreateForExecution(grammar.Value.InputSymbol, "Gustavo Soares");
             var examples = new Dictionary<State, object> { { input, "Soares" } };
 
             var spec = new ExampleSpec(examples);
 
             var scoreFeature = new RankingScore(grammar.Value);
-            var topPrograms = prose.LearnGrammarTopK(spec, scoreFeature, 1, null);
-            var topProgram = topPrograms.RealizedPrograms.First();
+            ProgramSet topPrograms = prose.LearnGrammarTopK(spec, scoreFeature, 1, null);
+            ProgramNode topProgram = topPrograms.RealizedPrograms.First();
             var output = topProgram.Invoke(input) as string;
             Assert.AreEqual("Soares", output);
 
-            var input2 = State.CreateForExecution(grammar.Value.InputSymbol, "Sumit Gulwani");
+            State input2 = State.CreateForExecution(grammar.Value.InputSymbol, "Sumit Gulwani");
             var output2 = topProgram.Invoke(input2) as string;
             Assert.AreEqual("Gulwani", output2);
         }
@@ -181,11 +181,10 @@ namespace ProseTutorial {
         }
 
         private static Result<Grammar> CompileGrammar() {
-            return DSLCompiler.
-                Compile(new CompilerOptions() {
-                    InputGrammarText = File.ReadAllText(GrammarPath),
-                    References = CompilerReference.FromAssemblyFiles(typeof(Semantics).GetTypeInfo().Assembly)
-                });
+            return DSLCompiler.Compile(new CompilerOptions() {
+                InputGrammarText = File.ReadAllText(GrammarPath),
+                References = CompilerReference.FromAssemblyFiles(typeof(Semantics).GetTypeInfo().Assembly)
+            });
         }
     }
 }
