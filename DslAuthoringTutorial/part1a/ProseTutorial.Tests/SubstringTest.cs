@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -8,10 +7,10 @@ using Microsoft.ProgramSynthesis.AST;
 using Microsoft.ProgramSynthesis.Compiler;
 using Microsoft.ProgramSynthesis.Diagnostics;
 using Microsoft.ProgramSynthesis.Learning;
-using Microsoft.ProgramSynthesis.Specifications;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.ProgramSynthesis.Learning.Strategies;
+using Microsoft.ProgramSynthesis.Specifications;
 using Microsoft.ProgramSynthesis.VersionSpace;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ProseTutorial
 {
@@ -82,13 +81,12 @@ namespace ProseTutorial
             var spec = new ExampleSpec(examples);
 
             ProgramSet learnedSet = prose.LearnGrammar(spec);
-
-            IEnumerable<ProgramNode> programs = learnedSet.RealizedPrograms;
-            var output = programs.First().Invoke(firstInput) as string;
-            Assert.AreEqual("16", output);
-
-            //checks whether the total number of synthesized programs was exactly 2 for this ambiguous example. 
-            Assert.AreEqual(2, programs.Count());
+            Assert.IsTrue(learnedSet.RealizedPrograms.Count() > 1);
+            foreach (ProgramNode program in learnedSet.RealizedPrograms)
+            {
+                var output = program.Invoke(firstInput) as string;
+                Assert.AreEqual("16", output);
+            }
         }
 
 
@@ -126,7 +124,7 @@ namespace ProseTutorial
             var examples = new Dictionary<State, object> {{firstInput, "Toby Miller"}};
             var spec = new ExampleSpec(examples);
 
-            RankingScore scoreFeature = new RankingScore(grammar.Value);
+            var scoreFeature = new RankingScore(grammar.Value);
             ProgramSet topPrograms = prose.LearnGrammarTopK(spec, scoreFeature, 1, null);
             ProgramNode topProgram = topPrograms.RealizedPrograms.First();
 
@@ -193,7 +191,7 @@ namespace ProseTutorial
 
         private static Result<Grammar> CompileGrammar()
         {
-            return DSLCompiler.Compile(new CompilerOptions()
+            return DSLCompiler.Compile(new CompilerOptions
             {
                 InputGrammarText = File.ReadAllText(GrammarPath),
                 References = CompilerReference.FromAssemblyFiles(typeof(Semantics).GetTypeInfo().Assembly)

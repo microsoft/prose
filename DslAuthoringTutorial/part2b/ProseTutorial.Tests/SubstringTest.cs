@@ -81,13 +81,12 @@ namespace ProseTutorial
             var spec = new ExampleSpec(examples);
 
             ProgramSet learnedSet = prose.LearnGrammar(spec);
-
-            IEnumerable<ProgramNode> programs = learnedSet.RealizedPrograms;
-            var output = programs.First().Invoke(firstInput) as string;
-            Assert.AreEqual("16", output);
-
-            //checks whether the total number of synthesized programs was exactly 16 for this ambiguous example. 
-            Assert.AreEqual(16, programs.Count());
+            Assert.IsTrue(learnedSet.RealizedPrograms.Count() > 1);
+            foreach (ProgramNode program in learnedSet.RealizedPrograms)
+            {
+                var output = program.Invoke(firstInput) as string;
+                Assert.AreEqual("16", output);
+            }
         }
 
 
