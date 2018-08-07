@@ -144,8 +144,8 @@ namespace ProseTutorial
             SynthesisEngine prose = ConfigureSynthesis(grammar.Value);
 
             State firstInput = State.CreateForExecution(grammar.Value.InputSymbol, "Toby Miller");
-            State secondInput = State.CreateForExecution(grammar.Value.InputSymbol, "Feng Yin");
-            var examples = new Dictionary<State, object> {{firstInput, "Miller"}, {secondInput, "Yin"}};
+            State secondInput = State.CreateForExecution(grammar.Value.InputSymbol, "Courtney Lynch");
+            var examples = new Dictionary<State, object> {{firstInput, "Miller"}, {secondInput, "Lynch"}};
             var spec = new ExampleSpec(examples);
 
             ProgramSet learnedSet = prose.LearnGrammar(spec);
@@ -153,8 +153,8 @@ namespace ProseTutorial
             var output = programs.First().Invoke(firstInput) as string;
             Assert.AreEqual("Miller", output);
             var output2 = programs.First().Invoke(secondInput) as string;
-            Assert.AreEqual("Yin", output2);
-            State differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "Alan Jasinska");
+            Assert.AreEqual("Lynch", output2);
+            State differentInput = State.CreateForExecution(grammar.Value.InputSymbol, "Yun Jasinska");
             output = programs.First().Invoke(differentInput) as string;
             Assert.AreEqual("Jasinska", output);
         }
@@ -176,9 +176,9 @@ namespace ProseTutorial
             var output = topProgram.Invoke(input) as string;
             Assert.AreEqual("Miller", output);
 
-            State input2 = State.CreateForExecution(grammar.Value.InputSymbol, "Feng Yin");
+            State input2 = State.CreateForExecution(grammar.Value.InputSymbol, "Courtney Lynch");
             var output2 = topProgram.Invoke(input2) as string;
-            Assert.AreEqual("Yin", output2);
+            Assert.AreEqual("Lynch", output2);
         }
 
         public static SynthesisEngine ConfigureSynthesis(Grammar grammar)
