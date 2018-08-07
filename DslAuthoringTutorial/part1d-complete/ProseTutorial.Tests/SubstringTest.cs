@@ -87,7 +87,7 @@ namespace ProseTutorial
             var output = programs.First().Invoke(firstInput) as string;
             Assert.AreEqual("16", output);
 
-            //checks whether the total number of synthesized programs was exactly 2 for this ambiguous example. 
+            //checks whether the total number of synthesized programs was exactly 8 for this ambiguous example. 
             Assert.AreEqual(8, programs.Count());
         }
 

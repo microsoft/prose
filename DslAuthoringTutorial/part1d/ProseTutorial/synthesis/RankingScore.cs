@@ -6,19 +6,33 @@ namespace ProseTutorial
 {
     public class RankingScore : Feature<double>
     {
-        public RankingScore(Grammar grammar) : base(grammar, "Score") { }
+        public RankingScore(Grammar grammar) : base(grammar, "Score")
+        {
+        }
 
-        protected override double GetFeatureValueForVariable(VariableNode variable) => 0;
+        protected override double GetFeatureValueForVariable(VariableNode variable)
+        {
+            return 0;
+        }
 
         [FeatureCalculator(nameof(Semantics.Substring))]
-        public static double Substring(double v, double start, double end) => start * end;
+        public static double Substring(double v, double start, double end)
+        {
+            return start * end;
+        }
 
         [FeatureCalculator(nameof(Semantics.AbsPos))]
-        public static double AbsPos(double v, double k) => k;
+        public static double AbsPos(double v, double k)
+        {
+            return k;
+        }
 
         [FeatureCalculator("k", Method = CalculationMethod.FromLiteral)]
         //TODO update the following ranking function 
         //This ranking function should produce higher values for small absolute values of k
-        public static double K(int k) => 1.0;
+        public static double K(int k)
+        {
+            return 1.0;
+        }
     }
 }

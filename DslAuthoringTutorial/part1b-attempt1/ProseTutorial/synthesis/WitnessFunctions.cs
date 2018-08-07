@@ -1,30 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.ProgramSynthesis;
+using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Rules;
 using Microsoft.ProgramSynthesis.Specifications;
-using Microsoft.ProgramSynthesis.Learning;
 
-namespace ProseTutorial {
-    public class WitnessFunctions : DomainLearningLogic {
-        public WitnessFunctions(Grammar grammar) : base(grammar) { }
+namespace ProseTutorial
+{
+    public class WitnessFunctions : DomainLearningLogic
+    {
+        public WitnessFunctions(Grammar grammar) : base(grammar)
+        {
+        }
 
         /// <summary>
-        /// This witness function should deduce the first position for the Substring operator
+        ///     This witness function should deduce the first position for the Substring operator
         /// </summary>
         /// <param name="rule"></param>
         /// <param name="spec"></param>
-        /// <returns>Since there may be more than one occurrence of the output in the input string, 
-        /// there may be more than one spec for the start position, which is specified using DisjunctiveExamplesSpec
+        /// <returns>
+        ///     Since there may be more than one occurrence of the output in the input string,
+        ///     there may be more than one spec for the start position, which is specified using DisjunctiveExamplesSpec
         /// </returns>
         [WitnessFunction(nameof(Semantics.Substring), 1)]
-        public DisjunctiveExamplesSpec WitnessStartPosition(GrammarRule rule, ExampleSpec spec) {
+        public DisjunctiveExamplesSpec WitnessStartPosition(GrammarRule rule, ExampleSpec spec)
+        {
             //the spec on the first position for each input state will have type IEnumerable<object> since we may have 
             //more than one possible output
             var result = new Dictionary<State, IEnumerable<object>>();
 
-            foreach (var example in spec.Examples) {
+            foreach (KeyValuePair<State, object> example in spec.Examples)
+            {
                 State inputState = example.Key;
                 var input = inputState[rule.Body[0]] as string;
                 var output = example.Value as string;
@@ -43,13 +49,14 @@ namespace ProseTutorial {
                 result[inputState] = occurrences.Cast<object>();
             }
             return new DisjunctiveExamplesSpec(result);
-
         }
 
         [WitnessFunction(nameof(Semantics.Substring), 2)]
-        public DisjunctiveExamplesSpec WitnessEndPosition(GrammarRule rule, ExampleSpec spec) {
+        public DisjunctiveExamplesSpec WitnessEndPosition(GrammarRule rule, ExampleSpec spec)
+        {
             var result = new Dictionary<State, IEnumerable<object>>();
-            foreach (var example in spec.Examples) {
+            foreach (KeyValuePair<State, object> example in spec.Examples)
+            {
                 State inputState = example.Key;
                 var input = inputState[rule.Body[0]] as string;
                 var output = example.Value as string;
@@ -67,16 +74,16 @@ namespace ProseTutorial {
         }
 
         [WitnessFunction(nameof(Semantics.AbsPos), 1)]
-        public DisjunctiveExamplesSpec WitnessK(GrammarRule rule, DisjunctiveExamplesSpec spec) {
+        public DisjunctiveExamplesSpec WitnessK(GrammarRule rule, DisjunctiveExamplesSpec spec)
+        {
             var kExamples = new Dictionary<State, IEnumerable<object>>();
-            foreach (var example in spec.DisjunctiveExamples) {
+            foreach (KeyValuePair<State, IEnumerable<object>> example in spec.DisjunctiveExamples)
+            {
                 State inputState = example.Key;
                 var v = inputState[rule.Body[0]] as string;
 
                 var positions = new List<int>();
-                foreach (int pos in example.Value) {
-                    positions.Add(pos + 1);
-                }
+                foreach (int pos in example.Value) positions.Add(pos + 1);
                 if (positions.Count == 0) return null;
                 kExamples[inputState] = positions.Cast<object>();
             }
