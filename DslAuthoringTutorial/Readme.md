@@ -29,50 +29,73 @@ cd prose\DslAuthoringTutorial\part1a
 
 If you get stuck at any of the steps in this section, please send an email to Gustavo Soares at gsoares@microsoft.com and Sumit Gulwani at sumitg@microsoft.com.
 
-+ Download and install VS Code (https://code.visualstudio.com/Download)
+1.  Download and install VS Code (https://code.visualstudio.com/Download)
 
-+ Install .NET Core SDK (https://www.microsoft.com/net/download/linux)
+1.  Install .NET Core SDK (https://www.microsoft.com/net/download/linux)
 
-+ Install VS Code extension for C#. (https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+1.  Install VS Code extension for C#. (https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 
-2. Clone this repository: 
+1.  Clone this repository:
 
-```
-git clone https://github.com/Microsoft/prose.git
-cd prose/DslAuthoringTutorial/part1a
-```
-3. Open the this folder in VS Code:
+    ```
+    git clone https://github.com/Microsoft/prose.git
+    cd prose/DslAuthoringTutorial/part1a
+    ```
 
-+ Open VS Code
+1.  Open the this folder in VS Code:
 
-+ Choose "Open Folder" and select the "part1a" folder. 
+    +   Open VS Code
 
-+ VS Code may show a warning at the top of the screen about missing dependences. Click on "yes" to install them. 
+    +   Choose “Open Folder” and select the “part1a” folder.
 
-4. Building the project: 
+    +   VS Code may show a warning at the top of the screen about missing dependences. Click on “yes” to install them.
 
-+ Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+`) 
+1.  Building the project:
 
-```
-dotnet build 
-```
+    +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
-5. Running the tests 
+        ```
+        dotnet build
+        ```
 
-+ Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+`) 
+        If the project was build successfully, a message confirming that should be printed:
 
-```
-dotnet test 
-```
+        ```
+        Build succeeded.
+            0 Warning(s)
+            0 Error(s)
+        ```
 
-6. Running the console application 
+1.  Running the tests:
 
-+ Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+`) 
+    +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
-```
-cd ProseTutorial
-dotnet run 
-``` 
+        ```
+        dotnet test
+        ```
+
+        All seven tests should fail:
+
+        ```
+        Total tests: 7. Passed: 0. Failed: 7. Skipped: 0.
+        Test Run Failed.
+        ```
+
+        In case you get the following error message, just ignore it:
+
+        ```
+        System.IO.FileNotFoundException: Unable to find tests for .../prose/DslAuthoringTutorial/part1a/ProseTutorial/bin/Debug/netcoreapp2.0/ProseTutorial.dll. Make sure test project has a nuget reference of package "Microsoft.NET.Test.Sdk" and framework version settings are appropriate. Rerun with /diag option to diagnose further.
+        ```
+
+1.  Running the console application
+
+    +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
+
+        ```
+        cd ProseTutorial
+        dotnet run
+        ```
+
 ## Set up (Ubuntu Virtual Machine)
 
 + Download this [VirtualBox Ubuntu VM] 
