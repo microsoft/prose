@@ -42,7 +42,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
     cd prose/DslAuthoringTutorial/part1a
     ```
 
-1.  Open the this folder in VS Code:
+1.  Open this folder in VS Code:
 
     +   Open VS Code
 
@@ -58,7 +58,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
         dotnet build
         ```
 
-        If the project was build successfully, a message confirming that should be printed:
+        If the project was built successfully, a message confirming that should be printed:
 
         ```
         Build succeeded.
