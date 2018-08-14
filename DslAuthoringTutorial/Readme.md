@@ -146,14 +146,14 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
     + Try to provide a new example for your system using a JSON object. Example: 
 
-    ```
-    "(Abhishek Udupa)","Abhishek Udupa"
-    ```
+        ```
+        "(Abhishek Udupa)","Abhishek Udupa"
+        ```
 
     + The application will show the top 4 learned programs. Since our DSL is very small at this point, only one program is learned for this example: 
-    ```
-    Substring(v, AbsPos(v, 2), AbsPos(v, 16))
-    ```
+        ```
+        Substring(v, AbsPos(v, 2), AbsPos(v, 16))
+        ```
     4 Run the test case "TestLearnSubstringPositiveAbsPosSecOcurrence". You will see that the test fails. Although our DSL can express a program to perform this task, our synthesis engine fails to produce this program. Notice that the first example 16-Feb-2016 -> 16 is ambiguous. 16 can come from two different locations in the input string. Our witness function considers only the first match. Next, we will see how to specify witness functions that can produce more than one output specification for a given input state. 
 
     5. The completed code for this part of the tutorial can be found in the folder "part1a-complete".
@@ -196,9 +196,9 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
     + After making these changes, your system should be able to synthesize the following program:
 
-    ```
-    Substring(v, AbsPos(v, 2), AbsPos(v, -2))
-    ```
+        ```
+        Substring(v, AbsPos(v, 2), AbsPos(v, -2))
+        ```
     + The test case TestLearnSubstringNegativeAbsPos should pass.  
 
 3. Notice that it was necessary to provide two examples in this test case. If you try to use only one test case, your system will not produce the correct program. Try to do that by running the test case TestLearnSubstringNegativeAbsPosRanking. This test case should fail. 
