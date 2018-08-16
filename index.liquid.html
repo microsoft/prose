@@ -26,50 +26,55 @@ permalink: index.html
 </div>
 <hr class="py1" />
 
-<div class="pure-g pb1">
-    <div class="pure-u-1 pure-u-md-9-24">
-        <h2 class="mt0">Program Synthesis Framework</h2>
-        <p>
-            Microsoft PROSE SDK is a framework of technologies for <em>programming by examples</em> &ndash;
-            automatic generation of programs from input-output examples at runtime.
-        </p>
-        <p>
-            Given a domain-specific language (DSL) and some input-output examples for the desired program’s behavior,
-            PROSE synthesizes a ranked set of DSL programs that are consistent with the examples.
-        </p>
-    </div>
-    <div class="pure-u-1 pure-u-md-14-24 p1">
+<div class="pure-g pb3">
+    <div class="pure-u-1">
         <img src="{{ site.baseurl }}/img/workflow.png" alt="Programming by Examples workflow using PROSE SDK"
              class="pure-img">
     </div>
 </div>
 
 <div class="pure-g pb1">
-    <div class="pure-u-1 pure-u-md-11-24 pl1">
-        <h2 class="mt1">Data Wrangling DSLs</h2>
-        <p>
-            PROSE SDK includes a pre-defined suite of technologies for various kinds of <em>data wrangling</em> &ndash;
-            cleaning and pre-processing raw semi-structure data into a form amenable to analysis:
-        </p>
-        <ul>
-            <li>
-                <a href="http://research.microsoft.com/en-us/um/people/sumitg/flashfill.html">Flash Fill</a>, a
-                technology
-                for <em>text transformation by examples</em>, available in
-                <a href="https://products.office.com/en-us/excel">Microsoft Excel</a> and <a
-                    href="https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.utility/convert-string">PowerShell</a>.
-            </li>
-            <li>
-                <em>Data extraction from text files</em> by examples, available in <a
-                    href="https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.utility/convertfrom-string">PowerShell</a>
-                and <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-custom-fields">Azure Log
-                    Analytics</a>.
-            </li>
-            <li><em>Data extraction</em> and <em>transformation</em> of JSON by examples.</li>
-            <li><em>Predictive file splitting</em> technology, which splits a text file into the structured columns without
-                any examples.
-            </li>
-        </ul>
+    <div class="pure-u-1 pure-u-md-9-24">
+        <h2 class="mt0 center">Program Synthesis Framework</h2>
+        <div class="justify hyphenate">
+            <p>
+                Microsoft PROSE SDK is a framework of technologies for <em>programming by examples</em>:
+                automatic generation of programs from input-output examples at runtime.
+            </p>
+            <p>
+                Given a domain-specific language (DSL) and some input-output examples for the desired program’s behavior,
+                PROSE synthesizes a ranked set of DSL programs that are consistent with the examples.
+            </p>
+        </div>
+    </div>
+    <div class="pure-u-md-1-24"></div>
+    <div class="pure-u-1 pure-u-md-14-24">
+        <h2 class="mt0 center">Data Wrangling DSLs</h2>
+        <div class="justify hyphenate">
+            <p>
+                PROSE SDK includes a pre-defined suite of technologies for various kinds of <em>data wrangling</em> &ndash;
+                cleaning and pre-processing raw semi-structure data into a form amenable to analysis:
+            </p>
+            <ul>
+                <li>
+                    <a href="http://research.microsoft.com/en-us/um/people/sumitg/flashfill.html">Flash Fill</a>, a
+                    technology
+                    for <em>text transformation by examples</em>, available in
+                    <a href="https://products.office.com/en-us/excel">Microsoft Excel</a> and <a
+                        href="https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.utility/convert-string">PowerShell</a>.
+                </li>
+                <li>
+                    <em>Data extraction from text files</em> by examples, available in <a
+                        href="https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.utility/convertfrom-string">PowerShell</a>
+                    and <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-custom-fields">Azure Log
+                        Analytics</a>.
+                </li>
+                <li><em>Data extraction</em> and <em>transformation</em> of JSON by examples.</li>
+                <li><em>Predictive file splitting</em> technology, which splits a text file into the structured columns without
+                    any examples.
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -136,20 +141,22 @@ using Microsoft.ProgramSynthesis.Extraction.Text;
 <h1 class="center pt1"><i class="fa fa-book" aria-hidden="true"></i> Getting Started</h1>
 
 <div class="pure-g pb0 justify hyphenate">
-    <div class="pure-u-11-24 pure-u-md-5-24 py1 pr1">
+    <div class="pure-u-1 pure-u-md-7-24">
         <h2 class="center"><a href="{{ site.baseurl }}{% link documentation/prose/tutorial.md %}">Tutorial</a></h2>
         <p>
             A step-by-step walkthrough of the process of building a DSL in PROSE and enabling program synthesis for it.
         </p>
     </div>
-    <div class="pure-u-11-24 pure-u-md-5-24 py1 pl1 pr2">
+    <div class="pure-u-md-1-24"></div>
+    <div class="pure-u-1 pure-u-md-7-24">
         <h2 class="center"><a href="https://github.com/microsoft/prose">API &amp; Samples</a></h2>
         <p>
             If you want to apply an existing PROSE DSL, check out its documentation on the left
             and our <a href="https://github.com/microsoft/prose">samples</a>.
         </p>
     </div>
-    <div class="pure-u-11-24 pure-u-md-6-24 py1 pl1">
+    <div class="pure-u-md-1-24"></div>
+    <div class="pure-u-1 pure-u-md-7-24">
         <h2 class="center"><a href="{{ site.baseurl }}{% link resources.md %}">Resources</a></h2>
         <p>
             This section contains our slides and publications.
