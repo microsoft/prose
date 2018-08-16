@@ -3,7 +3,7 @@
 This repository contains documents and templates used to build and deploy the PROSE website (https://microsoft.github.io/prose). The website is hosted using GitHub Pages. Therefore, the deployment process involves pushing to a branch called `gh-pages` on the repository associated with our public code samples.
 
 ## How to setup
-Follows [the official Github Pages instructions](help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/).
+Follows [the official Github Pages instructions](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/).
 
 1. From [RubyInstaller](http://rubyinstaller.org/downloads/) get the latest x64 version of Ruby and the `mingw64-64` version of the Development Kit.
 2. Install the development kit by running `ruby dk.rb init` followed by `ruby dk.rb install` in the directory you extracted it to.
