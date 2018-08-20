@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Microsoft.ProgramSynthesis.Compound.Split.Constraints;
 using Constraint = Microsoft.ProgramSynthesis.Wrangling.Constraints.Constraint
     <Microsoft.ProgramSynthesis.DslLibrary.StringRegion,
@@ -120,7 +121,7 @@ namespace Microsoft.ProgramSynthesis.Compound.Split.Sample
 
         private static void PrintProperties(Program program) 
         {
-            if (program.Properties.FieldStartPositions == null)
+            if (program.Properties.FieldPositions == null)
             {
                 Console.WriteLine("File type: Delimited");
                 Console.WriteLine($"Column delimiter = {program.Properties.ColumnDelimiter}");
@@ -128,7 +129,8 @@ namespace Microsoft.ProgramSynthesis.Compound.Split.Sample
             else
             {
                 Console.WriteLine("File type: Fixed-width");
-                Console.WriteLine($"Field start positions = {string.Join(", ", program.Properties.FieldStartPositions)}");
+                var positions = program.Properties.FieldPositions.Select(p => $"({p.Item1}, {p.Item2?.ToString() ?? "null"})");
+                Console.WriteLine($"Field positions = [ {string.Join(", ", positions)} ]");
             }
             Console.WriteLine($"Skip lines = {program.Properties.SkipLinesCount}");
             Console.WriteLine($"New line string = {string.Join(",", program.Properties.NewLineStrings)}");

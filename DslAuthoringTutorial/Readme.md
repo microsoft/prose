@@ -117,7 +117,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 ## Part 1a: Writing your first witness function.
 
 
-1. Go to the folder "part1a" . 
+1. Go to the folder "part1a". 
     ```
     cd substring-part1a
     ```

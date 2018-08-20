@@ -22,7 +22,7 @@ namespace Transformation.Text
             LearnMergeNames();
             // Learning top-k ranked programs instead of just the single best one:
             LearnTop10NormalizePhoneNumber();
-            LearnTop10FormatName();
+            LearnTop10ExtractName();
             // Learning with additional inputs:
             LearnNormalizeDate();
             // Learning with learning session API:
@@ -163,23 +163,26 @@ namespace Transformation.Text
         }
 
         /// <summary>
-        ///     Look at the top 10 programs learned from a single example for formatting a name like in
-        ///     <see cref="LearnFormatName" /> and show the behavior of them on slightly differently formatted name.
-        ///     Demonstrates learning more than just the single top program, and shows the variation in outputs
-        ///     among the top-ranked programs on unseen input formats.
+        ///     Look at the top 10 programs learned from a single example for extracting the last name and show
+        ///     the behavior of them on slightly differently formatted name. Demonstrates learning more than just
+        ///     the single top program, and shows the variation in outputs among the top-ranked programs on unseen
+        ///     input formats.
         /// </summary>
         /// <seealso cref="LearnTop10NormalizePhoneNumber" />
-        private static void LearnTop10FormatName()
+        private static void LearnTop10ExtractName()
         {
-            var constraints = new[] { new Example(new InputRow("Greta Hermansson"), "Hermansson, G.") };
+            var constraints = new[] { new Example(new InputRow("Greta Hermansson"), "Hermansson") };
             IEnumerable<Program> programs = Learner.Instance.LearnTopK(constraints, k: 10);
 
             // This attempts running the top 10 programs on an input not directly similar to the example
-            //  to see if any of them work anyway.
+            // to see different behaviours.
+            // Here, we will see the outputs:
+            // a. "Smith", corresponding to programs that extract the last name.
+            // b. "Hansson Smith", corresponding to programs that extract everything after the first name.
             int i = 0;
             foreach (var program in programs)
             {
-                var input = new InputRow("Kettil hansson"); // Notice it's "hansson", not "Hansson".
+                var input = new InputRow("Kettil Hansson Smith"); // Notice that we now include a middle name too.
                 Console.WriteLine("Program {0}: \"{1}\" => \"{2}\"", ++i, input, program.Run(input));
             }
         }

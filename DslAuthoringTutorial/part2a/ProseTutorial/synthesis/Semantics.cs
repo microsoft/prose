@@ -20,8 +20,8 @@ namespace ProseTutorial
             Regex left = rr.Item1;
             Regex right = rr.Item2;
             MatchCollection rightMatches = right.Matches(v);
-
-            foreach (Match leftMatch in left.Matches(v))
+            MatchCollection leftMatches = left.Matches(v);
+            foreach (Match leftMatch in leftMatches)
             foreach (Match rightMatch in rightMatches)
                 if (rightMatch.Index == leftMatch.Index + leftMatch.Length)
                     return leftMatch.Index + leftMatch.Length;
