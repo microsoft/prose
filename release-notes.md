@@ -3,6 +3,59 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 6.6.0 -- 2018/08/16
+
+## Breaking Changes
+
+- Compound.Split
+    - The property FieldStartPositions has been removed and a new IReadOnlyList<Record<int, int?>> FieldPositions property has been added in its place.
+
+## New Features
+
+Common Framework:
+    - Support for serialization and deserialization of spec objects (used to track subtasks during synthesis).
+
+- Compound.Split
+    - Support for fixed width files with gaps between fields.
+    - Improvement in column name learning for some cases (e.g. single column and single row data sets).
+    - Support for generating PySpark code from learned program.
+
+Detection:
+    - Support for rich datatype detection on CoreClr (in addition to .net framework where it was previously supported).
+    - Includes example values for each detected numeric and date type in the data.
+
+Extraction.Json:
+    - Supports a new constraint which may be used to disable handling of invalid JSON.  This constraint should be specified if clients translate learned programs to Java and use that java with a Jackson library version less than v2.8 since otherwise the generated Java code contains Jackson v2.8+ features.  (NOTE: This version of Jackson is particularly significant since Spark currently only allows Jackson v2.8.)
+    - Support for generating PySpark code from learned program.
+
+Extraction.Web:
+    - Updated AngleSharp dependency to its latest release to address security concerns in that library.
+    - Support for explicit HTML tables when run in predictive mode.
+
+Matching.Text:
+    - Includes examples of each pattern in comments next to the pattern in the generated Python code.
+
+Transformation.Text
+    - Support for serialization and deserialization for all types referenced in the grammar.
+
+## Bug Fixes / Enhancements
+
+Common Framework:
+    - Bug fixes in ProgramSet.TopK(k) method to return no less than k programs. Temporarily, this slightly degrades Extraction.Text learn performance, which will be fixed soon.
+
+Extraction.Json:
+    - More consistent handling of invalid/truncated Json files.
+
+Matching.Text:
+    - Improvements in PySpark translation
+
+Transformation.Text
+    - Improvements in readability of generated Python code
+
+Transformation.Tree:
+    - Performance improvement in clustering of transformations by up to 10x depending on scenario.
+    - Performance improvement using incremental learning such that previously learned programs are updated with newer examples provided on subsequent Learn() calls.
+
 # Release 6.5.0 -- 2018/07/23
 
 ## New Features
