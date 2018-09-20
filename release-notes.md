@@ -8,7 +8,7 @@ title: Release Notes
 ## Breaking Changes
 
 - Compound.Split
-    - The property FieldStartPositions has been removed and a new IReadOnlyList<Record<int, int?>> FieldPositions property has been added in its place.
+    - The property `FieldStartPositions` has been removed and a new `IReadOnlyList<Record<int, int?>> FieldPositions` property has been added in its place.
 
 ## New Features
 
