@@ -3,6 +3,42 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 6.7.0 -- 2018/09/20
+
+## New Features
+
+- Common framework
+    - Configurable equality for `FeatureCalculationContext`; Classes implementing `IFeature` can now force deep/shallow equality computation over inputs leading to potential performance improvements during learning by setting `IFeature.UseComputedInputsForFccEquality` (`false` is the old behavior).
+
+- Compound.Split
+    - Support free-form fixed-width schema.
+    - Add `SkipLinesCount` constraint to manually specify number of header lines to skip instead of learning it.
+
+- Matching.Text
+    - Support added for learning with `InSameCluster` and `InDifferentCluster` constraints which take a set of inputs to be required to appear in the same or different clusters respectively.
+    - Support added for `UseLongConstantOptimization` constraint which aggressively generates constant tokens whenever possible. (Note: This makes the learning incompelete.)
+
+## Bug Fixes / Enhancements
+
+- Common framework
+    - Optimizations and style improvements in quality of generated Python code.
+
+- Compound.Split
+    - Bug fixes in fixed-width file ingestion.
+    - Correctly handle fixed-width files where all lines start with whitespace.
+    - Fixes to Python translation.
+
+- Extraction.Text
+    - Improved learning performance in the presence of negative constraints.
+
+- Extraction.Json
+    - Fix handling of JSON with a single array of values in pandas Python translation.
+
+- Extraction.Web
+    - Improvements in predictive table detection to remove certain kinds of redundant columns.
+    - Improved row selector inference based on ancestor nodes rather than just the boundary nodes.
+
+
 # Release 6.6.0 -- 2018/08/20
 
 ## Breaking Changes
