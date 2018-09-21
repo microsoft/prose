@@ -29,7 +29,7 @@ title: Release Notes
     - Fixes to Python translation.
 
 - Extraction.Text
-    - Improved learning performance in the presence of negative constraints.
+    - Improved learning performance in the presence of negative constraints. This fixes the performance regression introduced in 6.6.0.
 
 - Extraction.Json
     - Fix handling of JSON with a single array of values in pandas Python translation.
