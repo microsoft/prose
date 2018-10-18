@@ -31,16 +31,15 @@ namespace Microsoft.ProgramSynthesis.Compound.Split.Sample
 3 4
 5 6
 ";
-            var inputRegion = Session.CreateStringRegion(input);
             var constraints = new Constraint[] { new SimpleDelimiter() };
 
             var stringSession = new Session();
-            stringSession.Inputs.Add(inputRegion);
+            stringSession.AddInput(input);
             stringSession.Constraints.Add(constraints);
 
             var streamSession = new Session();
             // Create stream from string
-            streamSession.AddInputsFromReaders(new StringReader(input));
+            streamSession.AddInput(new StringReader(input));
             streamSession.Constraints.Add(constraints);
 
             Session[] sessions = { stringSession, streamSession };
