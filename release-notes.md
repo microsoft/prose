@@ -8,10 +8,13 @@ title: Release Notes
 ## Breaking Changes
 
 - Compound.Split
-	- `ReadInputFromReaders(TextReader reader)` and `ReadInputLineCount(int limit)` are deprecated. They are replaced by `ReadInput(TextReader reader, int linesToRead=200)`. This release also introduces `ReadInput(string s, int linesToRead=200)`.
+    - `ReadInputFromReaders(TextReader reader)` and `ReadInputLineCount(int limit)` are deprecated. They are replaced by
+      `ReadInput(TextReader reader, int linesToRead=200)`. This release also introduces `ReadInput(string s, int
+      linesToRead=200)`.
 
 -   Extraction.Json
-	-   Removed the optional `JPath` parameter from the constraint `JoinSingleTopArray` – the new constraint `JoinArray` should be used instead.
+    -   Removed the optional `JPath` parameter from the constraint `JoinSingleTopArray` – the new constraint `JoinArray`
+        should be used instead.
 
 ## New Features
 
@@ -19,17 +22,19 @@ title: Release Notes
 	-   New learning/running exception hierarchy to raise friendlier exceptions.
 
 -   Detection.DataType
-	-   Supported added to specify the list of types to detect.
+	-   Support added to specify the list of types to detect.
 
 -   Extraction.Json
 	-   Added new interactive constraints `Delete`, `SplitArray`, and `JoinArray`.
-	-   Support added to detect JSON that have comments and unquoted property names so code generation can fail in unsupported targets.
+    -   Support added to detect JSON that have comments and unquoted property names so code generation can fail in
+        unsupported targets.
 
 -   Transformation.Text
 	-   Introduce readable translation for number formatting and lookup programs.
 
 -   Transformation.Tree:
-	-   `Node.Value` of type `string` has been replaced by `Node.Attributes` of type `Dictionary<string, string>` to permit learning from distinct attributes.
+    -   `Node.Value` of type `string` has been replaced by `Node.Attributes` of type `Dictionary<string, string>` to
+        permit learning from distinct attributes.
 
 ## Bug Fixes / Enhancements
 
@@ -57,15 +62,19 @@ title: Release Notes
 ## New Features
 
 - Common framework
-    - Configurable equality for `FeatureCalculationContext`; Classes implementing `IFeature` can now force deep/shallow equality computation over inputs leading to potential performance improvements during learning by setting `IFeature.UseComputedInputsForFccEquality` (`false` is the old behavior).
+    - Configurable equality for `FeatureCalculationContext`; Classes implementing `IFeature` can now force deep/shallow
+      equality computation over inputs leading to potential performance improvements during learning by setting
+      `IFeature.UseComputedInputsForFccEquality` (`false` is the old behavior).
 
 - Compound.Split
     - Support free-form fixed-width schema.
     - Add `SkipLinesCount` constraint to manually specify number of header lines to skip instead of learning it.
 
 - Matching.Text
-    - Support added for learning with `InSameCluster` and `InDifferentCluster` constraints which take a set of inputs to be required to appear in the same or different clusters respectively.
-    - Support added for `UseLongConstantOptimization` constraint which aggressively generates constant tokens whenever possible. (Note: This makes the learning incompelete.)
+    - Support added for learning with `InSameCluster` and `InDifferentCluster` constraints which take a set of inputs to
+      be required to appear in the same or different clusters respectively.
+    - Support added for `UseLongConstantOptimization` constraint which aggressively generates constant tokens whenever
+      possible. (Note: This makes the learning incompelete.)
 
 ## Bug Fixes / Enhancements
 
@@ -78,7 +87,8 @@ title: Release Notes
     - Fixes to Python translation.
 
 - Extraction.Text
-    - Improved learning performance in the presence of negative constraints. This fixes the performance regression introduced in 6.6.0.
+    - Improved learning performance in the presence of negative constraints. This fixes the performance regression
+      introduced in 6.6.0.
 
 - Extraction.Json
     - Fix handling of JSON with a single array of values in pandas Python translation.
@@ -93,7 +103,8 @@ title: Release Notes
 ## Breaking Changes
 
 - Compound.Split
-    - The property `FieldStartPositions` has been removed and a new `IReadOnlyList<Record<int, int?>> FieldPositions` property has been added in its place.
+    - The property `FieldStartPositions` has been removed and a new `IReadOnlyList<Record<int, int?>> FieldPositions`
+      property has been added in its place.
 
 ## New Features
 
@@ -110,7 +121,10 @@ title: Release Notes
     - Includes example values for each detected numeric and date type in the data.
 
 - Extraction.Json
-    - Supports a new constraint which may be used to disable handling of invalid JSON.  This constraint should be specified if clients translate learned programs to Java and use that java with a Jackson library version less than v2.8 since otherwise the generated Java code contains Jackson v2.8+ features.  (NOTE: This version of Jackson is particularly significant since Spark currently only allows Jackson v2.8.)
+    - Supports a new constraint which may be used to disable handling of invalid JSON.  This constraint should be
+      specified if clients translate learned programs to Java and use that java with a Jackson library version less than
+      v2.8 since otherwise the generated Java code contains Jackson v2.8+ features.  (NOTE: This version of Jackson is
+      particularly significant since Spark currently only allows Jackson v2.8.)
     - Support for generating PySpark code from learned program.
 
 - Extraction.Web
@@ -126,7 +140,8 @@ title: Release Notes
 ## Bug Fixes / Enhancements
 
 - Common Framework
-    - Bug fixes in ProgramSet.TopK(k) method to return no less than k programs. Temporarily, this slightly degrades Extraction.Text learn performance, which will be fixed soon.
+    - Bug fixes in ProgramSet.TopK(k) method to return no less than k programs. Temporarily, this slightly degrades
+      Extraction.Text learn performance, which will be fixed soon.
 
 - Extraction.Json
     - More consistent handling of invalid/truncated Json files.
@@ -139,7 +154,8 @@ title: Release Notes
 
 - Transformation.Tree:
     - Performance improvement in clustering of transformations by up to 10x depending on scenario.
-    - Performance improvement using incremental learning such that previously learned programs are updated with newer examples provided on subsequent Learn() calls.
+    - Performance improvement using incremental learning such that previously learned programs are updated with newer
+      examples provided on subsequent Learn() calls.
 
 # Release 6.5.0 -- 2018/07/23
 
@@ -179,13 +195,18 @@ title: Release Notes
 ## Breaking Changes
 
 - Common Framework
-    - When running on CoreClr, we now require runtime version 2.0.3 or newer.  Previously we had workarounds for a CoreClr bug that was fixed in 2.0.3, but those are now removed. 
+    - When running on CoreClr, we now require runtime version 2.0.3 or newer.  Previously we had workarounds for a
+      CoreClr bug that was fixed in 2.0.3, but those are now removed. 
 - Compound.Split
-    - Learning fixed width programs from a schema file is now specified by a constraint which contains a schema file parameter.
+    - Learning fixed width programs from a schema file is now specified by a constraint which contains a schema file
+      parameter.
 - Extraction.Json
-    - New default behavior not to automatically join inner arrays.  The old behavior may be requested by supplying the new constraint ‘JoinInnerArrays’.  (Previous constraint ‘NoJoinInnerArrays’ has been removed.)
-    - Inputs can now be used as an implicit flatten constraint, and the old explicit FlattenDocument constraint is removed.
-    - Flattening top-level arrays is only applied when there is only one.  If multiple top-level arrays are present, they are all preserved.
+    - New default behavior not to automatically join inner arrays.  The old behavior may be requested by supplying the
+      new constraint ‘JoinInnerArrays’.  (Previous constraint ‘NoJoinInnerArrays’ has been removed.)
+    - Inputs can now be used as an implicit flatten constraint, and the old explicit FlattenDocument constraint is
+      removed.
+    - Flattening top-level arrays is only applied when there is only one.  If multiple top-level arrays are present,
+      they are all preserved.
     - Constraints are renamed to make their meaning clearer:
         - JoinInnerArrays -> JoinAllArrays
         - NormalizeArrays -> JoinSingleTopArray
@@ -200,7 +221,8 @@ title: Release Notes
     - Now supports selecting a subset of columns for the output.
 - Detection:
     - Data type detection now supports detecting bit types.
-    - Data type detection now takes a CultureInfo parameter and supports identifying a type from multiple string values—not just one.
+    - Data type detection now takes a CultureInfo parameter and supports identifying a type from multiple string
+      values—not just one.
     - Improved data type detection algorithms have been implemented for numbers, dates, Booleans and categorical values.
 - Extraction.Json
     - Now supports trailing commas.
@@ -209,34 +231,47 @@ title: Release Notes
 
 - Compound.Split
     - Improved learning of header/skip.
-    - It is now possible to construct a program from a ProgramProperties structure (which can be extracted from a learned program).
-    - It is also now possible to override some learned properties.  This supports the scenario where a program is learned from an input file, metadata is presented to the user, and then the user can override some of that metadata before using a final program based on the modified properties.
+    - It is now possible to construct a program from a ProgramProperties structure (which can be extracted from a
+      learned program).
+    - It is also now possible to override some learned properties.  This supports the scenario where a program is
+      learned from an input file, metadata is presented to the user, and then the user can override some of that
+      metadata before using a final program based on the modified properties.
 - Extraction.Json
-    - New NormalizeArray constraint which directs the system to flatten only one array—either with a specified path or the first, top array if no path is specified.
+    - New NormalizeArray constraint which directs the system to flatten only one array—either with a specified path or
+      the first, top array if no path is specified.
 - Extraction.Web
     - Now supports specialized selectors for HTML tables to ensure they are always handled when possible.
     - Dashes are no longer escaped in CSS selectors making them more readable.
     - Now supports boundary-based semantics for row-selectors in web table programs.
     - Increased maximum allowed offset for satisfying examples to 5.
     - Row selectors may now satisfy examples up to the maximum permitted offset if an exact match cannot be found.
-    - Previous program constraint is now used to ensure partial success—that is we always satisfy any previously satisfied columns for which the examples have not changed (in preference to success on any new columns).
-    - When new examples are given in a session where a learn was previously performed, if the new program no longer satisfies previously satisfied columns, we now consider those columns satisfied if the previous column examples shift by less than some number of rows specified as a threshold in the public API.  If they aren’t satisfied at all or the shifting is greater than that number of rows, then the system falls back to the previously learned program to ensure that the previously satisfied columns are still satisfied.
+    - Previous program constraint is now used to ensure partial success—that is we always satisfy any previously
+      satisfied columns for which the examples have not changed (in preference to success on any new columns).
+    - When new examples are given in a session where a learn was previously performed, if the new program no longer
+      satisfies previously satisfied columns, we now consider those columns satisfied if the previous column examples
+      shift by less than some number of rows specified as a threshold in the public API.  If they aren’t satisfied at
+      all or the shifting is greater than that number of rows, then the system falls back to the previously learned
+      program to ensure that the previously satisfied columns are still satisfied.
     - An issue was fixed so that we now ensure correct alignment when the row selector has been previously computed.
 - Matching.Text
     - Fixed a bug in the python translation which didn’t properly quote regexes.
 - Split.Text
     - Improved detection of time expressions.
 - Transformation.Text
-    - Python translation no longer exposes the Substring type unless optimizing for performance in order to simplify the generated code.
-    - Python translation now special cases a common idiom in the translation.text DSL related to regex matching and turns it into simpler code.
+    - Python translation no longer exposes the Substring type unless optimizing for performance in order to simplify the
+      generated code.
+    - Python translation now special cases a common idiom in the translation.text DSL related to regex matching and
+      turns it into simpler code.
     - Improved readability of python translation for some datetime programs.
-    - Generated programs that use regular expressions now contain simpler/easier to read expressions in a number of cases.
+    - Generated programs that use regular expressions now contain simpler/easier to read expressions in a number of
+      cases.
 - Transformation.Tree
     - Performance improved.
     - Fixed an issue in the Order By conversion.
     - Fixed issues with the generation of join expressions.
     - Table name analysis is now more robust with respect to qualified names, cases and quoted names.
-    - Program now exposes separate methods for finding the nodes that should be changed and for performing the transformation instead of just doing the whole operation in a single method call.
+    - Program now exposes separate methods for finding the nodes that should be changed and for performing the
+      transformation instead of just doing the whole operation in a single method call.
 
 # Release 6.3.0 -- 2018/05/15
 
@@ -314,8 +349,8 @@ title: Release Notes
 ## New Features
 
 - Compound.Split
-    - Can now extract the schema of a fixed width file from a free-form text file description of the schema and use that to 
-      learn an extraction program.
+    - Can now extract the schema of a fixed width file from a free-form text file description of the schema and use that
+      to learn an extraction program.
 
 ## Bug Fixes / Enhancements
 
@@ -326,24 +361,25 @@ title: Release Notes
 
 - Extraction.Web
     - The NormalizeHtml method is now significantly simpler and more robust.
-    - Now supports table constraints in which some cell examples are soft constraints (that is, they need not necessarily
-      be satisfied but they help to converge to correct programs).  This can be useful in interactive settings where if the
-      user provides new examples after a previous learning round, then any output of the previous learning round which the user
-      has not changed can be treated as soft constraints.
+    - Now supports table constraints in which some cell examples are soft constraints (that is, they need not
+      necessarily be satisfied but they help to converge to correct programs).  This can be useful in interactive
+      settings where if the user provides new examples after a previous learning round, then any output of the previous
+      learning round which the user has not changed can be treated as soft constraints.
 
 - Transformation.Text
     - Learning performance improvements.
     - Improved readability of learned programs through constant folding.
-    - Fixes to conditional program learning such that the correct program is learned and returned in more cases instead of the
-      system indicating that it could not learn a program.  Also conditional patterns are better clustered together.
+    - Fixes to conditional program learning such that the correct program is learned and returned in more cases instead
+      of the system indicating that it could not learn a program.  Also conditional patterns are better clustered
+      together.
 
 - Changes that only affect those building their own DSLs
-    - The PROSE grammar specification language has been changed to only allow binding single variables in let expressions.
-      None of our existing grammars used a let with multiple variables, and we decided to simplify the grammar handling logic
-      by enforcing this as a constraint.
+    - The PROSE grammar specification language has been changed to only allow binding single variables in let
+      expressions. None of our existing grammars used a let with multiple variables, and we decided to simplify the
+      grammar handling logic by enforcing this as a constraint.
     - AST “holes” now have Ids and are equal if they have the same symbol and id.
-    - There is a new subprogram translator extension point interface which enables pattern based code generators to be plugged
-      into the overall translation system.
+    - There is a new subprogram translator extension point interface which enables pattern based code generators to be
+      plugged into the overall translation system.
 
 # Release 6.0.0 -- 2018/03/19
 
@@ -386,8 +422,8 @@ title: Release Notes
     - Perform Constant propagation, Copy propagation and Common subexpression optimization on translated programs
       (Java and Python).
     - Other readability improvements like aliasing in Python and shortening Python operator names.
-    - Compound.Split now supports Python translations for simple delimiter and fixed width cases.  In an upcoming release all
-      Compound.Split programs will support Python translation.
+    - Compound.Split now supports Python translations for simple delimiter and fixed width cases.  In an upcoming
+      release all Compound.Split programs will support Python translation.
     - Specific to Transformation.Text
         - By default the generated program has a more natural function signature with an argument for each input column
           that is named appropriately rather than a taking a single dictionary of the inputs.
@@ -396,13 +432,13 @@ title: Release Notes
         - Function calls are not inlined but variables and literals are.
         - An extra variable is no longer created for the return value of a function.
 - Extraction.Web
-    - No longer escapes certain occurrences of hyphen in CSS selectors (when it occurs between two letters, a very common
-      case) making them more readable.
+    - No longer escapes certain occurrences of hyphen in CSS selectors (when it occurs between two letters, a very
+      common case) making them more readable.
     - Now supports entity-based extraction programs that include operators to extract data with respect to surrounding
       entities in the DOM context (e.g. extracting dates from bill receipts across different formats and providers).
-    - A new previous program constraint which enables incremental table learning where a previously synthesized program can
-      be supplied when synthesizing a new program which adds additional row/column selection information.  This can bring
-      significant perf benefits for synthesizing programs to extract large tables.
+    - A new previous program constraint which enables incremental table learning where a previously synthesized program
+      can be supplied when synthesizing a new program which adds additional row/column selection information.  This can
+      bring significant perf benefits for synthesizing programs to extract large tables.
     - Case insensitive text matching.
     - Possibly null values  are prevented in single column extractions.
     - Improved predicate learning to most specific and smallest selectors.
@@ -518,18 +554,19 @@ title: Release Notes
 
 ## Breaking Changes
 
-- State.Create method has been split into two versions: CreateForLearning and CreateForExecution.  The CreateForLearning version 
-  can be slower but is necessary (as you might imagine from the name) when the state is going to be used for learning programs 
-  as opposed to just executing programs that were previously learned.
+- State.Create method has been split into two versions: CreateForLearning and CreateForExecution.  The CreateForLearning
+  version can be slower but is necessary (as you might imagine from the name) when the state is going to be used for
+  learning programs as opposed to just executing programs that were previously learned.
 - Moved CoreClr to .netstandard 2.0--as part of this change upgraded some dependencies:
     - System.ValueTuple 4.4.0 (up from 4.3.1)
     - Newtonsoft.Json 10.03 (up from 8.0.2)
-    - Plus the move to .netstandard 2.0 and corresponding upgrade to related corefx packages (mostly moving to version 4.4.0)
+    - Plus the move to .netstandard 2.0 and corresponding upgrade to related corefx packages (mostly moving to version
+      4.4.0)
 
 ## New Features
 
-- A new API has been added for working with significant inputs which enables quick retrieval of some significant inputs and then
-  async calculation and later retrieval of additional significant inputs as they become available.
+- A new API has been added for working with significant inputs which enables quick retrieval of some significant inputs
+  and then async calculation and later retrieval of additional significant inputs as they become available.
 - Matching.Text now exposes the DescriptionTokens property to enable rich-text rendering of pattern descriptions.
 
 ## Bug fixes / Enhancements
@@ -538,7 +575,8 @@ title: Release Notes
 - Compound.Split has a new constraint for specifying column delimiters.
 - Transformation.Text now supports the ISO week number format (eg. date is in week #32 of the year).
 - Better handline of empty json strings.
-- Robustness improvements for Split.Text--better handle input that is json with mixed delimiters as well as redundant examples.
+- Robustness improvements for Split.Text--better handle input that is json with mixed delimiters as well as redundant
+  examples.
 - Miscellaneous perf and correctness fixes
 
 # Release 3.2.0 -- 2017/08/16
@@ -555,8 +593,8 @@ title: Release Notes
 
 ## Bug fixes / Enhancements
 
-- New Compound.Split streaming interface for running split programs on large files and the ability to specify a fill strategy for
-  filling values in non-rectangular tables.
+- New Compound.Split streaming interface for running split programs on large files and the ability to specify a fill
+  strategy for filling values in non-rectangular tables.
 - Fixes for advanced scenarios related to creating new DSLs:
     - A fix for a long-standing bug related to learning cache lookups in recursive grammars.
     - A two-pass mode for dslc which allows strongly-typed program-fragment builders to be used in all code.
@@ -577,29 +615,30 @@ title: Release Notes
 ## Breaking Changes
 
 - De-serializing programs in human readable format is removed.  Human readable was never a reliable serialization format
-  (although it is nice for debugging purposes) because it does not contain enough information to guarantee backward compatibility.
-  We have removed de-serialization support to encourage the use of the XML serialization format.  This also means that the ANTLR
-  runtime dependency has been removed from our core nuget package.
-- The paraphrasing library is removed.  Transformation.Text still contains its separate support for the explanations feature.
-  In effect this is an implementation detail, but consumers may need to remove any DLL references they had to
+  (although it is nice for debugging purposes) because it does not contain enough information to guarantee backward
+  compatibility. We have removed de-serialization support to encourage the use of the XML serialization format.  This
+  also means that the ANTLR runtime dependency has been removed from our core nuget package.
+- The paraphrasing library is removed.  Transformation.Text still contains its separate support for the explanations
+  feature. In effect this is an implementation detail, but consumers may need to remove any DLL references they had to
   Microsoft.ProgramSynthesis.Paraphrasing.
-- Moved Microsoft.ProgramSynthesis.Compiler.dll from the main nuget package to the compiler package.  Previously the compiler
-  package just contained the dslc.exe tool for compiling a grammar into source code so that it can be built into a DSL's DLL,
-  now it also contains the DLL which is used for runtime parsing of grammar files.  This means that the core package which is all
-  you need if you are consuming prebuilt DSLs no longer has a dependency on ANTLR4.Runtime (but the compiler package does have
-  that dependency).
+- Moved Microsoft.ProgramSynthesis.Compiler.dll from the main nuget package to the compiler package.  Previously the
+  compiler package just contained the dslc.exe tool for compiling a grammar into source code so that it can be built
+  into a DSL's DLL, now it also contains the DLL which is used for runtime parsing of grammar files.  This means that
+  the core package which is all you need if you are consuming prebuilt DSLs no longer has a dependency on ANTLR4.Runtime
+  (but the compiler package does have that dependency).
 - The netstandard1.6 libraries are now built for CoreClr 1.1.
-- The SDK now depends on System.Collections.Immutable version 1.3.0 (up from 1.2.0) and NewtonSoft.Json version 8.0.3 (up from 8.0.2).
+- The SDK now depends on System.Collections.Immutable version 1.3.0 (up from 1.2.0) and NewtonSoft.Json version 8.0.3
+  (up from 8.0.2).
 - All uses of Tuple have been replaced with ValueTuple.
 - Extraction.Json:
-    - No longer automatically treats arrays as objects.  Instead clients are expected to use constraints to control how arrays
-      are flattened.  Default is for arrays to turn into rows, but there is a new constraint which allows flattening them into
-      columns.
+    - No longer automatically treats arrays as objects.  Instead clients are expected to use constraints to control how
+      arrays are flattened.  Default is for arrays to turn into rows, but there is a new constraint which allows
+      flattening them into columns.
 
 ## Bug fixes / Enhancements
 
-- Detection.DataType is a new DLL added to the package which when given a series of strings can detect the datatypes those 
-  string values represent (ie. number, date, etc.).
+- Detection.DataType is a new DLL added to the package which when given a series of strings can detect the datatypes
+  those string values represent (ie. number, date, etc.).
 - Extraction.Json:
     - Fixed case where a single-line JSON was misidentified as NDJSON.
 - Transformation.Text:
@@ -611,8 +650,8 @@ title: Release Notes
 - Split.Text
     - Field detection, expressiveness and error handling improvements.
     - Performance improvements (especially for large string sizes).
-- Grammar files now support an annotation to indicate that a rule is deprecated (but kept in the grammar to allow deserialization
-  of programs learned on older versions).
+- Grammar files now support an annotation to indicate that a rule is deprecated (but kept in the grammar to allow
+  deserialization of programs learned on older versions).
 
 # Release 2.3.0 -- 2017/05/15
 
@@ -717,17 +756,22 @@ fixes.
 
 ## New Features
 
-- Made more spec methods `protected internal` to enable third-party implementation of [`Spec`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Specifications_Spec.htm) subclasses.
-- Added new documentation and samples to facilitate third-party DSL development. Fixes [\#10](https://github.com/Microsoft/prose/issues/10).
+- Made more spec methods `protected internal` to enable third-party implementation of
+  [`Spec`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Specifications_Spec.htm) subclasses.
+- Added new documentation and samples to facilitate third-party DSL development. Fixes
+  [\#10](https://github.com/Microsoft/prose/issues/10).
 - More flexibility in time ranges in `Transformation.Text`.
 - Allowed omitting leading zeros at the start of numeric date formats in `Transformation.Text`.
 
 ## Bug Fixes
 
 - Improved `RunMerge`'s handling of empty lines in `Split.File`.
-- Fixed learning with missing lookahead/lookbehind regexes in `Extraction.Text` ([\#7](https://github.com/Microsoft/prose/issues/7)).
-- Improved `Extraction.Json`'s handling of documents where the top-level is an array or a single object containing an array.
-- Several bug fixes that improve stability, performance and reduce the number of examples required to learn the intended program across the SDK.
+- Fixed learning with missing lookahead/lookbehind regexes in `Extraction.Text`
+  ([\#7](https://github.com/Microsoft/prose/issues/7)).
+- Improved `Extraction.Json`'s handling of documents where the top-level is an array or a single object containing an
+  array.
+- Several bug fixes that improve stability, performance and reduce the number of examples required to learn the intended
+  program across the SDK.
 
 
 # Release 1.0.3 -- 2017/01/22
