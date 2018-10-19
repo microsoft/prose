@@ -3,6 +3,55 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 6.8.1 -- 2018/10/18
+
+## Breaking Changes
+
+- Compound.Split
+	- `ReadInputFromReaders(TextReader reader)` and `ReadInputLineCount(int limit)` are deprecated. They are replaced by `ReadInput(TextReader reader, int linesToRead=200)`. This release also introduces `ReadInput(string s, int linesToRead=200)`.
+
+-   Extraction.Json
+	-   Removed the optional `JPath` parameter from the constraint `JoinSingleTopArray` – the new constraint `JoinArray` should be used instead.
+
+## New Features
+
+-   Common Framework
+	-   New learning/running exception hierarchy to raise friendlier exceptions.
+
+-   Detection.DataType
+	-   Supported added to specify the list of types to detect.
+
+-   Extraction.Json
+	-   Added new interactive constraints `Delete`, `SplitArray`, and `JoinArray`.
+	-   Support added to detect JSON that have comments and unquoted property names so code generation can fail in unsupported targets.
+
+-   Transformation.Text
+	-   Introduce readable translation for number formatting and lookup programs.
+
+-   Transformation.Tree:
+	-   `Node.Value` of type `string` has been replaced by `Node.Attributes` of type `Dictionary<string, string>` to permit learning from distinct attributes.
+
+## Bug Fixes / Enhancements
+
+-   Detection.DataType
+	-   Various bug fixes and enhancement.
+
+-   Extraction.Json
+	-   Improved flattening of embedded arrays in new-line delimited JSON (NDJSON) files.
+
+-   Extraction.Pdf
+	-   Now throws a clearer exception when passed a non-seekable stream.
+	-   Word to/bottom bounds are now based on the glyph baseline rather than the bounding box.
+	-   Fixed an issue where all small caps text on a page were being combined into a single line.
+	-   Improved handling of overlapping filled boxes by taking rendering order into account.
+
+-   Split.Text
+	-  	Various performance improvements to program learning and execution.
+
+-   Transformation.Tree:
+	-   Various bug fixes.
+
+
 # Release 6.7.0 -- 2018/09/20
 
 ## New Features
