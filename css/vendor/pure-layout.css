@@ -128,7 +128,7 @@ appears on the left side of the page.
     */
     #menu .pure-menu-selected,
     #menu .pure-menu-heading {
-        background: #1f8dd6;
+        background: #0067b8;
     }
         /*
         This styles a link within a selected menu item `<li>`.

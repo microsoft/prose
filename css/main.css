@@ -4,7 +4,7 @@ html {
 
 html, body {
     font-size: 1em;
-    color: #777;
+    color: #666;
     min-height: 100%;
     line-height: 1.6em;
 }
@@ -21,7 +21,7 @@ html, body, button, input, select, textarea,
 }
 
 a {
-    color: #3da6d6;
+    color: #0067b8;
     text-decoration: none;
 }
 
@@ -331,7 +331,7 @@ a.reversefootnote {
 }
 
 #menu a.pure-menu-heading.pure-menu-selected {
-    background: #1f8dd6;
+    background: #0067b8;
 }
 
 #menu .pure-menu-selected li:not(.pure-menu-selected) a {
@@ -414,7 +414,7 @@ h2.subtitle {
 }
 
 span.title-blue {
-    color: #1f8dd6;
+    color: #0067b8;
 }
 
 /* Popups */
