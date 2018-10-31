@@ -34,7 +34,7 @@ gulp.task('scripts', ['ts'], function () {
 gulp.task('css', function () {
     var SRC = [
         'css/vendor/pure-layout.css',
-        'css/vendor/solarized-light.css',
+        'css/vendor/ms-highlighting.css',
         'css/vendor/prism.css',
         'css/vendor/html5bp.css',
         'css/main.css'];
