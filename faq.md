@@ -66,4 +66,4 @@ As it turns out, `xbuild` does not support the entirety of the `msbuild` languag
 
 ## How do I launch a program or debug it in VS Code?
 
-Install the [mono-debug](http://marketplace.visualstudio.com/items?itemName=ms-vscode.mono-debug) extension for VS Code and follow the instructions on its webpage.
+Install the [mono-debug](https://marketplace.visualstudio.com/items?itemName=ms-vscode.mono-debug) extension for VS Code and follow the instructions on its webpage.

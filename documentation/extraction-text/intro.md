@@ -12,7 +12,7 @@ The [Usage]({{ site.baseurl }}/documentation/extraction-text/usage) page and the
 1.  Extract.Text.Region extracts a substring from an input string.
 2.  Extract.Text.Sequence extracts a sequence of substrings from an input string.
 
-**Read more:** ["FlashExtract: A Framework for Data Extraction by Examples"](http://research.microsoft.com/en-us/um/people/sumitg/pubs/pldi14-flashextract.pdf)
+**Read more:** ["FlashExtract: A Framework for Data Extraction by Examples"](https://research.microsoft.com/en-us/um/people/sumitg/pubs/pldi14-flashextract.pdf)
 
 
 # Substring Extraction
