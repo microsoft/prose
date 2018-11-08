@@ -17,8 +17,13 @@ gulp.task('ts', function () {
 });
 
 gulp.task('scripts', ['ts'], function () {
-    var SRC = 'js/**/*.js',
-        DEST = 'static';
+    var SRC = [
+        'node_modules/clipboard/dist/clipboard.min.js',
+        'node_modules/jquery/dist/jquery.min.js',
+        'node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
+        'node_modules/mathjax/MathJax.js',   // move this to something that copies whole node_module to the output site
+        'js/**/*.js'];
+    var DEST = 'static';
 
     return gulp.src(SRC)
         .pipe(changed(DEST))
