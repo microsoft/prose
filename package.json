@@ -2,7 +2,12 @@
   "name": "prose-site",
   "version": "1.0.0",
   "dependencies": {
-    "@types/jquery": "^2.0.39"
+    "@types/jquery": "^2.0.39",
+    "ace-css": "^1.1.0",
+    "font-awesome": "^4.7.0",
+    "magnific-popup": "^1.1.0",
+    "normalize.css": "^5.0.0",
+    "purecss": "^0.6.2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

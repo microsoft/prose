@@ -31,12 +31,23 @@ gulp.task('scripts', ['ts'], function () {
         .pipe(gulp.dest(DEST));
 });
 
-gulp.task('css', function () {
+gulp.task('fonts', function() {
+    var SRC = 'node_modules/font-awesome/fonts/*',
+        DEST = 'fonts';
+    
+    return gulp.src(SRC)
+        .pipe(gulp.dest(DEST));
+});
+
+gulp.task('css', ['fonts'], function () {
     var SRC = [
-        'css/vendor/pure-layout.css',
-        'css/vendor/ms-highlighting.css',
-        'css/vendor/prism.css',
-        'css/vendor/html5bp.css',
+        'node_modules/ace-css/css/ace.min.css',
+        'node_modules/font-awesome/css/font-awesome.min.css',
+        'node_modules/magnific-popup/dist/magnific-popup.css',
+        'node_modules/normalize.css/normalize.css',
+        'node_modules/purecss/build/pure-min.css',
+        'node_modules/purecss/build/grids-responsive-min.css',
+        'css/vendor/*.css',
         'css/main.css'];
 
     gulp.src(SRC)
