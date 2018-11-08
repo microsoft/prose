@@ -7,6 +7,14 @@ var cleanCSS = require('gulp-clean-css');
 var ts = require('gulp-typescript');
 var sourcemaps = require('gulp-sourcemaps');
 
+gulp.task('mathjax', function() {
+    var SRC = 'node_modules/mathjax/**',
+        DEST = 'static/mathjax';
+    
+    return gulp.src(SRC)
+        .pipe(gulp.dest(DEST));
+});
+
 gulp.task('ts', function () {
     var tsProject = ts.createProject('tsconfig.json');
     return tsProject.src()
@@ -16,12 +24,11 @@ gulp.task('ts', function () {
         .pipe(gulp.dest('js'));
 });
 
-gulp.task('scripts', ['ts'], function () {
+gulp.task('scripts', ['ts', 'mathjax'], function () {
     var SRC = [
         'node_modules/clipboard/dist/clipboard.min.js',
         'node_modules/jquery/dist/jquery.min.js',
         'node_modules/magnific-popup/dist/jquery.magnific-popup.min.js',
-        'node_modules/mathjax/MathJax.js',   // move this to something that copies whole node_module to the output site
         'js/**/*.js'];
     var DEST = 'static';
 

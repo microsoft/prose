@@ -10,7 +10,7 @@
     "magnific-popup": "^1.1.0",
     "mathjax": "^2.7.5",
     "normalize.css": "^5.0.0",
-    "purecss": "^0.6.2"
+    "purecss": "^1.0.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
