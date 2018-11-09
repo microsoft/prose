@@ -1,14 +1,22 @@
-/*
- *  /MathJax/extensions/TeX/AMScd.js
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
+/*************************************************************
  *
- *  Copyright (c) 2009-2018 The MathJax Consortium
- *
+ *  MathJax/extensions/TeX/AMScd.js
+ *  
+ *  Implements the CD environment for commutative diagrams.
+ *  
+ *  ---------------------------------------------------------------------
+ *  
+ *  Copyright (c) 2013-2018 The MathJax Consortium
+ * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,4 +24,135 @@
  *  limitations under the License.
  */
 
-MathJax.Extension["TeX/AMScd"]={version:"2.7.5",config:MathJax.Hub.CombineConfig("TeX.CD",{colspace:"5pt",rowspace:"5pt",harrowsize:"2.75em",varrowsize:"1.75em",hideHorizontalLabels:false})};MathJax.Hub.Register.StartupHook("TeX Jax Ready",function(){var b=MathJax.ElementJax.mml,e=MathJax.InputJax.TeX,d=e.Stack.Item,c=e.Definitions,a=MathJax.Extension["TeX/AMScd"].config;c.environment.CD="CD_env";c.special["@"]="CD_arrow";c.macros.minCDarrowwidth="CD_minwidth";c.macros.minCDarrowheight="CD_minheight";e.Parse.Augment({CD_env:function(f){this.Push(f);return d.array().With({arraydef:{columnalign:"center",columnspacing:a.colspace,rowspacing:a.rowspace,displaystyle:true},minw:this.stack.env.CD_minw||a.harrowsize,minh:this.stack.env.CD_minh||a.varrowsize})},CD_arrow:function(g){var l=this.string.charAt(this.i);if(!l.match(/[><VA.|=]/)){return this.Other(g)}else{this.i++}var o=this.stack.Top();if(!o.isa(d.array)||o.data.length){this.CD_cell(g);o=this.stack.Top()}var q=((o.table.length%2)===1);var i=(o.row.length+(q?0:1))%2;while(i){this.CD_cell(g);i--}var h;var f={minsize:o.minw,stretchy:true},k={minsize:o.minh,stretchy:true,symmetric:true,lspace:0,rspace:0};if(l==="."){}else{if(l==="|"){h=this.mmlToken(b.mo("\u2225").With(k))}else{if(l==="="){h=this.mmlToken(b.mo("=").With(f))}else{var r={">":"\u2192","<":"\u2190",V:"\u2193",A:"\u2191"}[l];var p=this.GetUpTo(g+l,l),m=this.GetUpTo(g+l,l);if(l===">"||l==="<"){h=b.mo(r).With(f);if(!p){p="\\kern "+o.minw}if(p||m){var j={width:"+11mu",lspace:"6mu"};h=b.munderover(this.mmlToken(h));if(p){p=e.Parse(p,this.stack.env).mml();h.SetData(h.over,b.mpadded(p).With(j).With({voffset:".1em"}))}if(m){m=e.Parse(m,this.stack.env).mml();h.SetData(h.under,b.mpadded(m).With(j))}if(a.hideHorizontalLabels){h=b.mpadded(h).With({depth:0,height:".67em"})}}}else{h=r=this.mmlToken(b.mo(r).With(k));if(p||m){h=b.mrow();if(p){h.Append(e.Parse("\\scriptstyle\\llap{"+p+"}",this.stack.env).mml())}h.Append(r.With({texClass:b.TEXCLASS.ORD}));if(m){h.Append(e.Parse("\\scriptstyle\\rlap{"+m+"}",this.stack.env).mml())}}}}}}if(h){this.Push(h)}this.CD_cell(g)},CD_cell:function(f){var g=this.stack.Top();if((g.table||[]).length%2===0&&(g.row||[]).length===0){this.Push(b.mpadded().With({height:"8.5pt",depth:"2pt"}))}this.Push(d.cell().With({isEntry:true,name:f}))},CD_minwidth:function(f){this.stack.env.CD_minw=this.GetDimen(f)},CD_minheight:function(f){this.stack.env.CD_minh=this.GetDimen(f)}})});MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMScd.js");
+MathJax.Extension["TeX/AMScd"] = {
+  version: "2.7.5",
+  config: MathJax.Hub.CombineConfig("TeX.CD",{
+    colspace: "5pt",
+    rowspace: "5pt",
+    harrowsize: "2.75em",
+    varrowsize: "1.75em",
+    hideHorizontalLabels: false
+  })
+};
+
+MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
+  var MML = MathJax.ElementJax.mml,
+      TEX = MathJax.InputJax.TeX,
+      STACKITEM = TEX.Stack.Item,
+      TEXDEF = TEX.Definitions,
+      CONFIG = MathJax.Extension["TeX/AMScd"].config;
+
+  TEXDEF.environment.CD = "CD_env";
+  TEXDEF.special["@"] = "CD_arrow";
+  TEXDEF.macros.minCDarrowwidth = "CD_minwidth";
+  TEXDEF.macros.minCDarrowheight = "CD_minheight";
+
+  TEX.Parse.Augment({
+    //
+    //  Implements \begin{CD}...\end{CD}
+    //
+    CD_env: function (begin) {
+      this.Push(begin);
+      return STACKITEM.array().With({
+        arraydef: {
+          columnalign: "center",
+          columnspacing: CONFIG.colspace,
+          rowspacing: CONFIG.rowspace,
+          displaystyle: true
+        },
+        minw: this.stack.env.CD_minw || CONFIG.harrowsize,
+        minh: this.stack.env.CD_minh || CONFIG.varrowsize
+      });
+    },
+
+    CD_arrow: function (name) {
+      var c = this.string.charAt(this.i);
+      if (!c.match(/[><VA.|=]/)) {return this.Other(name)} else {this.i++}
+
+      var top = this.stack.Top();
+      if (!top.isa(STACKITEM.array) || top.data.length) {
+        this.CD_cell(name);
+        top = this.stack.Top();
+      }
+      //
+      //  Add enough cells to place the arrow correctly
+      //
+      var arrowRow = ((top.table.length % 2) === 1);
+      var n = (top.row.length + (arrowRow ? 0 : 1)) % 2;
+      while (n) {this.CD_cell(name); n--}
+
+      var mml;
+      var hdef = {minsize: top.minw, stretchy:true},
+          vdef = {minsize: top.minh, stretchy:true, symmetric:true, lspace:0, rspace:0};
+
+      if (c === ".") {}
+      else if (c === "|") {mml = this.mmlToken(MML.mo("\u2225").With(vdef))}
+      else if (c === "=") {mml = this.mmlToken(MML.mo("=").With(hdef))}
+      else {
+        //
+        //  for @>>> @<<< @VVV and @AAA, get the arrow and labels
+        //
+        var arrow = {">":"\u2192", "<":"\u2190", V:"\u2193", A:"\u2191"}[c];
+        var a = this.GetUpTo(name+c,c),
+            b = this.GetUpTo(name+c,c);
+
+        if (c === ">" || c === "<") {
+          //
+          //  Lay out horizontal arrows with munderover if it has labels
+          //
+          mml = MML.mo(arrow).With(hdef);
+          if (!a) {a = "\\kern "+top.minw} // minsize needs work
+          if (a || b) {
+            var pad = {width:"+11mu", lspace:"6mu"};
+            mml = MML.munderover(this.mmlToken(mml));
+            if (a) {
+              a = TEX.Parse(a,this.stack.env).mml();
+              mml.SetData(mml.over,MML.mpadded(a).With(pad).With({voffset:".1em"}));
+            }
+            if (b) {
+              b = TEX.Parse(b,this.stack.env).mml();
+              mml.SetData(mml.under,MML.mpadded(b).With(pad));
+            }
+            if (CONFIG.hideHorizontalLabels)
+              {mml = MML.mpadded(mml).With({depth:0, height:".67em"})}
+          }
+        } else {
+          //
+          //  Lay out vertical arrows with mrow if there are labels
+          //
+          mml = arrow = this.mmlToken(MML.mo(arrow).With(vdef));
+          if (a || b) {
+            mml = MML.mrow();
+            if (a) {mml.Append(TEX.Parse("\\scriptstyle\\llap{"+a+"}",this.stack.env).mml())}
+            mml.Append(arrow.With({texClass: MML.TEXCLASS.ORD}));
+            if (b) {mml.Append(TEX.Parse("\\scriptstyle\\rlap{"+b+"}",this.stack.env).mml())}
+          }
+        }
+      }
+      if (mml) {this.Push(mml)};
+      this.CD_cell(name);
+    },
+    CD_cell: function (name) {
+      var top = this.stack.Top();
+      if ((top.table||[]).length % 2 === 0 && (top.row||[]).length === 0) {
+        //
+        // Add a strut to the first cell in even rows to get
+        // better spacing of arrow rows.
+        // 
+        this.Push(MML.mpadded().With({height:"8.5pt",depth:"2pt"}));
+      }
+      this.Push(STACKITEM.cell().With({isEntry:true, name:name}));
+    },
+
+    CD_minwidth: function (name) {
+      this.stack.env.CD_minw = this.GetDimen(name);
+    },
+    CD_minheight: function (name) {
+      this.stack.env.CD_minh = this.GetDimen(name);
+    }
+
+  });
+
+});
+
+MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/AMScd.js");

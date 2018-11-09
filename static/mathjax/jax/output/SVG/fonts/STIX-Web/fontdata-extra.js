@@ -1,13 +1,16 @@
-/*
- *  /MathJax/jax/output/SVG/fonts/STIX-Web/fontdata-extra.js
+/*************************************************************
  *
- *  Copyright (c) 2009-2018 The MathJax Consortium
+ *  MathJax/jax/output/SVG/fonts/STIX-Web/fontdata-extra.js
+ *  
+ *  Adds extra stretchy characters to the STIX-Web fonts
+
+ *  Copyright (c) 2013-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,4 +19,916 @@
  *  limitations under the License.
  */
 
-(function(L){var B="2.7.5";var t=L.FONTDATA.DELIMITERS;var s="H",f="V";var ah=[8722,E,0,0,0,-0.26,-0.26];var u="STIXMathJax_Alphabets-bold-italic",G="STIXMathJax_Alphabets-bold",z="STIXMathJax_Alphabets-italic",e="STIXMathJax_Alphabets",S="STIXMathJax_Arrows-bold",x="STIXMathJax_Arrows",g="STIXMathJax_DoubleStruck-bold-italic",i="STIXMathJax_DoubleStruck-bold",c="STIXMathJax_DoubleStruck-italic",b="STIXMathJax_DoubleStruck",q="STIXMathJax_Fraktur-bold",p="STIXMathJax_Fraktur",U="STIXMathJax_Latin-bold-italic",C="STIXMathJax_Latin-bold",D="STIXMathJax_Latin-italic",K="STIXMathJax_Latin",R="STIXMathJax_Main-bold-italic",ak="STIXMathJax_Main-bold",P="STIXMathJax_Main-italic",E="STIXMathJax_Main",k="STIXMathJax_Marks-bold-italic",I="STIXMathJax_Marks-bold",m="STIXMathJax_Marks-italic",aa="STIXMathJax_Marks",ai="STIXMathJax_Misc-bold-italic",h="STIXMathJax_Misc-bold",ae="STIXMathJax_Misc-italic",y="STIXMathJax_Misc",al="STIXMathJax_Monospace",ac="STIXMathJax_Normal-bold-italic",Q="STIXMathJax_Normal-bold",T="STIXMathJax_Normal-italic",j="STIXMathJax_Operators-bold",w="STIXMathJax_Operators",N="STIXMathJax_SansSerif-bold-italic",A="STIXMathJax_SansSerif-bold",am="STIXMathJax_SansSerif-italic",d="STIXMathJax_SansSerif",a="STIXMathJax_Script-bold-italic",O="STIXMathJax_Script-italic",X="STIXMathJax_Script",r="STIXMathJax_Shapes-bold-italic",J="STIXMathJax_Shapes-bold",l="STIXMathJax_Shapes",af="STIXMathJax_Size1",ad="STIXMathJax_Size2",ab="STIXMathJax_Size3",Z="STIXMathJax_Size4",Y="STIXMathJax_Size5",ag="STIXMathJax_Symbols-bold",v="STIXMathJax_Symbols",F="STIXMathJax_Variants-bold-italic",o="STIXMathJax_Variants-bold",aj="STIXMathJax_Variants-italic",M="STIXMathJax_Variants";var n={61:{dir:s,HW:[[589,E]],stretch:{rep:[61,E]}},711:{dir:s,HW:[[311,E],[560,af],[979,ad],[1460,ab],[1886,Z],[2328,Y]]},717:{dir:s,HW:[[312,aa]],stretch:{rep:[717,aa]}},759:{dir:s,HW:[[330,aa],[560,af],[979,ad],[1460,ab],[1886,Z],[2328,Y]]},8400:{dir:s,HW:[[436,aa],[871,af],[1308,ad],[1744,ab],[2180,Z],[3000,Y]],stretch:{left:[57365,Y],rep:[57366,Y]}},8401:{dir:s,HW:[[436,aa],[871,af],[1308,ad],[1744,ab],[2180,Z],[3000,Y]],stretch:{rep:[57366,Y],right:[57367,Y]}},8406:{dir:s,HW:[[436,aa],[872,af],[1308,ad],[1744,ab],[2180,Z],[3000,Y]],stretch:{left:[57368,Y],rep:[57366,Y]}},8417:{dir:s,HW:[[478,aa]],stretch:{left:[57368,Y],rep:[57366,Y],right:[57369,Y]}},8428:{dir:s,HW:[[436,aa],[871,af],[1308,ad],[1744,ab],[2180,Z],[3000,Y]],stretch:{rep:[57370,Y],right:[57371,Y]}},8429:{dir:s,HW:[[436,aa],[871,af],[1308,ad],[1744,ab],[2180,Z],[3000,Y]],stretch:{left:[57372,Y],rep:[57370,Y]}},8430:{dir:s,HW:[[436,aa],[872,af],[1308,ad],[1744,ab],[2180,Z],[3000,Y]],stretch:{left:[57373,Y],rep:[57370,Y]}},8431:{dir:s,HW:[[436,aa],[872,af],[1308,ad],[1744,ab],[2180,Z],[3000,Y]],stretch:{rep:[57370,Y],right:[57374,Y]}},8512:{dir:f,HW:[[1022,b],[1450,af]]},8606:{dir:s,HW:[[786,E]],stretch:{left:[8606,E],rep:ah}},8607:{dir:f,HW:[[816,x]],stretch:{ext:[9168,E],top:[8607,x]}},8608:{dir:s,HW:[[786,E]],stretch:{right:[8608,E],rep:ah}},8609:{dir:f,HW:[[816,x]],stretch:{ext:[9168,E],bot:[8609,x]}},8612:{dir:s,HW:[[787,x]],stretch:{left:[8592,E],rep:[9135,v],right:[10206,v]}},8613:{dir:f,HW:[[816,x]],stretch:{bot:[95,E,0.05,-0.01,0.8],ext:[9168,E],top:[8593,E]}},8614:{dir:s,HW:[[787,E]],stretch:{left:[10205,v],rep:[9135,v],right:[8594,E]}},8615:{dir:f,HW:[[816,x]],stretch:{top:[8868,ak,0.04,0,0.6],ext:[9168,E],bot:[8595,E]}},8616:{dir:f,HW:[[816,x]],stretch:{top:[8593,E],ext:[9168,E],bot:[10515,x]}},8617:{dir:s,HW:[[786,E]],stretch:{left:[8592,E],rep:ah,right:[57525,x]}},8618:{dir:s,HW:[[786,E]],stretch:{left:[57524,x],rep:ah,right:[8594,E]}},8624:{dir:f,HW:[[818,E]],stretch:{top:[8624,E],ext:[9168,E,0.152]}},8625:{dir:f,HW:[[818,E]],stretch:{top:[8625,E],ext:[9168,E,-0.195]}},8626:{dir:f,HW:[[816,x]],stretch:{bot:[8626,x],ext:[9168,E,0.152]}},8627:{dir:f,HW:[[816,x]],stretch:{bot:[8627,x],ext:[9168,E,-0.195]}},8628:{dir:s,HW:[[786,x]],stretch:{rep:[8722,E,0,0.4],right:[8628,x]}},8629:{dir:f,HW:[[818,x]],stretch:{bot:[8629,x],ext:[9168,E,0.57]}},8636:{dir:s,HW:[[847,E]],stretch:{left:[8636,E],rep:[9135,v]}},8637:{dir:s,HW:[[847,E]],stretch:{left:[8637,E],rep:[9135,v]}},8638:{dir:f,HW:[[818,E]],stretch:{ext:[9168,E],top:[8638,E]}},8639:{dir:f,HW:[[818,E]],stretch:{ext:[9168,E],top:[8639,E]}},8640:{dir:s,HW:[[847,E]],stretch:{rep:[9135,v],right:[8640,E]}},8641:{dir:s,HW:[[847,E]],stretch:{right:[8641,E],rep:ah}},8642:{dir:f,HW:[[818,E]],stretch:{bot:[8642,E],ext:[9168,E]}},8643:{dir:f,HW:[[818,E]],stretch:{bot:[8643,E],ext:[9168,E]}},8651:{dir:s,HW:[[786,E]],stretch:{left:[10602,x],rep:[61,E],right:[10605,x]}},8652:{dir:s,HW:[[786,E]],stretch:{left:[10603,x],rep:[61,E],right:[10604,x]}},8666:{dir:s,HW:[[806,E]],stretch:{left:[8666,E],rep:[57377,Y]}},8667:{dir:s,HW:[[806,E]],stretch:{rep:[57377,Y],right:[8667,E]}},8672:{dir:s,HW:[[806,E]],stretch:{left:[8672,E],rep:[57633,x]}},8673:{dir:f,HW:[[818,x]],stretch:{ext:[57645,x],top:[8673,x]}},8674:{dir:s,HW:[[806,E]],stretch:{right:[8674,E],rep:[57646,x]}},8675:{dir:f,HW:[[818,x]],stretch:{ext:[57644,x],bot:[8675,x]}},8676:{dir:s,HW:[[806,x]],stretch:{left:[8676,x],rep:ah}},8677:{dir:s,HW:[[806,x]],stretch:{right:[8677,x],rep:ah}},8701:{dir:s,HW:[[806,x]],stretch:{left:[8701,x],rep:ah}},8702:{dir:s,HW:[[806,x]],stretch:{right:[8702,x],rep:ah}},8703:{dir:s,HW:[[886,x]],stretch:{left:[8701,x],rep:ah,right:[8702,x]}},8719:{dir:f,HW:[[1022,w],[1451,af]]},8720:{dir:f,HW:[[1022,w],[1451,af]]},8721:{dir:f,HW:[[1022,w],[1450,af]]},8731:{dir:f,HW:[[1232,w],[1847,af],[2460,ad],[3075,ab]],stretch:{bot:[57381,Y],ext:[57379,Y],top:[57380,Y]}},8732:{dir:f,HW:[[1232,w],[1847,af],[2460,ad],[3075,ab]],stretch:{bot:[57382,Y],ext:[57379,Y],top:[57380,Y]}},8747:{dir:f,HW:[[607,E],[979,af]],stretch:{top:[57404,Y],ext:[57405,Y],bot:[57406,Y]}},8748:{dir:f,HW:[[1144,w],[2269,af]]},8749:{dir:f,HW:[[1144,w],[2269,af]]},8750:{dir:f,HW:[[1144,w],[2269,af]]},8751:{dir:f,HW:[[1144,w],[2269,af]]},8752:{dir:f,HW:[[1144,w],[2269,af]]},8753:{dir:f,HW:[[1144,w],[2269,af]]},8754:{dir:f,HW:[[1144,w],[2269,af]]},8755:{dir:f,HW:[[1144,w],[2269,af]]},8896:{dir:f,HW:[[1022,w],[1451,af]]},8897:{dir:f,HW:[[1022,w],[1451,af]]},8898:{dir:f,HW:[[1032,w],[1461,af]]},8899:{dir:f,HW:[[1032,w],[1461,af]]},9130:{dir:f,HW:[[1010,Y,null,57357]],stretch:{top:[57357,Y],ext:[57357,Y],bot:[57357,Y]}},9140:{dir:s,HW:[[816,E],[925,af],[1458,ad],[1991,ab],[2524,Z],[3057,Y]],stretch:{left:[57383,Y],rep:[57384,Y],right:[57385,Y]}},9141:{dir:s,HW:[[816,E],[925,af],[1458,ad],[1991,ab],[2524,Z],[3057,Y]],stretch:{left:[57386,Y],rep:[57387,Y],right:[57388,Y]}},9168:{dir:f,HW:[[304,E],[690,af],[879,ad],[1350,ad,1.536],[1827,ad,2.078],[2303,ad,2.62],[2780,ad,3.162]],stretch:{ext:[8739,E]}},9180:{dir:s,HW:[[1000,E],[926,af],[1460,ad],[1886,ab],[2328,Z],[3237,Y]],stretch:{left:[57389,Y],rep:[57384,Y],right:[57390,Y]}},9181:{dir:s,HW:[[1000,E],[926,af],[1460,ad],[1886,ab],[2328,Z],[3237,Y]],stretch:{left:[57391,Y],rep:[57387,Y],right:[57392,Y]}},9184:{dir:s,HW:[[1000,E],[1460,af],[1886,ad],[2312,ab],[2738,Z],[3164,Y]]},9185:{dir:s,HW:[[1000,E],[1460,af],[1886,ad],[2312,ab],[2738,Z],[3164,Y]]},10098:{dir:f,HW:[[932,y],[1230,af],[1845,ad],[2459,ab],[3075,Z]]},10099:{dir:f,HW:[[932,y],[1230,af],[1845,ad],[2459,ab],[3075,Z]]},10214:{dir:f,HW:[[930,v],[1230,af],[1845,ad],[2460,ab],[3075,Z]],stretch:{top:[9555,l],ext:[9553,l],bot:[9561,l]}},10215:{dir:f,HW:[[930,v],[1230,af],[1845,ad],[2460,ab],[3075,Z]],stretch:{top:[9558,l],ext:[9553,l],bot:[9564,l]}},10218:{dir:f,HW:[[932,v],[1230,af],[1845,ad],[2461,ab],[3075,Z]]},10219:{dir:f,HW:[[932,v],[1230,af],[1845,ad],[2461,ab],[3075,Z]]},10224:{dir:f,HW:[[818,x]],stretch:{ext:[57399,Y],top:[10224,x]}},10225:{dir:f,HW:[[818,x]],stretch:{bot:[10225,x],ext:[57399,Y]}},10502:{dir:s,HW:[[816,x]],stretch:{left:[8656,E],rep:[61,E],right:[10980,w,0,-0.09]}},10503:{dir:s,HW:[[816,x]],stretch:{left:[8872,E,0,-0.09],rep:[61,E],right:[8658,E]}},10506:{dir:f,HW:[[818,x]],stretch:{ext:[57400,Y],top:[10506,x]}},10507:{dir:f,HW:[[818,x]],stretch:{bot:[10507,x],ext:[57400,Y]}},10514:{dir:f,HW:[[818,x]],stretch:{top:[10514,x],ext:[9168,E]}},10515:{dir:f,HW:[[818,x]],stretch:{bot:[10515,x],ext:[9168,E]}},10574:{dir:s,HW:[[850,x]],stretch:{left:[8636,E],rep:ah,right:[8640,E]}},10575:{dir:f,HW:[[818,x]],stretch:{top:[8638,E],ext:[9168,E],bot:[8642,E]}},10576:{dir:s,HW:[[850,x]],stretch:{left:[8637,E],rep:ah,right:[8641,E]}},10577:{dir:f,HW:[[818,x]],stretch:{top:[8639,E],ext:[9168,E],bot:[8643,E]}},10578:{dir:s,HW:[[816,x]],stretch:{left:[10578,x],rep:ah}},10579:{dir:s,HW:[[816,x]],stretch:{right:[10579,x],rep:ah}},10580:{dir:f,HW:[[818,x]],stretch:{top:[10580,x],ext:[9168,E]}},10581:{dir:f,HW:[[818,x]],stretch:{bot:[10581,x],ext:[9168,E]}},10582:{dir:s,HW:[[816,x]],stretch:{left:[10582,x],rep:ah}},10583:{dir:s,HW:[[816,x]],stretch:{right:[10583,x],rep:ah}},10584:{dir:f,HW:[[818,x]],stretch:{top:[10584,x],ext:[9168,E]}},10585:{dir:f,HW:[[818,x]],stretch:{bot:[10585,x],ext:[9168,E]}},10586:{dir:s,HW:[[816,x]],stretch:{left:[8636,E],rep:ah,right:[8867,ak,0,0.1,0.6]}},10587:{dir:s,HW:[[816,x]],stretch:{left:[57526,x],rep:ah,right:[8640,E]}},10588:{dir:f,HW:[[818,x]],stretch:{bot:[95,E,0.05,-0.01,0.8],ext:[9168,E],top:[8638,E]}},10589:{dir:f,HW:[[818,x]],stretch:{top:[8868,ak,0.04,0,0.6],ext:[9168,E],bot:[8642,E]}},10590:{dir:s,HW:[[816,x]],stretch:{left:[8637,E],rep:ah,right:[8867,ak,0,0.1,0.6]}},10591:{dir:s,HW:[[816,x]],stretch:{left:[57526,x],rep:ah,right:[8641,E]}},10592:{dir:f,HW:[[818,x]],stretch:{bot:[95,E,0.05,-0.01,0.8],ext:[9168,E],top:[8639,E]}},10593:{dir:f,HW:[[818,x]],stretch:{top:[8868,ak,0.04,0,0.6],ext:[9168,E],bot:[8643,E]}},10624:{dir:f,HW:[[884,v]],stretch:{ext:[10624,v]}},10627:{dir:f,HW:[[932,v],[1230,af],[1845,ad],[2460,ab],[3075,Z]]},10628:{dir:f,HW:[[932,v],[1230,af],[1845,ad],[2460,ab],[3075,Z]]},10629:{dir:f,HW:[[932,v],[1230,af],[1848,ad],[2459,ab],[3075,Z]]},10630:{dir:f,HW:[[932,v],[1230,af],[1848,ad],[2459,ab],[3075,Z]]},10647:{dir:f,HW:[[932,E]],stretch:{top:[57613,l,0.1,0.05],ext:[9168,E,-0.1],bot:[57612,l,0.1]}},10648:{dir:f,HW:[[932,E]],stretch:{top:[57612,l,-0.1,0.05],ext:[9168,E],bot:[57613,l,-0.1]}},10752:{dir:f,HW:[[1022,w],[1451,af]]},10753:{dir:f,HW:[[1022,w],[1451,af]]},10754:{dir:f,HW:[[1022,w],[1451,af]]},10755:{dir:f,HW:[[1032,w],[1461,af]]},10756:{dir:f,HW:[[1032,w],[1461,af]]},10757:{dir:f,HW:[[1022,w],[1451,af]]},10758:{dir:f,HW:[[1022,w],[1451,af]]},10759:{dir:f,HW:[[1022,w],[1451,af]]},10760:{dir:f,HW:[[1022,w],[1451,af]]},10761:{dir:f,HW:[[1022,w],[1451,af]]},10762:{dir:f,HW:[[1022,w],[1450,af]]},10763:{dir:f,HW:[[1144,w],[2269,af]]},10764:{dir:f,HW:[[1144,w],[2269,af]]},10765:{dir:f,HW:[[1144,w],[2269,af]]},10766:{dir:f,HW:[[1144,w],[2269,af]]},10767:{dir:f,HW:[[1144,w],[2269,af]]},10768:{dir:f,HW:[[1144,w],[2269,af]]},10769:{dir:f,HW:[[1144,w],[2269,af]]},10770:{dir:f,HW:[[1144,w],[2269,af]]},10771:{dir:f,HW:[[1144,w],[2269,af]]},10772:{dir:f,HW:[[1144,w],[2269,af]]},10773:{dir:f,HW:[[1144,w],[2269,af]]},10774:{dir:f,HW:[[1144,w],[2269,af]]},10775:{dir:f,HW:[[1144,w],[2269,af]]},10776:{dir:f,HW:[[1144,w],[2269,af]]},10777:{dir:f,HW:[[1144,w],[2269,af]]},10778:{dir:f,HW:[[1144,w],[2269,af]]},10779:{dir:f,HW:[[1267,w],[2426,af]]},10780:{dir:f,HW:[[1267,w],[2426,af]]},11004:{dir:f,HW:[[1022,w],[1230,af],[1875,ad]]},11007:{dir:f,HW:[[1022,w],[1230,af],[1875,ad]]},11077:{dir:s,HW:[[818,l]],stretch:{left:[11077,l],rep:[57401,Y]}}};for(var W in n){if(n.hasOwnProperty(W)){t[W]=n[W]}}MathJax.Ajax.loadComplete(L.fontDir+"/fontdata-extra.js")})(MathJax.OutputJax.SVG);
+(function (SVG) {
+  var VERSION = "2.7.5";
+
+  var DELIMITERS = SVG.FONTDATA.DELIMITERS;
+
+  var H = "H", V = "V";
+  var ARROWREP = [0x2212,MAIN,0,0,0,-.26,-.26];
+
+  var ALPHABETSBOLDITALIC = "STIXMathJax_Alphabets-bold-italic",
+      ALPHABETSBOLD = "STIXMathJax_Alphabets-bold",
+      ALPHABETSITALIC = "STIXMathJax_Alphabets-italic",
+      ALPHABETS = "STIXMathJax_Alphabets",
+      ARROWSBOLD = "STIXMathJax_Arrows-bold",
+      ARROWS = "STIXMathJax_Arrows",
+      DOUBLESTRUCKBOLDITALIC = "STIXMathJax_DoubleStruck-bold-italic",
+      DOUBLESTRUCKBOLD = "STIXMathJax_DoubleStruck-bold",
+      DOUBLESTRUCKITALIC = "STIXMathJax_DoubleStruck-italic",
+      DOUBLESTRUCK = "STIXMathJax_DoubleStruck",
+      FRAKTURBOLD = "STIXMathJax_Fraktur-bold",
+      FRAKTUR = "STIXMathJax_Fraktur",
+      LATINBOLDITALIC = "STIXMathJax_Latin-bold-italic",
+      LATINBOLD = "STIXMathJax_Latin-bold",
+      LATINITALIC = "STIXMathJax_Latin-italic",
+      LATIN = "STIXMathJax_Latin",
+      MAINBOLDITALIC = "STIXMathJax_Main-bold-italic",
+      MAINBOLD = "STIXMathJax_Main-bold",
+      MAINITALIC = "STIXMathJax_Main-italic",
+      MAIN = "STIXMathJax_Main",
+      MARKSBOLDITALIC = "STIXMathJax_Marks-bold-italic",
+      MARKSBOLD = "STIXMathJax_Marks-bold",
+      MARKSITALIC = "STIXMathJax_Marks-italic",
+      MARKS = "STIXMathJax_Marks",
+      MISCBOLDITALIC = "STIXMathJax_Misc-bold-italic",
+      MISCBOLD = "STIXMathJax_Misc-bold",
+      MISCITALIC = "STIXMathJax_Misc-italic",
+      MISC = "STIXMathJax_Misc",
+      MONOSPACE = "STIXMathJax_Monospace",
+      NORMALBOLDITALIC = "STIXMathJax_Normal-bold-italic",
+      NORMALBOLD = "STIXMathJax_Normal-bold",
+      NORMALITALIC = "STIXMathJax_Normal-italic",
+      OPERATORSBOLD = "STIXMathJax_Operators-bold",
+      OPERATORS = "STIXMathJax_Operators",
+      SANSSERIFBOLDITALIC = "STIXMathJax_SansSerif-bold-italic",
+      SANSSERIFBOLD = "STIXMathJax_SansSerif-bold",
+      SANSSERIFITALIC = "STIXMathJax_SansSerif-italic",
+      SANSSERIF = "STIXMathJax_SansSerif",
+      SCRIPTBOLDITALIC = "STIXMathJax_Script-bold-italic",
+      SCRIPTITALIC = "STIXMathJax_Script-italic",
+      SCRIPT = "STIXMathJax_Script",
+      SHAPESBOLDITALIC = "STIXMathJax_Shapes-bold-italic",
+      SHAPESBOLD = "STIXMathJax_Shapes-bold",
+      SHAPES = "STIXMathJax_Shapes",
+      SIZE1 = "STIXMathJax_Size1",
+      SIZE2 = "STIXMathJax_Size2",
+      SIZE3 = "STIXMathJax_Size3",
+      SIZE4 = "STIXMathJax_Size4",
+      SIZE5 = "STIXMathJax_Size5",
+      SYMBOLSBOLD = "STIXMathJax_Symbols-bold",
+      SYMBOLS = "STIXMathJax_Symbols",
+      VARIANTSBOLDITALIC = "STIXMathJax_Variants-bold-italic",
+      VARIANTSBOLD = "STIXMathJax_Variants-bold",
+      VARIANTSITALIC = "STIXMathJax_Variants-italic",
+      VARIANTS = "STIXMathJax_Variants";
+
+  var delim = {
+      0x3D:
+      {
+        dir: H,
+        HW: [[589,MAIN]],
+        stretch: {rep:[0x3D,MAIN]}
+      },
+      0x2C7:
+      {
+        dir: H,
+        HW: [[311,MAIN], [560,SIZE1], [979,SIZE2], [1460,SIZE3], [1886,SIZE4], [2328,SIZE5]]
+      },
+      0x2CD:
+      {
+        dir: H,
+        HW: [[312,MARKS]],
+        stretch: {rep:[0x2CD,MARKS]}
+      },
+      0x2F7:
+      {
+        dir: H,
+        HW: [[330,MARKS], [560,SIZE1], [979,SIZE2], [1460,SIZE3], [1886,SIZE4], [2328,SIZE5]]
+      },
+      0x20D0:
+      {
+        dir: H,
+        HW: [[436,MARKS], [871,SIZE1], [1308,SIZE2], [1744,SIZE3], [2180,SIZE4], [3000,SIZE5]],
+        stretch: {left:[0xE015,SIZE5], rep:[0xE016,SIZE5]}
+      },
+      0x20D1:
+      {
+        dir: H,
+        HW: [[436,MARKS], [871,SIZE1], [1308,SIZE2], [1744,SIZE3], [2180,SIZE4], [3000,SIZE5]],
+        stretch: {rep:[0xE016,SIZE5], right:[0xE017,SIZE5]}
+      },
+      0x20D6:
+      {
+        dir: H,
+        HW: [[436,MARKS], [872,SIZE1], [1308,SIZE2], [1744,SIZE3], [2180,SIZE4], [3000,SIZE5]],
+        stretch: {left:[0xE018,SIZE5], rep:[0xE016,SIZE5]}
+      },
+      0x20E1:
+      {
+        dir: H,
+        HW: [[478,MARKS]],
+        stretch: {left:[0xE018,SIZE5], rep:[0xE016,SIZE5], right:[0xE019,SIZE5]}
+      },
+      0x20EC:
+      {
+        dir: H,
+        HW: [[436,MARKS], [871,SIZE1], [1308,SIZE2], [1744,SIZE3], [2180,SIZE4], [3000,SIZE5]],
+        stretch: {rep:[0xE01A,SIZE5], right:[0xE01B,SIZE5]}
+      },
+      0x20ED:
+      {
+        dir: H,
+        HW: [[436,MARKS], [871,SIZE1], [1308,SIZE2], [1744,SIZE3], [2180,SIZE4], [3000,SIZE5]],
+        stretch: {left:[0xE01C,SIZE5], rep:[0xE01A,SIZE5]}
+      },
+      0x20EE:
+      {
+        dir: H,
+        HW: [[436,MARKS], [872,SIZE1], [1308,SIZE2], [1744,SIZE3], [2180,SIZE4], [3000,SIZE5]],
+        stretch: {left:[0xE01D,SIZE5], rep:[0xE01A,SIZE5]}
+      },
+      0x20EF:
+      {
+        dir: H,
+        HW: [[436,MARKS], [872,SIZE1], [1308,SIZE2], [1744,SIZE3], [2180,SIZE4], [3000,SIZE5]],
+        stretch: {rep:[0xE01A,SIZE5], right:[0xE01E,SIZE5]}
+      },
+      0x2140:
+      {
+        dir: V,
+        HW: [[1022,DOUBLESTRUCK], [1450,SIZE1]]
+      },
+      0x219E:
+      {
+        dir: H,
+        HW: [[786,MAIN]],
+        stretch: {left:[0x219E,MAIN], rep:ARROWREP}
+      },
+      0x219F:
+      {
+        dir: V,
+        HW: [[816,ARROWS]],
+        stretch: {ext:[0x23D0,MAIN], top:[0x219F,ARROWS]}
+      },
+      0x21A0:
+      {
+        dir: H,
+        HW: [[786,MAIN]],
+        stretch: {right:[0x21A0,MAIN], rep:ARROWREP}
+      },
+      0x21A1:
+      {
+        dir: V,
+        HW: [[816,ARROWS]],
+        stretch: {ext:[0x23D0,MAIN], bot:[0x21A1,ARROWS]}
+      },
+      0x21A4:
+      {
+        dir: H,
+        HW: [[787,ARROWS]],
+        stretch: {left:[0x2190,MAIN], rep:[0x23AF,SYMBOLS], right:[0x27DE,SYMBOLS]}
+      },
+      0x21A5:
+      {
+        dir: V,
+        HW: [[816,ARROWS]],
+        stretch: {bot:[0x5F,MAIN,0.050,-0.010,0.800], ext:[0x23D0,MAIN], top:[0x2191,MAIN]}
+      },
+      0x21A6:
+      {
+        dir: H,
+        HW: [[787,MAIN]],
+        stretch: {left:[0x27DD,SYMBOLS], rep:[0x23AF,SYMBOLS], right:[0x2192,MAIN]}
+      },
+      0x21A7:
+      {
+        dir: V,
+        HW: [[816,ARROWS]],
+        stretch: {top:[0x22A4,MAINBOLD,0.040,0.000,0.600], ext:[0x23D0,MAIN], bot:[0x2193,MAIN]}
+      },
+      0x21A8:
+      {
+        dir: V,
+        HW: [[816,ARROWS]],
+        stretch: {top:[0x2191,MAIN], ext:[0x23D0,MAIN], bot:[0x2913,ARROWS]}
+      },
+      0x21A9:
+      {
+        dir: H,
+        HW: [[786,MAIN]],
+        stretch: {left:[0x2190,MAIN], rep:ARROWREP, right:[0xE0B5,ARROWS]}
+      },
+      0x21AA:
+      {
+        dir: H,
+        HW: [[786,MAIN]],
+        stretch: {left:[0xE0B4,ARROWS], rep:ARROWREP, right:[0x2192,MAIN]}
+      },
+      0x21B0:
+      {
+        dir: V,
+        HW: [[818,MAIN]],
+        stretch: {top:[0x21B0,MAIN], ext:[0x23D0,MAIN,0.152]}
+      },
+      0x21B1:
+      {
+        dir: V,
+        HW: [[818,MAIN]],
+        stretch: {top:[0x21B1,MAIN], ext:[0x23D0,MAIN,-0.195]}
+      },
+      0x21B2:
+      {
+        dir: V,
+        HW: [[816,ARROWS]],
+        stretch: {bot:[0x21B2,ARROWS], ext:[0x23D0,MAIN,0.152]}
+      },
+      0x21B3:
+      {
+        dir: V,
+        HW: [[816,ARROWS]],
+        stretch: {bot:[0x21B3,ARROWS], ext:[0x23D0,MAIN,-0.195]}
+      },
+      0x21B4:
+      {
+        dir: H,
+        HW: [[786,ARROWS]],
+        stretch: {rep:[0x2212,MAIN,0.000,0.400], right:[0x21B4,ARROWS]}
+      },
+      0x21B5:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {bot:[0x21B5,ARROWS], ext:[0x23D0,MAIN,0.570]}
+      },
+      0x21BC:
+      {
+        dir: H,
+        HW: [[847,MAIN]],
+        stretch: {left:[0x21BC,MAIN], rep:[0x23AF,SYMBOLS]}
+      },
+      0x21BD:
+      {
+        dir: H,
+        HW: [[847,MAIN]],
+        stretch: {left:[0x21BD,MAIN], rep:[0x23AF,SYMBOLS]}
+      },
+      0x21BE:
+      {
+        dir: V,
+        HW: [[818,MAIN]],
+        stretch: {ext:[0x23D0,MAIN], top:[0x21BE,MAIN]}
+      },
+      0x21BF:
+      {
+        dir: V,
+        HW: [[818,MAIN]],
+        stretch: {ext:[0x23D0,MAIN], top:[0x21BF,MAIN]}
+      },
+      0x21C0:
+      {
+        dir: H,
+        HW: [[847,MAIN]],
+        stretch: {rep:[0x23AF,SYMBOLS], right:[0x21C0,MAIN]}
+      },
+      0x21C1:
+      {
+        dir: H,
+        HW: [[847,MAIN]],
+        stretch: {right:[0x21C1,MAIN], rep:ARROWREP}
+      },
+      0x21C2:
+      {
+        dir: V,
+        HW: [[818,MAIN]],
+        stretch: {bot:[0x21C2,MAIN], ext:[0x23D0,MAIN]}
+      },
+      0x21C3:
+      {
+        dir: V,
+        HW: [[818,MAIN]],
+        stretch: {bot:[0x21C3,MAIN], ext:[0x23D0,MAIN]}
+      },
+      0x21CB:
+      {
+        dir: H,
+        HW: [[786,MAIN]],
+        stretch: {left:[0x296A,ARROWS], rep:[0x3D,MAIN], right:[0x296D,ARROWS]}
+      },
+      0x21CC:
+      {
+        dir: H,
+        HW: [[786,MAIN]],
+        stretch: {left:[0x296B,ARROWS], rep:[0x3D,MAIN], right:[0x296C,ARROWS]}
+      },
+      0x21DA:
+      {
+        dir: H,
+        HW: [[806,MAIN]],
+        stretch: {left:[0x21DA,MAIN], rep:[0xE021,SIZE5]}
+      },
+      0x21DB:
+      {
+        dir: H,
+        HW: [[806,MAIN]],
+        stretch: {rep:[0xE021,SIZE5], right:[0x21DB,MAIN]}
+      },
+      0x21E0:
+      {
+        dir: H,
+        HW: [[806,MAIN]],
+        stretch: {left:[0x21E0,MAIN], rep:[0xE121,ARROWS]}
+      },
+      0x21E1:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {ext:[0xE12D,ARROWS], top:[0x21E1,ARROWS]}
+      },
+      0x21E2:
+      {
+        dir: H,
+        HW: [[806,MAIN]],
+        stretch: {right:[0x21E2,MAIN], rep:[0xE12E,ARROWS]}
+      },
+      0x21E3:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {ext:[0xE12C,ARROWS], bot:[0x21E3,ARROWS]}
+      },
+      0x21E4:
+      {
+        dir: H,
+        HW: [[806,ARROWS]],
+        stretch: {left:[0x21E4,ARROWS], rep:ARROWREP}
+      },
+      0x21E5:
+      {
+        dir: H,
+        HW: [[806,ARROWS]],
+        stretch: {right:[0x21E5,ARROWS], rep:ARROWREP}
+      },
+      0x21FD:
+      {
+        dir: H,
+        HW: [[806,ARROWS]],
+        stretch: {left:[0x21FD,ARROWS], rep:ARROWREP}
+      },
+      0x21FE:
+      {
+        dir: H,
+        HW: [[806,ARROWS]],
+        stretch: {right:[0x21FE,ARROWS], rep:ARROWREP}
+      },
+      0x21FF:
+      {
+        dir: H,
+        HW: [[886,ARROWS]],
+        stretch: {left:[0x21FD,ARROWS], rep:ARROWREP, right:[0x21FE,ARROWS]}
+      },
+      0x220F:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1451,SIZE1]]
+      },
+      0x2210:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1451,SIZE1]]
+      },
+      0x2211:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1450,SIZE1]]
+      },
+      0x221B:
+      {
+        dir: V,
+        HW: [[1232,OPERATORS], [1847,SIZE1], [2460,SIZE2], [3075,SIZE3]],
+        stretch: {bot:[0xE025,SIZE5], ext:[0xE023,SIZE5], top:[0xE024,SIZE5]}
+      },
+      0x221C:
+      {
+        dir: V,
+        HW: [[1232,OPERATORS], [1847,SIZE1], [2460,SIZE2], [3075,SIZE3]],
+        stretch: {bot:[0xE026,SIZE5], ext:[0xE023,SIZE5], top:[0xE024,SIZE5]}
+      },
+      0x222B:
+      {
+        dir: V,
+        HW: [[607,MAIN], [979,SIZE1]],
+        stretch: {top:[0xE03C,SIZE5], ext:[0xE03D,SIZE5], bot:[0xE03E,SIZE5]}
+      },
+      0x222C:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x222D:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x222E:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x222F:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2230:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2231:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2232:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2233:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x22C0:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1451,SIZE1]]
+      },
+      0x22C1:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1451,SIZE1]]
+      },
+      0x22C2:
+      {
+        dir: V,
+        HW: [[1032,OPERATORS], [1461,SIZE1]]
+      },
+      0x22C3:
+      {
+        dir: V,
+        HW: [[1032,OPERATORS], [1461,SIZE1]]
+      },
+      0x23AA:
+      {
+        dir: V,
+        HW: [[1010,SIZE5,null,0xE00D]],
+        stretch: {top:[0xE00D,SIZE5], ext:[0xE00D,SIZE5], bot:[0xE00D,SIZE5]}
+      },
+      0x23B4:
+      {
+        dir: H,
+        HW: [[816,MAIN], [925,SIZE1], [1458,SIZE2], [1991,SIZE3], [2524,SIZE4], [3057,SIZE5]],
+        stretch: {left:[0xE027,SIZE5], rep:[0xE028,SIZE5], right:[0xE029,SIZE5]}
+      },
+      0x23B5:
+      {
+        dir: H,
+        HW: [[816,MAIN], [925,SIZE1], [1458,SIZE2], [1991,SIZE3], [2524,SIZE4], [3057,SIZE5]],
+        stretch: {left:[0xE02A,SIZE5], rep:[0xE02B,SIZE5], right:[0xE02C,SIZE5]}
+      },
+      0x23D0:
+      {
+        dir: V,
+        HW: [[304,MAIN], [690,SIZE1], [879,SIZE2], [1350,SIZE2,1.536], [1827,SIZE2,2.078], [2303,SIZE2,2.620], [2780,SIZE2,3.162]],
+        stretch: {ext:[0x2223,MAIN]}
+      },
+      0x23DC:
+      {
+        dir: H,
+        HW: [[1000,MAIN], [926,SIZE1], [1460,SIZE2], [1886,SIZE3], [2328,SIZE4], [3237,SIZE5]],
+        stretch: {left:[0xE02D,SIZE5], rep:[0xE028,SIZE5], right:[0xE02E,SIZE5]}
+      },
+      0x23DD:
+      {
+        dir: H,
+        HW: [[1000,MAIN], [926,SIZE1], [1460,SIZE2], [1886,SIZE3], [2328,SIZE4], [3237,SIZE5]],
+        stretch: {left:[0xE02F,SIZE5], rep:[0xE02B,SIZE5], right:[0xE030,SIZE5]}
+      },
+      0x23E0:
+      {
+        dir: H,
+        HW: [[1000,MAIN], [1460,SIZE1], [1886,SIZE2], [2312,SIZE3], [2738,SIZE4], [3164,SIZE5]]
+      },
+      0x23E1:
+      {
+        dir: H,
+        HW: [[1000,MAIN], [1460,SIZE1], [1886,SIZE2], [2312,SIZE3], [2738,SIZE4], [3164,SIZE5]]
+      },
+      0x2772:
+      {
+        dir: V,
+        HW: [[932,MISC], [1230,SIZE1], [1845,SIZE2], [2459,SIZE3], [3075,SIZE4]]
+      },
+      0x2773:
+      {
+        dir: V,
+        HW: [[932,MISC], [1230,SIZE1], [1845,SIZE2], [2459,SIZE3], [3075,SIZE4]]
+      },
+      0x27E6:
+      {
+        dir: V,
+        HW: [[930,SYMBOLS], [1230,SIZE1], [1845,SIZE2], [2460,SIZE3], [3075,SIZE4]],
+        stretch: {top:[0x2553,SHAPES], ext:[0x2551,SHAPES], bot:[0x2559,SHAPES]}
+      },
+      0x27E7:
+      {
+        dir: V,
+        HW: [[930,SYMBOLS], [1230,SIZE1], [1845,SIZE2], [2460,SIZE3], [3075,SIZE4]],
+        stretch: {top:[0x2556,SHAPES], ext:[0x2551,SHAPES], bot:[0x255C,SHAPES]}
+      },
+      0x27EA:
+      {
+        dir: V,
+        HW: [[932,SYMBOLS], [1230,SIZE1], [1845,SIZE2], [2461,SIZE3], [3075,SIZE4]]
+      },
+      0x27EB:
+      {
+        dir: V,
+        HW: [[932,SYMBOLS], [1230,SIZE1], [1845,SIZE2], [2461,SIZE3], [3075,SIZE4]]
+      },
+      0x27F0:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {ext:[0xE037,SIZE5], top:[0x27F0,ARROWS]}
+      },
+      0x27F1:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {bot:[0x27F1,ARROWS], ext:[0xE037,SIZE5]}
+      },
+      0x2906:
+      {
+        dir: H,
+        HW: [[816,ARROWS]],
+        stretch: {left:[0x21D0,MAIN], rep:[0x3D,MAIN], right:[0x2AE4,OPERATORS,0.000,-0.090]}
+      },
+      0x2907:
+      {
+        dir: H,
+        HW: [[816,ARROWS]],
+        stretch: {left:[0x22A8,MAIN,0.000,-0.090], rep:[0x3D,MAIN], right:[0x21D2,MAIN]}
+      },
+      0x290A:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {ext:[0xE038,SIZE5], top:[0x290A,ARROWS]}
+      },
+      0x290B:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {bot:[0x290B,ARROWS], ext:[0xE038,SIZE5]}
+      },
+      0x2912:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {top:[0x2912,ARROWS], ext:[0x23D0,MAIN]}
+      },
+      0x2913:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {bot:[0x2913,ARROWS], ext:[0x23D0,MAIN]}
+      },
+      0x294E:
+      {
+        dir: H,
+        HW: [[850,ARROWS]],
+        stretch: {left:[0x21BC,MAIN], rep:ARROWREP, right:[0x21C0,MAIN]}
+      },
+      0x294F:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {top:[0x21BE,MAIN], ext:[0x23D0,MAIN], bot:[0x21C2,MAIN]}
+      },
+      0x2950:
+      {
+        dir: H,
+        HW: [[850,ARROWS]],
+        stretch: {left:[0x21BD,MAIN], rep:ARROWREP, right:[0x21C1,MAIN]}
+      },
+      0x2951:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {top:[0x21BF,MAIN], ext:[0x23D0,MAIN], bot:[0x21C3,MAIN]}
+      },
+      0x2952:
+      {
+        dir: H,
+        HW: [[816,ARROWS]],
+        stretch: {left:[0x2952,ARROWS], rep:ARROWREP}
+      },
+      0x2953:
+      {
+        dir: H,
+        HW: [[816,ARROWS]],
+        stretch: {right:[0x2953,ARROWS], rep:ARROWREP}
+      },
+      0x2954:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {top:[0x2954,ARROWS], ext:[0x23D0,MAIN]}
+      },
+      0x2955:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {bot:[0x2955,ARROWS], ext:[0x23D0,MAIN]}
+      },
+      0x2956:
+      {
+        dir: H,
+        HW: [[816,ARROWS]],
+        stretch: {left:[0x2956,ARROWS], rep:ARROWREP}
+      },
+      0x2957:
+      {
+        dir: H,
+        HW: [[816,ARROWS]],
+        stretch: {right:[0x2957,ARROWS], rep:ARROWREP}
+      },
+      0x2958:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {top:[0x2958,ARROWS], ext:[0x23D0,MAIN]}
+      },
+      0x2959:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {bot:[0x2959,ARROWS], ext:[0x23D0,MAIN]}
+      },
+      0x295A:
+      {
+        dir: H,
+        HW: [[816,ARROWS]],
+        stretch: {left:[0x21BC,MAIN], rep:ARROWREP, right:[0x22A3,MAINBOLD,0.000,0.100,0.600]}
+      },
+      0x295B:
+      {
+        dir: H,
+        HW: [[816,ARROWS]],
+        stretch: {left:[0xE0B6,ARROWS], rep:ARROWREP, right:[0x21C0,MAIN]}
+      },
+      0x295C:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {bot:[0x5F,MAIN,0.050,-0.010,0.800], ext:[0x23D0,MAIN], top:[0x21BE,MAIN]}
+      },
+      0x295D:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {top:[0x22A4,MAINBOLD,0.040,0.000,0.600], ext:[0x23D0,MAIN], bot:[0x21C2,MAIN]}
+      },
+      0x295E:
+      {
+        dir: H,
+        HW: [[816,ARROWS]],
+        stretch: {left:[0x21BD,MAIN], rep:ARROWREP, right:[0x22A3,MAINBOLD,0.000,0.100,0.600]}
+      },
+      0x295F:
+      {
+        dir: H,
+        HW: [[816,ARROWS]],
+        stretch: {left:[0xE0B6,ARROWS], rep:ARROWREP, right:[0x21C1,MAIN]}
+      },
+      0x2960:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {bot:[0x5F,MAIN,0.050,-0.010,0.800], ext:[0x23D0,MAIN], top:[0x21BF,MAIN]}
+      },
+      0x2961:
+      {
+        dir: V,
+        HW: [[818,ARROWS]],
+        stretch: {top:[0x22A4,MAINBOLD,0.040,0.000,0.600], ext:[0x23D0,MAIN], bot:[0x21C3,MAIN]}
+      },
+      0x2980:
+      {
+        dir: V,
+        HW: [[884,SYMBOLS]],
+        stretch: {ext:[0x2980,SYMBOLS]}
+      },
+      0x2983:
+      {
+        dir: V,
+        HW: [[932,SYMBOLS], [1230,SIZE1], [1845,SIZE2], [2460,SIZE3], [3075,SIZE4]]
+      },
+      0x2984:
+      {
+        dir: V,
+        HW: [[932,SYMBOLS], [1230,SIZE1], [1845,SIZE2], [2460,SIZE3], [3075,SIZE4]]
+      },
+      0x2985:
+      {
+        dir: V,
+        HW: [[932,SYMBOLS], [1230,SIZE1], [1848,SIZE2], [2459,SIZE3], [3075,SIZE4]]
+      },
+      0x2986:
+      {
+        dir: V,
+        HW: [[932,SYMBOLS], [1230,SIZE1], [1848,SIZE2], [2459,SIZE3], [3075,SIZE4]]
+      },
+      0x2997:
+      {
+        dir: V,
+        HW: [[932,MAIN]],
+        stretch: {top:[0xE10D,SHAPES,0.100,0.050], ext:[0x23D0,MAIN,-0.100], bot:[0xE10C,SHAPES,0.100]}
+      },
+      0x2998:
+      {
+        dir: V,
+        HW: [[932,MAIN]],
+        stretch: {top:[0xE10C,SHAPES,-0.100,0.050], ext:[0x23D0,MAIN], bot:[0xE10D,SHAPES,-0.100]}
+      },
+      0x2A00:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1451,SIZE1]]
+      },
+      0x2A01:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1451,SIZE1]]
+      },
+      0x2A02:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1451,SIZE1]]
+      },
+      0x2A03:
+      {
+        dir: V,
+        HW: [[1032,OPERATORS], [1461,SIZE1]]
+      },
+      0x2A04:
+      {
+        dir: V,
+        HW: [[1032,OPERATORS], [1461,SIZE1]]
+      },
+      0x2A05:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1451,SIZE1]]
+      },
+      0x2A06:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1451,SIZE1]]
+      },
+      0x2A07:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1451,SIZE1]]
+      },
+      0x2A08:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1451,SIZE1]]
+      },
+      0x2A09:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1451,SIZE1]]
+      },
+      0x2A0A:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1450,SIZE1]]
+      },
+      0x2A0B:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A0C:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A0D:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A0E:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A0F:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A10:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A11:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A12:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A13:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A14:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A15:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A16:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A17:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A18:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A19:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A1A:
+      {
+        dir: V,
+        HW: [[1144,OPERATORS], [2269,SIZE1]]
+      },
+      0x2A1B:
+      {
+        dir: V,
+        HW: [[1267,OPERATORS], [2426,SIZE1]]
+      },
+      0x2A1C:
+      {
+        dir: V,
+        HW: [[1267,OPERATORS], [2426,SIZE1]]
+      },
+      0x2AFC:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1230,SIZE1], [1875,SIZE2]]
+      },
+      0x2AFF:
+      {
+        dir: V,
+        HW: [[1022,OPERATORS], [1230,SIZE1], [1875,SIZE2]]
+      },
+      0x2B45:
+      {
+        dir: H,
+        HW: [[818,SHAPES]],
+        stretch: {left:[0x2B45,SHAPES], rep:[0xE039,SIZE5]}
+      }
+  };
+  
+  for (var id in delim) {if (delim.hasOwnProperty(id)) {DELIMITERS[id] = delim[id]}};
+
+  MathJax.Ajax.loadComplete(SVG.fontDir + "/fontdata-extra.js");
+
+})(MathJax.OutputJax["SVG"]);

@@ -1,14 +1,23 @@
-/*
- *  /MathJax/extensions/TeX/mhchem.js
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
+/*************************************************************
  *
- *  Copyright (c) 2009-2018 The MathJax Consortium
- *
+ *  MathJax/extensions/TeX/mhchem.js
+ *  
+ *  Implements the \ce command for handling chemical formulas
+ *  from the mhchem LaTeX package.
+ *  
+ *  ---------------------------------------------------------------------
+ *  
+ *  Copyright (c) 2011-2018 The MathJax Consortium
+ * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,4 +25,496 @@
  *  limitations under the License.
  */
 
-if(MathJax.Extension["TeX/mhchem"]){MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/mhchem.js")}else{MathJax.Extension["TeX/mhchem"]={version:"2.7.5",config:MathJax.Hub.CombineConfig("TeX.mhchem",{legacy:true})};if(!MathJax.Extension["TeX/mhchem"].config.legacy){if(!MathJax.Ajax.config.path.mhchem){MathJax.Ajax.config.path.mhchem=MathJax.Hub.config.root+"/extensions/TeX/mhchem3"}MathJax.Callback.Queue(["Require",MathJax.Ajax,"[mhchem]/mhchem.js"],["loadComplete",MathJax.Ajax,"[MathJax]/extensions/TeX/mhchem.js"])}else{MathJax.Hub.Register.StartupHook("TeX Jax Ready",function(){var b=MathJax.InputJax.TeX;var a=MathJax.Object.Subclass({string:"",i:0,tex:"",TEX:"",atom:false,sup:"",sub:"",presup:"",presub:"",Init:function(c){this.string=c},ParseTable:{"-":"Minus","+":"Plus","(":"Open",")":"Close","[":"Open","]":"Close","<":"Less","^":"Superscript",_:"Subscript","*":"Dot",".":"Dot","=":"Equal","#":"Pound","$":"Math","\\":"Macro"," ":"Space"},Arrows:{"->":"rightarrow","<-":"leftarrow","<->":"leftrightarrow","<=>":"rightleftharpoons","<=>>":"Rightleftharpoons","<<=>":"Leftrightharpoons","^":"uparrow",v:"downarrow"},Bonds:{"-":"-","=":"=","#":"\\equiv","~":"\\tripledash","~-":"\\begin{CEstack}{}\\tripledash\\\\-\\end{CEstack}","~=":"\\raise2mu{\\begin{CEstack}{}\\tripledash\\\\-\\\\-\\end{CEstack}}","~--":"\\raise2mu{\\begin{CEstack}{}\\tripledash\\\\-\\\\-\\end{CEstack}}","-~-":"\\raise2mu{\\begin{CEstack}{}-\\\\\\tripledash\\\\-\\end{CEstack}}","...":"{\\cdot}{\\cdot}{\\cdot}","....":"{\\cdot}{\\cdot}{\\cdot}{\\cdot}","->":"\\rightarrow","<-":"\\leftarrow","??":"\\text{??}"},Parse:function(){this.tex="";this.atom=false;while(this.i<this.string.length){var d=this.string.charAt(this.i);if(d.match(/[a-z]/i)){this.ParseLetter()}else{if(d.match(/[0-9]/)){this.ParseNumber()}else{this["Parse"+(this.ParseTable[d]||"Other")](d)}}}this.FinishAtom(true);return this.TEX},ParseLetter:function(){this.FinishAtom();if(this.Match(/^v( |$)/)){this.tex+="{\\"+this.Arrows.v+"}"}else{this.tex+="\\text{"+this.Match(/^[a-z]+/i)+"}";this.atom=true}},ParseNumber:function(){var e=this.Match(/^\d+/);if(this.atom&&!this.sub){this.sub=e}else{this.FinishAtom();var d=this.Match(/^\/\d+/);if(d){var c="\\frac{"+e+"}{"+d.substr(1)+"}";this.tex+="\\mathchoice{\\textstyle"+c+"}{"+c+"}{"+c+"}{"+c+"}"}else{this.tex+=e;if(this.i<this.string.length){this.tex+="\\,"}}}},ParseMinus:function(d){if(this.atom&&(this.i===this.string.length-1||this.string.charAt(this.i+1)===" ")){this.sup+=d}else{this.FinishAtom();if(this.string.substr(this.i,2)==="->"){this.i+=2;this.AddArrow("->");return}else{this.tex+="{-}"}}this.i++},ParsePlus:function(d){if(this.atom){this.sup+=d}else{this.FinishAtom();this.tex+=d}this.i++},ParseDot:function(d){this.FinishAtom();this.tex+="\\cdot ";this.i++},ParseEqual:function(d){this.FinishAtom();this.tex+="{=}";this.i++},ParsePound:function(d){this.FinishAtom();this.tex+="{\\equiv}";this.i++},ParseOpen:function(e){this.FinishAtom();var d=this.Match(/^\([v^]\)/);if(d){this.tex+="{\\"+this.Arrows[d.charAt(1)]+"}"}else{this.tex+="{"+e;this.i++}},ParseClose:function(d){this.FinishAtom();this.atom=true;this.tex+=d+"}";this.i++},ParseLess:function(e){this.FinishAtom();var d=this.Match(/^(<->?|<=>>?|<<=>)/);if(!d){this.tex+=e;this.i++}else{this.AddArrow(d)}},ParseSuperscript:function(f){f=this.string.charAt(++this.i);if(f==="{"){this.i++;var d=this.Find("}");if(d==="-."){this.sup+="{-}{\\cdot}"}else{if(d){this.sup+=a(d).Parse().replace(/^\{-\}/,"-")}}}else{if(f===" "||f===""){this.tex+="{\\"+this.Arrows["^"]+"}";this.i++}else{var e=this.Match(/^(\d+|-\.)/);if(e){this.sup+=e}}}},ParseSubscript:function(e){if(this.string.charAt(++this.i)=="{"){this.i++;this.sub+=a(this.Find("}")).Parse().replace(/^\{-\}/,"-")}else{var d=this.Match(/^\d+/);if(d){this.sub+=d}}},ParseMath:function(d){this.FinishAtom();this.i++;this.tex+=this.Find(d)},ParseMacro:function(f){this.FinishAtom();this.i++;var d=this.Match(/^([a-z]+|.)/i)||" ";if(d==="sbond"){this.tex+="{-}"}else{if(d==="dbond"){this.tex+="{=}"}else{if(d==="tbond"){this.tex+="{\\equiv}"}else{if(d==="bond"){var e=(this.Match(/^\{.*?\}/)||"");e=e.substr(1,e.length-2);this.tex+="{"+(this.Bonds[e]||"\\text{??}")+"}"}else{if(d==="{"){this.tex+="{\\{"}else{if(d==="}"){this.tex+="\\}}";this.atom=true}else{this.tex+=f+d}}}}}}},ParseSpace:function(d){this.FinishAtom();this.i++},ParseOther:function(d){this.FinishAtom();this.tex+=d;this.i++},AddArrow:function(e){var g=this.Match(/^[CT]\[/);if(g){this.i--;g=g.charAt(0)}var d=this.GetBracket(g),f=this.GetBracket(g);e=this.Arrows[e];if(d||f){if(f){e+="["+f+"]"}e+="{"+d+"}";e="\\mathrel{\\x"+e+"}"}else{e="\\long"+e+" "}this.tex+=e},FinishAtom:function(c){if(this.sup||this.sub||this.presup||this.presub){if(!c&&!this.atom){if(this.tex===""&&!this.sup&&!this.sub){return}if(!this.presup&&!this.presub&&(this.tex===""||this.tex==="{"||(this.tex==="}"&&this.TEX.substr(-1)==="{"))){this.presup=this.sup,this.presub=this.sub;this.sub=this.sup="";this.TEX+=this.tex;this.tex="";return}}if(this.sub&&!this.sup){this.sup="\\Space{0pt}{0pt}{.2em}"}if((this.presup||this.presub)&&this.tex!=="{"){if(!this.presup&&!this.sup){this.presup="\\Space{0pt}{0pt}{.2em}"}this.tex="\\CEprescripts{"+(this.presub||"\\CEnone")+"}{"+(this.presup||"\\CEnone")+"}{"+(this.tex!=="}"?this.tex:"")+"}{"+(this.sub||"\\CEnone")+"}{"+(this.sup||"\\CEnone")+"}"+(this.tex==="}"?"}":"");this.presub=this.presup=""}else{if(this.sup){this.tex+="^{"+this.sup+"}"}if(this.sub){this.tex+="_{"+this.sub+"}"}}this.sup=this.sub=""}this.TEX+=this.tex;this.tex="";this.atom=false},GetBracket:function(e){if(this.string.charAt(this.i)!=="["){return""}this.i++;var d=this.Find("]");if(e==="C"){d="\\ce{"+d+"}"}else{if(e==="T"){if(!d.match(/^\{.*\}$/)){d="{"+d+"}"}d="\\text"+d}}return d},Match:function(d){var c=d.exec(this.string.substr(this.i));if(c){c=c[0];this.i+=c.length}return c},Find:function(h){var d=this.string.length,e=this.i,g=0;while(this.i<d){var f=this.string.charAt(this.i++);if(f===h&&g===0){return this.string.substr(e,this.i-e-1)}if(f==="{"){g++}else{if(f==="}"){if(g){g--}else{b.Error(["ExtraCloseMissingOpen","Extra close brace or missing open brace"])}}}}if(g){b.Error(["MissingCloseBrace","Missing close brace"])}b.Error(["NoClosingChar","Can't find closing %1",h])}});MathJax.Extension["TeX/mhchem"].CE=a;b.Definitions.Add({macros:{ce:"CE",cf:"CE",cee:"CE",xleftrightarrow:["Extension","AMSmath"],xrightleftharpoons:["Extension","AMSmath"],xRightleftharpoons:["Extension","AMSmath"],xLeftrightharpoons:["Extension","AMSmath"],longrightleftharpoons:["Macro","\\stackrel{\\textstyle{{-}\\!\\!{\\rightharpoonup}}}{\\smash{{\\leftharpoondown}\\!\\!{-}}}"],longRightleftharpoons:["Macro","\\stackrel{\\textstyle{-}\\!\\!{\\rightharpoonup}}{\\small\\smash\\leftharpoondown}"],longLeftrightharpoons:["Macro","\\stackrel{\\rightharpoonup}{{{\\leftharpoondown}\\!\\!\\textstyle{-}}}"],hyphen:["Macro","\\text{-}"],CEprescripts:"CEprescripts",CEnone:"CEnone",tripledash:["Macro","\\raise3mu{\\tiny\\text{-}\\kern2mu\\text{-}\\kern2mu\\text{-}}"]},environment:{CEstack:["Array",null,null,null,"r",null,"0.001em","T",1]}},null,true);if(!MathJax.Extension["TeX/AMSmath"]){b.Definitions.Add({macros:{xrightarrow:["Extension","AMSmath"],xleftarrow:["Extension","AMSmath"]}},null,true)}MathJax.Hub.Register.StartupHook("TeX AMSmath Ready",function(){b.Definitions.Add({macros:{xleftrightarrow:["xArrow",8596,6,6],xrightleftharpoons:["xArrow",8652,5,7],xRightleftharpoons:["xArrow",8652,5,7],xLeftrightharpoons:["xArrow",8652,5,7]}},null,true)});b.Parse.Augment({CE:function(e){var c=this.GetArgument(e);var d=a(c).Parse();this.string=d+this.string.substr(this.i);this.i=0},CEprescripts:function(f){var d=this.ParseArg(f),i=this.ParseArg(f),h=this.ParseArg(f),g=this.ParseArg(f),e=this.ParseArg(f);var c=MathJax.ElementJax.mml;this.Push(c.mmultiscripts(h,g,e,c.mprescripts(),d,i))},CEnone:function(c){this.Push(MathJax.ElementJax.mml.none())}});MathJax.Hub.Startup.signal.Post("TeX mhchem Ready")});MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/mhchem.js")}};
+
+//
+//  Don't replace [Contrib]/mhchem if it is already loaded
+//
+if (MathJax.Extension["TeX/mhchem"]) {
+  MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/mhchem.js");
+} else {
+  
+MathJax.Extension["TeX/mhchem"] = {
+  version: "2.7.5",
+  config: MathJax.Hub.CombineConfig("TeX.mhchem",{
+    legacy: true
+  })
+};
+
+//
+//  Load [mhchem]/mhchem.js if not configured for legacy vesion
+//
+if (!MathJax.Extension["TeX/mhchem"].config.legacy) {
+  if (!MathJax.Ajax.config.path.mhchem) {
+    MathJax.Ajax.config.path.mhchem = MathJax.Hub.config.root + "/extensions/TeX/mhchem3";
+  }
+  MathJax.Callback.Queue(
+    ["Require",MathJax.Ajax,"[mhchem]/mhchem.js"],
+    ["loadComplete",MathJax.Ajax,"[MathJax]/extensions/TeX/mhchem.js"]
+  );
+} else {
+
+MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
+  
+  var TEX = MathJax.InputJax.TeX;
+  
+  /*
+   *  This is the main class for handing the \ce and related commands.
+   *  Its main method is Parse() which takes the argument to \ce and
+   *  returns the corresponding TeX string.
+   */
+
+  var CE = MathJax.Object.Subclass({
+    string: "",   // the \ce string being parsed
+    i: 0,         // the current position in the string
+    tex: "",      // the partially processed TeX result
+    TEX: "",      // the full TeX result
+    atom: false,  // last processed token is an atom
+    sup: "",      // pending superscript
+    sub: "",      // pending subscript
+    presup: "",   // pending pre-superscript
+    presub: "",   // pending pre-subscript
+    
+    //
+    //  Store the string when a CE object is created
+    //
+    Init: function (string) {this.string = string},
+    
+    //
+    //  These are the special characters and the methods that
+    //  handle them.  All others are passed through verbatim.
+    //
+    ParseTable: {
+      '-': "Minus",
+      '+': "Plus",
+      '(': "Open",
+      ')': "Close",
+      '[': "Open",
+      ']': "Close",
+      '<': "Less",
+      '^': "Superscript",
+      '_': "Subscript",
+      '*': "Dot",
+      '.': "Dot",
+      '=': "Equal",
+      '#': "Pound",
+      '$': "Math",
+      '\\': "Macro",
+      ' ': "Space"
+    },
+    //
+    //  Basic arrow names for reactions
+    //
+    Arrows: {
+      '->': "rightarrow",
+      '<-': "leftarrow",
+      '<->': "leftrightarrow",
+      '<=>': "rightleftharpoons",
+      '<=>>': "Rightleftharpoons",
+      '<<=>': "Leftrightharpoons",
+      '^': "uparrow",
+      'v': "downarrow"
+    },
+    
+    //
+    //  Implementations for the various bonds
+    //  (the ~ ones are hacks that don't work well in NativeMML)
+    //
+    Bonds: {
+      '-': "-",
+      '=': "=",
+      '#': "\\equiv",
+      '~': "\\tripledash",
+      '~-': "\\begin{CEstack}{}\\tripledash\\\\-\\end{CEstack}",
+      '~=': "\\raise2mu{\\begin{CEstack}{}\\tripledash\\\\-\\\\-\\end{CEstack}}",
+      '~--': "\\raise2mu{\\begin{CEstack}{}\\tripledash\\\\-\\\\-\\end{CEstack}}",
+      '-~-': "\\raise2mu{\\begin{CEstack}{}-\\\\\\tripledash\\\\-\\end{CEstack}}",
+      '...': "{\\cdot}{\\cdot}{\\cdot}",
+      '....': "{\\cdot}{\\cdot}{\\cdot}{\\cdot}",
+      '->': "\\rightarrow",
+      '<-': "\\leftarrow",
+      '??': "\\text{??}"           // unknown bond
+    },
+
+    //
+    //  This converts the CE string to a TeX string.
+    //  It loops through the string and calls the proper
+    //  method depending on the ccurrent character.
+    //  
+    Parse: function () {
+      this.tex = ""; this.atom = false;
+      while (this.i < this.string.length) {
+        var c = this.string.charAt(this.i);
+        if (c.match(/[a-z]/i)) {this.ParseLetter()}
+        else if (c.match(/[0-9]/)) {this.ParseNumber()}
+        else {this["Parse"+(this.ParseTable[c]||"Other")](c)}
+      }
+      this.FinishAtom(true);
+      return this.TEX;
+    },
+    
+    //
+    //  Make an atom name or a down arrow
+    //  
+    ParseLetter: function () {
+      this.FinishAtom();
+      if (this.Match(/^v( |$)/)) {
+        this.tex += "{\\"+this.Arrows["v"]+"}";
+      } else {
+        this.tex += "\\text{"+this.Match(/^[a-z]+/i)+"}";
+        this.atom = true;
+      }
+    },
+    
+    //
+    //  Make a number or fraction preceding an atom,
+    //  or a subscript for an atom.
+    //  
+    ParseNumber: function () {
+      var n = this.Match(/^\d+/);
+      if (this.atom && !this.sub) {
+        this.sub = n;
+      } else {
+        this.FinishAtom();
+        var match = this.Match(/^\/\d+/);
+        if (match) {
+          var frac = "\\frac{"+n+"}{"+match.substr(1)+"}";
+          this.tex += "\\mathchoice{\\textstyle"+frac+"}{"+frac+"}{"+frac+"}{"+frac+"}";
+        } else {
+          this.tex += n;
+          if (this.i < this.string.length) {this.tex += "\\,"}
+        }
+      }
+    },
+    
+    //
+    //  Make a superscript minus, or an arrow, or a single bond.
+    //
+    ParseMinus: function (c) {
+      if (this.atom && (this.i === this.string.length-1 || this.string.charAt(this.i+1) === " ")) {
+        this.sup += c;
+      } else {
+        this.FinishAtom();
+        if (this.string.substr(this.i,2) === "->") {this.i += 2; this.AddArrow("->"); return}
+        else {this.tex += "{-}"}
+      }
+      this.i++;
+    },
+
+    //
+    //  Make a superscript plus, or pass it through
+    //
+    ParsePlus: function (c) {
+      if (this.atom) {this.sup += c} else {this.FinishAtom(); this.tex += c}
+      this.i++;
+    },
+    
+    //
+    //  Handle dots and double or triple bonds
+    //
+    ParseDot:   function (c) {this.FinishAtom(); this.tex += "\\cdot "; this.i++},
+    ParseEqual: function (c) {this.FinishAtom(); this.tex += "{=}"; this.i++},
+    ParsePound: function (c) {this.FinishAtom(); this.tex += "{\\equiv}"; this.i++},
+
+    //
+    //  Look for (v) or (^), or pass it through
+    //
+    ParseOpen: function (c) {
+      this.FinishAtom();
+      var match = this.Match(/^\([v^]\)/);
+      if (match) {this.tex += "{\\"+this.Arrows[match.charAt(1)]+"}"}
+        else {this.tex += "{"+c; this.i++}
+    },
+    //
+    //  Allow ) and ] to get super- and subscripts
+    //
+    ParseClose: function (c) {this.FinishAtom(); this.atom = true; this.tex += c+"}"; this.i++},
+
+    //
+    //  Make the proper arrow
+    //
+    ParseLess: function (c) {
+      this.FinishAtom();
+      var arrow = this.Match(/^(<->?|<=>>?|<<=>)/);
+      if (!arrow) {this.tex += c; this.i++} else {this.AddArrow(arrow)}
+    },
+
+    //
+    //  Look for a superscript, or an up arrow
+    //  
+    ParseSuperscript: function (c) {
+      c = this.string.charAt(++this.i);
+      if (c === "{") {
+        this.i++; var m = this.Find("}");
+        if (m === "-.") {this.sup += "{-}{\\cdot}"}
+        else if (m) {this.sup += CE(m).Parse().replace(/^\{-\}/,"-")}
+      } else if (c === " " || c === "") {
+        this.tex += "{\\"+this.Arrows["^"]+"}"; this.i++;
+      } else {
+        var n = this.Match(/^(\d+|-\.)/);
+        if (n) {this.sup += n}
+      }
+    },
+    //
+    //  Look for subscripts
+    //
+    ParseSubscript: function (c) {
+      if (this.string.charAt(++this.i) == "{") {
+        this.i++; this.sub += CE(this.Find("}")).Parse().replace(/^\{-\}/,"-");
+      } else {
+        var n = this.Match(/^\d+/);
+        if (n) {this.sub += n}
+      }
+    },
+
+    //
+    //  Look for raw TeX code to include
+    //
+    ParseMath: function (c) {
+      this.FinishAtom();
+      this.i++; this.tex += this.Find(c);
+    },
+    
+    //
+    //  Look for specific macros for bonds
+    //  and allow \} to have subscripts
+    //
+    ParseMacro: function (c) {
+      this.FinishAtom();
+      this.i++; var match = this.Match(/^([a-z]+|.)/i)||" ";
+      if (match === "sbond") {this.tex += "{-}"}
+      else if (match === "dbond") {this.tex += "{=}"}
+      else if (match === "tbond") {this.tex += "{\\equiv}"}
+      else if (match === "bond") {
+        var bond = (this.Match(/^\{.*?\}/)||"");
+        bond = bond.substr(1,bond.length-2);
+        this.tex += "{"+(this.Bonds[bond]||"\\text{??}")+"}";
+      }
+      else if (match === "{") {this.tex += "{\\{"}
+      else if (match === "}") {this.tex += "\\}}"; this.atom = true}
+      else {this.tex += c+match}
+    },
+    
+    //
+    //  Ignore spaces
+    //
+    ParseSpace: function (c) {this.FinishAtom(); this.i++},
+    
+    //
+    //  Pass anything else on verbatim
+    //
+    ParseOther: function (c) {this.FinishAtom(); this.tex += c; this.i++},
+
+    //
+    //  Process an arrow (looking for brackets for above and below)
+    //
+    AddArrow: function (arrow) {
+      var c = this.Match(/^[CT]\[/);
+      if (c) {this.i--; c = c.charAt(0)}
+      var above = this.GetBracket(c), below = this.GetBracket(c);
+      arrow = this.Arrows[arrow];
+      if (above || below) {
+        if (below) {arrow += "["+below+"]"}
+        arrow += "{"+above+"}";
+        arrow = "\\mathrel{\\x"+arrow+"}";
+      } else {
+        arrow = "\\long"+arrow+" ";
+      }
+      this.tex += arrow;
+    },
+
+    //
+    //  Handle the super and subscripts for an atom
+    //  
+    FinishAtom: function (force) {
+      if (this.sup || this.sub || this.presup || this.presub) {
+        if (!force && !this.atom) {
+          if (this.tex === "" && !this.sup && !this.sub) return;
+          if (!this.presup && !this.presub &&
+                (this.tex === "" || this.tex === "{" ||
+                (this.tex === "}" && this.TEX.substr(-1) === "{"))) {
+            this.presup = this.sup, this.presub = this.sub;  // save for later
+            this.sub = this.sup = "";
+            this.TEX += this.tex; this.tex = "";
+            return;
+          }
+        }
+        if (this.sub && !this.sup) {this.sup = "\\Space{0pt}{0pt}{.2em}"} // forces subscripts to align properly
+        if ((this.presup || this.presub) && this.tex !== "{") {
+          if (!this.presup && !this.sup) {this.presup = "\\Space{0pt}{0pt}{.2em}"}
+          this.tex = "\\CEprescripts{"+(this.presub||"\\CEnone")+"}{"+(this.presup||"\\CEnone")+"}"
+                   + "{"+(this.tex !== "}" ? this.tex : "")+"}"
+                   + "{"+(this.sub||"\\CEnone")+"}{"+(this.sup||"\\CEnone")+"}"
+                   + (this.tex === "}" ? "}" : "");
+          this.presub = this.presup = "";
+        } else {
+          if (this.sup) this.tex += "^{"+this.sup+"}";
+          if (this.sub) this.tex += "_{"+this.sub+"}";
+        }
+        this.sup = this.sub = "";
+      }
+      this.TEX += this.tex; this.tex = "";
+      this.atom = false;
+    },
+    
+    //
+    //  Find a bracket group and handle C and T prefixes
+    //
+    GetBracket: function (c) {
+      if (this.string.charAt(this.i) !== "[") {return ""}
+      this.i++; var bracket = this.Find("]");
+      if (c === "C") {bracket = "\\ce{"+bracket+"}"} else
+      if (c === "T") {
+        if (!bracket.match(/^\{.*\}$/)) {bracket = "{"+bracket+"}"}
+        bracket = "\\text"+bracket;
+      };
+      return bracket;
+    },
+
+    //
+    //  Check if the string matches a regular expression
+    //    and move past it if so, returning the match
+    //
+    Match: function (regex) {
+      var match = regex.exec(this.string.substr(this.i));
+      if (match) {match = match[0]; this.i += match.length}
+      return match;
+    },
+    
+    //
+    //  Find a particular character, skipping over braced groups
+    //
+    Find: function (c) {
+      var m = this.string.length, i = this.i, braces = 0;
+      while (this.i < m) {
+        var C = this.string.charAt(this.i++);
+        if (C === c && braces === 0) {return this.string.substr(i,this.i-i-1)}
+        if (C === "{") {braces++} else
+        if (C === "}") {
+          if (braces) {braces--}
+          else {
+            TEX.Error(["ExtraCloseMissingOpen","Extra close brace or missing open brace"])
+          }
+        }
+      }
+      if (braces) {TEX.Error(["MissingCloseBrace","Missing close brace"])}
+      TEX.Error(["NoClosingChar","Can't find closing %1",c]);
+    }
+    
+  });
+  
+  MathJax.Extension["TeX/mhchem"].CE = CE;
+  
+  /***************************************************************************/
+  
+  TEX.Definitions.Add({
+    macros: {
+      //
+      //  Set up the macros for chemistry
+      //
+      ce:   'CE',
+      cf:   'CE',
+      cee:  'CE',
+      
+      //
+      //  Make these load AMSmath package (redefined below when loaded)
+      //
+      xleftrightarrow:    ['Extension','AMSmath'],
+      xrightleftharpoons: ['Extension','AMSmath'],
+      xRightleftharpoons: ['Extension','AMSmath'],
+      xLeftrightharpoons: ['Extension','AMSmath'],
+
+      //  FIXME:  These don't work well in FF NativeMML mode
+      longrightleftharpoons: ["Macro","\\stackrel{\\textstyle{{-}\\!\\!{\\rightharpoonup}}}{\\smash{{\\leftharpoondown}\\!\\!{-}}}"],
+      longRightleftharpoons: ["Macro","\\stackrel{\\textstyle{-}\\!\\!{\\rightharpoonup}}{\\small\\smash\\leftharpoondown}"],
+      longLeftrightharpoons: ["Macro","\\stackrel{\\rightharpoonup}{{{\\leftharpoondown}\\!\\!\\textstyle{-}}}"],
+
+      //
+      //  Add \hyphen used in some mhchem examples
+      //  
+      hyphen: ["Macro","\\text{-}"],
+      
+      //
+      //  Handle prescripts and none
+      //
+      CEprescripts: "CEprescripts",
+      CEnone: "CEnone",
+
+      //
+      //  Needed for \bond for the ~ forms
+      //
+      tripledash: ["Macro","\\raise3mu{\\tiny\\text{-}\\kern2mu\\text{-}\\kern2mu\\text{-}}"]
+    },
+    
+    //
+    //  Needed for \bond for the ~ forms
+    //
+    environment: {
+      CEstack:       ['Array',null,null,null,'r',null,"0.001em",'T',1]
+    }
+  },null,true);
+  
+  if (!MathJax.Extension["TeX/AMSmath"]) {
+    TEX.Definitions.Add({
+      macros: {
+        xrightarrow: ['Extension','AMSmath'],
+        xleftarrow:  ['Extension','AMSmath']
+      }
+    },null,true);
+  }
+  
+  //
+  //  These arrows need to wait until AMSmath is loaded
+  //
+  MathJax.Hub.Register.StartupHook("TeX AMSmath Ready",function () {
+    TEX.Definitions.Add({
+      macros: {
+        //
+        //  Some of these are hacks for now
+        //
+        xleftrightarrow:    ['xArrow',0x2194,6,6],
+        xrightleftharpoons: ['xArrow',0x21CC,5,7],  // FIXME:  doesn't stretch in HTML-CSS output
+        xRightleftharpoons: ['xArrow',0x21CC,5,7],  // FIXME:  how should this be handled?
+        xLeftrightharpoons: ['xArrow',0x21CC,5,7]
+      }
+    },null,true);
+  });
+
+  TEX.Parse.Augment({
+
+    //
+    //  Implements \ce and friends
+    //
+    CE: function (name) {
+      var arg = this.GetArgument(name);
+      var tex = CE(arg).Parse();
+      this.string = tex + this.string.substr(this.i); this.i = 0;
+    },
+    
+    //
+    //  Implements \CEprescripts{presub}{presup}{base}{sub}{sup}
+    //
+    CEprescripts: function (name) {
+      var presub = this.ParseArg(name),
+          presup = this.ParseArg(name),
+          base = this.ParseArg(name),
+          sub = this.ParseArg(name),
+          sup = this.ParseArg(name);
+      var MML = MathJax.ElementJax.mml;
+      this.Push(MML.mmultiscripts(base,sub,sup,MML.mprescripts(),presub,presup));
+    },
+    CEnone: function (name) {
+      this.Push(MathJax.ElementJax.mml.none());
+    }
+    
+  });
+  
+  //
+  //  Indicate that the extension is ready
+  //
+  MathJax.Hub.Startup.signal.Post("TeX mhchem Ready");
+
+});
+
+MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/mhchem.js");
+
+}}

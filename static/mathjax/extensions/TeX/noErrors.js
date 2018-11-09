@@ -1,14 +1,68 @@
-/*
- *  /MathJax/extensions/TeX/noErrors.js
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
+/*************************************************************
  *
+ *  MathJax/extensions/TeX/noErrors.js
+ *  
+ *  Prevents the TeX error messages from being displayed and shows the
+ *  original TeX code instead.  You can configure whether the dollar signs
+ *  are shown or not for in-line math, and whether to put all the TeX on
+ *  one line or use multiple-lines.
+ *  
+ *  To configure this extension, use
+ *  
+ *      MathJax.Hub.Config({
+ *        TeX: {
+ *          noErrors: {
+ *            inlineDelimiters: ["",""],   // or ["$","$"] or ["\\(","\\)"]
+ *            multiLine: true,             // false for TeX on all one line
+ *            style: {
+ *              "font-size":   "90%",
+ *              "text-align":  "left",
+ *              "color":       "black",
+ *              "padding":     "1px 3px",
+ *              "border":      "1px solid"
+ *                // add any additional CSS styles that you want
+ *                //  (be sure there is no extra comma at the end of the last item)
+ *            }
+ *          }
+ *        }
+ *      });
+ *  
+ *  Display-style math is always shown in multi-line format, and without
+ *  delimiters, as it will already be set off in its own centered
+ *  paragraph, like standard display mathematics.
+ *  
+ *  The default settings place the invalid TeX in a multi-line box with a
+ *  black border.  If you want it to look as though the TeX is just part of
+ *  the paragraph, use
+ *
+ *      MathJax.Hub.Config({
+ *        TeX: {
+ *          noErrors: {
+ *            inlineDelimiters: ["$","$"],   // or ["",""] or ["\\(","\\)"]
+ *            multiLine: false,
+ *            style: {
+ *              "font-size": "normal",
+ *              "border": ""
+ *            }
+ *          }
+ *        }
+ *      });
+ *  
+ *  You may also wish to set the font family, as the default is "serif"
+ *  
+ *  ---------------------------------------------------------------------
+ *  
  *  Copyright (c) 2009-2018 The MathJax Consortium
- *
+ * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,4 +70,336 @@
  *  limitations under the License.
  */
 
-(function(b,e){var d="2.7.5";var a=b.CombineConfig("TeX.noErrors",{disabled:false,multiLine:true,inlineDelimiters:["",""],style:{"font-size":"90%","text-align":"left",color:"black",padding:"1px 3px",border:"1px solid"}});var c="\u00A0";MathJax.Extension["TeX/noErrors"]={version:d,config:a};b.Register.StartupHook("TeX Jax Ready",function(){var f=MathJax.InputJax.TeX.formatError;MathJax.InputJax.TeX.Augment({formatError:function(j,i,k,g){if(a.disabled){return f.apply(this,arguments)}var h=j.message.replace(/\n.*/,"");b.signal.Post(["TeX Jax - parse error",h,i,k,g]);var m=a.inlineDelimiters;var l=(k||a.multiLine);if(!k){i=m[0]+i+m[1]}if(l){i=i.replace(/ /g,c)}else{i=i.replace(/\n/g," ")}return MathJax.ElementJax.mml.merror(i).With({isError:true,multiLine:l})}})});b.Register.StartupHook("HTML-CSS Jax Config",function(){b.Config({"HTML-CSS":{styles:{".MathJax .noError":b.Insert({"vertical-align":(b.Browser.isMSIE&&a.multiLine?"-2px":"")},a.style)}}})});b.Register.StartupHook("HTML-CSS Jax Ready",function(){var g=MathJax.ElementJax.mml;var h=MathJax.OutputJax["HTML-CSS"];var f=g.math.prototype.toHTML,i=g.merror.prototype.toHTML;g.math.Augment({toHTML:function(j,k){var l=this.data[0];if(l&&l.data[0]&&l.data[0].isError){j.style.fontSize="";j=this.HTMLcreateSpan(j);j.bbox=l.data[0].toHTML(j).bbox}else{j=f.apply(this,arguments)}return j}});g.merror.Augment({toHTML:function(p){if(!this.isError){return i.apply(this,arguments)}p=this.HTMLcreateSpan(p);p.className="noError";if(this.multiLine){p.style.display="inline-block"}var r=this.data[0].data[0].data.join("").split(/\n/);for(var o=0,l=r.length;o<l;o++){h.addText(p,r[o]);if(o!==l-1){h.addElement(p,"br",{isMathJax:true})}}var q=h.getHD(p.parentNode),k=h.getW(p.parentNode);if(l>1){var n=(q.h+q.d)/2,j=h.TeX.x_height/2;p.parentNode.style.verticalAlign=h.Em(q.d+(j-n));q.h=j+n;q.d=n-j}p.bbox={h:q.h,d:q.d,w:k,lw:0,rw:k};return p}})});b.Register.StartupHook("SVG Jax Config",function(){b.Config({SVG:{styles:{".MathJax_SVG .noError":b.Insert({"vertical-align":(b.Browser.isMSIE&&a.multiLine?"-2px":"")},a.style)}}})});b.Register.StartupHook("SVG Jax Ready",function(){var g=MathJax.ElementJax.mml;var f=g.math.prototype.toSVG,h=g.merror.prototype.toSVG;g.math.Augment({toSVG:function(i,j){var k=this.data[0];if(k&&k.data[0]&&k.data[0].isError){i=k.data[0].toSVG(i)}else{i=f.apply(this,arguments)}return i}});g.merror.Augment({toSVG:function(n){if(!this.isError||this.Parent().type!=="math"){return h.apply(this,arguments)}n=e.addElement(n,"span",{className:"noError",isMathJax:true});if(this.multiLine){n.style.display="inline-block"}var o=this.data[0].data[0].data.join("").split(/\n/);for(var l=0,j=o.length;l<j;l++){e.addText(n,o[l]);if(l!==j-1){e.addElement(n,"br",{isMathJax:true})}}if(j>1){var k=n.offsetHeight/2;n.style.verticalAlign=(-k+(k/j))+"px"}return n}})});b.Register.StartupHook("NativeMML Jax Ready",function(){var h=MathJax.ElementJax.mml;var g=MathJax.Extension["TeX/noErrors"].config;var f=h.math.prototype.toNativeMML,i=h.merror.prototype.toNativeMML;h.math.Augment({toNativeMML:function(j){var k=this.data[0];if(k&&k.data[0]&&k.data[0].isError){j=k.data[0].toNativeMML(j)}else{j=f.apply(this,arguments)}return j}});h.merror.Augment({toNativeMML:function(n){if(!this.isError){return i.apply(this,arguments)}n=n.appendChild(document.createElement("span"));var o=this.data[0].data[0].data.join("").split(/\n/);for(var l=0,k=o.length;l<k;l++){n.appendChild(document.createTextNode(o[l]));if(l!==k-1){n.appendChild(document.createElement("br"))}}if(this.multiLine){n.style.display="inline-block";if(k>1){n.style.verticalAlign="middle"}}for(var p in g.style){if(g.style.hasOwnProperty(p)){var j=p.replace(/-./g,function(m){return m.charAt(1).toUpperCase()});n.style[j]=g.style[p]}}return n}})});b.Register.StartupHook("PreviewHTML Jax Config",function(){b.Config({PreviewHTML:{styles:{".MathJax_PHTML .noError":b.Insert({"vertical-align":(b.Browser.isMSIE&&a.multiLine?"-2px":"")},a.style)}}})});b.Register.StartupHook("PreviewHTML Jax Ready",function(){var f=MathJax.ElementJax.mml;var h=MathJax.HTML;var g=f.merror.prototype.toPreviewHTML;f.merror.Augment({toPreviewHTML:function(l){if(!this.isError){return g.apply(this,arguments)}l=this.PHTMLcreateSpan(l);l.className="noError";if(this.multiLine){l.style.display="inline-block"}var n=this.data[0].data[0].data.join("").split(/\n/);for(var k=0,j=n.length;k<j;k++){h.addText(l,n[k]);if(k!==j-1){h.addElement(l,"br",{isMathJax:true})}}return l}})});b.Register.StartupHook("CommonHTML Jax Config",function(){b.Config({CommonHTML:{styles:{".mjx-chtml .mjx-noError":b.Insert({"line-height":1.2,"vertical-align":(b.Browser.isMSIE&&a.multiLine?"-2px":"")},a.style)}}})});b.Register.StartupHook("CommonHTML Jax Ready",function(){var f=MathJax.ElementJax.mml;var g=MathJax.OutputJax.CommonHTML;var i=MathJax.HTML;var h=f.merror.prototype.toCommonHTML;f.merror.Augment({toCommonHTML:function(n){if(!this.isError){return h.apply(this,arguments)}n=g.addElement(n,"mjx-noError");var p=this.data[0].data[0].data.join("").split(/\n/);for(var k=0,j=p.length;k<j;k++){i.addText(n,p[k]);if(k!==j-1){g.addElement(n,"br",{isMathJax:true})}}var o=this.CHTML=g.BBOX.zero();o.w=(n.offsetWidth)/g.em;if(j>1){var l=1.2*j/2;o.h=l+0.25;o.d=l-0.25;n.style.verticalAlign=g.Em(0.45-l)}else{o.h=1;o.d=0.2+2/g.em}return n}})});b.Startup.signal.Post("TeX noErrors Ready")})(MathJax.Hub,MathJax.HTML);MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noErrors.js");
+(function (HUB,HTML) {
+  var VERSION = "2.7.5";
+  
+  var CONFIG = HUB.CombineConfig("TeX.noErrors",{
+    disabled: false,               // set to true to return to original error messages
+    multiLine: true,
+    inlineDelimiters: ["",""],     // or use ["$","$"] or ["\\(","\\)"]
+    style: {
+      "font-size":   "90%",
+      "text-align":  "left",
+      "color":       "black",
+      "padding":     "1px 3px",
+      "border":      "1px solid"
+    }
+  });
+  
+  var NBSP = "\u00A0";
+
+  //
+  //  The configuration defaults, augmented by the user settings
+  //  
+  MathJax.Extension["TeX/noErrors"] = {
+    version: VERSION,
+    config: CONFIG
+  };
+  
+  HUB.Register.StartupHook("TeX Jax Ready",function () {
+    var FORMAT = MathJax.InputJax.TeX.formatError;
+    
+    MathJax.InputJax.TeX.Augment({
+      //
+      //  Make error messages be the original TeX code
+      //  Mark them as errors and multi-line or not, and for
+      //  multi-line TeX, make spaces non-breakable (to get formatting right)
+      //
+      formatError: function (err,math,displaystyle,script) {
+        if (CONFIG.disabled) {return FORMAT.apply(this,arguments)}
+        var message = err.message.replace(/\n.*/,"");
+        HUB.signal.Post(["TeX Jax - parse error",message,math,displaystyle,script]);
+        var delim = CONFIG.inlineDelimiters;
+        var multiLine = (displaystyle || CONFIG.multiLine);
+        if (!displaystyle) {math = delim[0] + math + delim[1]}
+        if (multiLine) {math = math.replace(/ /g,NBSP)} else {math = math.replace(/\n/g," ")}
+        return MathJax.ElementJax.mml.merror(math).With({isError:true, multiLine: multiLine});
+      }
+    });
+  });
+  
+  /*******************************************************************
+   *
+   *   Fix HTML-CSS output
+   */
+
+  HUB.Register.StartupHook("HTML-CSS Jax Config",function () {
+    HUB.Config({
+      "HTML-CSS": {
+        styles: {
+          ".MathJax .noError": HUB.Insert({
+            "vertical-align": (HUB.Browser.isMSIE && CONFIG.multiLine ? "-2px" : "")
+          },CONFIG.style)
+        }
+      }
+    });
+  });
+    
+  HUB.Register.StartupHook("HTML-CSS Jax Ready",function () {
+    var MML = MathJax.ElementJax.mml;
+    var HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+    
+    var MATH   = MML.math.prototype.toHTML,
+        MERROR = MML.merror.prototype.toHTML;
+        
+    //
+    // Override math toHTML routine so that error messages
+    //   don't have the clipping and other unneeded overhead
+    //
+    MML.math.Augment({
+      toHTML: function (span,node) {
+        var data = this.data[0];
+        if (data && data.data[0] && data.data[0].isError) {
+          span.style.fontSize = "";
+          span = this.HTMLcreateSpan(span);
+          span.bbox = data.data[0].toHTML(span).bbox;
+        } else {
+          span = MATH.apply(this,arguments);
+        }
+        return span;
+      }
+    });
+    
+    //
+    //  Override merror toHTML routine so that it puts out the
+    //    TeX code in an inline-block with line breaks as in the original
+    //
+    MML.merror.Augment({
+      toHTML: function (span) {
+        if (!this.isError) {return MERROR.apply(this,arguments)}
+        span = this.HTMLcreateSpan(span); span.className = "noError"
+        if (this.multiLine) {span.style.display = "inline-block"}
+        var text = this.data[0].data[0].data.join("").split(/\n/);
+        for (var i = 0, m = text.length; i < m; i++) {
+          HTMLCSS.addText(span,text[i]);
+          if (i !== m-1) {HTMLCSS.addElement(span,"br",{isMathJax:true})}
+        }
+        var HD = HTMLCSS.getHD(span.parentNode), W = HTMLCSS.getW(span.parentNode);
+        if (m > 1) {
+          var H = (HD.h + HD.d)/2, x = HTMLCSS.TeX.x_height/2;
+          span.parentNode.style.verticalAlign = HTMLCSS.Em(HD.d+(x-H));
+          HD.h = x + H; HD.d = H - x;
+        }
+        span.bbox = {h: HD.h, d: HD.d, w: W, lw: 0, rw: W};
+        return span;
+      }
+    });
+
+  });
+  
+  /*******************************************************************
+   *
+   *   Fix SVG output
+   */
+
+  HUB.Register.StartupHook("SVG Jax Config",function () {
+    HUB.Config({
+      "SVG": {
+        styles: {
+          ".MathJax_SVG .noError": HUB.Insert({
+            "vertical-align": (HUB.Browser.isMSIE && CONFIG.multiLine ? "-2px" : "")
+          },CONFIG.style)
+        }
+      }
+    });
+  });
+
+  HUB.Register.StartupHook("SVG Jax Ready",function () {
+    var MML = MathJax.ElementJax.mml;
+    
+    var MATH   = MML.math.prototype.toSVG,
+        MERROR = MML.merror.prototype.toSVG;
+        
+    //
+    // Override math toSVG routine so that error messages
+    //   don't have the clipping and other unneeded overhead
+    //
+    MML.math.Augment({
+      toSVG: function (span,node) {
+        var data = this.data[0];
+        if (data && data.data[0] && data.data[0].isError)
+          {span = data.data[0].toSVG(span)} else {span = MATH.apply(this,arguments)}
+        return span;
+      }
+    });
+    
+    //
+    //  Override merror toSVG routine so that it puts out the
+    //    TeX code in an inline-block with line breaks as in the original
+    //
+    MML.merror.Augment({
+      toSVG: function (span) {
+        if (!this.isError || this.Parent().type !== "math") {return MERROR.apply(this,arguments)}
+        span = HTML.addElement(span,"span",{className: "noError", isMathJax:true});
+        if (this.multiLine) {span.style.display = "inline-block"}
+        var text = this.data[0].data[0].data.join("").split(/\n/);
+        for (var i = 0, m = text.length; i < m; i++) {
+          HTML.addText(span,text[i]);
+          if (i !== m-1) {HTML.addElement(span,"br",{isMathJax:true})}
+        }
+        if (m > 1) {
+          var H = span.offsetHeight/2;
+          span.style.verticalAlign = (-H+(H/m))+"px";
+        }
+        return span;
+      }
+    });
+
+  });
+  
+  /*******************************************************************
+   *
+   *   Fix NativeMML output
+   */
+
+  HUB.Register.StartupHook("NativeMML Jax Ready",function () {
+    var MML = MathJax.ElementJax.mml;
+    var CONFIG = MathJax.Extension["TeX/noErrors"].config;
+    
+    var MATH   = MML.math.prototype.toNativeMML,
+        MERROR = MML.merror.prototype.toNativeMML;
+
+    //
+    // Override math toNativeMML routine so that error messages
+    //   don't get placed inside math tags.
+    //
+    MML.math.Augment({
+      toNativeMML: function (span) {
+        var data = this.data[0];
+        if (data && data.data[0] && data.data[0].isError)
+          {span = data.data[0].toNativeMML(span)} else {span = MATH.apply(this,arguments)}
+        return span;
+      }
+    });
+    
+    //
+    //  Override merror toNativeMML routine so that it puts out the
+    //    TeX code in an inline-block with line breaks as in the original
+    //
+    MML.merror.Augment({
+      toNativeMML: function (span) {
+        if (!this.isError) {return MERROR.apply(this,arguments)}
+        span = span.appendChild(document.createElement("span"));
+        var text = this.data[0].data[0].data.join("").split(/\n/);
+        for (var i = 0, m = text.length; i < m; i++) {
+          span.appendChild(document.createTextNode(text[i]));
+          if (i !== m-1) {span.appendChild(document.createElement("br"))}
+        }
+        if (this.multiLine) {
+          span.style.display = "inline-block";
+          if (m > 1) {span.style.verticalAlign = "middle"}
+        }
+        for (var id in CONFIG.style) {if (CONFIG.style.hasOwnProperty(id)) {
+          var ID = id.replace(/-./g,function (c) {return c.charAt(1).toUpperCase()});
+          span.style[ID] = CONFIG.style[id];
+        }}
+        return span;
+      }
+    });
+    
+  });
+
+  /*******************************************************************
+   *
+   *   Fix PreviewHTML output
+   */
+
+  HUB.Register.StartupHook("PreviewHTML Jax Config",function () {
+    HUB.Config({
+      PreviewHTML: {
+        styles: {
+          ".MathJax_PHTML .noError": HUB.Insert({
+            "vertical-align": (HUB.Browser.isMSIE && CONFIG.multiLine ? "-2px" : "")
+          },CONFIG.style)
+        }
+      }
+    });
+  });
+    
+  HUB.Register.StartupHook("PreviewHTML Jax Ready",function () {
+    var MML = MathJax.ElementJax.mml;
+    var HTML = MathJax.HTML;
+    
+    var MERROR = MML.merror.prototype.toPreviewHTML;
+        
+    //
+    //  Override merror toPreviewHTML routine so that it puts out the
+    //    TeX code in an inline-block with line breaks as in the original
+    //
+    MML.merror.Augment({
+      toPreviewHTML: function (span) {
+        if (!this.isError) return MERROR.apply(this,arguments);
+        span = this.PHTMLcreateSpan(span); span.className = "noError"
+        if (this.multiLine) span.style.display = "inline-block";
+        var text = this.data[0].data[0].data.join("").split(/\n/);
+        for (var i = 0, m = text.length; i < m; i++) {
+          HTML.addText(span,text[i]);
+          if (i !== m-1) {HTML.addElement(span,"br",{isMathJax:true})}
+        }
+        return span;
+      }
+    });
+
+  });
+  
+  /*******************************************************************
+   *
+   *   Fix CommonHTML output
+   */
+
+  HUB.Register.StartupHook("CommonHTML Jax Config",function () {
+    HUB.Config({
+      CommonHTML: {
+        styles: {
+          ".mjx-chtml .mjx-noError": HUB.Insert({
+            "line-height": 1.2,
+            "vertical-align": (HUB.Browser.isMSIE && CONFIG.multiLine ? "-2px" : "")
+          },CONFIG.style)
+        }
+      }
+    });
+  });
+    
+  HUB.Register.StartupHook("CommonHTML Jax Ready",function () {
+    var MML = MathJax.ElementJax.mml;
+    var CHTML = MathJax.OutputJax.CommonHTML;
+    var HTML = MathJax.HTML;
+    
+    var MERROR = MML.merror.prototype.toCommonHTML;
+        
+    //
+    //  Override merror toCommonHTML routine so that it puts out the
+    //    TeX code in an inline-block with line breaks as in the original
+    //
+    MML.merror.Augment({
+      toCommonHTML: function (node) {
+        if (!this.isError) return MERROR.apply(this,arguments);
+        node = CHTML.addElement(node,"mjx-noError");
+        var text = this.data[0].data[0].data.join("").split(/\n/);
+        for (var i = 0, m = text.length; i < m; i++) {
+          HTML.addText(node,text[i]);
+          if (i !== m-1) {CHTML.addElement(node,"br",{isMathJax:true})}
+        }
+        var bbox = this.CHTML = CHTML.BBOX.zero();
+        bbox.w = (node.offsetWidth)/CHTML.em;
+        if (m > 1) {
+          var H2 = 1.2*m/2;
+          bbox.h = H2+.25; bbox.d = H2-.25;
+          node.style.verticalAlign = CHTML.Em(.45-H2);
+        } else {
+          bbox.h = 1; bbox.d = .2 + 2/CHTML.em;
+        }
+        return node;
+      }
+    });
+
+  });
+  
+  /*******************************************************************/
+  
+  HUB.Startup.signal.Post("TeX noErrors Ready");
+
+})(MathJax.Hub,MathJax.HTML);
+  
+
+MathJax.Ajax.loadComplete("[MathJax]/extensions/TeX/noErrors.js");

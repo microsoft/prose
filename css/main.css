@@ -399,6 +399,10 @@ a.reversefootnote {
     max-height: 160px;
 }
 
+.force-flex {
+    display: flex !important
+}
+
 /* Index page */
 .title, .subtitle {
     font-family: Raleway, Lato, sans-serif;

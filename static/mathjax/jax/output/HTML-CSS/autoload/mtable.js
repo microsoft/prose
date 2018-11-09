@@ -1,14 +1,22 @@
-/*
- *  /MathJax/jax/output/HTML-CSS/autoload/mtable.js
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
+/*************************************************************
  *
- *  Copyright (c) 2009-2018 The MathJax Consortium
+ *  MathJax/jax/output/HTML-CSS/autoload/mtable.js
+ *  
+ *  Implements the HTML-CSS output for <mtable> elements.
  *
+ *  ---------------------------------------------------------------------
+ *  
+ *  Copyright (c) 2010-2018 The MathJax Consortium
+ * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,4 +24,482 @@
  *  limitations under the License.
  */
 
-MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function(){var c="2.7.5";var a=MathJax.ElementJax.mml,b=MathJax.OutputJax["HTML-CSS"];a.mtable.Augment({toHTML:function(r){r=this.HTMLcreateSpan(r);if(this.data.length===0){return r}var I=this.getValues("columnalign","rowalign","columnspacing","rowspacing","columnwidth","equalcolumns","equalrows","columnlines","rowlines","frame","framespacing","align","useHeight","width","side","minlabelspacing");var aM=I.width.match(/%$/);var ay=b.createStack(r);var aJ=this.HTMLgetScale(),aB=this.HTMLgetMu(r),aC=-1;var aq=[],au=[],aj=[],aw=[],av=[],ae,ad,ap=-1,ac,ao,X,aH,Q,aE,aR=[],aW;var G=b.FONTDATA.lineH*aJ*I.useHeight,N=b.FONTDATA.lineD*aJ*I.useHeight;for(ae=0,ac=this.data.length;ae<ac;ae++){aH=this.data[ae];X=(aH.type==="mlabeledtr"?aC:0);aw[ae]=[];aq[ae]=G;au[ae]=N;for(ad=X,ao=aH.data.length+X;ad<ao;ad++){if(aj[ad]==null){if(ad>ap){ap=ad}av[ad]=b.createStack(b.createBox(ay));aj[ad]=-b.BIGDIMEN}aw[ae][ad]=b.createBox(av[ad]);aR.push(aH.data[ad-X].toHTML(aw[ae][ad]))}}b.MeasureSpans(aR);for(ae=0,ac=this.data.length;ae<ac;ae++){aH=this.data[ae];X=(aH.type==="mlabeledtr"?aC:0);for(ad=X,ao=aH.data.length+X;ad<ao;ad++){Q=aH.data[ad-X];if(Q.isMultiline){aw[ae][ad].style.width="100%"}if(Q.isEmbellished()){aE=Q.CoreMO();var aV=aE.Get("minsize",true);if(aV){var aO=aE.HTMLspanElement().bbox;if(aE.HTMLcanStretch("Vertical")){aW=aO.h+aO.d;if(aW){aV=b.length2em(aV,aB,aW);if(aV*aO.h/aW>aq[ae]){aq[ae]=aV*aO.h/aW}if(aV*aO.d/aW>au[ae]){au[ae]=aV*aO.d/aW}}}else{if(aE.HTMLcanStretch("Horizontal")){aV=b.length2em(aV,aB,aO.w);if(aV>aj[ad]){aj[ad]=aV}}}}}if(aw[ae][ad].bbox.h>aq[ae]){aq[ae]=aw[ae][ad].bbox.h}if(aw[ae][ad].bbox.d>au[ae]){au[ae]=aw[ae][ad].bbox.d}if(aw[ae][ad].bbox.w>aj[ad]){aj[ad]=aw[ae][ad].bbox.w}}}var aG=MathJax.Hub.SplitList;var aA=aG(I.columnspacing),aT=aG(I.rowspacing),e=aG(I.columnalign),B=aG(I.rowalign),d=aG(I.columnlines),w=aG(I.rowlines),aP=aG(I.columnwidth),U=[];for(ae=0,ac=aA.length;ae<ac;ae++){aA[ae]=b.length2em(aA[ae],aB)}for(ae=0,ac=aT.length;ae<ac;ae++){aT[ae]=b.length2em(aT[ae],aB)}while(aA.length<ap){aA.push(aA[aA.length-1])}while(e.length<=ap){e.push(e[e.length-1])}while(d.length<ap){d.push(d[d.length-1])}while(aP.length<=ap){aP.push(aP[aP.length-1])}while(aT.length<aw.length){aT.push(aT[aT.length-1])}while(B.length<=aw.length){B.push(B[B.length-1])}while(w.length<aw.length){w.push(w[w.length-1])}if(av[aC]){e[aC]=(I.side.substr(0,1)==="l"?"left":"right");aA[aC]=-aj[aC]}for(ae=0,ac=aw.length;ae<ac;ae++){aH=this.data[ae];U[ae]=[];if(aH.rowalign){B[ae]=aH.rowalign}if(aH.columnalign){U[ae]=aG(aH.columnalign);while(U[ae].length<=ap){U[ae].push(U[ae][U[ae].length-1])}}}if(I.equalrows){var aF=Math.max.apply(Math,aq),V=Math.max.apply(Math,au);for(ae=0,ac=aw.length;ae<ac;ae++){X=((aF+V)-(aq[ae]+au[ae]))/2;aq[ae]+=X;au[ae]+=X}}aW=aq[0]+au[aw.length-1];for(ae=0,ac=aw.length-1;ae<ac;ae++){aW+=Math.max(0,au[ae]+aq[ae+1]+aT[ae])}var aL=0,aK=0,aZ,g=aW;if(I.frame!=="none"||(I.columnlines+I.rowlines).match(/solid|dashed/)){var v=aG(I.framespacing);if(v.length!=2){v=aG(this.defaults.framespacing)}aL=b.length2em(v[0],aB);aK=b.length2em(v[1],aB);g=aW+2*aK}var ai,aY,aa="";if(typeof(I.align)!=="string"){I.align=String(I.align)}if(I.align.match(/(top|bottom|center|baseline|axis)( +(-?\d+))?/)){aa=RegExp.$3||"";I.align=RegExp.$1}else{I.align=this.defaults.align}if(aa!==""){aa=parseInt(aa);if(aa<0){aa=aw.length+1+aa}if(aa<1){aa=1}else{if(aa>aw.length){aa=aw.length}}ai=0;aY=-(aW+aK)+aq[0];for(ae=0,ac=aa-1;ae<ac;ae++){var L=Math.max(0,au[ae]+aq[ae+1]+aT[ae]);ai+=L;aY+=L}}else{ai=({top:-(aq[0]+aK),bottom:aW+aK-aq[0],center:aW/2-aq[0],baseline:aW/2-aq[0],axis:aW/2+b.TeX.axis_height*aJ-aq[0]})[I.align];aY=({top:-(aW+2*aK),bottom:0,center:-(aW/2+aK),baseline:-(aW/2+aK),axis:b.TeX.axis_height*aJ-aW/2-aK})[I.align]}var ab,af=0,z=0,K=0,Z=0,ag=0,am=[],at=[],R=1;if(I.equalcolumns&&I.width!=="auto"){if(aM){ab=(100/(ap+1)).toFixed(2).replace(/\.?0+$/,"")+"%";for(ae=0,ac=Math.min(ap+1,aP.length);ae<ac;ae++){aP[ae]=ab}ab=0;af=1;ag=ap+1;for(ae=0,ac=Math.min(ap+1,aA.length);ae<ac;ae++){ab+=aA[ae]}}else{ab=b.length2em(I.width,aB);for(ae=0,ac=Math.min(ap,aA.length);ae<ac;ae++){ab-=aA[ae]}ab/=ap;for(ae=0,ac=Math.min(ap+1,aP.length);ae<ac;ae++){aj[ae]=ab}}}else{for(ae=0,ac=Math.min(ap+1,aP.length);ae<ac;ae++){if(aP[ae]==="auto"){z+=aj[ae]}else{if(aP[ae]==="fit"){at[ag]=ae;ag++;z+=aj[ae]}else{if(aP[ae].match(/%$/)){am[Z]=ae;Z++;K+=aj[ae];af+=b.length2em(aP[ae],aB,1)}else{aj[ae]=b.length2em(aP[ae],aB);z+=aj[ae]}}}}if(aM){ab=0;for(ae=0,ac=Math.min(ap,aA.length);ae<ac;ae++){ab+=aA[ae]}if(af>0.98){R=0.98/af;af=0.98}}else{if(I.width==="auto"){if(af>0.98){R=K/(z+K);ab=z+K}else{ab=z/(1-af)}}else{ab=b.length2em(I.width,aB);for(ae=0,ac=Math.min(ap,aA.length);ae<ac;ae++){ab-=aA[ae]}}for(ae=0,ac=am.length;ae<ac;ae++){aj[am[ae]]=b.length2em(aP[am[ae]],aB,ab*R);z+=aj[am[ae]]}if(Math.abs(ab-z)>0.01){if(ag&&ab>z){ab=(ab-z)/ag;for(ae=0,ac=at.length;ae<ac;ae++){aj[at[ae]]+=ab}}else{ab=ab/z;for(ad=0;ad<=ap;ad++){aj[ad]*=ab}}}if(I.equalcolumns){var O=Math.max.apply(Math,aj);for(ad=0;ad<=ap;ad++){aj[ad]=O}}}}var S=ai,o,q,aU;X=(av[aC]?aC:0);for(ad=X;ad<=ap;ad++){for(ae=0,ac=aw.length;ae<ac;ae++){if(aw[ae][ad]){X=(this.data[ae].type==="mlabeledtr"?aC:0);Q=this.data[ae].data[ad-X];if(Q.HTMLcanStretch("Horizontal")){aw[ae][ad].bbox=Q.HTMLstretchH(av[ad],aj[ad]).bbox}else{if(Q.HTMLcanStretch("Vertical")){aE=Q.CoreMO();var aN=aE.symmetric;aE.symmetric=false;aw[ae][ad].bbox=Q.HTMLstretchV(av[ad],aq[ae],au[ae]).bbox;aw[ae][ad].HH=null;if(aw[ae][ad].bbox.h>aq[ae]){aw[ae][ad].bbox.H=aw[ae][ad].bbox.h;aw[ae][ad].bbox.h=aq[ae]}if(aw[ae][ad].bbox.d>au[ae]){aw[ae][ad].bbox.D=aw[ae][ad].bbox.d;aw[ae][ad].bbox.d=au[ae]}aE.symmetric=aN}}aU=Q.rowalign||this.data[ae].rowalign||B[ae];o=({top:aq[ae]-aw[ae][ad].bbox.h,bottom:aw[ae][ad].bbox.d-au[ae],center:((aq[ae]-au[ae])-(aw[ae][ad].bbox.h-aw[ae][ad].bbox.d))/2,baseline:0,axis:0})[aU]||0;aU=(Q.columnalign||U[ae][ad]||e[ad]);b.alignBox(aw[ae][ad],aU,S+o)}if(ae<aw.length-1){S-=Math.max(0,au[ae]+aq[ae+1]+aT[ae])}}S=ai}if(aM){var E=b.createBox(ay);E.style.left=E.style.top=0;E.style.right=b.Em(ab+2*aL);E.style.display="inline-block";E.style.height="0px";if(b.msieRelativeWidthBug){E=b.createBox(E);E.style.position="relative";E.style.height="1em";E.style.width="100%";E.bbox=ay.bbox}var aS=0,a0=aL,k,l;if(ag){k=100*(1-af)/ag,l=z/ag}else{k=100*(1-af)/(ap+1);l=z/(ap+1)}for(ad=0;ad<=ap;ad++){b.placeBox(av[ad].parentNode,0,0);av[ad].style.position="relative";av[ad].style.left=b.Em(a0);av[ad].style.width="100%";av[ad].parentNode.parentNode.removeChild(av[ad].parentNode);var al=b.createBox(E);b.addBox(al,av[ad]);av[ad]=al;var h=al.style;h.display="inline-block";h.left=aS+"%";if(aP[ad].match(/%$/)){var t=parseFloat(aP[ad])*R;if(ag===0){h.width=(k+t)+"%";aS+=k+t;al=b.createBox(al);b.addBox(al,av[ad].firstChild);al.style.left=0;al.style.right=b.Em(l);a0-=l}else{h.width=t+"%";aS+=t}}else{if(aP[ad]==="fit"||ag===0){h.width=k+"%";al=b.createBox(al);b.addBox(al,av[ad].firstChild);al.style.left=0;al.style.right=b.Em(l-aj[ad]);a0+=aj[ad]-l;aS+=k}else{h.width=b.Em(aj[ad]);a0+=aj[ad]}}if(b.msieRelativeWidthBug){b.addText(al.firstChild,b.NBSP);al.firstChild.style.position="relative"}a0+=aA[ad];if(d[ad]!=="none"&&ad<ap&&ad!==aC){q=b.createBox(E);q.style.left=aS+"%";q=b.createRule(q,g,0,1.25/b.em);q.style.position="absolute";q.bbox={h:g,d:0,w:0,rw:1.25/b.em,lw:0};q.parentNode.bbox=ay.bbox;b.placeBox(q,a0-aA[ad]/2,aY,true);q.style.borderStyle=d[ad]}}}else{var T=aL;for(ad=0;ad<=ap;ad++){if(!av[ad].bbox.width){b.setStackWidth(av[ad],aj[ad])}if(aP[ad]!=="auto"&&aP[ad]!=="fit"){av[ad].bbox.width=aj[ad];av[ad].bbox.isFixed=true}b.placeBox(av[ad].parentNode,T,0);T+=aj[ad]+aA[ad];if(d[ad]!=="none"&&ad<ap&&ad!==aC){q=b.createRule(ay,g,0,1.25/b.em);b.addBox(ay,q);q.bbox={h:g,d:0,w:0,rw:1.25/b.em,lw:0};b.placeBox(q,T-aA[ad]/2,aY,true);q.style.borderStyle=d[ad]}}}ay.bbox.d=-aY;ay.bbox.h=g+aY;b.setStackWidth(ay,ay.bbox.w+aL);aZ=ay.bbox.w;var ah;if(I.frame!=="none"){ah=b.createFrame(ay,g,0,aZ,1.25/b.em,I.frame);b.addBox(ay,ah);b.placeBox(ah,0,aY,true);if(aM){ah.style.width="100%"}}S=ai;for(ae=0,ac=aw.length-1;ae<ac;ae++){o=Math.max(0,au[ae]+aq[ae+1]+aT[ae]);if(w[ae]!==a.LINES.NONE&&w[ae]!==""){q=b.createRule(ay,1.25/b.em,0,aZ);b.addBox(ay,q);q.bbox={h:1.25/b.em,d:0,w:aZ,rw:aZ,lw:0};b.placeBox(q,0,S-au[ae]-(o-au[ae]-aq[ae+1])/2,true);if(w[ae]===a.LINES.DASHED){q.style.borderTopStyle="dashed"}if(aM){q.style.width="100%"}}S-=o}if(aM){r.bbox.width=I.width;ay.style.width="100%"}if(av[aC]){var ax=ay.bbox.w;var ar=this.getValues("indentalignfirst","indentshiftfirst","indentalign","indentshift");if(ar.indentalignfirst!==a.INDENTALIGN.INDENTALIGN){ar.indentalign=ar.indentalignfirst}if(ar.indentalign===a.INDENTALIGN.AUTO){ar.indentalign=this.displayAlign}if(ar.indentshiftfirst!==a.INDENTSHIFT.INDENTSHIFT){ar.indentshift=ar.indentshiftfirst}if(ar.indentshift==="auto"){ar.indentshift="0"}var an=b.length2em(ar.indentshift,aB,b.cwidth);var aD=b.length2em(I.minlabelspacing,aB,b.cwidth);var aX=aD+av[aC].bbox.w,az=0,ak=ax;var aI=b.length2em(this.displayIndent,aB,b.cwidth);X=(e[aC]===a.INDENTALIGN.RIGHT?-1:1);if(ar.indentalign===a.INDENTALIGN.CENTER){ak+=2*(aX-X*(an+aI));an+=aI}else{if(e[aC]===ar.indentalign){if(aI<0){az=X*aI;aI=0}an+=X*aI;if(aX>X*an){an=X*aX}an+=az;ak+=X*an}else{ak+=aX-X*an+aI;an-=X*aI}}var aQ=b.createStack(r,false,"100%");b.addBox(aQ,ay);b.alignBox(ay,ar.indentalign,0,an);av[aC].parentNode.parentNode.removeChild(av[aC].parentNode);b.addBox(aQ,av[aC]);b.alignBox(av[aC],e[aC],0);if(b.msieRelativeWidthBug){ay.style.top=av[aC].style.top=""}if(aM){ay.style.width=I.width;r.bbox.width="100%"}av[aC].style[X===1?"marginLeft":"marginRight"]=b.Em(X*az);r.bbox.tw=ak;r.style.minWidth=r.bbox.minWidth=b.Em(ak);aQ.style.minWidth=aQ.bbox.minWidth=b.Em(ak/aJ)}if(!aM){this.HTMLhandleSpace(r)}var u=this.HTMLhandleColor(r);if(u&&aM){if(!ah){ah=b.createFrame(ay,g,0,aZ,0,"none");b.addBox(ay,ah);b.placeBox(ah,0,aY,true);ah.style.width="100%"}ah.style.backgroundColor=u.style.backgroundColor;ah.parentNode.insertBefore(ah,ah.parentNode.firstChild);u.parentNode.removeChild(u)}return r},HTMLhandleSpace:function(d){d.bbox.keepPadding=true;d.bbox.exact=true;if(!this.hasFrame&&d.bbox.width==null){d.firstChild.style.marginLeft=d.firstChild.style.marginRight=b.Em(1/6);d.bbox.w+=1/3;d.bbox.rw+=1/3;d.bbox.lw+=1/6}this.SUPER(arguments).HTMLhandleSpace.call(this,d)}});a.mtd.Augment({toHTML:function(e,d,g){e=this.HTMLcreateSpan(e);if(this.data[0]){var f=this.data[0].toHTML(e);if(g!=null){f=this.data[0].HTMLstretchV(e,d,g)}else{if(d!=null){f=this.data[0].HTMLstretchH(e,d)}}e.bbox=f.bbox}this.HTMLhandleSpace(e);this.HTMLhandleColor(e);return e},HTMLstretchH:a.mbase.HTMLstretchH,HTMLstretchV:a.mbase.HTMLstretchV});MathJax.Hub.Startup.signal.Post("HTML-CSS mtable Ready");MathJax.Ajax.loadComplete(b.autoloadDir+"/mtable.js")});
+MathJax.Hub.Register.StartupHook("HTML-CSS Jax Ready",function () {
+  var VERSION = "2.7.5";
+  var MML = MathJax.ElementJax.mml,
+      HTMLCSS = MathJax.OutputJax["HTML-CSS"];
+  
+  MML.mtable.Augment({
+    toHTML: function (span) {
+      span = this.HTMLcreateSpan(span);
+      if (this.data.length === 0) {return span}
+      var values = this.getValues("columnalign","rowalign","columnspacing","rowspacing",
+                                  "columnwidth","equalcolumns","equalrows",
+                                  "columnlines","rowlines","frame","framespacing",
+                                  "align","useHeight","width","side","minlabelspacing");
+      var hasRelativeWidth = values.width.match(/%$/);
+      var stack = HTMLCSS.createStack(span);
+      var scale = this.HTMLgetScale(), mu = this.HTMLgetMu(span), LABEL = -1;
+
+      var H = [], D = [], W = [], A = [], C = [], i, j, J = -1,
+          m, M, s, row, cell, mo, entries = [], HD;
+      var LH = HTMLCSS.FONTDATA.lineH * scale * values.useHeight,
+          LD = HTMLCSS.FONTDATA.lineD * scale * values.useHeight;
+
+      //
+      //  Create cells and measure columns and rows
+      //
+      for (i = 0, m = this.data.length; i < m; i++) {
+        row = this.data[i]; s = (row.type === "mlabeledtr" ? LABEL : 0);
+        A[i] = []; H[i] = LH; D[i] = LD;
+        for (j = s, M = row.data.length + s; j < M; j++) {
+          if (W[j] == null) {
+            if (j > J) {J = j}
+            C[j] = HTMLCSS.createStack(HTMLCSS.createBox(stack));
+            W[j] = -HTMLCSS.BIGDIMEN;
+          }
+          A[i][j] = HTMLCSS.createBox(C[j]);
+          entries.push(row.data[j-s].toHTML(A[i][j]));
+        }
+      }
+      HTMLCSS.MeasureSpans(entries);
+      for (i = 0, m = this.data.length; i < m; i++) {
+        row = this.data[i]; s = (row.type === "mlabeledtr" ? LABEL : 0);
+        for (j = s, M = row.data.length + s; j < M; j++) {
+          cell = row.data[j-s];
+          if (cell.isMultiline) {A[i][j].style.width = "100%"}
+          if (cell.isEmbellished()) {
+            mo = cell.CoreMO();
+            var min = mo.Get("minsize",true);
+            if (min) {
+              var bbox = mo.HTMLspanElement().bbox;
+              if (mo.HTMLcanStretch("Vertical")) {
+                HD = bbox.h + bbox.d;
+                if (HD) {
+                  min = HTMLCSS.length2em(min,mu,HD);
+                  if (min*bbox.h/HD > H[i]) {H[i] = min*bbox.h/HD}
+                  if (min*bbox.d/HD > D[i]) {D[i] = min*bbox.d/HD}
+                }
+              } else if (mo.HTMLcanStretch("Horizontal")) {
+                min = HTMLCSS.length2em(min,mu,bbox.w);
+                if (min > W[j]) {W[j] = min}
+              }
+            }
+          }
+          if (A[i][j].bbox.h > H[i]) {H[i] = A[i][j].bbox.h}
+          if (A[i][j].bbox.d > D[i]) {D[i] = A[i][j].bbox.d}
+          if (A[i][j].bbox.w > W[j]) {W[j] = A[i][j].bbox.w}
+        }
+      }
+
+      //
+      //  Determine spacing and alignment
+      //
+      var SPLIT = MathJax.Hub.SplitList;
+      var CSPACE = SPLIT(values.columnspacing),
+          RSPACE = SPLIT(values.rowspacing),
+          CALIGN = SPLIT(values.columnalign),
+          RALIGN = SPLIT(values.rowalign),
+          CLINES = SPLIT(values.columnlines),
+          RLINES = SPLIT(values.rowlines),
+          CWIDTH = SPLIT(values.columnwidth),
+          RCALIGN = [];
+      for (i = 0, m = CSPACE.length; i < m; i++) {CSPACE[i] = HTMLCSS.length2em(CSPACE[i],mu)}
+      for (i = 0, m = RSPACE.length; i < m; i++) {RSPACE[i] = HTMLCSS.length2em(RSPACE[i],mu)}
+      while (CSPACE.length <  J) {CSPACE.push(CSPACE[CSPACE.length-1])}
+      while (CALIGN.length <= J) {CALIGN.push(CALIGN[CALIGN.length-1])}
+      while (CLINES.length <  J) {CLINES.push(CLINES[CLINES.length-1])}
+      while (CWIDTH.length <= J) {CWIDTH.push(CWIDTH[CWIDTH.length-1])}
+      while (RSPACE.length <  A.length) {RSPACE.push(RSPACE[RSPACE.length-1])}
+      while (RALIGN.length <= A.length) {RALIGN.push(RALIGN[RALIGN.length-1])}
+      while (RLINES.length <  A.length) {RLINES.push(RLINES[RLINES.length-1])}
+      if (C[LABEL]) {
+        CALIGN[LABEL] = (values.side.substr(0,1) === "l" ? "left" : "right");
+        CSPACE[LABEL] = -W[LABEL];
+      }
+      //
+      //  Override row data
+      //
+      for (i = 0, m = A.length; i < m; i++) {
+        row = this.data[i]; RCALIGN[i] = [];
+        if (row.rowalign) {RALIGN[i] = row.rowalign}
+        if (row.columnalign) {
+          RCALIGN[i] = SPLIT(row.columnalign);
+          while (RCALIGN[i].length <= J) {RCALIGN[i].push(RCALIGN[i][RCALIGN[i].length-1])}
+        }
+      }
+
+      //
+      //  Handle equal heights
+      //
+      if (values.equalrows) {
+        // FIXME:  should really be based on row align (below is for baseline)
+        var Hm = Math.max.apply(Math,H), Dm = Math.max.apply(Math,D);
+        for (i = 0, m = A.length; i < m; i++)
+          {s = ((Hm + Dm) - (H[i] + D[i])) / 2;  H[i] += s; D[i] += s}
+      }
+
+      //  FIXME:  do background colors for entire cell (include half the intercolumn space?)
+      
+      //
+      //  Determine array total height
+      //
+      HD = H[0] + D[A.length-1];
+      for (i = 0, m = A.length-1; i < m; i++) {HD += Math.max(0,D[i]+H[i+1]+RSPACE[i])}
+      //
+      //  Determine frame and line sizes
+      //
+      var fx = 0, fy = 0, fW, fH = HD;
+      if (values.frame !== "none" ||
+         (values.columnlines+values.rowlines).match(/solid|dashed/)) {
+        var frameSpacing = SPLIT(values.framespacing);
+        if (frameSpacing.length != 2) {
+          // invalid attribute value: use the default.
+          frameSpacing = SPLIT(this.defaults.framespacing);
+        }
+        fx = HTMLCSS.length2em(frameSpacing[0],mu);
+        fy = HTMLCSS.length2em(frameSpacing[1],mu);
+        fH = HD + 2*fy; // fW waits until stack.bbox.w is determined
+      }
+      //
+      //  Compute alignment
+      //
+      var Y, fY, n = "";
+      if (typeof(values.align) !== "string") {values.align = String(values.align)}
+      if (values.align.match(/(top|bottom|center|baseline|axis)( +(-?\d+))?/))
+        {n = RegExp.$3||""; values.align = RegExp.$1} else {values.align = this.defaults.align}
+      if (n !== "") {
+        //
+        //  Find the height of the given row
+        //
+        n = parseInt(n);
+        if (n < 0) {n = A.length + 1 + n}
+        if (n < 1) {n = 1} else if (n > A.length) {n = A.length}
+        Y = 0; fY = -(HD + fy) + H[0];
+        for (i = 0, m = n-1; i < m; i++) {
+          // FIXME:  Should handle values.align for final row
+          var dY = Math.max(0,D[i]+H[i+1]+RSPACE[i]);
+          Y += dY; fY += dY;
+        }
+      } else {
+        Y = ({
+          top:    -(H[0] + fy),
+          bottom:   HD + fy - H[0],
+          center:   HD/2 - H[0],
+          baseline: HD/2 - H[0],
+          axis:     HD/2 + HTMLCSS.TeX.axis_height*scale - H[0]
+        })[values.align];
+        fY = ({
+          top:      -(HD + 2*fy),
+          bottom:   0,
+          center:   -(HD/2 + fy),
+          baseline: -(HD/2 + fy),
+          axis:     HTMLCSS.TeX.axis_height*scale - HD/2 - fy
+        })[values.align];
+      }
+            
+      var WW, WP = 0, Wt = 0, Wp = 0, p = 0, f = 0, P = [], F = [], Wf = 1;
+      //
+      if (values.equalcolumns && values.width !== "auto") {
+        //
+        //  Handle equalcolumns for percent-width and fixed-width tables
+        //
+        if (hasRelativeWidth) {
+          //  Set widths to percentages
+          WW = (100/(J+1)).toFixed(2).replace(/\.?0+$/,"")+"%";
+          for (i = 0, m = Math.min(J+1,CWIDTH.length); i < m; i++) {CWIDTH[i] = WW}
+          //  Get total column spacing
+          WW = 0; WP = 1; f = J+1;
+          for (i = 0, m = Math.min(J+1,CSPACE.length); i < m; i++) {WW += CSPACE[i]}
+        } else {
+          //  Get total width minus column spacing
+          WW = HTMLCSS.length2em(values.width,mu);
+          for (i = 0, m = Math.min(J,CSPACE.length); i < m; i++) {WW -= CSPACE[i]}
+          //  Determine individual column widths
+          WW /= J;
+          for (i = 0, m = Math.min(J+1,CWIDTH.length); i < m; i++) {W[i] = WW}
+        }
+      } else {
+        //
+        //  Get column widths for fit and percentage columns
+        //
+        //  Calculate the natural widths and percentage widths,
+        //    while keeping track of the fit and percentage columns
+        for(i = 0, m = Math.min(J+1,CWIDTH.length); i < m; i++) {
+          if (CWIDTH[i] === "auto") {Wt += W[i]}
+          else if (CWIDTH[i] === "fit") {F[f] = i; f++; Wt += W[i]}
+          else if (CWIDTH[i].match(/%$/))
+            {P[p] = i; p++; Wp += W[i]; WP += HTMLCSS.length2em(CWIDTH[i],mu,1)}
+          else {W[i] = HTMLCSS.length2em(CWIDTH[i],mu); Wt += W[i]}
+        }
+        if (hasRelativeWidth) {
+          // Get separation width and check percentages
+          WW = 0; for (i = 0, m = Math.min(J,CSPACE.length); i < m; i++) {WW += CSPACE[i]}
+          if (WP > .98) {Wf = .98/WP; WP = .98}
+        } else {
+          // Get the full width (excluding inter-column spacing)
+          if (values.width === "auto") {
+            if (WP > .98) {Wf = Wp/(Wt+Wp); WW = Wt + Wp} else {WW = Wt / (1-WP)}
+          } else {
+            WW = HTMLCSS.length2em(values.width,mu);
+            for (i = 0, m = Math.min(J,CSPACE.length); i < m; i++) {WW -= CSPACE[i]}
+          }
+          //  Determine the relative column widths
+          for (i = 0, m = P.length; i < m; i++) {
+            W[P[i]] = HTMLCSS.length2em(CWIDTH[P[i]],mu,WW*Wf); Wt += W[P[i]];
+          }
+          //  Stretch fit columns, if any, otherwise stretch (or shrink) everything
+          if (Math.abs(WW - Wt) > .01) {
+            if (f && WW > Wt) {
+              WW = (WW - Wt) / f; for (i = 0, m = F.length; i < m; i++) {W[F[i]] += WW}
+            } else {WW = WW/Wt; for (j = 0; j <= J; j++) {W[j] *= WW}}
+          }
+          //
+          //  Handle equal columns
+          //
+          if (values.equalcolumns) {
+            var Wm = Math.max.apply(Math,W);
+            for (j = 0; j <= J; j++) {W[j] = Wm}
+          }
+        }
+      }
+      
+      //
+      //  Lay out array columns
+      //
+      var y = Y, dy, line, align; s = (C[LABEL] ? LABEL : 0);
+      for (j = s; j <= J; j++) {
+        for (i = 0, m = A.length; i < m; i++) {
+          if (A[i][j]) {
+            s = (this.data[i].type === "mlabeledtr" ? LABEL : 0);
+            cell = this.data[i].data[j-s];
+            if (cell.HTMLcanStretch("Horizontal")) {
+              A[i][j].bbox = cell.HTMLstretchH(C[j],W[j]).bbox;
+            } else if (cell.HTMLcanStretch("Vertical")) {
+              mo = cell.CoreMO();
+              var symmetric = mo.symmetric; mo.symmetric = false;
+              A[i][j].bbox = cell.HTMLstretchV(C[j],H[i],D[i]).bbox; A[i][j].HH = null;
+              if (A[i][j].bbox.h > H[i]) {A[i][j].bbox.H = A[i][j].bbox.h; A[i][j].bbox.h = H[i]}
+              if (A[i][j].bbox.d > D[i]) {A[i][j].bbox.D = A[i][j].bbox.d; A[i][j].bbox.d = D[i]}
+              mo.symmetric = symmetric;
+            }
+            align = cell.rowalign||this.data[i].rowalign||RALIGN[i];
+            dy = ({top:    H[i] - A[i][j].bbox.h,
+                   bottom: A[i][j].bbox.d - D[i],
+                   center: ((H[i]-D[i]) - (A[i][j].bbox.h-A[i][j].bbox.d))/2,
+                   baseline: 0, axis: 0})[align] || 0; // FIXME:  handle axis better?
+            align = (cell.columnalign||RCALIGN[i][j]||CALIGN[j]);
+            HTMLCSS.alignBox(A[i][j],align,y+dy);
+          }
+          if (i < A.length-1) {y -= Math.max(0,D[i]+H[i+1]+RSPACE[i])}
+        }
+        y = Y;
+      }
+
+      //
+      //  Set column widths and placement
+      //
+      if (hasRelativeWidth) {
+        //
+        //  Remove column spacing to get width available for columns
+        //
+        var box = HTMLCSS.createBox(stack); box.style.left = box.style.top = 0;
+        box.style.right = HTMLCSS.Em(WW+2*fx); box.style.display = "inline-block";
+        box.style.height = "0px";
+        if (HTMLCSS.msieRelativeWidthBug) {
+          box = HTMLCSS.createBox(box); box.style.position = "relative";
+          box.style.height = "1em"; box.style.width = "100%"; box.bbox = stack.bbox;
+        }
+        //
+        //  wp = remaining width (%) divided by the number of columns it is split over
+        //  wm = remaining width (fixed) divided by the number of columns it is split over
+        //
+        var xp = 0, xf = fx, wp, wm;
+        if (f) {wp = 100*(1-WP)/f, wm = Wt/f} else {wp = 100*(1-WP)/(J+1); wm = Wt/(J+1)}
+        for (j = 0; j <= J; j++) {
+          HTMLCSS.placeBox(C[j].parentNode,0,0); // sets the bbox
+          //
+          //  Convert original column to the innermost span in the mobile column
+          //
+          C[j].style.position = "relative";
+          C[j].style.left = HTMLCSS.Em(xf);
+          C[j].style.width = "100%";
+          C[j].parentNode.parentNode.removeChild(C[j].parentNode);
+          var Cj = HTMLCSS.createBox(box); HTMLCSS.addBox(Cj,C[j]); C[j] = Cj;
+          var CjStyle = Cj.style; CjStyle.display = "inline-block"; CjStyle.left = xp + "%";
+          //
+          //  Set width/position based on the type of column
+          //
+          if (CWIDTH[j].match(/%$/)) {
+            var pp = parseFloat(CWIDTH[j]) * Wf;
+            if (f === 0) {
+              CjStyle.width = (wp + pp) + "%"; xp += wp + pp;
+              Cj = HTMLCSS.createBox(Cj); HTMLCSS.addBox(Cj,C[j].firstChild);
+              Cj.style.left = 0; Cj.style.right = HTMLCSS.Em(wm); xf -= wm;
+            } else {
+              CjStyle.width = pp + "%"; xp += pp;
+            }
+          } else if (CWIDTH[j] === "fit" || f === 0) {
+            CjStyle.width = wp + "%";
+            Cj = HTMLCSS.createBox(Cj); HTMLCSS.addBox(Cj,C[j].firstChild);
+            Cj.style.left = 0; Cj.style.right = HTMLCSS.Em(wm-W[j]);
+            xf += W[j] - wm; xp += wp;
+          } else {
+            CjStyle.width = HTMLCSS.Em(W[j]); xf += W[j];
+          }
+	  if (HTMLCSS.msieRelativeWidthBug) {
+            HTMLCSS.addText(Cj.firstChild,HTMLCSS.NBSP); // gets correct baseline
+            Cj.firstChild.style.position = "relative";
+          }
+          xf += CSPACE[j];
+          //
+          //  Add column lines
+          //
+          if (CLINES[j] !== "none" && j < J && j !== LABEL) {
+            line = HTMLCSS.createBox(box); line.style.left = xp+"%";
+            line = HTMLCSS.createRule(line,fH,0,1.25/HTMLCSS.em); line.style.position = "absolute";
+            line.bbox = {h:fH, d:0, w:0, rw:1.25/HTMLCSS.em, lw:0};
+            line.parentNode.bbox = stack.bbox; // make sure stack size is updated
+            HTMLCSS.placeBox(line,xf-CSPACE[j]/2,fY,true); line.style.borderStyle = CLINES[j];
+          }
+        }
+      } else {
+        //
+        //  Set the column box widths and place them
+        //
+        var x = fx;
+        for (j = 0; j <= J; j++) {
+          if (!C[j].bbox.width) {HTMLCSS.setStackWidth(C[j],W[j])}
+          if (CWIDTH[j] !== "auto" && CWIDTH[j] !== "fit")
+            {C[j].bbox.width = W[j]; C[j].bbox.isFixed = true}
+          HTMLCSS.placeBox(C[j].parentNode,x,0); x += W[j] + CSPACE[j];
+          //
+          //  Add column lines
+          //
+          if (CLINES[j] !== "none" && j < J && j !== LABEL) {
+            line = HTMLCSS.createRule(stack,fH,0,1.25/HTMLCSS.em); HTMLCSS.addBox(stack,line);
+            line.bbox = {h:fH, d:0, w:0, rw:1.25/HTMLCSS.em, lw:0};
+            HTMLCSS.placeBox(line,x-CSPACE[j]/2,fY,true); line.style.borderStyle = CLINES[j];
+          }
+        }
+      }
+      stack.bbox.d = -fY; stack.bbox.h = fH+fY;
+      HTMLCSS.setStackWidth(stack,stack.bbox.w + fx);
+
+      //
+      //  Add frame
+      //
+      fW = stack.bbox.w; var frame;
+      if (values.frame !== "none") {
+        frame = HTMLCSS.createFrame(stack,fH,0,fW,1.25/HTMLCSS.em,values.frame);
+        HTMLCSS.addBox(stack,frame); HTMLCSS.placeBox(frame,0,fY,true);
+        if (hasRelativeWidth) {frame.style.width = "100%"}
+      }
+      //
+      //  Add row lines
+      //
+      y = Y;
+      for (i = 0, m = A.length-1; i < m; i++) {
+        dy = Math.max(0,D[i]+H[i+1]+RSPACE[i]);
+        if (RLINES[i] !== MML.LINES.NONE && RLINES[i] !== "") {
+          line = HTMLCSS.createRule(stack,1.25/HTMLCSS.em,0,fW); HTMLCSS.addBox(stack,line);
+          line.bbox = {h:1.25/HTMLCSS.em, d:0, w:fW, rw:fW, lw:0};
+          HTMLCSS.placeBox(line,0,y - D[i] - (dy-D[i]-H[i+1])/2,true);
+          if (RLINES[i] === MML.LINES.DASHED) line.style.borderTopStyle = "dashed";
+          if (hasRelativeWidth) line.style.width = "100%"
+        }
+        y -= dy;
+      }
+      //
+      //  Set relative width
+      //
+      if (hasRelativeWidth) {span.bbox.width = values.width; stack.style.width = "100%"}
+      //
+      //  Place the labels, if any
+      //
+      if (C[LABEL]) {
+        var mw = stack.bbox.w;
+        var indent = this.getValues("indentalignfirst","indentshiftfirst","indentalign","indentshift");
+        if (indent.indentalignfirst !== MML.INDENTALIGN.INDENTALIGN) {indent.indentalign = indent.indentalignfirst}
+        if (indent.indentalign === MML.INDENTALIGN.AUTO) {indent.indentalign = this.displayAlign}
+        if (indent.indentshiftfirst !== MML.INDENTSHIFT.INDENTSHIFT) {indent.indentshift = indent.indentshiftfirst}
+        if (indent.indentshift === "auto") {indent.indentshift = "0"}
+        var shift = HTMLCSS.length2em(indent.indentshift,mu,HTMLCSS.cwidth);
+        var labelspace = HTMLCSS.length2em(values.minlabelspacing,mu,HTMLCSS.cwidth);
+        var labelW = labelspace + C[LABEL].bbox.w, labelshift = 0, tw = mw;
+        var dIndent = HTMLCSS.length2em(this.displayIndent,mu,HTMLCSS.cwidth);
+        s = (CALIGN[LABEL] === MML.INDENTALIGN.RIGHT ? -1 : 1);
+        if (indent.indentalign === MML.INDENTALIGN.CENTER) {
+          tw += 2 * (labelW - s*(shift + dIndent));
+          shift += dIndent;
+        } else if (CALIGN[LABEL] === indent.indentalign) {
+          if (dIndent < 0) {labelshift = s*dIndent; dIndent = 0}
+          shift += s*dIndent; if (labelW > s*shift) shift = s*labelW; shift += labelshift;
+          tw += s*shift;
+        } else {
+          tw += labelW - s*shift + dIndent;
+          shift -= s*dIndent;
+        }
+        var eqn = HTMLCSS.createStack(span,false,"100%");
+        HTMLCSS.addBox(eqn,stack); HTMLCSS.alignBox(stack,indent.indentalign,0,shift);
+        C[LABEL].parentNode.parentNode.removeChild(C[LABEL].parentNode);
+        HTMLCSS.addBox(eqn,C[LABEL]); HTMLCSS.alignBox(C[LABEL],CALIGN[LABEL],0);
+        if (HTMLCSS.msieRelativeWidthBug) {stack.style.top = C[LABEL].style.top = ""}
+        if (hasRelativeWidth) {stack.style.width = values.width; span.bbox.width = "100%"}
+        C[LABEL].style[s === 1 ? "marginLeft" : "marginRight"] = HTMLCSS.Em(s*labelshift);
+        span.bbox.tw = tw;
+        span.style.minWidth = span.bbox.minWidth = HTMLCSS.Em(tw);
+        eqn.style.minWidth = eqn.bbox.minWidth = HTMLCSS.Em(tw/scale);
+      }
+      //
+      //  Finish the table
+      //
+      if (!hasRelativeWidth) {this.HTMLhandleSpace(span)}
+      var color = this.HTMLhandleColor(span);
+      //
+      //  Handle relative-sized background color
+      //
+      if (color && hasRelativeWidth) {
+        if (!frame) {
+          frame = HTMLCSS.createFrame(stack,fH,0,fW,0,"none");
+          HTMLCSS.addBox(stack,frame); HTMLCSS.placeBox(frame,0,fY,true);
+          frame.style.width = "100%";
+        }
+        frame.style.backgroundColor = color.style.backgroundColor;
+        frame.parentNode.insertBefore(frame,frame.parentNode.firstChild);
+        color.parentNode.removeChild(color);
+      }
+      return span;
+    },
+    HTMLhandleSpace: function (span) {
+      span.bbox.keepPadding = true; span.bbox.exact = true;
+      if (!this.hasFrame && span.bbox.width == null) {
+        span.firstChild.style.marginLeft = span.firstChild.style.marginRight = HTMLCSS.Em(1/6);
+        span.bbox.w += 1/3; span.bbox.rw += 1/3; span.bbox.lw += 1/6;
+      }
+      this.SUPER(arguments).HTMLhandleSpace.call(this,span);
+    }
+  });
+  
+  MML.mtd.Augment({
+    toHTML: function (span,HW,D) {
+      span = this.HTMLcreateSpan(span);
+      if (this.data[0]) {
+        var box = this.data[0].toHTML(span);
+        if (D != null) {box = this.data[0].HTMLstretchV(span,HW,D)}
+        else if (HW != null) {box = this.data[0].HTMLstretchH(span,HW)}
+        span.bbox = box.bbox;
+      }
+      this.HTMLhandleSpace(span);
+      this.HTMLhandleColor(span);
+      return span;
+    },
+    HTMLstretchH: MML.mbase.HTMLstretchH,
+    HTMLstretchV: MML.mbase.HTMLstretchV
+  });
+
+  MathJax.Hub.Startup.signal.Post("HTML-CSS mtable Ready");
+  MathJax.Ajax.loadComplete(HTMLCSS.autoloadDir+"/mtable.js");
+  
+});
+

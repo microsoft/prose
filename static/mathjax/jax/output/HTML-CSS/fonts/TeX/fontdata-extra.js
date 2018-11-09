@@ -1,13 +1,21 @@
-/*
- *  /MathJax/jax/output/HTML-CSS/fonts/TeX/fontdata-extra.js
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
+/*************************************************************
  *
- *  Copyright (c) 2009-2018 The MathJax Consortium
+ *  MathJax/jax/output/HTML-CSS/fonts/TeX/fontdata-extra.js
+ *  
+ *  Adds extra stretchy characters to the TeX font data.
+ *
+ *  ---------------------------------------------------------------------
+ *  
+ *  Copyright (c) 2011-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,4 +24,218 @@
  *  limitations under the License.
  */
 
-(function(h){var n="2.7.5";var m=h.FONTDATA.DELIMITERS;var g="MathJax_Main",i="MathJax_Main-bold",k="MathJax_AMS",e="MathJax_Size1",a="MathJax_Size4";var l="H",f="V";var j=[8722,g,0,0,0,-0.3,-0.3];var c=[61,g,0,0,0,0,0.1];var d={61:{dir:l,HW:[[0.767,g]],stretch:{rep:[61,g]}},8606:{dir:l,HW:[[1,k]],stretch:{left:[8606,k],rep:j}},8608:{dir:l,HW:[[1,k]],stretch:{right:[8608,k],rep:j}},8612:{dir:l,HW:[],stretch:{min:1,left:[8592,g],rep:j,right:[8739,e,0,-0.05,0.9]}},8613:{dir:f,HW:[],stretch:{min:0.6,bot:[8869,i,0,0,0.75],ext:[9168,e],top:[8593,e]}},8614:{dir:l,HW:[[1,g]],stretch:{left:[8739,e,-0.09,-0.05,0.9],rep:j,right:[8594,g]}},8615:{dir:f,HW:[],stretch:{min:0.6,top:[8868,i,0,0,0.75],ext:[9168,e],bot:[8595,e]}},8624:{dir:f,HW:[[0.722,k]],stretch:{top:[8624,k],ext:[9168,e,0.097]}},8625:{dir:f,HW:[[0.722,k]],stretch:{top:[8625,k,0.27],ext:[9168,e]}},8636:{dir:l,HW:[[1,g]],stretch:{left:[8636,g],rep:j}},8637:{dir:l,HW:[[1,g]],stretch:{left:[8637,g],rep:j}},8638:{dir:f,HW:[[0.888,k]],stretch:{top:[8638,k,0.12,0,1.1],ext:[9168,e]}},8639:{dir:f,HW:[[0.888,k]],stretch:{top:[8639,k,0.12,0,1.1],ext:[9168,e]}},8640:{dir:l,HW:[[1,g]],stretch:{right:[8640,g],rep:j}},8641:{dir:l,HW:[[1,g]],stretch:{right:[8641,g],rep:j}},8642:{dir:f,HW:[[0.888,k]],stretch:{bot:[8642,k,0.12,0,1.1],ext:[9168,e]}},8643:{dir:f,HW:[[0.888,k]],stretch:{bot:[8643,k,0.12,0,1.1],ext:[9168,e]}},8666:{dir:l,HW:[[1,k]],stretch:{left:[8666,k],rep:[8801,g]}},8667:{dir:l,HW:[[1,k]],stretch:{right:[8667,k],rep:[8801,g]}},9140:{dir:l,HW:[],stretch:{min:0.5,left:[9484,k,0,-0.1],rep:[8722,g,0,0.35],right:[9488,k,0,-0.1]}},9141:{dir:l,HW:[],stretch:{min:0.5,left:[9492,k,0,0.26],rep:[8722,g,0,0,0,0.25],right:[9496,k,0,0.26]}},9180:{dir:l,HW:[[0.778,k,0,8994],[1,g,0,8994]],stretch:{left:[57680,a],rep:[57684,a],right:[57681,a]}},9181:{dir:l,HW:[[0.778,k,0,8995],[1,g,0,8995]],stretch:{left:[57682,a],rep:[57684,a],right:[57683,a]}},9184:{dir:l,HW:[],stretch:{min:1.25,left:[714,g,-0.1],rep:[713,g,0,0.13],right:[715,g],fullExtenders:true}},9185:{dir:l,HW:[],stretch:{min:1.5,left:[715,g,-0.1,0.1],rep:[713,g],right:[714,g,-0.1,0.1],fullExtenders:true}},10502:{dir:l,HW:[],stretch:{min:1,left:[8656,g],rep:c,right:[8739,e,0,-0.1]}},10503:{dir:l,HW:[],stretch:{min:0.7,left:[8872,k,0,-0.12],rep:c,right:[8658,g]}},10574:{dir:l,HW:[],stretch:{min:0.5,left:[8636,g],rep:j,right:[8640,g]}},10575:{dir:f,HW:[],stretch:{min:0.5,top:[8638,k,0.12,0,1.1],ext:[9168,e],bot:[8642,k,0.12,0,1.1]}},10576:{dir:l,HW:[],stretch:{min:0.5,left:[8637,g],rep:j,right:[8641,g]}},10577:{dir:f,HW:[],stretch:{min:0.5,top:[8639,k,0.12,0,1.1],ext:[9168,e],bot:[8643,k,0.12,0,1.1]}},10586:{dir:l,HW:[],stretch:{min:1,left:[8636,g],rep:j,right:[8739,e,0,-0.05,0.9]}},10587:{dir:l,HW:[],stretch:{min:1,left:[8739,e,-0.05,-0.05,0.9],rep:j,right:[8640,g]}},10588:{dir:f,HW:[],stretch:{min:0.7,bot:[8869,i,0,0,0.75],ext:[9168,e],top:[8638,k,0.12,0,1.1]}},10589:{dir:f,HW:[],stretch:{min:0.7,top:[8868,i,0,0,0.75],ext:[9168,e],bot:[8642,k,0.12,0,1.1]}},10590:{dir:l,HW:[],stretch:{min:1,left:[8637,g],rep:j,right:[8739,e,0,-0.05,0.9]}},10591:{dir:l,HW:[],stretch:{min:1,left:[8739,e,-0.05,-0.05,0.9],rep:j,right:[8641,g]}},10592:{dir:f,HW:[],stretch:{min:0.7,bot:[8869,i,0,0,0.75],ext:[9168,e],top:[8639,k,0.12,0,1.1]}},10593:{dir:f,HW:[],stretch:{min:0.7,top:[8868,i,0,0,0.75],ext:[9168,e],bot:[8643,k,0.12,0,1.1]}}};for(var b in d){if(d.hasOwnProperty(b)){m[b]=d[b]}}MathJax.Ajax.loadComplete(h.fontDir+"/fontdata-extra.js")})(MathJax.OutputJax["HTML-CSS"]);
+(function (HTMLCSS) {
+  var VERSION = "2.7.5";
+  
+  var DELIMITERS = HTMLCSS.FONTDATA.DELIMITERS;
+
+  var MAIN   = "MathJax_Main",
+      BOLD   = "MathJax_Main-bold",
+      AMS    = "MathJax_AMS",
+      SIZE1  = "MathJax_Size1",
+      SIZE4  = "MathJax_Size4";
+  var H = "H", V = "V";
+  var ARROWREP = [0x2212,MAIN,0,0,0,-.3,-.3];   // remove extra height/depth added below
+  var DARROWREP = [0x3D,MAIN,0,0,0,0,.1];       // add depth for arrow extender
+  
+  var delim = {
+    0x003D: // equal sign
+    {
+      dir: H, HW: [[.767,MAIN]], stretch: {rep:[0x003D,MAIN]}
+    },
+    0x219E: // left two-headed arrow
+    {
+      dir: H, HW: [[1,AMS]], stretch: {left:[0x219E,AMS], rep:ARROWREP}
+    },
+    0x21A0: // right two-headed arrow
+    {
+      dir: H, HW: [[1,AMS]], stretch: {right:[0x21A0,AMS], rep:ARROWREP}
+    },
+    0x21A4: // left arrow from bar
+    {
+      dir: H, HW: [],
+      stretch: {min:1, left:[0x2190,MAIN], rep:ARROWREP, right:[0x2223,SIZE1,0,-.05,.9]}
+    },
+    0x21A5: // up arrow from bar
+    {
+      dir: V, HW: [],
+      stretch: {min:.6, bot:[0x22A5,BOLD,0,0,.75], ext:[0x23D0,SIZE1], top:[0x2191,SIZE1]}
+    },
+    0x21A6: // right arrow from bar
+    {
+      dir: H, HW: [[1,MAIN]],
+      stretch: {left:[0x2223,SIZE1,-.09,-.05,.9], rep:ARROWREP, right:[0x2192,MAIN]}
+    },
+    0x21A7: // down arrow from bar
+    {
+      dir: V, HW: [],
+      stretch: {min:.6, top:[0x22A4,BOLD,0,0,.75], ext:[0x23D0,SIZE1], bot:[0x2193,SIZE1]}
+    },
+    0x21B0: // up arrow with top leftwards
+    {
+      dir: V, HW: [[.722,AMS]],
+      stretch: {top:[0x21B0,AMS], ext:[0x23D0,SIZE1,.097]}
+    },
+    0x21B1: // up arrow with top right
+    {
+      dir: V, HW: [[.722,AMS]],
+      stretch: {top:[0x21B1,AMS,.27], ext:[0x23D0,SIZE1]}
+    },
+    0x21BC: // left harpoon with barb up
+    {
+      dir: H, HW: [[1,MAIN]],
+      stretch: {left:[0x21BC,MAIN], rep:ARROWREP}
+    },
+    0x21BD: // left harpoon with barb down
+    {
+      dir: H, HW: [[1,MAIN]],
+      stretch: {left:[0x21BD,MAIN], rep:ARROWREP}
+    },
+    0x21BE: // up harpoon with barb right
+    {
+      dir: V, HW: [[.888,AMS]],
+      stretch: {top:[0x21BE,AMS,.12,0,1.1], ext:[0x23D0,SIZE1]}
+    },
+    0x21BF: // up harpoon with barb left
+    {
+      dir: V, HW: [[.888,AMS]],
+      stretch: {top:[0x21BF,AMS,.12,0,1.1], ext:[0x23D0,SIZE1]}
+    },
+    0x21C0: // right harpoon with barb up
+    {
+      dir: H, HW: [[1,MAIN]],
+      stretch: {right:[0x21C0,MAIN], rep:ARROWREP}
+    },
+    0x21C1: // right harpoon with barb down
+    {
+      dir: H, HW: [[1,MAIN]],
+      stretch: {right:[0x21C1,MAIN], rep:ARROWREP}
+    },
+    0x21C2: // down harpoon with barb right
+    {
+      dir: V, HW: [[.888,AMS]],
+      stretch: {bot:[0x21C2,AMS,.12,0,1.1], ext:[0x23D0,SIZE1]}
+    },
+    0x21C3: // down harpoon with barb left
+    {
+      dir: V, HW: [[.888,AMS]],
+      stretch: {bot:[0x21C3,AMS,.12,0,1.1], ext:[0x23D0,SIZE1]}
+    },
+    0x21DA: // left triple arrow
+    {
+      dir: H, HW: [[1,AMS]],
+      stretch: {left:[0x21DA,AMS], rep:[0x2261,MAIN]}
+    },
+    0x21DB: // right triple arrow
+    {
+      dir: H, HW: [[1,AMS]],
+      stretch: {right:[0x21DB,AMS], rep:[0x2261,MAIN]}
+    },
+    0x23B4: // top square bracket
+    {
+      dir: H, HW: [],
+      stretch: {min:.5, left:[0x250C,AMS,0,-.1], rep:[0x2212,MAIN,0,.35], right:[0x2510,AMS,0,-.1]}
+    },
+    0x23B5: // bottom square bracket
+    {
+      dir: H, HW: [],
+      stretch: {min:.5, left:[0x2514,AMS,0,.26], rep:[0x2212,MAIN,0,0,0,.25], right:[0x2518,AMS,0,.26]}
+    },
+    0x23DC: // top paren
+    {
+      dir: H, HW: [[.778,AMS,0,0x2322],[1,MAIN,0,0x2322]],
+      stretch: {left:[0xE150,SIZE4], rep:[0xE154,SIZE4], right:[0xE151,SIZE4]}
+    },
+    0x23DD: // bottom paren
+    {
+      dir: H, HW: [[.778,AMS,0,0x2323],[1,MAIN,0,0x2323]],
+      stretch: {left:[0xE152,SIZE4], rep:[0xE154,SIZE4], right:[0xE153,SIZE4]}
+    },
+    0x23E0: // top tortoise shell
+    {
+      dir: H, HW: [],
+      stretch: {min:1.25, left:[0x2CA,MAIN,-.1], rep:[0x2C9,MAIN,0,.13], right:[0x2CB,MAIN], fullExtenders:true}
+    },
+    0x23E1: // bottom tortoise shell
+    {
+      dir: H, HW: [],
+      stretch: {min:1.5, left:[0x2CB,MAIN,-.1,.1], rep:[0x2C9,MAIN], right:[0x2CA,MAIN,-.1,.1], fullExtenders:true}
+    },
+    0x2906: // leftwards double arrow from bar
+    {
+      dir: H, HW: [],
+      stretch: {min:1, left:[0x21D0,MAIN], rep:DARROWREP, right:[0x2223,SIZE1,0,-.1]}
+    },
+    0x2907: // rightwards double arrow from bar
+    {
+      dir: H, HW: [],
+      stretch: {min:.7, left:[0x22A8,AMS,0,-.12], rep:DARROWREP, right:[0x21D2,MAIN]}
+    },
+    0x294E: // left barb up right barb up harpoon
+    {
+      dir: H, HW: [],
+      stretch: {min:.5, left:[0x21BC,MAIN], rep:ARROWREP, right:[0x21C0,MAIN]}
+    },
+    0x294F: // up barb right down barb right harpoon
+    {
+      dir: V, HW: [],
+      stretch: {min:.5, top:[0x21BE,AMS,.12,0,1.1], ext:[0x23D0,SIZE1], bot:[0x21C2,AMS,.12,0,1.1]}
+    },
+    0x2950: // left barb dow right barb down harpoon
+    {
+      dir: H, HW: [],
+      stretch: {min:.5, left:[0x21BD,MAIN], rep:ARROWREP, right:[0x21C1,MAIN]}
+    },
+    0x2951: // up barb left down barb left harpoon
+    {
+      dir: V, HW: [],
+      stretch: {min:.5, top:[0x21BF,AMS,.12,0,1.1], ext:[0x23D0,SIZE1], bot:[0x21C3,AMS,.12,0,1.1]}
+    },
+    0x295A: // leftwards harpoon with barb up from bar
+    {
+      dir: H, HW: [],
+      stretch: {min:1, left:[0x21BC,MAIN], rep:ARROWREP, right:[0x2223,SIZE1,0,-.05,.9]}
+    },
+    0x295B: // rightwards harpoon with barb up from bar
+    {
+      dir: H, HW: [],
+      stretch: {min:1, left:[0x2223,SIZE1,-.05,-.05,.9], rep:ARROWREP, right:[0x21C0,MAIN]}
+    },
+    0x295C: // up harpoon with barb right from bar
+    {
+      dir: V, HW: [],
+      stretch: {min:.7, bot:[0x22A5,BOLD,0,0,.75], ext:[0x23D0,SIZE1], top:[0x21BE,AMS,.12,0,1.1]}
+    },
+    0x295D: // down harpoon with barb right from bar
+    {
+      dir: V, HW: [],
+      stretch: {min:.7, top:[0x22A4,BOLD,0,0,.75], ext:[0x23D0,SIZE1], bot:[0x21C2,AMS,.12,0,1.1]}
+    },
+    0x295E: // leftwards harpoon with barb down from bar
+    {
+      dir: H, HW: [],
+      stretch: {min:1, left:[0x21BD,MAIN], rep:ARROWREP, right:[0x2223,SIZE1,0,-.05,.9]}
+    },
+    0x295F: // rightwards harpoon with barb down from bar
+    {
+      dir: H, HW: [],
+      stretch: {min:1, left:[0x2223,SIZE1,-.05,-.05,.9], rep:ARROWREP, right:[0x21C1,MAIN]}
+    },
+    0x2960: // up harpoon with barb left from bar
+    {
+      dir: V, HW: [],
+      stretch: {min:.7, bot:[0x22A5,BOLD,0,0,.75], ext:[0x23D0,SIZE1], top:[0x21BF,AMS,.12,0,1.1]}
+    },
+    0x2961: // down harpoon with barb left from bar
+    {
+      dir: V, HW: [],
+      stretch: {min:.7, top:[0x22A4,BOLD,0,0,.75], ext:[0x23D0,SIZE1], bot:[0x21C3,AMS,.12,0,1.1]}
+    }
+  };
+  
+  for (var id in delim) {if (delim.hasOwnProperty(id)) {DELIMITERS[id] = delim[id]}};
+
+  MathJax.Ajax.loadComplete(HTMLCSS.fontDir + "/fontdata-extra.js");
+
+})(MathJax.OutputJax["HTML-CSS"]);
+

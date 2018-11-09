@@ -8,9 +8,17 @@ var ts = require('gulp-typescript');
 var sourcemaps = require('gulp-sourcemaps');
 var del = require('del');
 
+gulp.task('mathjax-fonts', function() {
+    var SRC = 'node_modules/mathjax/fonts/**';
+    var DEST = 'static/fonts';
+
+    return gulp.src(SRC)
+        .pipe(gulp.dest(DEST));
+});
+
 gulp.task('mathjax', function() {
-    var SRC = 'node_modules/mathjax/**',
-        DEST = 'static/mathjax';
+    var SRC = 'node_modules/mathjax/unpacked/**';
+    var DEST = 'static/mathjax';
     
     return gulp.src(SRC)
         .pipe(gulp.dest(DEST));
@@ -25,7 +33,7 @@ gulp.task('ts', function () {
         .pipe(gulp.dest('js'));
 });
 
-gulp.task('scripts', gulp.series(gulp.parallel('ts', 'mathjax'), function () {
+gulp.task('scripts', gulp.series(gulp.parallel('ts', 'mathjax', 'mathjax-fonts'), function () {
     var SRC = [
         'node_modules/clipboard/dist/clipboard.min.js',
         'node_modules/jquery/dist/jquery.min.js',
@@ -45,8 +53,8 @@ gulp.task('scripts', gulp.series(gulp.parallel('ts', 'mathjax'), function () {
 }));
 
 gulp.task('fonts', function() {
-    var SRC = 'node_modules/font-awesome/fonts/*',
-        DEST = 'fonts';
+    var SRC = 'node_modules/font-awesome/fonts/*';
+    var DEST = 'fonts';
     
     return gulp.src(SRC)
         .pipe(gulp.dest(DEST));

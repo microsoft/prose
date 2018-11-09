@@ -1,14 +1,22 @@
-/*
- *  /MathJax/jax/output/SVG/autoload/multiline.js
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
+/*************************************************************
  *
- *  Copyright (c) 2009-2018 The MathJax Consortium
+ *  MathJax/jax/output/SVG/autoload/multiline.js
+ *  
+ *  Implements the SVG output for <mrow>'s that contain line breaks.
  *
+ *  ---------------------------------------------------------------------
+ *  
+ *  Copyright (c) 2011-2018 The MathJax Consortium
+ * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,4 +24,709 @@
  *  limitations under the License.
  */
 
-MathJax.Hub.Register.StartupHook("SVG Jax Ready",function(){var d="2.7.5";var a=MathJax.ElementJax.mml,g=MathJax.OutputJax.SVG,b=g.BBOX;var f=a.mo().With({SVGdata:{w:0,x:0}});var e={newline:0,nobreak:1000000,goodbreak:[-200],badbreak:[+200],auto:[0],maxwidth:1.33,toobig:800,nestfactor:400,spacefactor:-100,spaceoffset:2,spacelimit:1,fence:500,close:500};var c={linebreakstyle:"after"};a.mrow.Augment({SVGmultiline:function(l){var p=this;while(p.inferred||(p.parent&&p.parent.type==="mrow"&&p.isEmbellished())){p=p.parent}var o=((p.type==="math"&&p.Get("display")==="block")||p.type==="mtd");p.isMultiline=true;var q=this.getValues("linebreak","linebreakstyle","lineleading","linebreakmultchar","indentalign","indentshift","indentalignfirst","indentshiftfirst","indentalignlast","indentshiftlast");if(q.linebreakstyle===a.LINEBREAKSTYLE.INFIXLINEBREAKSTYLE){q.linebreakstyle=this.Get("infixlinebreakstyle")}q.lineleading=g.length2em(q.lineleading,1,0.5);l=this.SVG();if(o&&p.type!=="mtd"){if(g.linebreakWidth<g.BIGDIMEN){l.w=g.linebreakWidth}else{l.w=g.cwidth}}var h={n:0,Y:0,scale:this.scale||1,isTop:o,values:{},VALUES:q},n=this.SVGgetAlign(h,{}),j=this.SVGgetShift(h,{},n),i=[],k={index:[],penalty:e.nobreak,w:0,W:j,shift:j,scanW:j,nest:0},m=false;while(this.SVGbetterBreak(k,h,true)&&(k.scanW>=g.linebreakWidth||k.penalty===e.newline)){this.SVGaddLine(l,i,k.index,h,k.values,m);i=k.index.slice(0);m=true;n=this.SVGgetAlign(h,k.values);j=this.SVGgetShift(h,k.values,n);if(n===a.INDENTALIGN.CENTER){j=0}k.W=k.shift=k.scanW=j;k.penalty=e.nobreak}h.isLast=true;this.SVGaddLine(l,i,[],h,c,m);this.SVGhandleSpace(l);this.SVGhandleColor(l);l.isMultiline=true;this.SVGsaveData(l);return l}});a.mbase.Augment({SVGlinebreakPenalty:e,SVGbetterBreak:function(l,h,s){if(this.isToken){return false}if(this.isEmbellished()){l.embellished=this;return this.CoreMO().SVGbetterBreak(l,h)}if(this.linebreakContainer){return false}var r=l.index.slice(0),p=l.index.shift(),o=this.data.length,n,t,k,q=(l.index.length>0),j=false;if(p==null){p=-1}if(!q){p++;l.W+=l.w;l.w=0}k=l.scanW=l.W;l.nest++;while(p<o&&(l.scanW<e.maxwidth*g.linebreakWidth||l.w===0)){if(this.data[p]){if(this.data[p].SVGbetterBreak(l,h)){j=true;r=[p].concat(l.index);n=l.W;t=l.w;if(l.penalty===e.newline){l.index=r;if(l.nest){l.nest--}return true}}k=(q?l.scanW:this.SVGaddWidth(p,l,k))}l.index=[];p++;q=false}if(s&&j){f.parent=this.parent;f.inherit=this.inherit;if(f.SVGbetterBreak(l,h)){j=false;r=l.index}}if(l.nest){l.nest--}l.index=r;if(j){l.W=n}return j},SVGaddWidth:function(j,l,k){if(this.data[j]){var h=this.data[j].SVGdata;k+=h.w+h.x;if(h.X){k+=h.X}l.W=l.scanW=k;l.w=0}return k},SVGaddLine:function(m,i,l,h,q,o){var r=b();h.first=o;h.last=true;this.SVGmoveLine(i,l,r,h,q);r.Clean();var p=this.SVGgetAlign(h,q),j=this.SVGgetShift(h,q,p);if(h.n>0){var n=g.FONTDATA.baselineskip*h.scale;var k=(h.values.lineleading==null?h.VALUES:h.values).lineleading*h.scale;h.Y-=Math.max(n,h.d+r.h+k)}if(r.w+j>m.w){m.w=r.w+j}m.Align(r,p,0,h.Y,j);h.d=r.d;h.values=q;h.n++},SVGgetAlign:function(k,h){var l=h,i=k.values,j=k.VALUES,m;if(k.n===0){m=l.indentalignfirst||i.indentalignfirst||j.indentalignfirst}else{if(k.isLast){m=i.indentalignlast||j.indentalignlast}else{m=i.indentalign||j.indentalign}}if(m===a.INDENTALIGN.INDENTALIGN){m=i.indentalign||j.indentalign}if(m===a.INDENTALIGN.AUTO){m=(k.isTop?this.displayAlign:a.INDENTALIGN.LEFT)}return m},SVGgetShift:function(m,j,o){var n=j,k=m.values,l=m.VALUES,i;if(m.n===0){i=n.indentshiftfirst||k.indentshiftfirst||l.indentshiftfirst}else{if(m.isLast){i=k.indentshiftlast||l.indentshiftlast}else{i=k.indentshift||l.indentshift}}if(i===a.INDENTSHIFT.INDENTSHIFT){i=k.indentshift||l.indentshift}if(i==="auto"||i===""){i="0"}i=g.length2em(i,1,g.cwidth);if(m.isTop&&this.displayIndent!=="0"){var h=g.length2em(this.displayIndent,1,g.cwidth);i+=(o===a.INDENTALIGN.RIGHT?-h:h)}return i},SVGmoveLine:function(q,h,l,p,k){var n=q[0],m=h[0];if(n==null){n=-1}if(m==null){m=this.data.length-1}if(n===m&&q.length>1){this.data[n].SVGmoveSlice(q.slice(1),h.slice(1),l,p,k,"paddingLeft")}else{var o=p.last;p.last=false;while(n<m){if(this.data[n]){if(q.length<=1){this.data[n].SVGmove(l,p,k)}else{this.data[n].SVGmoveSlice(q.slice(1),[],l,p,k,"paddingLeft")}}n++;p.first=false;q=[]}p.last=o;if(this.data[n]){if(h.length<=1){this.data[n].SVGmove(l,p,k)}else{this.data[n].SVGmoveSlice([],h.slice(1),l,p,k,"paddingRight")}}}},SVGmoveSlice:function(n,h,j,k,i,l){var m=b();this.SVGmoveLine(n,h,m,k,i);m.Clean();if(this.href){this.SVGaddHref(m)}this.SVGhandleColor(m);if(n.length==0){this.SVGhandleSpace(m)}j.Add(m,j.w,0,true);return m},SVGmove:function(h,k,j){if(!(k.first||k.last)||(k.first&&k.values.linebreakstyle===a.LINEBREAKSTYLE.BEFORE)||(k.last&&j.linebreakstyle===a.LINEBREAKSTYLE.AFTER)){var i=this.toSVG(this.SVGdata.HW,this.SVGdata.D);if(k.first||k.nextIsFirst){i.x=0}if(k.last&&i.X){i.X=0}h.Add(i,h.w,0,true)}if(k.first&&i&&i.w===0){k.nextIsFirst=true}else{delete k.nextIsFirst}}});a.mfenced.Augment({SVGbetterBreak:function(n,h){var v=n.index.slice(0),t=n.index.shift(),q=this.data.length,p,x,o,u=(n.index.length>0),l=false;if(t==null){t=-1}if(!u){t++;n.W+=n.w;n.w=0}o=n.scanW=n.W;n.nest++;if(!this.dataI){this.dataI=[];if(this.data.open){this.dataI.push("open")}if(q){this.dataI.push(0)}for(var s=1;s<q;s++){if(this.data["sep"+s]){this.dataI.push("sep"+s)}this.dataI.push(s)}if(this.data.close){this.dataI.push("close")}}q=this.dataI.length;while(t<q&&(n.scanW<e.maxwidth*g.linebreakWidth||n.w===0)){var r=this.dataI[t];if(this.data[r]){if(this.data[r].SVGbetterBreak(n,h)){l=true;v=[t].concat(n.index);p=n.W;x=n.w;if(n.penalty===e.newline){n.index=v;if(n.nest){n.nest--}return true}}o=(u?n.scanW:this.SVGaddWidth(t,n,o))}n.index=[];t++;u=false}if(n.nest){n.nest--}n.index=v;if(l){n.W=p;n.w=x}return l},SVGmoveLine:function(l,n,q,h,s){var p=l[0],o=n[0];if(p==null){p=-1}if(o==null){o=this.dataI.length-1}if(p===o&&l.length>1){this.data[this.dataI[p]].SVGmoveSlice(l.slice(1),n.slice(1),q,h,s,"paddingLeft")}else{var r=h.last;h.last=false;var m=this.dataI[p];while(p<o){if(this.data[m]){if(l.length<=1){this.data[m].SVGmove(q,h,s)}else{this.data[m].SVGmoveSlice(l.slice(1),[],q,h,s,"paddingLeft")}}p++;m=this.dataI[p];h.first=false;l=[]}h.last=r;if(this.data[m]){if(n.length<=1){this.data[m].SVGmove(q,h,s)}else{this.data[m].SVGmoveSlice([],n.slice(1),q,h,s,"paddingRight")}}}}});a.msubsup.Augment({SVGbetterBreak:function(k,h){if(!this.data[this.base]){return false}var p=k.index.slice(0),n=k.index.shift(),m,q,l,o=(k.index.length>0),j=false;if(!o){k.W+=k.w;k.w=0}l=k.scanW=k.W;if(n==null){this.SVGdata.dw=this.SVGdata.w-this.data[this.base].SVGdata.w}if(this.data[this.base].SVGbetterBreak(k,h)){j=true;p=[this.base].concat(k.index);m=k.W;q=k.w;if(k.penalty===e.newline){j=o=true}}if(!o){this.SVGaddWidth(this.base,k,l)}k.scanW+=this.SVGdata.dw;k.W=k.scanW;k.index=[];if(j){k.W=m;k.w=q;k.index=p}return j},SVGmoveLine:function(j,k,n,i,p){if(this.data[this.base]){if(j.length>1){this.data[this.base].SVGmoveSlice(j.slice(1),k.slice(1),n,i,p,"paddingLeft")}else{if(k.length<=1){this.data[this.base].SVGmove(n,i,p)}else{this.data[this.base].SVGmoveSlice([],k.slice(1),n,i,p,"paddingRight")}}}if(k.length===0){var m=this.data[this.sup],h=this.data[this.sub],o=n.w,l;if(m){l=m.SVGdata||{};n.Add(m.toSVG(),o+(l.dx||0),l.dy)}if(h){l=h.SVGdata||{};n.Add(h.toSVG(),o+(l.dx||0),l.dy)}}}});a.mmultiscripts.Augment({SVGbetterBreak:function(k,i){if(!this.data[this.base]){return false}var o=k.index.slice(0);k.index.shift();var m,p,l,n=(k.index.length>0),j=false;if(!n){k.W+=k.w;k.w=0}k.scanW=k.W;var h=this.SVGdata.w-this.data[this.base].SVGdata.w-this.SVGdata.dx;k.scanW+=this.SVGdata.dx;l=k.scanW;if(this.data[this.base].SVGbetterBreak(k,i)){j=true;o=[this.base].concat(k.index);m=k.W;p=k.w;if(k.penalty===e.newline){j=n=true}}if(!n){this.SVGaddWidth(this.base,k,l)}k.scanW+=h;k.W=k.scanW;k.index=[];if(j){k.W=m;k.w=p;k.index=o}return j},SVGmoveLine:function(j,l,o,i,q){var r,n=this.SVGdata;if(j.length<1){this.scriptBox=this.SVGgetScripts(this.SVGdata.s);var k=this.scriptBox[2],p=this.scriptBox[3];r=o.w+n.dx;if(p){o.Add(p,r+n.delta-p.w,n.u)}if(k){o.Add(k,r-k.w,-n.v)}}if(this.data[this.base]){if(j.length>1){this.data[this.base].SVGmoveSlice(j.slice(1),l.slice(1),o,i,q,"paddingLeft")}else{if(l.length<=1){this.data[this.base].SVGmove(o,i,q)}else{this.data[this.base].SVGmoveSlice([],l.slice(1),o,i,q,"paddingRight")}}}if(l.length===0){var h=this.scriptBox[0],m=this.scriptBox[1];r=o.w+n.s;if(m){o.Add(m,r,n.u)}if(h){o.Add(h,r-n.delta,-n.v)}delete this.scriptBox}}});a.mo.Augment({SVGbetterBreak:function(j,h){if(j.values&&j.values.last===this){return false}var r=this.getValues("linebreak","linebreakstyle","lineleading","linebreakmultchar","indentalign","indentshift","indentalignfirst","indentshiftfirst","indentalignlast","indentshiftlast","texClass","fence");if(r.linebreakstyle===a.LINEBREAKSTYLE.INFIXLINEBREAKSTYLE){r.linebreakstyle=this.Get("infixlinebreakstyle")}if(r.texClass===a.TEXCLASS.OPEN){j.nest++}if(r.texClass===a.TEXCLASS.CLOSE&&j.nest){j.nest--}var k=j.scanW,l=j.embellished;delete j.embellished;if(!l||!l.SVGdata){l=this}var n=l.SVGdata,q=n.w+n.x;if(r.linebreakstyle===a.LINEBREAKSTYLE.AFTER){k+=q;q=0}if(k-j.shift===0&&r.linebreak!==a.LINEBREAK.NEWLINE){return false}var m=g.linebreakWidth-k;if(h.n===0&&(r.indentshiftfirst!==h.VALUES.indentshiftfirst||r.indentalignfirst!==h.VALUES.indentalignfirst)){var o=this.SVGgetAlign(h,r),i=this.SVGgetShift(h,r,o);m+=(j.shift-i)}var p=Math.floor(m/g.linebreakWidth*1000);if(p<0){p=e.toobig-3*p}if(r.fence){p+=e.fence}if((r.linebreakstyle===a.LINEBREAKSTYLE.AFTER&&r.texClass===a.TEXCLASS.OPEN)||r.texClass===a.TEXCLASS.CLOSE){p+=e.close}p+=j.nest*e.nestfactor;var s=e[r.linebreak||a.LINEBREAK.AUTO]||0;if(!MathJax.Object.isArray(s)){if(s||m>=0){p=s*j.nest}}else{p=Math.max(1,p+s[0]*j.nest)}if(p>=j.penalty){return false}j.penalty=p;j.values=r;j.W=k;j.w=q;r.lineleading=g.length2em(r.lineleading,1,h.VALUES.lineleading);r.last=this;return true}});a.mspace.Augment({SVGbetterBreak:function(i,h){if(i.values&&i.values.last===this){return false}var p=this.getValues("linebreak");var n=p.linebreak;if(!n||this.hasDimAttr()){n=a.LINEBREAK.AUTO}var j=i.scanW,l=this.SVGdata,o=l.w+l.x;if(j-i.shift===0){return false}var k=g.linebreakWidth-j;var m=Math.floor(k/g.linebreakWidth*1000);if(m<0){m=e.toobig-3*m}m+=i.nest*e.nestfactor;var q=e[n]||0;if(n===a.LINEBREAK.AUTO&&o>=e.spacelimit*1000&&!this.mathbackground&&!this.backrgound){q=[(o/1000+e.spaceoffset)*e.spacefactor]}if(!MathJax.Object.isArray(q)){if(q||k>=0){m=q*i.nest}}else{m=Math.max(1,m+q[0]*i.nest)}if(m>=i.penalty){return false}i.penalty=m;i.values=p;i.W=j;i.w=o;p.lineleading=h.VALUES.lineleading;p.linebreakstyle="before";p.last=this;return true}});MathJax.Hub.Register.StartupHook("TeX mathchoice Ready",function(){a.TeXmathchoice.Augment({SVGbetterBreak:function(i,h){return this.Core().SVGbetterBreak(i,h)},SVGmoveLine:function(l,h,j,k,i){return this.Core().SVGmoveSlice(l,h,j,k,i)}})});a.maction.Augment({SVGbetterBreak:function(i,h){return this.Core().SVGbetterBreak(i,h)},SVGmoveLine:function(l,h,j,k,i){return this.Core().SVGmoveSlice(l,h,j,k,i)},});a.semantics.Augment({SVGbetterBreak:function(i,h){return(this.data[0]?this.data[0].SVGbetterBreak(i,h):false)},SVGmoveLine:function(l,h,j,k,i){return(this.data[0]?this.data[0].SVGmoveSlice(l,h,j,k,i):null)}});MathJax.Hub.Startup.signal.Post("SVG multiline Ready");MathJax.Ajax.loadComplete(g.autoloadDir+"/multiline.js")});
+MathJax.Hub.Register.StartupHook("SVG Jax Ready",function () {
+  var VERSION = "2.7.5";
+  var MML = MathJax.ElementJax.mml,
+      SVG = MathJax.OutputJax.SVG,
+      BBOX = SVG.BBOX;
+  //
+  //  Fake node used for testing end-of-line potential breakpoint
+  //
+  var MO = MML.mo().With({SVGdata: {w: 0, x:0}});
+
+  //
+  //  Penalties for the various line breaks
+  //
+  var PENALTY = {
+    newline:         0,
+    nobreak:   1000000,
+    goodbreak:   [-200],
+    badbreak:    [+200],
+    auto:           [0],
+    
+    maxwidth:     1.33,  // stop looking for breaks after this time the line-break width
+    toobig:        800,
+    nestfactor:    400,
+    spacefactor:  -100,
+    spaceoffset:     2,
+    spacelimit:      1,  // spaces larger than this get a penalty boost
+    fence:         500,
+    close:         500
+  };
+  
+  var ENDVALUES = {linebreakstyle: "after"};
+
+  
+  /**************************************************************************/
+  
+  MML.mrow.Augment({
+    //
+    // Handle breaking an mrow into separate lines
+    //
+    SVGmultiline: function (svg) {
+
+      //
+      //  Find the parent element and mark it as multiline
+      //
+      var parent = this;
+      while (parent.inferred || (parent.parent && parent.parent.type === "mrow" &&
+             parent.isEmbellished())) {parent = parent.parent}
+      var isTop = ((parent.type === "math" && parent.Get("display") === "block") ||
+                    parent.type === "mtd");
+      parent.isMultiline = true;
+      
+      //
+      //  Default values for the line-breaking parameters
+      //
+      var VALUES = this.getValues(
+        "linebreak","linebreakstyle","lineleading","linebreakmultchar",
+        "indentalign","indentshift",
+        "indentalignfirst","indentshiftfirst",
+        "indentalignlast","indentshiftlast"
+      );
+      if (VALUES.linebreakstyle === MML.LINEBREAKSTYLE.INFIXLINEBREAKSTYLE) 
+        {VALUES.linebreakstyle = this.Get("infixlinebreakstyle")}
+      VALUES.lineleading = SVG.length2em(VALUES.lineleading,1,0.5);
+
+      //
+      //  Start with a fresh SVG element
+      //  and make it full width if we are breaking to a specific width
+      //    in the top-level math element
+      //
+      svg = this.SVG();
+      if (isTop && parent.type !== "mtd") {
+        if (SVG.linebreakWidth < SVG.BIGDIMEN) {svg.w = SVG.linebreakWidth}
+          else {svg.w = SVG.cwidth}
+      }
+
+      var state = {
+            n: 0, Y: 0,
+            scale: this.scale || 1,
+            isTop: isTop,
+            values: {},
+            VALUES: VALUES
+          },
+          align = this.SVGgetAlign(state,{}),
+          shift = this.SVGgetShift(state,{},align),
+          start = [],
+          end = {
+            index:[], penalty:PENALTY.nobreak,
+            w:0, W:shift, shift:shift, scanW:shift,
+            nest: 0
+          },
+          broken = false;
+          
+      //
+      //  Break the expression at its best line breaks
+      //
+      while (this.SVGbetterBreak(end,state,true) && 
+             (end.scanW >= SVG.linebreakWidth || end.penalty === PENALTY.newline)) {
+        this.SVGaddLine(svg,start,end.index,state,end.values,broken);
+        start = end.index.slice(0); broken = true;
+        align = this.SVGgetAlign(state,end.values);
+        shift = this.SVGgetShift(state,end.values,align);
+        if (align === MML.INDENTALIGN.CENTER) {shift = 0}
+        end.W = end.shift = end.scanW = shift; end.penalty = PENALTY.nobreak;
+      }
+      state.isLast = true;
+      this.SVGaddLine(svg,start,[],state,ENDVALUES,broken);
+
+      this.SVGhandleSpace(svg);
+      this.SVGhandleColor(svg);
+      svg.isMultiline = true;
+
+      this.SVGsaveData(svg);
+      return svg;
+    }
+  });
+  
+  /**************************************************************************/
+
+  MML.mbase.Augment({
+    SVGlinebreakPenalty: PENALTY,
+
+    /****************************************************************/
+    //
+    //  Locate the next linebreak that is better than the current one
+    //
+    SVGbetterBreak: function (info,state,toplevel) {
+      if (this.isToken) {return false}  // FIXME: handle breaking of token elements
+      if (this.isEmbellished()) {
+        info.embellished = this;
+        return this.CoreMO().SVGbetterBreak(info,state);
+      }
+      if (this.linebreakContainer) {return false}
+      //
+      //  Get the current breakpoint position and other data
+      //
+      var index = info.index.slice(0), i = info.index.shift(),
+          m = this.data.length, W, w, scanW, broken = (info.index.length > 0), better = false;
+      if (i == null) {i = -1}; if (!broken) {i++; info.W += info.w; info.w = 0}
+      scanW = info.scanW = info.W; info.nest++;
+      //
+      //  Look through the line for breakpoints,
+      //    (as long as we are not too far past the breaking width)
+      //
+      while (i < m && (info.scanW < PENALTY.maxwidth*SVG.linebreakWidth || info.w === 0)) {
+        if (this.data[i]) {
+          if (this.data[i].SVGbetterBreak(info,state)) {
+            better = true; index = [i].concat(info.index); W = info.W; w = info.w;
+            if (info.penalty === PENALTY.newline) {
+              info.index = index;
+              if (info.nest) {info.nest--}
+              return true;
+            }
+          }
+          scanW = (broken ? info.scanW : this.SVGaddWidth(i,info,scanW));
+        }
+        info.index = []; i++; broken = false;
+      }
+      //
+      //  Check if end-of-line is a better breakpoint
+      //
+      if (toplevel && better) {
+        MO.parent = this.parent; MO.inherit = this.inherit;
+        if (MO.SVGbetterBreak(info,state)) {better = false; index = info.index}
+      }
+      if (info.nest) {info.nest--}
+      info.index = index;
+      if (better) {info.W = W}
+      return better;
+    },
+    SVGaddWidth: function (i,info,scanW) {
+      if (this.data[i]) {
+        var svg = this.data[i].SVGdata;
+        scanW += svg.w + svg.x; if (svg.X) {scanW += svg.X}
+        info.W = info.scanW = scanW; info.w = 0;
+      }
+      return scanW;
+    },
+    
+    /****************************************************************/
+    //
+    //  Create a new line and move the required elements into it
+    //  Position it using proper alignment and indenting
+    //
+    SVGaddLine: function (svg,start,end,state,values,broken) {
+      //
+      //  Create a box for the line, with empty BBox
+      //    fill it with the proper elements,
+      //    and clean up the bbox
+      //
+      var line = BBOX();
+      state.first = broken; state.last = true;
+      this.SVGmoveLine(start,end,line,state,values);
+      line.Clean();
+      //
+      //  Get the alignment and shift values
+      //
+      var align = this.SVGgetAlign(state,values),
+          shift = this.SVGgetShift(state,values,align);
+      //
+      //  Set the Y offset based on previous depth, leading, and current height
+      //
+      if (state.n > 0) {
+        var LHD = SVG.FONTDATA.baselineskip * state.scale;
+        var leading = (state.values.lineleading == null ? state.VALUES : state.values).lineleading * state.scale;
+        state.Y -= Math.max(LHD,state.d + line.h + leading);
+      }
+      //
+      //  Place the new line
+      //
+      if (line.w + shift > svg.w) svg.w = line.w + shift;
+      svg.Align(line,align,0,state.Y,shift);
+      //
+      //  Save the values needed for the future
+      //
+      state.d = line.d; state.values = values; state.n++;
+    },
+    
+    /****************************************************************/
+    //
+    //  Get alignment and shift values from the given data
+    //
+    SVGgetAlign: function (state,values) {
+      var cur = values, prev = state.values, def = state.VALUES, align;
+      if (state.n === 0)     {align = cur.indentalignfirst || prev.indentalignfirst || def.indentalignfirst}
+      else if (state.isLast) {align = prev.indentalignlast || def.indentalignlast}
+      else                   {align = prev.indentalign || def.indentalign}
+      if (align === MML.INDENTALIGN.INDENTALIGN) {align = prev.indentalign || def.indentalign}
+      if (align === MML.INDENTALIGN.AUTO) {align = (state.isTop ? this.displayAlign : MML.INDENTALIGN.LEFT)}
+      return align;
+    },
+    SVGgetShift: function (state,values,align) {
+      var cur = values, prev = state.values, def = state.VALUES, shift;
+      if (state.n === 0)     {shift = cur.indentshiftfirst || prev.indentshiftfirst || def.indentshiftfirst}
+      else if (state.isLast) {shift = prev.indentshiftlast || def.indentshiftlast}
+      else                   {shift = prev.indentshift || def.indentshift}
+      if (shift === MML.INDENTSHIFT.INDENTSHIFT) {shift = prev.indentshift || def.indentshift}
+      if (shift === "auto" || shift === "") {shift = "0"}
+      shift = SVG.length2em(shift,1,SVG.cwidth);
+      if (state.isTop && this.displayIndent !== "0") {
+        var indent = SVG.length2em(this.displayIndent,1,SVG.cwidth);
+        shift += (align === MML.INDENTALIGN.RIGHT ? -indent: indent);
+      }
+      return shift;
+    },
+    
+    /****************************************************************/
+    //
+    //  Move the selected elements into the new line,
+    //    moving whole items when possible, and parts of ones
+    //    that are split by a line break.
+    //  
+    SVGmoveLine: function (start,end,svg,state,values) {
+      var i = start[0], j = end[0];
+      if (i == null) {i = -1}; if (j == null) {j = this.data.length-1}
+      if (i === j && start.length > 1) {
+        //
+        //  If starting and ending in the same element move the subpiece to the new line
+        //
+        this.data[i].SVGmoveSlice(start.slice(1),end.slice(1),svg,state,values,"paddingLeft");
+      } else {
+        //
+        //  Otherwise, move the remainder of the initial item
+        //  and any others up to the last one
+        //
+        var last = state.last; state.last = false;
+        while (i < j) {
+          if (this.data[i]) {
+            if (start.length <= 1) {this.data[i].SVGmove(svg,state,values)}
+              else {this.data[i].SVGmoveSlice(start.slice(1),[],svg,state,values,"paddingLeft")}
+          }
+          i++; state.first = false; start = [];
+        }
+        //
+        //  If the last item is complete, move it,
+        //    otherwise move the first part of it up to the split
+        //
+        state.last = last;
+        if (this.data[i]) {
+          if (end.length <= 1) {this.data[i].SVGmove(svg,state,values)}
+            else {this.data[i].SVGmoveSlice([],end.slice(1),svg,state,values,"paddingRight")}
+        }
+      }
+    },
+    
+    /****************************************************************/
+    //
+    //  Split an element and copy the selected items into the new part
+    //
+    SVGmoveSlice: function (start,end,svg,state,values,padding) {
+      //
+      //  Create a new container for the slice of the element
+      //  Move the selected portion into the slice
+      //
+      var slice = BBOX();
+      this.SVGmoveLine(start,end,slice,state,values);
+      slice.Clean();
+      if (this.href) {this.SVGaddHref(slice)}
+      this.SVGhandleColor(slice);
+      if (start.length == 0) this.SVGhandleSpace(slice);
+      svg.Add(slice,svg.w,0,true);
+      return slice;
+    },
+
+    /****************************************************************/
+    //
+    //  Move an element from its original position to its new location in
+    //    a split element or the new line's position
+    //
+    SVGmove: function (line,state,values) {
+      // FIXME:  handle linebreakstyle === "duplicate"
+      // FIXME:  handle linebreakmultchar
+      if (!(state.first || state.last) ||
+           (state.first && state.values.linebreakstyle === MML.LINEBREAKSTYLE.BEFORE) ||
+           (state.last && values.linebreakstyle === MML.LINEBREAKSTYLE.AFTER)) {
+        //
+        //  Recreate output
+        //  Remove padding (if first, remove at leftt, if last remove at right)
+        //  Add to line
+        //
+        var svg = this.toSVG(this.SVGdata.HW,this.SVGdata.D);
+        if (state.first || state.nextIsFirst) {svg.x = 0}
+        if (state.last && svg.X) {svg.X = 0}
+        line.Add(svg,line.w,0,true);
+      }
+      if (state.first && svg && svg.w === 0) {state.nextIsFirst = true}
+        else {delete state.nextIsFirst}
+    }
+  });
+      
+  /**************************************************************************/
+
+  MML.mfenced.Augment({
+    SVGbetterBreak: function (info,state) {
+      //
+      //  Get the current breakpoint position and other data
+      //
+      var index = info.index.slice(0), i = info.index.shift(),
+          m = this.data.length, W, w, scanW, broken = (info.index.length > 0), better = false;
+      if (i == null) {i = -1}; if (!broken) {i++; info.W += info.w; info.w = 0}
+      scanW = info.scanW = info.W; info.nest++;
+      //
+      //  Create indices that include the delimiters and separators
+      //
+      if (!this.dataI) {
+        this.dataI = [];
+        if (this.data.open) {this.dataI.push("open")}
+        if (m) {this.dataI.push(0)}
+        for (var j = 1; j < m; j++) {
+          if (this.data["sep"+j]) {this.dataI.push("sep"+j)}
+          this.dataI.push(j);
+        }
+        if (this.data.close) {this.dataI.push("close")}
+      }
+      m = this.dataI.length;
+      //
+      //  Look through the line for breakpoints, including the open, close, and separators
+      //    (as long as we are not too far past the breaking width)
+      //
+      while (i < m && (info.scanW < PENALTY.maxwidth*SVG.linebreakWidth || info.w === 0)) {
+        var k = this.dataI[i];
+        if (this.data[k]) {
+          if (this.data[k].SVGbetterBreak(info,state)) {
+            better = true; index = [i].concat(info.index); W = info.W; w = info.w;
+            if (info.penalty === PENALTY.newline) {
+              info.index = index;
+              if (info.nest) {info.nest--}
+              return true;
+            }
+          }
+          scanW = (broken ? info.scanW : this.SVGaddWidth(i,info,scanW));
+        }
+        info.index = []; i++; broken = false;
+      }
+      if (info.nest) {info.nest--}
+      info.index = index;
+      if (better) {info.W = W; info.w = w}
+      return better;
+    },
+
+    SVGmoveLine: function (start,end,svg,state,values) {
+      var i = start[0], j = end[0];
+      if (i == null) {i = -1}; if (j == null) {j = this.dataI.length-1}
+      if (i === j && start.length > 1) {
+        //
+        //  If starting and ending in the same element move the subpiece to the new line
+        //
+        this.data[this.dataI[i]].SVGmoveSlice(start.slice(1),end.slice(1),svg,state,values,"paddingLeft");
+      } else {
+        //
+        //  Otherwise, move the remainder of the initial item
+        //  and any others (including open and separators) up to the last one
+        //
+        var last = state.last; state.last = false; var k = this.dataI[i];
+        while (i < j) {
+          if (this.data[k]) {
+            if (start.length <= 1) {this.data[k].SVGmove(svg,state,values)}
+              else {this.data[k].SVGmoveSlice(start.slice(1),[],svg,state,values,"paddingLeft")}
+          }
+          i++; k = this.dataI[i]; state.first = false; start = [];
+        }
+        //
+        //  If the last item is complete, move it
+        //
+        state.last = last;
+        if (this.data[k]) {
+          if (end.length <= 1) {this.data[k].SVGmove(svg,state,values)}
+            else {this.data[k].SVGmoveSlice([],end.slice(1),svg,state,values,"paddingRight")}
+        }
+      }
+    }
+    
+  });
+  
+  /**************************************************************************/
+
+  MML.msubsup.Augment({
+    SVGbetterBreak: function (info,state) {
+      if (!this.data[this.base]) {return false}
+      //
+      //  Get the current breakpoint position and other data
+      //
+      var index = info.index.slice(0), i = info.index.shift(),
+          W, w, scanW, broken = (info.index.length > 0), better = false;
+      if (!broken) {info.W += info.w; info.w = 0}
+      scanW = info.scanW = info.W;
+      //
+      //  Record the width of the base and the super- and subscripts
+      //
+      if (i == null) {this.SVGdata.dw = this.SVGdata.w - this.data[this.base].SVGdata.w}
+      //
+      //  Check if the base can be broken
+      //
+      if (this.data[this.base].SVGbetterBreak(info,state)) {
+        better = true; index = [this.base].concat(info.index); W = info.W; w = info.w;
+        if (info.penalty === PENALTY.newline) {better = broken = true}
+      }
+      //
+      //  Add in the base if it is unbroken, and add the scripts
+      //
+      if (!broken) {this.SVGaddWidth(this.base,info,scanW)}
+      info.scanW += this.SVGdata.dw; info.W = info.scanW;
+      info.index = []; if (better) {info.W = W; info.w = w; info.index = index}
+      return better;
+    },
+    
+    SVGmoveLine: function (start,end,svg,state,values) {
+      //
+      //  Move the proper part of the base
+      //
+      if (this.data[this.base]) {
+        if (start.length > 1) {
+          this.data[this.base].SVGmoveSlice(start.slice(1),end.slice(1),svg,state,values,"paddingLeft");
+        } else {
+          if (end.length <= 1) {this.data[this.base].SVGmove(svg,state,values)}
+            else {this.data[this.base].SVGmoveSlice([],end.slice(1),svg,state,values,"paddingRight")}
+        }
+      }
+      //
+      //  If this is the end, check for super and subscripts, and move those
+      //  by moving the stack that contains them, and shifting by the amount of the
+      //  base that has been removed.  Remove the empty base box from the stack.
+      //
+      if (end.length === 0) {
+        var sup = this.data[this.sup], sub = this.data[this.sub], w = svg.w, data;
+        if (sup) {data = sup.SVGdata||{}; svg.Add(sup.toSVG(),w+(data.dx||0),data.dy)}
+        if (sub) {data = sub.SVGdata||{}; svg.Add(sub.toSVG(),w+(data.dx||0),data.dy)}
+      }
+    }
+
+  });
+  
+  /**************************************************************************/
+
+  MML.mmultiscripts.Augment({
+    SVGbetterBreak: function (info,state) {
+      if (!this.data[this.base]) {return false}
+      //
+      //  Get the current breakpoint position and other data
+      //
+      var index = info.index.slice(0); info.index.shift();
+      var W, w, scanW, broken = (info.index.length > 0), better = false;
+      if (!broken) {info.W += info.w; info.w = 0}
+      info.scanW = info.W;
+      //
+      //  The width of the postscripts
+      //
+      var dw = this.SVGdata.w - this.data[this.base].SVGdata.w - this.SVGdata.dx;
+      //
+      //  Add in the prescripts
+      //  
+      info.scanW += this.SVGdata.dx; scanW = info.scanW;
+      //
+      //  Check if the base can be broken (but don't break between prescripts and base)
+      //
+      if (this.data[this.base].SVGbetterBreak(info,state)) {
+        better = true; index = [this.base].concat(info.index); W = info.W; w = info.w;
+        if (info.penalty === PENALTY.newline) {better = broken = true}
+      }
+      //
+      //  Add in the base if it is unbroken, and add the postscripts
+      //
+      if (!broken) {this.SVGaddWidth(this.base,info,scanW)}
+      info.scanW += dw; info.W = info.scanW;
+      info.index = []; if (better) {info.W = W; info.w = w; info.index = index}
+      return better;
+    },
+    
+    SVGmoveLine: function (start,end,svg,state,values) {
+      var dx, data = this.SVGdata;
+      //
+      //  If this is the start, move the prescripts, if any.
+      //
+      if (start.length < 1) {
+        this.scriptBox = this.SVGgetScripts(this.SVGdata.s);
+        var presub = this.scriptBox[2], presup = this.scriptBox[3]; dx = svg.w + data.dx;
+        if (presup) {svg.Add(presup,dx+data.delta-presup.w,data.u)}
+        if (presub) {svg.Add(presub,dx-presub.w,-data.v)}
+      }
+      //
+      //  Move the proper part of the base
+      //
+      if (this.data[this.base]) {
+        if (start.length > 1) {
+          this.data[this.base].SVGmoveSlice(start.slice(1),end.slice(1),svg,state,values,"paddingLeft");
+        } else {
+          if (end.length <= 1) {this.data[this.base].SVGmove(svg,state,values)}
+            else {this.data[this.base].SVGmoveSlice([],end.slice(1),svg,state,values,"paddingRight")}
+        }
+      }
+      //
+      //  If this is the end, move the postscripts, if any.
+      //
+      if (end.length === 0) {
+        var sub = this.scriptBox[0], sup = this.scriptBox[1]; dx = svg.w + data.s;
+        if (sup) {svg.Add(sup,dx,data.u)}
+        if (sub) {svg.Add(sub,dx-data.delta,-data.v)}
+        delete this.scriptBox;
+      }
+    }
+
+  });
+  
+  /**************************************************************************/
+
+  MML.mo.Augment({
+    //
+    //  Override the method for checking line breaks to properly handle <mo>
+    //
+    SVGbetterBreak: function (info,state) {
+      if (info.values && info.values.last === this) {return false}
+      var values = this.getValues(
+        "linebreak","linebreakstyle","lineleading","linebreakmultchar",
+        "indentalign","indentshift",
+        "indentalignfirst","indentshiftfirst",
+        "indentalignlast","indentshiftlast",
+        "texClass", "fence"
+      );
+      if (values.linebreakstyle === MML.LINEBREAKSTYLE.INFIXLINEBREAKSTYLE) 
+        {values.linebreakstyle = this.Get("infixlinebreakstyle")}
+      //
+      //  Adjust nesting by TeX class (helps output that does not include
+      //  mrows for nesting, but can leave these unbalanced.
+      //
+      if (values.texClass === MML.TEXCLASS.OPEN) {info.nest++}
+      if (values.texClass === MML.TEXCLASS.CLOSE && info.nest) {info.nest--}
+      //
+      //  Get the default penalty for this location
+      //
+      var W = info.scanW, mo = info.embellished; delete info.embellished;
+      if (!mo || !mo.SVGdata) {mo = this}
+      var svg = mo.SVGdata, w = svg.w + svg.x;
+      if (values.linebreakstyle === MML.LINEBREAKSTYLE.AFTER) {W += w; w = 0}
+      if (W - info.shift === 0 && values.linebreak !== MML.LINEBREAK.NEWLINE)
+        {return false} // don't break at zero width (FIXME?)
+      var offset = SVG.linebreakWidth - W;
+      // adjust offest for explicit first-line indent and align
+      if (state.n === 0 && (values.indentshiftfirst !== state.VALUES.indentshiftfirst ||
+          values.indentalignfirst !== state.VALUES.indentalignfirst)) {
+        var align = this.SVGgetAlign(state,values),
+            shift = this.SVGgetShift(state,values,align);
+        offset += (info.shift - shift);
+      }
+      //
+      var penalty = Math.floor(offset / SVG.linebreakWidth * 1000);
+      if (penalty < 0) {penalty = PENALTY.toobig - 3*penalty}
+      if (values.fence) {penalty += PENALTY.fence}
+      if ((values.linebreakstyle === MML.LINEBREAKSTYLE.AFTER &&
+          values.texClass === MML.TEXCLASS.OPEN) ||
+          values.texClass === MML.TEXCLASS.CLOSE) {penalty += PENALTY.close}
+      penalty += info.nest * PENALTY.nestfactor;
+      //
+      //  Get the penalty for this type of break and
+      //    use it to modify the default penalty
+      //
+      var linebreak = PENALTY[values.linebreak||MML.LINEBREAK.AUTO]||0;
+      if (!MathJax.Object.isArray(linebreak)) {
+        //  for breaks past the width, keep original penalty for newline
+        if (linebreak || offset >= 0) {penalty = linebreak * info.nest}
+      } else {penalty = Math.max(1,penalty + linebreak[0] * info.nest)}
+      //
+      //  If the penalty is no better than the current one, return false
+      //  Otherwise save the data for this breakpoint and return true
+      //
+      if (penalty >= info.penalty) {return false}
+      info.penalty = penalty; info.values = values; info.W = W; info.w = w;
+      values.lineleading = SVG.length2em(values.lineleading,1,state.VALUES.lineleading);
+      values.last = this;
+      return true;
+    }
+  });
+  
+  /**************************************************************************/
+
+  MML.mspace.Augment({
+    //
+    //  Override the method for checking line breaks to properly handle <mspace>
+    //
+    SVGbetterBreak: function (info,state) {
+      if (info.values && info.values.last === this) {return false}
+      var values = this.getValues("linebreak");
+      var linebreakValue = values.linebreak;
+      if (!linebreakValue || this.hasDimAttr()) {
+        // The MathML spec says that the linebreak attribute should be ignored
+        // if any dimensional attribute is set.
+        linebreakValue = MML.LINEBREAK.AUTO;
+      }
+      //
+      //  Get the default penalty for this location
+      //
+      var W = info.scanW, svg = this.SVGdata, w = svg.w + svg.x;
+      if (W - info.shift === 0) {return false} // don't break at zero width (FIXME?)
+      var offset = SVG.linebreakWidth - W;
+      //
+      var penalty = Math.floor(offset / SVG.linebreakWidth * 1000);
+      if (penalty < 0) {penalty = PENALTY.toobig - 3*penalty}
+      penalty += info.nest * PENALTY.nestfactor;
+      //
+      //  Get the penalty for this type of break and
+      //    use it to modify the default penalty
+      //
+      var linebreak = PENALTY[linebreakValue]||0;
+      if (linebreakValue === MML.LINEBREAK.AUTO && w >= PENALTY.spacelimit*1000 &&
+          !this.mathbackground && !this.backrgound)
+        {linebreak = [(w/1000+PENALTY.spaceoffset)*PENALTY.spacefactor]}
+      if (!MathJax.Object.isArray(linebreak)) {
+        //  for breaks past the width, keep original penalty for newline
+        if (linebreak || offset >= 0) {penalty = linebreak * info.nest}
+      } else {penalty = Math.max(1,penalty + linebreak[0] * info.nest)}
+      //
+      //  If the penalty is no better than the current one, return false
+      //  Otherwise save the data for this breakpoint and return true
+      //
+      if (penalty >= info.penalty) {return false}
+      info.penalty = penalty; info.values = values; info.W = W; info.w = w;
+      values.lineleading = state.VALUES.lineleading;
+      values.linebreakstyle = "before"; values.last = this;
+      return true;
+    }
+  });
+  
+  //
+  //  Hook into the mathchoice extension
+  //
+  MathJax.Hub.Register.StartupHook("TeX mathchoice Ready",function () {
+    MML.TeXmathchoice.Augment({
+      SVGbetterBreak: function (info,state) {
+        return this.Core().SVGbetterBreak(info,state);
+      },
+      SVGmoveLine: function (start,end,svg,state,values) {
+        return this.Core().SVGmoveSlice(start,end,svg,state,values);
+      }
+    });
+  });
+  
+  //
+  //  Have maction process only the selected item
+  //
+  MML.maction.Augment({
+    SVGbetterBreak: function (info,state) {
+      return this.Core().SVGbetterBreak(info,state);
+    },
+    SVGmoveLine: function (start,end,svg,state,values) {
+      return this.Core().SVGmoveSlice(start,end,svg,state,values);
+    },
+  });
+  
+  //
+  //  Have semantics only do the first element
+  //  (FIXME:  do we need to do anything special about annotation-xml?)
+  //
+  MML.semantics.Augment({
+    SVGbetterBreak: function (info,state) {
+      return (this.data[0] ? this.data[0].SVGbetterBreak(info,state) : false);
+    },
+    SVGmoveLine: function (start,end,svg,state,values) {
+      return (this.data[0] ? this.data[0].SVGmoveSlice(start,end,svg,state,values) : null);
+    }
+  });
+  
+  /**************************************************************************/
+
+  MathJax.Hub.Startup.signal.Post("SVG multiline Ready");
+  MathJax.Ajax.loadComplete(SVG.autoloadDir+"/multiline.js");
+  
+});
+

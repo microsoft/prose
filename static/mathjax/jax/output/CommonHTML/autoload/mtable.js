@@ -1,14 +1,22 @@
-/*
- *  /MathJax/jax/output/CommonHTML/autoload/mtable.js
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
+/*************************************************************
  *
- *  Copyright (c) 2009-2018 The MathJax Consortium
+ *  MathJax/jax/output/CommonHTML/autoload/mtable.js
+ *  
+ *  Implements the CommonHTML output for <mtable> elements.
  *
+ *  ---------------------------------------------------------------------
+ *  
+ *  Copyright (c) 2015-2018 The MathJax Consortium
+ * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,4 +24,579 @@
  *  limitations under the License.
  */
 
-MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function(){var g="2.7.5";var b=MathJax.ElementJax.mml,a=MathJax.Hub.config,e=MathJax.OutputJax.CommonHTML,d=MathJax.Hub.SplitList;var c=-1,f=1000000;b.mtable.Augment({toCommonHTML:function(l){var m={rows:[],labels:[],labeled:false};l=this.CHTMLdefaultNode(l,{noBBox:true,childOptions:m});var k=e.Element("mjx-table");while(l.firstChild){k.appendChild(l.firstChild)}l.appendChild(k);var h=this.getValues("columnalign","rowalign","columnspacing","rowspacing","columnwidth","equalcolumns","equalrows","columnlines","rowlines","frame","framespacing","align","width","side","minlabelspacing","useHeight");var j=e.TEX.min_rule_thickness/e.em;m.t=e.Px(j*this.CHTML.scale,1);this.CHTMLgetBoxSizes(h,m);this.CHTMLgetAttributes(h,m);this.CHTMLadjustCells(h,m);if(h.frame){k.style.border=m.t+" "+h.frame}this.CHTMLalignV(h,m,l);this.CHTMLcolumnWidths(h,m,l);this.CHTMLstretchCells(h,m);if(m.labeled){this.CHTMLaddLabels(h,m,l,k)}var i=this.CHTML;i.w=i.r=m.R;i.h=i.t=m.T-m.B;i.d=i.b=m.B;if(!h.frame&&!i.pwidth){l.style.padding="0 "+e.Em(1/6);i.L=i.R=1/6}this.CHTMLhandleSpace(l);this.CHTMLhandleBBox(l);this.CHTMLhandleColor(l);return l},CHTMLgetBoxSizes:function(z,k){var r=e.FONTDATA.lineH*z.useHeight,t=e.FONTDATA.lineD*z.useHeight;var y=[],h=[],l=[],w=-1,q,n;for(q=0,n=this.data.length;q<n;q++){var B=this.data[q],A=(B.type==="mtr"?0:c);y[q]=r;h[q]=t;for(var p=A,v=B.data.length+A;p<v;p++){if(l[p]==null){l[p]=-f;if(p>w){w=p}}var u=B.data[p-A].CHTML;if(u.h>y[q]){y[q]=u.h}if(u.d>h[q]){h[q]=u.d}if(u.w>l[p]){l[p]=u.w}}}if(z.equalrows){k.HD=true;var x=Math.max.apply(Math,y);var o=Math.max.apply(Math,h);for(q=0,n=y.length;q<n;q++){y[q]=x;h[q]=o}}k.H=y;k.D=h;k.W=l,k.J=w},CHTMLgetAttributes:function(v,j){var l=d(v.columnspacing),x=d(v.rowspacing),t=d(v.columnalign),r=d(v.rowalign),k=d(v.columnlines),w=d(v.rowlines),o=d(v.columnwidth),n=[],q,p,u=j.J,s=j.rows.length-1;for(q=0,p=l.length;q<p;q++){l[q]=this.CHTMLlength2em(l[q])}for(q=0,p=x.length;q<p;q++){x[q]=this.CHTMLlength2em(x[q])}while(l.length<u){l.push(l[l.length-1])}while(t.length<=u){t.push(t[t.length-1])}while(k.length<u){k.push(k[k.length-1])}while(o.length<=u){o.push(o[o.length-1])}while(x.length<s){x.push(x[x.length-1])}while(r.length<=s){r.push(r[r.length-1])}while(w.length<s){w.push(w[w.length-1])}t[c]=(v.side.substr(0,1)==="l"?"left":"right");for(q=0;q<=s;q++){var y=this.data[q];n[q]=[];if(y.rowalign){r[q]=y.rowalign}if(y.columnalign){n[q]=d(y.columnalign);while(n[q].length<=u){n[q].push(n[q][n[q].length-1])}}}var h=d(v.framespacing);if(h.length!=2){h=d(this.defaults.framespacing)}h[0]=Math.max(0,this.CHTMLlength2em(h[0]));h[1]=Math.max(0,this.CHTMLlength2em(h[1]));if(v.columnlines.replace(/none/g,"").replace(/ /g,"")!==""||v.rowlines.replace(/none/g,"").replace(/ /g,"")!==""){v.fspace=true}if(v.frame===b.LINES.NONE){delete v.frame}else{v.fspace=true}if(v.frame){h[0]=Math.max(0,h[0]);h[1]=Math.max(0,h[1])}if(v.fspace){l[u]=h[0];x[s]=h[1]}else{l[u]=x[s]=0}k[u]=w[s]=b.LINES.NONE;j.CSPACE=l;j.RSPACE=x;j.CALIGN=t;j.RALIGN=r;j.CLINES=k;j.RLINES=w;j.CWIDTH=o;j.RCALIGN=n;j.FSPACE=h},CHTMLadjustCells:function(l,r){var S=r.rows,W=r.CSPACE,o=r.CLINES,x=r.RSPACE,F=r.RLINES,V=r.CALIGN,q=r.RALIGN,G=r.RCALIGN;W[r.J]*=2;x[S.length-1]*=2;var p="0",I,t,z,N,n,P,U=0;if(l.fspace){U=r.FSPACE[1];p=e.Em(r.FSPACE[1])}r.RHD=[];r.RH=[];for(var Q=0,K=S.length;Q<K;Q++){var w=S[Q],v=this.data[Q];I=x[Q]/2;N=null;z="0";if(F[Q]!==b.LINES.NONE&&F[Q]!==""){N=r.t+" "+F[Q]}if(N||(o[O]!==b.LINES.NONE&&o[O]!=="")){while(w.length<=r.J){w.push(e.addElement(w.node,"mjx-mtd",null,[["span"]]))}}r.RH[Q]=U+r.H[Q];U=Math.max(0,I);r.RHD[Q]=r.RH[Q]+U+r.D[Q];I=e.Em(U);if(l.fspace){z=e.Em(r.FSPACE[0])}for(var O=0,y=w.length;O<y;O++){var E=(v.type==="mtr"?0:c);var J=v.data[O-E]||{CHTML:e.BBOX.zero()};var k=w[O].style;n=J.CHTML;t=W[O]/2;if(o[O]!==b.LINES.NONE){k.borderRight=r.t+" "+o[O];t-=1/e.em/2}t=e.Em(Math.max(0,t));k.padding=p+" "+t+" 0px "+z;if(N){k.borderBottom=N}z=t;P=(J.rowalign||(this.data[Q]||{}).rowalign||q[Q]);var A=Math.max(1,n.h),C=Math.max(0.2,n.d),h=(r.H[Q]+r.D[Q])-(A+C),u=w[O].firstChild.style;if(P===b.ALIGN.TOP){if(h){u.marginBottom=e.Em(h)}k.verticalAlign="top"}else{if(P===b.ALIGN.BOTTOM){k.verticalAlign="bottom";if(h){u.marginTop=e.Em(h)}}else{if(P===b.ALIGN.CENTER){if(h){u.marginTop=u.marginBottom=e.Em(h/2)}k.verticalAlign="middle"}else{if(A!==r.H[Q]){u.marginTop=e.Em(r.H[Q]-A)}}}}P=(J.columnalign||G[Q][O]||V[O]);if(P!==b.ALIGN.CENTER){k.textAlign=P}}w.node.style.height=e.Em(r.RHD[Q]);p=I}W[r.J]/=2;x[S.length-1]/=2},CHTMLalignV:function(w,k,o){var m,t=k.rows.length,v=k.H,j=k.D,x=k.RSPACE;if(typeof(w.align)!=="string"){w.align=String(w.align)}if(w.align.match(/(top|bottom|center|baseline|axis)( +(-?\d+))?/)){m=parseInt(RegExp.$3||"0");w.align=RegExp.$1;if(m<0){m+=k.rows.length+1}if(m>t||m<=0){m=null}}else{w.align=this.defaults.align}var p=0,l=0,u=e.TEX.axis_height;if(w.fspace){p+=k.FSPACE[1]}if(w.frame){p+=2/e.em;l+=1/e.em}for(var q=0;q<t;q++){var r=v[q],s=j[q];p+=r+s+x[q];if(m){if(q===m-1){l+=({top:r+s,bottom:0,center:(r+s)/2,baseline:s,axis:u+s})[w.align]+x[q]}if(q>=m){l+=r+s+x[q]}}}if(!m){l=({top:p,bottom:0,center:p/2,baseline:p/2,axis:p/2-u})[w.align]}if(l){o.style.verticalAlign=e.Em(-l)}k.T=p;k.B=l},CHTMLcolumnWidths:function(l,r,A){var I=r.CWIDTH,K=r.CSPACE,u=r.J,F;var G=0,n=false,y=l.width.match(/%$/);var H,B,v;if(l.width!=="auto"&&!y){G=Math.max(0,this.CHTMLlength2em(l.width,r.R));n=true}if(l.equalcolumns){if(y){var z=e.Percent(1/(u+1));for(F=0;F<=u;F++){I[F]=z}}else{v=Math.max.apply(Math,r.W);if(l.width!=="auto"){var q=(l.fspace?r.FSPACE[0]+(l.frame?2/e.em:0):0);for(F=0;F<=u;F++){q+=K[F]}v=Math.max((G-q)/(u+1),v)}v=e.Em(v);for(F=0;F<=u;F++){I[F]=v}}n=true}var E=0;if(l.fspace){E=r.FSPACE[0]}var s=[],D=[],h=[],o=[];var t=r.rows[0];for(F=0;F<=u;F++){o[F]=r.W[F];if(I[F]==="auto"){s.push(F)}else{if(I[F]==="fit"){D.push(F)}else{if(I[F].match(/%$/)){h.push(F)}else{o[F]=this.CHTMLlength2em(I[F],o[F])}}}E+=o[F]+K[F];if(t[F]){t[F].style.width=e.Em(o[F])}}if(l.frame){E+=2/e.em}var C=(D.length>0);if(n){if(y){for(F=0;F<=u;F++){cell=t[F].style;if(I[F]==="auto"&&!C){cell.width=""}else{if(I[F]==="fit"){cell.width=""}else{if(I[F].match(/%$/)){cell.width=I[F]}else{cell.minWidth=cell.maxWidth=cell.width}}}}}else{if(G>E){var k=0;for(H=0,B=h.length;H<B;H++){F=h[H];v=Math.max(o[F],this.CHTMLlength2em(I[F],G));k+=v-o[F];o[F]=v;t[F].style.width=e.Em(v)}E+=k}if(!C){D=s}if(G>E&&D.length){var x=(G-E)/D.length;for(H=0,B=D.length;H<B;H++){F=D[H];o[F]+=x;t[F].style.width=e.Em(o[F])}E=G}}}o[c]=r.W[c];r.W=o;r.R=E;if(y){A.style.width=this.CHTML.pwidth="100%";this.CHTML.mwidth=e.Em(E);A.firstChild.style.width=l.width;A.firstChild.style.margin="auto"}},CHTMLstretchCells:function(x,l){var y=l.rows,w=l.H,k=l.D,m=l.W,t=l.J,s=y.length-1;for(var o=0;o<=s;o++){var z=y[o],q=this.data[o];var p=w[o],r=k[o];for(var n=0;n<=t;n++){var v=z[n],u=q.data[n];if(!u){continue}if(u.CHTML.stretch==="V"){u.CHTMLstretchV(p,r)}else{if(u.CHTML.stretch==="H"){u.CHTMLstretchH(v,m[n])}}}}},CHTMLaddLabels:function(h,k,w,B){var q=this.getValues("indentalignfirst","indentshiftfirst","indentalign","indentshift");if(q.indentalignfirst!==b.INDENTALIGN.INDENTALIGN){q.indentalign=q.indentalignfirst}if(q.indentalign===b.INDENTALIGN.AUTO){q.indentalign=a.displayAlign}if(q.indentshiftfirst!==b.INDENTSHIFT.INDENTSHIFT){q.indentshift=q.indentshiftfirst}if(q.indentshift==="auto"){q.indentshift="0"}var z=this.CHTMLlength2em(q.indentshift,e.cwidth);var A=this.CHTMLlength2em(h.minlabelspacing,0.8);var p=A+k.W[c],y=0,D=k.R;var n=this.CHTMLlength2em(a.displayIndent,e.cwidth);var t=(k.CALIGN[c]===b.INDENTALIGN.RIGHT?-1:1);if(q.indentalign===b.INDENTALIGN.CENTER){D+=2*(p-t*(z+n));z+=n}else{if(k.CALIGN[c]===q.indentalign){if(n<0){y=t*n;n=0}z+=t*n;if(p>t*z){z=t*p}z+=y;z*=t;D+=z}else{D+=p-t*z+n;z-=t*n;z*=-t}}var o=e.addElement(w,"mjx-box",{style:{width:"100%","text-align":q.indentalign}});o.appendChild(B);var C=e.Element("mjx-itable");B.style.display="inline-table";if(!B.style.width){B.style.width="auto"}C.style.verticalAlign="top";B.style.verticalAlign=e.Em(k.T-k.B-k.H[0]);w.style.verticalAlign="";if(z){if(q.indentalign===b.INDENTALIGN.CENTER){B.style.marginLeft=e.Em(z);B.style.marginRight=e.Em(-z)}else{var u="margin"+(q.indentalign===b.INDENTALIGN.RIGHT?"Right":"Left");B.style[u]=e.Em(z)}}if(k.CALIGN[c]==="left"){w.insertBefore(C,o);C.style.marginRight=e.Em(-k.W[c]-y);if(y){C.style.marginLeft=e.Em(y)}}else{w.appendChild(C);C.style.marginLeft=e.Em(-k.W[c]+y)}var l=k.labels,j=0;if(h.fspace){j=k.FSPACE[0]+(h.frame?1/e.em:0)}for(var x=0,v=l.length;x<v;x++){if(l[x]&&this.data[x].data[0]){C.appendChild(l[x]);var r=this.data[x].data[0].CHTML;j=k.RH[x]-Math.max(1,r.h);if(j){l[x].firstChild.firstChild.style.marginTop=e.Em(j)}l[x].style.height=e.Em(k.RHD[x])}else{e.addElement(C,"mjx-label",{style:{height:e.Em(k.RHD[x])}})}}w.style.width=this.CHTML.pwidth="100%";w.style.minWidth=this.CHTML.mwidth=e.Em(Math.max(0,D))}});b.mtr.Augment({toCommonHTML:function(l,j){l=this.CHTMLcreateNode(l);this.CHTMLhandleStyle(l);this.CHTMLhandleScale(l);if(!j){j={rows:[],labels:[]}}var n=[];j.rows.push(n);n.node=l;j.labels.push(null);for(var k=0,h=this.data.length;k<h;k++){n.push(this.CHTMLaddChild(l,k,j))}this.CHTMLhandleColor(l);return l}});b.mlabeledtr.Augment({toCommonHTML:function(n,k){n=this.CHTMLcreateNode(n);this.CHTMLhandleStyle(n);this.CHTMLhandleScale(n);if(!k){k={rows:[],labels:[]}}var o=[];k.rows.push(o);o.node=n;var j=e.Element("mjx-label");k.labels.push(j);this.CHTMLaddChild(j,0,k);if(this.data[0]){k.labeled=true}for(var l=1,h=this.data.length;l<h;l++){o.push(this.CHTMLaddChild(n,l,k))}this.CHTMLhandleColor(n);return n}});b.mtd.Augment({toCommonHTML:function(l,i){l=this.CHTMLdefaultNode(l,i);e.addElement(l.firstChild,"mjx-strut");if(this.isEmbellished()){var m=this.CoreMO(),h=this.CHTML;if(m.CHTMLcanStretch("Vertical")){h.stretch="V"}else{if(m.CHTMLcanStretch("Horizontal")){h.stretch="H"}}if(h.stretch){var j=m.Get("minsize",true);if(j){if(h.stretch==="V"){var n=h.h+h.d;if(n){var k=this.CHTMLlength2em(j,n)/n;if(k>1){h.h*=k;h.d*=k}}}else{h.w=Math.max(h.w,this.CHTMLlength2em(j,h.w))}}}}return l}});MathJax.Hub.Startup.signal.Post("CommonHTML mtable Ready");MathJax.Ajax.loadComplete(e.autoloadDir+"/mtable.js")});
+MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
+  var VERSION = "2.7.5";
+  var MML = MathJax.ElementJax.mml,
+      CONFIG = MathJax.Hub.config,
+      CHTML = MathJax.OutputJax.CommonHTML,
+      SPLIT = MathJax.Hub.SplitList;
+  
+  var LABEL = -1,
+      BIGDIMEN = 1000000;
+
+  MML.mtable.Augment({
+    toCommonHTML: function (node) {
+      //
+      //  Create the table nodes and put them in a table
+      //  (so that its bottom is on the baseline, rather than aligned on the top row)
+      //
+      var state = {rows:[], labels:[], labeled: false};
+      node = this.CHTMLdefaultNode(node,{noBBox:true, childOptions:state});
+      var table = CHTML.Element("mjx-table");
+      while (node.firstChild) table.appendChild(node.firstChild);
+      node.appendChild(table);
+      //
+      //  Get the table attributes
+      //
+      var values = this.getValues("columnalign","rowalign","columnspacing","rowspacing",
+                                  "columnwidth","equalcolumns","equalrows",
+                                  "columnlines","rowlines","frame","framespacing",
+                                  "align","width","side","minlabelspacing","useHeight");
+      var t = CHTML.TEX.min_rule_thickness/CHTML.em;
+      state.t = CHTML.Px(t*this.CHTML.scale,1);
+      //
+      //  Create the table
+      //
+      this.CHTMLgetBoxSizes(values,state);
+      this.CHTMLgetAttributes(values,state);
+      this.CHTMLadjustCells(values,state);
+      if (values.frame) table.style.border = state.t+" "+values.frame;
+      this.CHTMLalignV(values,state,node);
+      this.CHTMLcolumnWidths(values,state,node);
+      this.CHTMLstretchCells(values,state);
+      if (state.labeled) this.CHTMLaddLabels(values,state,node,table);
+      //
+      //  Set the bounding box (ignores overlapping outside of the table)
+      //
+      var BBOX = this.CHTML;
+      BBOX.w = BBOX.r = state.R;
+      BBOX.h = BBOX.t = state.T-state.B;
+      BBOX.d = BBOX.b = state.B;
+      if (!values.frame && !BBOX.pwidth) {
+        node.style.padding = "0 "+CHTML.Em(1/6);
+        BBOX.L = BBOX.R = 1/6;
+      }
+      //
+      //  Add any needed space and color
+      //
+      this.CHTMLhandleSpace(node);
+      this.CHTMLhandleBBox(node);
+      this.CHTMLhandleColor(node);
+      //
+      //  Return the completed node
+      //
+      return node;
+    },
+    //
+    //  Get the natural height, depth, and widths of the rows and columns
+    //
+    CHTMLgetBoxSizes: function (values,state) {
+      var LH = CHTML.FONTDATA.lineH * values.useHeight,
+          LD = CHTML.FONTDATA.lineD * values.useHeight;
+      var H = [], D = [], W = [], J = -1, i, m;
+      for (i = 0, m = this.data.length; i < m; i++) {
+        var  row = this.data[i], s = (row.type === "mtr" ? 0 : LABEL);
+        H[i] = LH; D[i] = LD;
+        for (var j = s, M = row.data.length + s; j < M; j++) {
+          if (W[j] == null) {W[j] = -BIGDIMEN; if (j > J) J = j}
+          var cbox = row.data[j-s].CHTML;
+          if (cbox.h > H[i]) H[i] = cbox.h;
+          if (cbox.d > D[i]) D[i] = cbox.d;
+          if (cbox.w > W[j]) W[j] = cbox.w;
+        }
+      }
+      if (values.equalrows) {
+        state.HD = true;
+        var HH = Math.max.apply(Math,H);
+        var DD = Math.max.apply(Math,D);
+        for (i = 0, m = H.length; i < m; i++) {H[i] = HH; D[i] = DD}
+      }
+      state.H = H; state.D = D; state.W = W, state.J = J;
+    },
+    //
+    //  Pad the spacing and alignment attributes to match the size of the table
+    //
+    CHTMLgetAttributes: function (values,state) {
+      var CSPACE = SPLIT(values.columnspacing),
+          RSPACE = SPLIT(values.rowspacing),
+          CALIGN = SPLIT(values.columnalign),
+          RALIGN = SPLIT(values.rowalign),
+          CLINES = SPLIT(values.columnlines),
+          RLINES = SPLIT(values.rowlines),
+          CWIDTH = SPLIT(values.columnwidth),
+          RCALIGN = [], i, m, J = state.J, M = state.rows.length-1;
+      for (i = 0, m = CSPACE.length; i < m; i++) CSPACE[i] = this.CHTMLlength2em(CSPACE[i]);
+      for (i = 0, m = RSPACE.length; i < m; i++) RSPACE[i] = this.CHTMLlength2em(RSPACE[i]);
+      while (CSPACE.length <  J) CSPACE.push(CSPACE[CSPACE.length-1]);
+      while (CALIGN.length <= J) CALIGN.push(CALIGN[CALIGN.length-1]);
+      while (CLINES.length <  J) CLINES.push(CLINES[CLINES.length-1]);
+      while (CWIDTH.length <= J) CWIDTH.push(CWIDTH[CWIDTH.length-1]);
+      while (RSPACE.length <  M) RSPACE.push(RSPACE[RSPACE.length-1]);
+      while (RALIGN.length <= M) RALIGN.push(RALIGN[RALIGN.length-1]);
+      while (RLINES.length <  M) RLINES.push(RLINES[RLINES.length-1]);
+      CALIGN[LABEL] = (values.side.substr(0,1) === "l" ? "left" : "right");
+      //
+      //  Override aligment data based on row-specific attributes
+      //
+      for (i = 0; i <= M; i++) {
+        var row = this.data[i]; RCALIGN[i] = [];
+        if (row.rowalign) RALIGN[i] = row.rowalign;
+        if (row.columnalign) {
+          RCALIGN[i] = SPLIT(row.columnalign);
+          while (RCALIGN[i].length <= J) RCALIGN[i].push(RCALIGN[i][RCALIGN[i].length-1]);
+        }
+      }
+      //
+      //  Handle framespacing
+      //
+      var FSPACE = SPLIT(values.framespacing);
+      if (FSPACE.length != 2) FSPACE = SPLIT(this.defaults.framespacing);
+      FSPACE[0] = Math.max(0,this.CHTMLlength2em(FSPACE[0]));
+      FSPACE[1] = Math.max(0,this.CHTMLlength2em(FSPACE[1]));
+      if (values.columnlines.replace(/none/g,"").replace(/ /g,"") !== "" ||
+          values.rowlines.replace(/none/g,"").replace(/ /g,"") !== "") values.fspace = true;
+      //
+      //  Pad arrays so that final column can be treated as all the others
+      //
+      if (values.frame === MML.LINES.NONE) delete values.frame; else values.fspace = true;
+      if (values.frame) {
+        FSPACE[0] = Math.max(0,FSPACE[0]);
+        FSPACE[1] = Math.max(0,FSPACE[1]);
+      }
+      if (values.fspace) {
+        CSPACE[J] = FSPACE[0]; RSPACE[M] = FSPACE[1];
+      } else {
+        CSPACE[J] = RSPACE[M] = 0;
+      }
+      CLINES[J] = RLINES[M] = MML.LINES.NONE;
+      //
+      //  Save everything in the state
+      //
+      state.CSPACE = CSPACE; state.RSPACE = RSPACE;
+      state.CALIGN = CALIGN; state.RALIGN = RALIGN;
+      state.CLINES = CLINES; state.RLINES = RLINES;
+      state.CWIDTH = CWIDTH; state.RCALIGN = RCALIGN;
+      state.FSPACE = FSPACE;
+    },
+    //
+    //  Add styles to cells to handle borders, spacing, alignment, etc.
+    //
+    CHTMLadjustCells: function(values,state) {
+      var ROWS = state.rows,
+          CSPACE = state.CSPACE, CLINES = state.CLINES,
+          RSPACE = state.RSPACE, RLINES = state.RLINES,
+          CALIGN = state.CALIGN, RALIGN = state.RALIGN,
+          RCALIGN = state.RCALIGN;
+      CSPACE[state.J] *= 2; RSPACE[ROWS.length-1] *= 2; // since halved below
+      var T = "0", B, R, L, border, cbox, align, lastB = 0;
+      if (values.fspace) {
+        lastB = state.FSPACE[1];
+        T = CHTML.Em(state.FSPACE[1]);
+      }
+      state.RHD = []; state.RH = [];
+      for (var i = 0, m = ROWS.length; i < m; i++) {
+        var row = ROWS[i], rdata = this.data[i];
+        //
+        //  Space and borders between rows
+        //
+        B = RSPACE[i]/2; border = null; L = "0";
+        if (RLINES[i] !== MML.LINES.NONE && RLINES[i] !== "") border = state.t+" "+RLINES[i];
+        if (border || (CLINES[j] !== MML.LINES.NONE && CLINES[j] !== "")) {
+          while (row.length <= state.J) {
+            row.push(CHTML.addElement(row.node,"mjx-mtd",null,[['span']]));
+          }
+        }
+        state.RH[i] = lastB + state.H[i];                 // distance to baseline in row
+        lastB = Math.max(0,B);
+        state.RHD[i] = state.RH[i] + lastB + state.D[i];  // total height of row
+        B = CHTML.Em(lastB);
+        //
+        //  Frame space for initial cell
+        //
+        if (values.fspace) L = CHTML.Em(state.FSPACE[0]);
+        //
+        //  The cells in the row
+        //
+        for (var j = 0, M = row.length; j < M; j++) {
+          var s = (rdata.type === "mtr" ? 0 : LABEL);
+          var mtd = rdata.data[j-s] || {CHTML: CHTML.BBOX.zero()};
+          var cell = row[j].style; cbox = mtd.CHTML;
+          //
+          //  Space and borders between columns
+          //
+          R = CSPACE[j]/2;
+          if (CLINES[j] !== MML.LINES.NONE) {
+            cell.borderRight = state.t+" "+CLINES[j];
+            R -= 1/CHTML.em/2;
+          }
+          R = CHTML.Em(Math.max(0,R));
+          cell.padding = T+" "+R+" 0px "+L;
+          if (border) cell.borderBottom = border;
+          L = R;
+          //
+          //  Handle vertical alignment
+          //
+          align = (mtd.rowalign||(this.data[i]||{}).rowalign||RALIGN[i]);
+          var H = Math.max(1,cbox.h), D = Math.max(.2,cbox.d),
+              HD = (state.H[i]+state.D[i]) - (H+D),
+              child = row[j].firstChild.style;
+          if (align === MML.ALIGN.TOP) {
+            if (HD) child.marginBottom = CHTML.Em(HD);
+            cell.verticalAlign = "top";
+          } else if (align === MML.ALIGN.BOTTOM) {
+            cell.verticalAlign = "bottom";
+            if (HD) child.marginTop = CHTML.Em(HD);
+          } else if (align === MML.ALIGN.CENTER) {
+            if (HD) child.marginTop = child.marginBottom = CHTML.Em(HD/2);
+            cell.verticalAlign = "middle";
+          } else {
+            if (H !== state.H[i]) child.marginTop = CHTML.Em(state.H[i]-H);
+          }
+          //
+          //  Handle horizontal alignment
+          //
+          align = (mtd.columnalign||RCALIGN[i][j]||CALIGN[j]);
+          if (align !== MML.ALIGN.CENTER) cell.textAlign = align;
+        }
+        row.node.style.height = CHTML.Em(state.RHD[i]);
+        T = B;
+      }
+      CSPACE[state.J] /= 2; RSPACE[ROWS.length-1] /= 2; // back to normal
+    },
+    //
+    //  Align the table vertically according to the align attribute
+    //
+    CHTMLalignV: function (values,state,node) {
+      var n, M = state.rows.length, H = state.H, D = state.D, RSPACE = state.RSPACE;
+      //
+      //  Get alignment type and row number
+      //
+      if (typeof(values.align) !== "string") values.align = String(values.align);
+      if (values.align.match(/(top|bottom|center|baseline|axis)( +(-?\d+))?/)) {
+        n = parseInt(RegExp.$3||"0");
+        values.align = RegExp.$1
+        if (n < 0) n += state.rows.length + 1;
+        if (n > M || n <= 0) n = null;
+      } else {
+        values.align = this.defaults.align;
+      }
+      //
+      //  Get table height and baseline offset
+      //
+      var T = 0, B = 0, a = CHTML.TEX.axis_height;
+      if (values.fspace) T += state.FSPACE[1];
+      if (values.frame) {T += 2/CHTML.em; B += 1/CHTML.em}
+      for (var i = 0; i < M; i++) {
+        var h = H[i], d = D[i];
+        T += h + d + RSPACE[i];
+        if (n) {
+          if (i === n-1) {
+            B += ({top:h+d, bottom:0, center:(h+d)/2,
+                   baseline:d, axis:a+d})[values.align] + RSPACE[i];
+          }
+          if (i >= n) B += h + d + RSPACE[i];
+        }
+      }
+      if (!n) B = ({top:T, bottom:0, center:T/2, baseline:T/2, axis:T/2-a})[values.align];
+      //
+      //  Place the node and save the values
+      //
+      if (B) node.style.verticalAlign = CHTML.Em(-B);
+      state.T = T; state.B = B;
+    },
+    //
+    //  Determine column widths and set the styles for the columns
+    //
+    CHTMLcolumnWidths: function (values,state,node) {
+      var CWIDTH = state.CWIDTH, CSPACE = state.CSPACE, J = state.J, j;
+      var WW = 0, setWidths = false, relWidth = values.width.match(/%$/);
+      var i, m, w;
+      //
+      //  Handle equal columns by adjusting the CWIDTH array
+      //
+      if (values.width !== "auto" && !relWidth) {
+        WW = Math.max(0,this.CHTMLlength2em(values.width,state.R));
+        setWidths = true;
+      }
+      if (values.equalcolumns) {
+        if (relWidth) {
+          //
+          //  Use percent of total (not perfect, but best we can do)
+          //
+          var p = CHTML.Percent(1/(J+1));
+          for (j = 0; j <= J; j++) CWIDTH[j] = p;
+        } else {
+          //
+          //  For width = auto, make all widths equal the widest,
+          //  otherwise, for specific width, remove intercolumn space
+          //  and divide by number of columns to get widest space.
+          //
+          w = Math.max.apply(Math,state.W);
+          if (values.width !== "auto") {
+            var S = (values.fspace ? state.FSPACE[0] + (values.frame ? 2/CHTML.em : 0) : 0);
+            for (j = 0; j <= J; j++) S += CSPACE[j];
+            w = Math.max((WW-S)/(J+1),w);
+          }
+          w = CHTML.Em(w);
+          for (j = 0; j <= J; j++) CWIDTH[j] = w;
+        }
+        setWidths = true;
+      }
+      //
+      //  Compute natural table width
+      //
+      var TW = 0; if (values.fspace) TW = state.FSPACE[0];
+      var auto = [], fit = [], percent = [], W = [];
+      var row = state.rows[0];
+      for (j = 0; j <= J; j++) {
+        W[j] = state.W[j];
+        if (CWIDTH[j] === "auto") auto.push(j)
+        else if (CWIDTH[j] === "fit") fit.push(j)
+        else if (CWIDTH[j].match(/%$/)) percent.push(j)
+        else W[j] = this.CHTMLlength2em(CWIDTH[j],W[j]);
+        TW += W[j] + CSPACE[j];
+        if (row[j]) row[j].style.width = CHTML.Em(W[j]);
+      }
+      if (values.frame) TW += 2/CHTML.em;
+      var hasFit = (fit.length > 0);
+      //
+      //  Adjust widths of columns
+      //
+      if (setWidths) {
+        if (relWidth) {
+          //
+          //  Attach appropriate widths to the columns
+          //  
+          for (j = 0; j <= J; j++) {
+            cell = row[j].style;
+            if (CWIDTH[j] === "auto" && !hasFit) cell.width = "";
+            else if (CWIDTH[j] === "fit") cell.width = "";
+            else if (CWIDTH[j].match(/%$/)) cell.width = CWIDTH[j];
+            else cell.minWidth = cell.maxWidth = cell.width;
+          }
+        } else {
+          //
+          //  Compute percentage widths
+          //
+          if (WW > TW) {
+            var extra = 0;
+            for (i = 0, m = percent.length; i < m; i++) {
+              j = percent[i];
+              w = Math.max(W[j],this.CHTMLlength2em(CWIDTH[j],WW));
+              extra += w-W[j]; W[j] = w;
+              row[j].style.width = CHTML.Em(w);
+            }
+            TW += extra;
+          }
+          //
+          //  Compute "fit" widths
+          //
+          if (!hasFit) fit = auto;
+          if (WW > TW && fit.length) {
+            var dw = (WW - TW) / fit.length;
+            for (i = 0, m = fit.length; i < m; i++) {
+              j = fit[i]; W[j] += dw;
+              row[j].style.width = CHTML.Em(W[j]);
+            }
+            TW = WW;
+          }
+        }
+      }
+      W[LABEL] = state.W[LABEL];
+      state.W = W;
+      state.R = TW;
+      //
+      //  Set variable width on DOM nodes
+      //
+      if (relWidth) {
+        node.style.width = this.CHTML.pwidth = "100%";
+        this.CHTML.mwidth = CHTML.Em(TW);
+        node.firstChild.style.width = values.width;
+        node.firstChild.style.margin = "auto";
+      }
+    },
+    //
+    //  Stretch any cells that can be stretched
+    //
+    CHTMLstretchCells: function (values,state) {
+      var ROWS = state.rows, H = state.H, D = state.D, W = state.W,
+          J = state.J, M = ROWS.length-1;
+      for (var i = 0; i <= M; i++) {
+        var row = ROWS[i], rdata = this.data[i];
+        var h = H[i], d = D[i];
+        for (var j = 0; j <= J; j++) {
+          var cell = row[j], cdata = rdata.data[j];
+          if (!cdata) continue;
+          if (cdata.CHTML.stretch === "V") cdata.CHTMLstretchV(h,d);
+          else if (cdata.CHTML.stretch === "H") cdata.CHTMLstretchH(cell,W[j]);
+        }
+      }
+    },
+    //
+    //  Add labels to a table
+    //
+    CHTMLaddLabels: function (values,state,node,table) {
+      //
+      //  Get indentation and alignment
+      //
+      var indent = this.getValues("indentalignfirst","indentshiftfirst","indentalign","indentshift");
+      if (indent.indentalignfirst !== MML.INDENTALIGN.INDENTALIGN) indent.indentalign = indent.indentalignfirst;
+      if (indent.indentalign === MML.INDENTALIGN.AUTO) indent.indentalign = CONFIG.displayAlign;
+      if (indent.indentshiftfirst !== MML.INDENTSHIFT.INDENTSHIFT) indent.indentshift = indent.indentshiftfirst;
+      if (indent.indentshift === "auto") indent.indentshift = "0";
+      var shift = this.CHTMLlength2em(indent.indentshift,CHTML.cwidth);
+      var labelspace = this.CHTMLlength2em(values.minlabelspacing,.8);
+      var labelW = labelspace + state.W[LABEL], labelshift = 0, tw = state.R;
+      var dIndent = this.CHTMLlength2em(CONFIG.displayIndent,CHTML.cwidth);
+      var s = (state.CALIGN[LABEL] === MML.INDENTALIGN.RIGHT ? -1 : 1);
+      if (indent.indentalign === MML.INDENTALIGN.CENTER) {
+        tw += 2 * (labelW - s*(shift + dIndent));
+        shift += dIndent;
+      } else if (state.CALIGN[LABEL] === indent.indentalign) {
+        if (dIndent < 0) {labelshift = s*dIndent; dIndent = 0}
+        shift += s*dIndent; if (labelW > s*shift) shift = s*labelW; shift += labelshift;
+        shift *= s; tw += shift;
+      } else {
+        tw += labelW - s*shift + dIndent;
+        shift -= s*dIndent; shift *= -s;
+      }
+      //
+      //  Create boxes for table and labels
+      //
+      var box = CHTML.addElement(node,"mjx-box",{
+        style:{width:"100%","text-align":indent.indentalign}
+      }); box.appendChild(table);
+      var labels = CHTML.Element("mjx-itable");
+      table.style.display = "inline-table"; if (!table.style.width) table.style.width = "auto";
+      labels.style.verticalAlign = "top";
+      table.style.verticalAlign = CHTML.Em(state.T-state.B-state.H[0]);
+      node.style.verticalAlign = "";
+      if (shift) {
+        if (indent.indentalign === MML.INDENTALIGN.CENTER) {
+          table.style.marginLeft = CHTML.Em(shift);
+          table.style.marginRight = CHTML.Em(-shift);
+        } else {
+          var margin = "margin" + (indent.indentalign === MML.INDENTALIGN.RIGHT ? "Right" : "Left");
+          table.style[margin] = CHTML.Em(shift);
+        }
+      }
+      //
+      //  Add labels on correct side
+      //
+      if (state.CALIGN[LABEL] === "left") {
+        node.insertBefore(labels,box);
+        labels.style.marginRight = CHTML.Em(-state.W[LABEL]-labelshift);
+        if (labelshift) labels.style.marginLeft = CHTML.Em(labelshift);
+      } else {
+        node.appendChild(labels);
+        labels.style.marginLeft = CHTML.Em(-state.W[LABEL]+labelshift);
+      }
+      //
+      //  Vertically align the labels with their rows
+      //
+      var LABELS = state.labels, T = 0;
+      if (values.fspace) T = state.FSPACE[0] + (values.frame ? 1/CHTML.em : 0);
+      for (var i = 0, m = LABELS.length; i < m; i++) {
+        if (LABELS[i] && this.data[i].data[0]) {
+          labels.appendChild(LABELS[i]);
+          var lbox = this.data[i].data[0].CHTML;
+          T = state.RH[i] - Math.max(1,lbox.h);
+          if (T) LABELS[i].firstChild.firstChild.style.marginTop = CHTML.Em(T);
+          LABELS[i].style.height = CHTML.Em(state.RHD[i]);
+        } else {
+          CHTML.addElement(labels,"mjx-label",{style:{height:CHTML.Em(state.RHD[i])}});
+        }
+      }
+      //
+      //  Propagate full-width equations, and reserve room for equation plus label
+      //
+      node.style.width = this.CHTML.pwidth = "100%";
+      node.style.minWidth = this.CHTML.mwidth = CHTML.Em(Math.max(0,tw));
+    }
+  });
+  
+  MML.mtr.Augment({
+    toCommonHTML: function (node,options) {
+      //
+      //  Create the row node
+      //
+      node = this.CHTMLcreateNode(node);
+      this.CHTMLhandleStyle(node);
+      this.CHTMLhandleScale(node);
+      //
+      //  Add a new row with no label
+      //
+      if (!options) options = {rows:[],labels:[]};
+      var row = []; options.rows.push(row); row.node = node;
+      options.labels.push(null);
+      //
+      //  Add the cells to the row
+      //
+      for (var i = 0, m = this.data.length; i < m; i++)
+        row.push(this.CHTMLaddChild(node,i,options));
+      //
+      this.CHTMLhandleColor(node);
+      return node;
+    }
+  });
+  MML.mlabeledtr.Augment({
+    toCommonHTML: function (node,options) {
+      //
+      //  Create the row node
+      //
+      node = this.CHTMLcreateNode(node);
+      this.CHTMLhandleStyle(node);
+      this.CHTMLhandleScale(node);
+      //
+      //  Add a new row, and get the label
+      //
+      if (!options) options = {rows:[],labels:[]};
+      var row = []; options.rows.push(row); row.node = node;
+      var label = CHTML.Element("mjx-label"); options.labels.push(label);
+      this.CHTMLaddChild(label,0,options);
+      if (this.data[0]) options.labeled = true;
+      //
+      //  Add the cells to the row
+      //
+      for (var i = 1, m = this.data.length; i < m; i++)
+        row.push(this.CHTMLaddChild(node,i,options));
+      //
+      this.CHTMLhandleColor(node);
+      return node;
+    }
+  });
+  MML.mtd.Augment({
+    toCommonHTML: function (node,options) {
+      node = this.CHTMLdefaultNode(node,options);
+      CHTML.addElement(node.firstChild,"mjx-strut");  // forces height to 1em (we adjust later)
+      //
+      //  Determine if this is stretchy or not
+      //
+      if (this.isEmbellished()) {
+        var mo = this.CoreMO(), BBOX = this.CHTML;
+        if (mo.CHTMLcanStretch("Vertical")) BBOX.stretch = "V";
+        else if (mo.CHTMLcanStretch("Horizontal")) BBOX.stretch = "H";
+        if (BBOX.stretch) {
+          var min = mo.Get("minsize",true);
+          if (min) {
+            if (BBOX.stretch === "V") {
+              var HD = BBOX.h + BBOX.d;
+              if (HD) {
+                var r = this.CHTMLlength2em(min,HD)/HD;
+                if (r > 1) {BBOX.h *= r; BBOX.d *= r}
+              }
+            } else {
+              BBOX.w = Math.max(BBOX.w,this.CHTMLlength2em(min,BBOX.w));
+            }
+          }
+        }
+      }
+      return node;
+    }
+  });
+
+  
+  MathJax.Hub.Startup.signal.Post("CommonHTML mtable Ready");
+  MathJax.Ajax.loadComplete(CHTML.autoloadDir+"/mtable.js");
+});
+

@@ -1,13 +1,21 @@
-/*
- *  /MathJax/jax/output/HTML-CSS/fonts/STIX/fontdata-extra.js
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
+/*************************************************************
  *
- *  Copyright (c) 2009-2018 The MathJax Consortium
+ *  MathJax/jax/output/HTML-CSS/fonts/STIX/fontdata-extra.js
+ *  
+ *  Adds extra stretchy characters to the STIX data.
+ *
+ *  ---------------------------------------------------------------------
+ *  
+ *  Copyright (c) 2011-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,4 +24,398 @@
  *  limitations under the License.
  */
 
-(function(h){var q="2.7.5";var n=h.FONTDATA.DELIMITERS;var l="STIXGeneral",i="STIXGeneral-bold",k="STIXVariants",o="STIXNonUnicode",f="STIXSizeOneSym",d="STIXSizeTwoSym",b="STIXSizeThreeSym",a="STIXSizeFourSym",p="STIXSizeFiveSym",j="STIXIntegralsD";var m="H",g="V";var e={61:{dir:m,HW:[[0.685,l]],stretch:{rep:[61,l]}},8606:{dir:m,HW:[[0.926,l]],stretch:{left:[8606,l],rep:[8722,l]}},8608:{dir:m,HW:[[0.926,l]],stretch:{right:[8608,l],rep:[8722,l]}},8612:{dir:m,HW:[[0.926,l]],stretch:{left:[8592,k],rep:[8722,l],right:[8867,i,0,0.1,0.6]}},8613:{dir:g,HW:[[0.816,l]],stretch:{bot:[95,l,0.05,-0.01,0.8],ext:[9168,l],top:[8593,l]}},8614:{dir:m,HW:[[1,l]],stretch:{left:[57526,o],rep:[8722,l],right:[8594,l]}},8615:{dir:g,HW:[[0.816,l]],stretch:{top:[8868,i,0.04,0,0.6],ext:[9168,l],bot:[8595,l]}},8624:{dir:g,HW:[[0.818,l]],stretch:{top:[8624,l],ext:[9168,l,0.152]}},8625:{dir:g,HW:[[0.818,l]],stretch:{top:[8625,l],ext:[9168,l,-0.195]}},8636:{dir:m,HW:[[0.955,l]],stretch:{left:[8636,l],rep:[8722,l]}},8637:{dir:m,HW:[[0.955,l]],stretch:{left:[8637,l],rep:[8722,l]}},8638:{dir:g,HW:[[0.818,l]],stretch:{top:[8638,l],ext:[9168,l]}},8639:{dir:g,HW:[[0.818,l]],stretch:{top:[8639,l],ext:[9168,l]}},8640:{dir:m,HW:[[0.955,l]],stretch:{right:[8640,l],rep:[8722,l]}},8641:{dir:m,HW:[[0.955,l]],stretch:{right:[8641,l],rep:[8722,l]}},8642:{dir:g,HW:[[0.818,l]],stretch:{bot:[8642,l],ext:[9168,l]}},8643:{dir:g,HW:[[0.818,l]],stretch:{bot:[8643,l],ext:[9168,l]}},8666:{dir:m,HW:[[0.926,l]],stretch:{left:[8666,l],rep:[8801,l]}},8667:{dir:m,HW:[[0.926,l]],stretch:{right:[8667,l],rep:[8801,l]}},8747:{dir:g,HW:[[0.607,l],[0.979,j]],stretch:{top:[8992,f],ext:[9134,f],bot:[8993,f]}},9140:{dir:m,HW:[[0.926,l],[1.063,f],[1.606,d],[2.147,b],[2.692,a],[3.237,p]],stretch:{left:[8976,l],rep:[8722,l,0,0.12],right:[172,l]}},9141:{dir:m,HW:[[0.926,l],[1.063,f],[1.606,d],[2.147,b],[2.692,a],[3.237,p]],stretch:{left:[10813,l,0,0.12],rep:[8722,l,0,0,0,0.12],right:[10812,l,0,0.12]}},9180:{dir:m,HW:[[0.926,f],[1,l],[1.46,d],[1.886,b],[2.328,a],[3.237,p]],stretch:{left:[57659,o],right:[57660,o],rep:[57674,o]}},9181:{dir:m,HW:[[0.926,f],[1,l],[1.46,d],[1.886,b],[2.328,a],[3.237,p]],stretch:{left:[57661,o],right:[57662,o],rep:[57675,o]}},9184:{dir:m,HW:[[1,l],[1.46,f],[1.886,d],[2.312,b],[2.738,a],[3.164,p]],stretch:{left:[57613,o,-0.1,-0.1],rep:[8722,l,0,0.05],right:[57612,o,0,-0.1],fullExtenders:true}},9185:{dir:m,HW:[[1,l],[1.46,f],[1.886,d],[2.312,b],[2.738,a],[3.164,p]],stretch:{left:[57612,o,-0.1,0.1],rep:[8722,l,0,-0.1,0,0.1],right:[57613,o,0,0.1],fullExtenders:true}},10502:{dir:m,HW:[[0.926,l]],stretch:{left:[8656,l],rep:[61,l],right:[10980,l,0,-0.09]}},10503:{dir:m,HW:[[0.926,l]],stretch:{left:[8872,l,0,-0.09],rep:[61,l],right:[8658,l]}},10574:{dir:m,HW:[],stretch:{left:[8636,l],rep:[8722,l],right:[8640,l]}},10575:{dir:g,HW:[[0.818,l]],stretch:{top:[8638,l],ext:[9168,l],bot:[8642,l]}},10576:{dir:m,HW:[[0.926,l]],stretch:{left:[8637,l],rep:[8722,l],right:[8641,l]}},10577:{dir:g,HW:[[0.818,l]],stretch:{top:[8639,l],ext:[9168,l],bot:[8643,l]}},10586:{dir:m,HW:[[0.926,l]],stretch:{left:[8636,l],rep:[8722,l],right:[8867,i,0,0.1,0.6]}},10587:{dir:m,HW:[[0.926,l]],stretch:{left:[57526,o],rep:[8722,l],right:[8640,l]}},10588:{dir:g,HW:[[0.818,l]],stretch:{bot:[95,l,0.05,-0.01,0.8],ext:[9168,l],top:[8638,l]}},10589:{dir:g,HW:[[0.818,l]],stretch:{top:[8868,i,0.04,0,0.6],ext:[9168,l],bot:[8642,l]}},10590:{dir:m,HW:[[0.926,l]],stretch:{left:[8637,l],rep:[8722,l],right:[8867,i,0,0.1,0.6]}},10591:{dir:m,HW:[[0.926,l]],stretch:{left:[57526,o],rep:[8722,l],right:[8641,l]}},10592:{dir:g,HW:[[0.818,l]],stretch:{bot:[95,l,0.05,-0.01,0.8],ext:[9168,l],top:[8639,l]}},10593:{dir:g,HW:[[0.818,l]],stretch:{top:[8868,i,0.04,0,0.6],ext:[9168,l],bot:[8643,l]}},711:{dir:m,HW:[[0.333,l],[0.56,f],[0.979,d],[1.458,b],[1.886,a],[2.328,p]]},717:{dir:m,HW:[[0.334,l]],stretch:{rep:[717,l]}},759:{dir:m,HW:[[0.558,f],[0.977,d],[1.458,b],[1.886,a],[2.328,p]]},8607:{dir:g,HW:[[0.816,l]],stretch:{ext:[9168,l],top:[8607,l]}},8609:{dir:g,HW:[[0.816,l]],stretch:{ext:[9168,l],bot:[8609,l]}},8616:{dir:g,HW:[[0.816,l]],stretch:{top:[8593,l],ext:[9168,l],bot:[10515,l]}},8617:{dir:m,HW:[[0.926,l]],stretch:{left:[8592,l],rep:[8722,l],right:[57525,o]}},8618:{dir:m,HW:[[0.926,l]],stretch:{left:[57524,o],rep:[8722,l],right:[8594,l]}},8626:{dir:g,HW:[[0.818,l]],stretch:{bot:[8626,l],ext:[9168,l,0.152]}},8627:{dir:g,HW:[[0.818,l]],stretch:{bot:[8627,l],ext:[9168,l,-0.195]}},8628:{dir:m,HW:[[0.926,l]],stretch:{rep:[8722,l,0,0.4],right:[8628,l]}},8629:{dir:g,HW:[[0.818,l]],stretch:{bot:[8629,l],ext:[9168,l,0.57]}},8651:{dir:m,HW:[[0.926,l]],stretch:{left:[10602,l],rep:[61,l],right:[10605,l]}},8652:{dir:m,HW:[[0.926,l]],stretch:{left:[10603,l],rep:[61,l],right:[10604,l]}},8672:{dir:m,HW:[[0.926,l]],stretch:{left:[8672,l],rep:[57633,o,0,0,0,0,0.1],fullExtenders:true}},8673:{dir:g,HW:[[0.818,l]],stretch:{ext:[57645,o],top:[8673,l],fullExtenders:true}},8674:{dir:m,HW:[[0.926,l]],stretch:{right:[8674,k],rep:[57646,o,0,0,0,0,0.1],fullExtenders:true}},8675:{dir:g,HW:[[0.818,l]],stretch:{ext:[57644,o],bot:[8675,l],fullExtenders:true}},8676:{dir:m,HW:[[0.926,l]],stretch:{left:[8676,l],rep:[8722,l]}},8677:{dir:m,HW:[[0.926,l]],stretch:{right:[8677,l],rep:[8722,l]}},8701:{dir:m,HW:[[0.926,l]],stretch:{left:[8701,l],rep:[8722,l]}},8702:{dir:m,HW:[[0.926,l]],stretch:{right:[8702,l],rep:[8722,l]}},8703:{dir:m,HW:[[0.926,l]],stretch:{left:[8701,l],rep:[8722,l],right:[8702,l]}},10214:{dir:g,HW:[[0.93,l],[1.23,f],[1.845,d],[2.46,b],[3.075,a]],stretch:{top:[9555,l],ext:[9553,l],bot:[9561,l]}},10215:{dir:g,HW:[[0.93,l],[1.23,f],[1.845,d],[2.46,b],[3.075,a]],stretch:{top:[9558,l],ext:[9553,l],bot:[9564,l]}},10218:{dir:g,HW:[[0.931,l],[1.23,f],[1.845,d],[2.461,b],[3.075,a]]},10219:{dir:g,HW:[[0.931,l],[1.23,f],[1.845,d],[2.461,b],[3.075,a]]},10506:{dir:g,HW:[[0.818,l]],stretch:{top:[10506,l],ext:[57653,o]}},10507:{dir:g,HW:[[0.818,l]],stretch:{bot:[10507,l],ext:[57653,o]}},10514:{dir:g,HW:[[0.818,l]],stretch:{top:[10514,l],ext:[9168,l]}},10515:{dir:g,HW:[[0.818,l]],stretch:{bot:[10515,l],ext:[9168,l]}},10578:{dir:m,HW:[[0.926,l]],stretch:{left:[10578,l],rep:[8722,l]}},10579:{dir:m,HW:[[0.926,l]],stretch:{right:[10579,l],rep:[8722,l]}},10580:{dir:g,HW:[[0.818,l]],stretch:{top:[10580,l],ext:[9168,l]}},10581:{dir:g,HW:[[0.818,l]],stretch:{bot:[10581,l],ext:[9168,l]}},10582:{dir:m,HW:[[0.926,l]],stretch:{left:[10582,l],rep:[8722,l]}},10583:{dir:m,HW:[[0.926,l]],stretch:{right:[10583,l],rep:[8722,l]}},10584:{dir:g,HW:[[0.818,l]],stretch:{top:[10584,l],ext:[9168,l]}},10585:{dir:g,HW:[[0.818,l]],stretch:{bot:[10585,l],ext:[9168,l]}},10624:{dir:g,HW:[[0.874,l]],stretch:{ext:[10624,l]}},10647:{dir:g,HW:[[0.932,l]],stretch:{top:[57613,o,0.1,0.05],ext:[9168,l,-0.1],bot:[57612,o,0.1]}},10648:{dir:g,HW:[[0.932,l]],stretch:{top:[57612,o,-0.1,0.05],ext:[9168,l],bot:[57613,o,-0.1]}}};for(var c in e){if(e.hasOwnProperty(c)){n[c]=e[c]}}MathJax.Ajax.loadComplete(h.fontDir+"/fontdata-extra.js")})(MathJax.OutputJax["HTML-CSS"]);
+(function (HTMLCSS) {
+  var VERSION = "2.7.5";
+  
+  var DELIMITERS = HTMLCSS.FONTDATA.DELIMITERS;
+
+  var GENERAL = "STIXGeneral",
+      BOLD    = "STIXGeneral-bold",
+      VARIANT = "STIXVariants",
+      NONUNI  = "STIXNonUnicode",
+      SIZE1   = "STIXSizeOneSym",
+      SIZE2   = "STIXSizeTwoSym",
+      SIZE3   = "STIXSizeThreeSym",
+      SIZE4   = "STIXSizeFourSym",
+      SIZE5   = "STIXSizeFiveSym",
+      INTD    = "STIXIntegralsD";
+  var H = "H", V = "V";
+  
+  var delim = {
+    0x003D: // equal sign
+    {
+      dir: H, HW: [[.685,GENERAL]], stretch: {rep:[0x003D,GENERAL]}
+    },
+    0x219E: // left two-headed arrow
+    {
+      dir: H, HW: [[.926,GENERAL]], stretch: {left:[0x219E,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x21A0: // right two-headed arrow
+    {
+      dir: H, HW: [[.926,GENERAL]], stretch: {right:[0x21A0,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x21A4: // left arrow from bar
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0x2190,VARIANT], rep:[0x2212,GENERAL], right:[0x22A3,BOLD,0,.1,.6]}
+    },
+    0x21A5: // up arrow from bar
+    {
+      dir: V, HW: [[.816,GENERAL]],
+      stretch: {bot:[0x5F,GENERAL,.05,-.01,.8], ext:[0x23D0,GENERAL], top:[0x2191,GENERAL]}
+    },
+    0x21A6: // right arrow from bar
+    {
+      dir: H, HW: [[1,GENERAL]],
+      stretch: {left:[0xE0B6,NONUNI], rep:[0x2212,GENERAL], right:[0x2192,GENERAL]}
+    },
+    0x21A7: // down arrow from bar
+    {
+      dir: V, HW: [[.816,GENERAL]],
+      stretch: {top:[0x22A4,BOLD,0.04,0,.6], ext:[0x23D0,GENERAL], bot:[0x2193,GENERAL]}
+    },
+    0x21B0: // up arrow with top leftwards
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {top:[0x21B0,GENERAL], ext:[0x23D0,GENERAL,.152]}
+    },
+    0x21B1: // up arrow with top right
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {top:[0x21B1,GENERAL], ext:[0x23D0,GENERAL,-.195]}
+    },
+    0x21BC: // left harpoon with barb up
+    {
+      dir: H, HW: [[.955,GENERAL]], stretch: {left:[0x21BC,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x21BD: // left harpoon with barb down
+    {
+      dir: H, HW: [[.955,GENERAL]], stretch: {left:[0x21BD,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x21BE: // up harpoon with barb right
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {top:[0x21BE,GENERAL], ext:[0x23D0,GENERAL]}
+    },
+    0x21BF: // up harpoon with barb left
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {top:[0x21BF,GENERAL], ext:[0x23D0,GENERAL]}
+    },
+    0x21C0: // right harpoon with barb up
+    {
+      dir: H, HW: [[.955,GENERAL]], stretch: {right:[0x21C0,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x21C1: // right harpoon with barb down
+    {
+      dir: H, HW: [[.955,GENERAL]], stretch: {right:[0x21C1,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x21C2: // down harpoon with barb right
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {bot:[0x21C2,GENERAL], ext:[0x23D0,GENERAL]}
+    },
+    0x21C3: // down harpoon with barb left
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {bot:[0x21C3,GENERAL], ext:[0x23D0,GENERAL]}
+    },
+    0x21DA: // left triple arrow
+    {
+      dir: H, HW: [[.926,GENERAL]], stretch: {left:[0x21DA,GENERAL], rep:[0x2261,GENERAL]}
+    },
+    0x21DB: // right triple arrow
+    {
+      dir: H, HW: [[.926,GENERAL]], stretch: {right:[0x21DB,GENERAL], rep:[0x2261,GENERAL]}
+    },
+    0x222B: // integral
+    {
+      dir: V, HW: [[0.607,GENERAL], [0.979,INTD]],
+      stretch: {top:[0x2320,SIZE1], ext:[0x23AE,SIZE1], bot:[0x2321,SIZE1]}
+    },
+    0x23B4: // top square bracket
+    {
+      dir: H, HW: [[.926,GENERAL],[1.063,SIZE1],[1.606,SIZE2],[2.147,SIZE3],[2.692,SIZE4],[3.237,SIZE5]],
+      stretch: {left:[0x2310,GENERAL], rep:[0x2212,GENERAL,0,.12], right:[0xAC,GENERAL]}
+    },
+    0x23B5: // bottom square bracket
+    {
+      dir: H, HW: [[.926,GENERAL],[1.063,SIZE1],[1.606,SIZE2],[2.147,SIZE3],[2.692,SIZE4],[3.237,SIZE5]],
+      stretch: {left:[0x2A3D,GENERAL,0,.12], rep:[0x2212,GENERAL,0,0,0,.12], right:[0x2A3C,GENERAL,0,.12]}
+    },
+    0x23DC: // top paren
+    {
+      dir: H, HW: [[.926,SIZE1],[1,GENERAL],[1.460,SIZE2],[1.886,SIZE3],[2.328,SIZE4],[3.237,SIZE5]],
+      stretch: {left:[0xE13B,NONUNI], right:[0xE13C,NONUNI], rep:[0xE14A,NONUNI]}
+    },
+    0x23DD: // bottom paren
+    {
+      dir: H, HW: [[.926,SIZE1],[1,GENERAL],[1.460,SIZE2],[1.886,SIZE3],[2.328,SIZE4],[3.237,SIZE5]],
+      stretch: {left:[0xE13D,NONUNI], right:[0xE13E,NONUNI], rep:[0xE14B,NONUNI]}
+    },
+    0x23E0: // top tortoise shell
+    {
+      dir: H, HW: [[1,GENERAL],[1.460,SIZE1],[1.886,SIZE2],[2.312,SIZE3],[2.738,SIZE4],[3.164,SIZE5]],
+      stretch: {left:[0xE10D,NONUNI,-.1,-.1], rep:[0x2212,GENERAL,0,.05], right:[0xE10C,NONUNI,0,-.1], fullExtenders:true}
+    },
+    0x23E1: // bottom tortoise shell
+    {
+      dir: H, HW: [[1,GENERAL],[1.460,SIZE1],[1.886,SIZE2],[2.312,SIZE3],[2.738,SIZE4],[3.164,SIZE5]],
+      stretch: {left:[0xE10C,NONUNI,-.1,.1], rep:[0x2212,GENERAL,0,-.1,0,.1], right:[0xE10D,NONUNI,0,.1], fullExtenders:true}
+    },
+    0x2906: // leftwards double arrow from bar
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0x21D0,GENERAL], rep:[0x3D,GENERAL], right:[0x2AE4,GENERAL,0,-.09]}
+    },
+    0x2907: // rightwards double arrow from bar
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0x22A8,GENERAL,0,-.09], rep:[0x3D,GENERAL], right:[0x21D2,GENERAL]}
+    },
+    0x294E: // left barb up right barb up harpoon
+    {
+      dir: H, HW: [],
+      stretch: {left:[0x21BC,GENERAL], rep:[0x2212,GENERAL], right:[0x21C0,GENERAL]}
+    },
+    0x294F: // up barb right down barb right harpoon
+    {
+      dir: V, HW: [[.818,GENERAL]],
+      stretch: {top:[0x21BE,GENERAL], ext:[0x23D0,GENERAL], bot:[0x21C2,GENERAL]}
+    },
+    0x2950: // left barb dow right barb down harpoon
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0x21BD,GENERAL], rep:[0x2212,GENERAL], right:[0x21C1,GENERAL]}
+    },
+    0x2951: // up barb left down barb left harpoon
+    {
+      dir: V, HW: [[.818,GENERAL]],
+      stretch: {top:[0x21BF,GENERAL], ext:[0x23D0,GENERAL], bot:[0x21C3,GENERAL]}
+    },
+    0x295A: // leftwards harpoon with barb up from bar
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0x21BC,GENERAL], rep:[0x2212,GENERAL], right:[0x22A3,BOLD,0,.1,.6]}
+    },
+    0x295B: // rightwards harpoon with barb up from bar
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0xE0B6,NONUNI], rep:[0x2212,GENERAL], right:[0x21C0,GENERAL]}
+    },
+    0x295C: // up harpoon with barb right from bar
+    {
+      dir: V, HW: [[.818,GENERAL]],
+      stretch: {bot:[0x5F,GENERAL,.05,-.01,.8], ext:[0x23D0,GENERAL], top:[0x21BE,GENERAL]}
+    },
+    0x295D: // down harpoon with barb right from bar
+    {
+      dir: V, HW: [[.818,GENERAL]],
+      stretch: {top:[0x22A4,BOLD,0.04,0,.6], ext:[0x23D0,GENERAL], bot:[0x21C2,GENERAL]}
+    },
+    0x295E: // leftwards harpoon with barb down from bar
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0x21BD,GENERAL], rep:[0x2212,GENERAL], right:[0x22A3,BOLD,0,.1,.6]}
+    },
+    0x295F: // rightwards harpoon with barb down from bar
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0xE0B6,NONUNI], rep:[0x2212,GENERAL], right:[0x21C1,GENERAL]}
+    },
+    0x2960: // up harpoon with barb left from bar
+    {
+      dir: V, HW: [[.818,GENERAL]],
+      stretch: {bot:[0x5F,GENERAL,.05,-.01,.8], ext:[0x23D0,GENERAL], top:[0x21BF,GENERAL]}
+    },
+    0x2961: // down harpoon with barb left from bar
+    {
+      dir: V, HW: [[.818,GENERAL]],
+      stretch: {top:[0x22A4,BOLD,0.04,0,.6], ext:[0x23D0,GENERAL], bot:[0x21C3,GENERAL]}
+    },
+    
+    0x02C7: // caron
+    {
+      dir: H, HW: [[.333,GENERAL],[.56,SIZE1],[.979,SIZE2],[1.458,SIZE3],[1.886,SIZE4],[2.328,SIZE5]]
+    },
+    0x02CD: // low macron
+    {
+      dir: H, HW: [[.334,GENERAL]], stretch: {rep:[0x2CD,GENERAL]}
+    },
+    0x02F7: // low tilde
+    {
+      dir: H, HW: [[.558,SIZE1],[.977,SIZE2],[1.458,SIZE3],[1.886,SIZE4],[2.328,SIZE5]]
+    },
+    0x219F: // upwards two headed arrow
+    {
+      dir: V, HW: [[.816,GENERAL]], stretch: {ext:[0x23D0,GENERAL], top:[0x219F,GENERAL]}
+    },
+    0x21A1: // downwards two headed arrow
+    {
+      dir: V, HW: [[.816,GENERAL]], stretch: {ext:[0x23D0,GENERAL], bot:[0x21A1,GENERAL]}
+    },
+    0x21A8: // up down arrow with base
+    {
+      dir: V, HW: [[.816,GENERAL]],
+      stretch: {top:[0x2191,GENERAL], ext:[0x23D0,GENERAL], bot:[0x2913,GENERAL]}
+    },
+    0x21A9: // left hook arrow
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0x2190,GENERAL], rep:[0x2212,GENERAL], right:[0xE0B5,NONUNI]}
+    },
+    0x21AA: // right hook arrow
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0xE0B4,NONUNI], rep:[0x2212,GENERAL], right:[0x2192,GENERAL]}
+    },
+    0x21B2: // down arrow with tip left
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {bot:[0x21B2,GENERAL], ext:[0x23D0,GENERAL,.152]}
+    },
+    0x21B3: // down arrow with tip right
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {bot:[0x21B3,GENERAL], ext:[0x23D0,GENERAL,-.195]}
+    },
+    0x21B4: // right arrow with corner down
+    {
+      dir: H, HW: [[.926,GENERAL]], stretch: {rep:[0x2212,GENERAL,0,.4], right:[0x21B4,GENERAL]}
+    },
+    0x21B5: // down arrow with corner left
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {bot:[0x21B5,GENERAL], ext:[0x23D0,GENERAL,.57]}
+    },
+    0x21CB: // left harpoon over right harpoon
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0x296A,GENERAL], rep:[0x3D,GENERAL], right:[0x296D,GENERAL]}
+    },
+    0x21CC: // right harpoon over left harpoon
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0x296B,GENERAL], rep:[0x3D,GENERAL], right:[0x296C,GENERAL]}
+    },
+    0x21E0: // left dashed arrow
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0x21E0,GENERAL], rep:[0xE121,NONUNI,0,0,0,0,.1], fullExtenders:true}
+    },
+    0x21E1: // up dashed arrow
+    {
+      dir: V, HW: [[.818,GENERAL]],
+      stretch: {ext:[0xE12D,NONUNI], top:[0x21E1,GENERAL], fullExtenders: true}
+    },
+    0x21E2: // right dashed arrow
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {right:[0x21E2,VARIANT], rep:[0xE12E,NONUNI,0,0,0,0,.1], fullExtenders:true}
+    },
+    0x21E3: // down dashed arrow
+    {
+      dir: V, HW: [[.818,GENERAL]],
+      stretch: {ext:[0xE12C,NONUNI], bot:[0x21E3,GENERAL], fullExtenders: true}
+    },
+    0x21E4: // left arrow to bar
+    {
+      dir: H, HW: [[.926,GENERAL]], stretch: {left:[0x21E4,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x21E5: // right arrow to bar
+    {
+      dir: H, HW: [[.926,GENERAL]], stretch: {right:[0x21E5,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x21FD: // left open-headed arrow
+    {
+      dir: H, HW: [[.926,GENERAL]], stretch: {left:[0x21FD,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x21FE: // right open-headed arrow
+    {
+      dir: H, HW: [[.926,GENERAL]], stretch: {right:[0x21FE,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x21FF: // left right open-headed arrow
+    {
+      dir: H, HW: [[.926,GENERAL]],
+      stretch: {left:[0x21FD,GENERAL], rep:[0x2212,GENERAL], right:[0x21FE,GENERAL]}
+    },
+    0x27E6: // left white square bracket
+    {
+      dir: V, HW: [[.93,GENERAL],[1.23,SIZE1],[1.845,SIZE2],[2.46,SIZE3],[3.075,SIZE4]],
+      stretch: {top:[0x2553,GENERAL], ext:[0x2551,GENERAL], bot:[0x2559,GENERAL]}
+    },
+    0x27E7: // right white square bracket
+    {
+      dir: V, HW: [[.93,GENERAL],[1.23,SIZE1],[1.845,SIZE2],[2.46,SIZE3],[3.075,SIZE4]],
+      stretch: {top:[0x2556,GENERAL], ext:[0x2551,GENERAL], bot:[0x255C,GENERAL]}
+    },
+    0x27EA: // left double angle bracket
+    {
+      dir: V, HW: [[.931,GENERAL],[1.23,SIZE1],[1.845,SIZE2],[2.461,SIZE3],[3.075,SIZE4]]
+    },
+    0x27EB: // right double angle bracket
+    {
+      dir: V, HW: [[.931,GENERAL],[1.23,SIZE1],[1.845,SIZE2],[2.461,SIZE3],[3.075,SIZE4]]
+    },
+    0x290A: // up triple arrow
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {top:[0x290A,GENERAL], ext:[0xE135,NONUNI]}
+    },
+    0x290B: // down triple arrow
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {bot:[0x290B,GENERAL], ext:[0xE135,NONUNI]}
+    },
+    0x2912: // up arrow to bar
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {top:[0x2912,GENERAL], ext:[0x23D0,GENERAL]}
+    },
+    0x2913: // down arrow to bar
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {bot:[0x2913,GENERAL], ext:[0x23D0,GENERAL]}
+    },
+    0x2952: // left harpoon with barb up to bar
+    {
+      dir: H, HW: [[.926,GENERAL]], stretch: {left:[0x2952,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x2953: // right harpoon with barb up to bar
+    {
+      dir: H, HW: [[.926,GENERAL]], stretch: {right:[0x2953,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x2954: // up harpoon with barb right to bar
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {top:[0x2954,GENERAL], ext:[0x23D0,GENERAL]}
+    },
+    0x2955: // down harpoon with barb right to bar
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {bot:[0x2955,GENERAL], ext:[0x23D0,GENERAL]}
+    },
+    0x2956: // left harpoon with barb down to bar
+    {
+      dir: H, HW: [[.926,GENERAL]], stretch: {left:[0x2956,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x2957: // right harpoon with barb down to bar
+    {
+      dir: H, HW: [[.926,GENERAL]], stretch: {right:[0x2957,GENERAL], rep:[0x2212,GENERAL]}
+    },
+    0x2958: // up harpoon with barb left to bar
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {top:[0x2958,GENERAL], ext:[0x23D0,GENERAL]}
+    },
+    0x2959: // down harpoon with barb left to bar
+    {
+      dir: V, HW: [[.818,GENERAL]], stretch: {bot:[0x2959,GENERAL], ext:[0x23D0,GENERAL]}
+    },
+    0x2980: // triple vertical bar
+    {
+      dir: V, HW: [[.874,GENERAL]], stretch: {ext:[0x2980,GENERAL]}
+    },
+    0x2997: // left black tortoise shell
+    {
+      dir: V, HW: [[.932,GENERAL]],
+      stretch: {top:[0xE10D,NONUNI,.1,.05], ext:[0x23D0,GENERAL,-.1], bot:[0xE10C,NONUNI,.1]}
+    },
+    0x2998: // right black tortoise shell
+    {
+      dir: V, HW: [[.932,GENERAL]],
+      stretch: {top:[0xE10C,NONUNI,-.1,.05], ext:[0x23D0,GENERAL], bot:[0xE10D,NONUNI,-.1]}
+    }
+
+  };
+  
+  for (var id in delim) {if (delim.hasOwnProperty(id)) {DELIMITERS[id] = delim[id]}};
+
+  MathJax.Ajax.loadComplete(HTMLCSS.fontDir + "/fontdata-extra.js");
+
+})(MathJax.OutputJax["HTML-CSS"]);
+

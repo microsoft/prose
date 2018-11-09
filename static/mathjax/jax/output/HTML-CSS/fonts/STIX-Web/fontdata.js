@@ -1,13 +1,16 @@
-/*
- *  /MathJax/jax/output/HTML-CSS/fonts/STIX-Web/fontdata.js
+/*************************************************************
  *
- *  Copyright (c) 2009-2018 The MathJax Consortium
+ *  MathJax/jax/output/HTML-CSS/fonts/STIX-Web/fontdata.js
+ *  
+ *  Initializes the HTML-CSS OutputJax to use the STIX-Web fonts
+
+ *  Copyright (c) 2013-2018 The MathJax Consortium
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,4 +19,777 @@
  *  limitations under the License.
  */
 
-(function(aj,l,am){var B="2.7.5";var t="STIXMathJax_Alphabets-bold-italic",G="STIXMathJax_Alphabets-bold",z="STIXMathJax_Alphabets-italic",e="STIXMathJax_Alphabets",S="STIXMathJax_Arrows-bold",w="STIXMathJax_Arrows",g="STIXMathJax_DoubleStruck-bold-italic",i="STIXMathJax_DoubleStruck-bold",c="STIXMathJax_DoubleStruck-italic",b="STIXMathJax_DoubleStruck",q="STIXMathJax_Fraktur-bold",p="STIXMathJax_Fraktur",U="STIXMathJax_Latin-bold-italic",C="STIXMathJax_Latin-bold",D="STIXMathJax_Latin-italic",K="STIXMathJax_Latin",R="STIXMathJax_Main-bold-italic",ak="STIXMathJax_Main-bold",P="STIXMathJax_Main-italic",E="STIXMathJax_Main",k="STIXMathJax_Marks-bold-italic",I="STIXMathJax_Marks-bold",n="STIXMathJax_Marks-italic",Z="STIXMathJax_Marks",ah="STIXMathJax_Misc-bold-italic",h="STIXMathJax_Misc-bold",ad="STIXMathJax_Misc-italic",x="STIXMathJax_Misc",al="STIXMathJax_Monospace",ab="STIXMathJax_Normal-bold-italic",Q="STIXMathJax_Normal-bold",T="STIXMathJax_Normal-italic",j="STIXMathJax_Operators-bold",v="STIXMathJax_Operators",N="STIXMathJax_SansSerif-bold-italic",A="STIXMathJax_SansSerif-bold",an="STIXMathJax_SansSerif-italic",d="STIXMathJax_SansSerif",a="STIXMathJax_Script-bold-italic",O="STIXMathJax_Script-italic",W="STIXMathJax_Script",r="STIXMathJax_Shapes-bold-italic",J="STIXMathJax_Shapes-bold",m="STIXMathJax_Shapes",ae="STIXMathJax_Size1",ac="STIXMathJax_Size2",aa="STIXMathJax_Size3",Y="STIXMathJax_Size4",X="STIXMathJax_Size5",af="STIXMathJax_Symbols-bold",u="STIXMathJax_Symbols",F="STIXMathJax_Variants-bold-italic",o="STIXMathJax_Variants-bold",ai="STIXMathJax_Variants-italic",M="STIXMathJax_Variants";var s="H",f="V",L={load:"extra",dir:s},y={load:"extra",dir:f};var ag=[8722,E,0,0,0,-0.26,-0.26];aj.Augment({FONTDATA:{version:B,TeX_factor:1.125,baselineskip:1.2,lineH:0.8,lineD:0.2,hasStyleChar:true,FONTS:{"STIXMathJax_Alphabets-bold-italic":"Alphabets/BoldItalic/Main.js","STIXMathJax_Alphabets-bold":"Alphabets/Bold/Main.js","STIXMathJax_Alphabets-italic":"Alphabets/Italic/Main.js",STIXMathJax_Alphabets:"Alphabets/Regular/Main.js","STIXMathJax_Arrows-bold":"Arrows/Bold/Main.js",STIXMathJax_Arrows:"Arrows/Regular/Main.js","STIXMathJax_DoubleStruck-bold-italic":"DoubleStruck/BoldItalic/Main.js","STIXMathJax_DoubleStruck-bold":"DoubleStruck/Bold/Main.js","STIXMathJax_DoubleStruck-italic":"DoubleStruck/Italic/Main.js",STIXMathJax_DoubleStruck:"DoubleStruck/Regular/Main.js","STIXMathJax_Fraktur-bold":"Fraktur/Bold/Main.js",STIXMathJax_Fraktur:"Fraktur/Regular/Main.js","STIXMathJax_Latin-bold-italic":"Latin/BoldItalic/Main.js","STIXMathJax_Latin-bold":"Latin/Bold/Main.js","STIXMathJax_Latin-italic":"Latin/Italic/Main.js",STIXMathJax_Latin:"Latin/Regular/Main.js","STIXMathJax_Main-bold-italic":"Main/BoldItalic/Main.js","STIXMathJax_Main-bold":"Main/Bold/Main.js","STIXMathJax_Main-italic":"Main/Italic/Main.js",STIXMathJax_Main:"Main/Regular/Main.js","STIXMathJax_Marks-bold-italic":"Marks/BoldItalic/Main.js","STIXMathJax_Marks-bold":"Marks/Bold/Main.js","STIXMathJax_Marks-italic":"Marks/Italic/Main.js",STIXMathJax_Marks:"Marks/Regular/Main.js","STIXMathJax_Misc-bold-italic":"Misc/BoldItalic/Main.js","STIXMathJax_Misc-bold":"Misc/Bold/Main.js","STIXMathJax_Misc-italic":"Misc/Italic/Main.js",STIXMathJax_Misc:"Misc/Regular/Main.js",STIXMathJax_Monospace:"Monospace/Regular/Main.js","STIXMathJax_Normal-bold-italic":"Normal/BoldItalic/Main.js","STIXMathJax_Normal-bold":"Normal/Bold/Main.js","STIXMathJax_Normal-italic":"Normal/Italic/Main.js","STIXMathJax_Operators-bold":"Operators/Bold/Main.js",STIXMathJax_Operators:"Operators/Regular/Main.js","STIXMathJax_SansSerif-bold-italic":"SansSerif/BoldItalic/Main.js","STIXMathJax_SansSerif-bold":"SansSerif/Bold/Main.js","STIXMathJax_SansSerif-italic":"SansSerif/Italic/Main.js",STIXMathJax_SansSerif:"SansSerif/Regular/Main.js","STIXMathJax_Script-bold-italic":"Script/BoldItalic/Main.js","STIXMathJax_Script-italic":"Script/Italic/Main.js",STIXMathJax_Script:"Script/Regular/Main.js","STIXMathJax_Shapes-bold-italic":"Shapes/BoldItalic/Main.js","STIXMathJax_Shapes-bold":"Shapes/Bold/Main.js",STIXMathJax_Shapes:"Shapes/Regular/Main.js",STIXMathJax_Size1:"Size1/Regular/Main.js",STIXMathJax_Size2:"Size2/Regular/Main.js",STIXMathJax_Size3:"Size3/Regular/Main.js",STIXMathJax_Size4:"Size4/Regular/Main.js",STIXMathJax_Size5:"Size5/Regular/Main.js","STIXMathJax_Symbols-bold":"Symbols/Bold/Main.js",STIXMathJax_Symbols:"Symbols/Regular/Main.js","STIXMathJax_Variants-bold-italic":"Variants/BoldItalic/Main.js","STIXMathJax_Variants-bold":"Variants/Bold/Main.js","STIXMathJax_Variants-italic":"Variants/Italic/Main.js",STIXMathJax_Variants:"Variants/Regular/Main.js"},VARIANT:{normal:{fonts:[E,al,K,e,Z,w,v,u,m,x,M,ae],remap:{124:[124,"-STIX-Web-variant"]}},bold:{fonts:[ak,Q,q,i,A,C,G,I,S,j,af,J,h,o,ae],offsetA:119808,offsetG:120488,bold:true,remap:{8706:120539,8711:120513}},italic:{fonts:[P,T,O,c,an,D,z,n,ad,ai,ae],offsetA:119860,offsetG:120546,remap:{119893:8462,8706:120597,8711:120571},italic:true},"bold-italic":{fonts:[R,ab,a,g,N,U,t,k,r,ah,F,ae],offsetA:119860,offsetG:120604,remap:{119893:8462,8706:120655,8711:120629},bold:true,italic:true},"double-struck":{fonts:[b],offsetA:120120,offsetN:120792,remap:{120122:8450,120127:8461,120133:8469,120135:8473,120136:8474,120137:8477,120145:8484}},fraktur:{fonts:[p],offsetA:120068,remap:{120070:8493,120075:8460,120076:8465,120085:8476,120093:8488}},"bold-fraktur":{fonts:[q],offsetA:120172,bold:true},script:{fonts:[O],offsetA:119964,italic:true,remap:{119965:8492,119968:8496,119969:8497,119971:8459,119972:8464,119975:8466,119976:8499,119981:8475,119994:8495,119996:8458,120004:8500}},"bold-script":{fonts:[a],offsetA:120016,bold:true,italic:true},"sans-serif":{fonts:[d],offsetA:120224,offsetN:120802,offsetP:57725,remap:{8706:57724}},"bold-sans-serif":{fonts:[A],offsetA:120276,offsetN:120812,offsetG:120662,remap:{8706:120713,8711:120687}},"sans-serif-italic":{fonts:[an],italic:true,offsetA:120328,offsetN:57780,offsetP:57791,remap:{8706:57790},bold:true},"sans-serif-bold-italic":{fonts:[N],offsetA:120380,offsetN:57846,offsetG:120720,remap:{8706:120771,8711:120745},bold:true,italic:true},monospace:{fonts:[al],offsetA:120432,offsetN:120822},"-STIX-Web-variant":{remap:{10887:57360,10888:57359,9651:9653,9661:9663,124:[124,l.VARIANT.NORMAL]},fonts:[M,m,v,E,al,K,e,Z,w,u,x,ae]},"-tex-caligraphic":{offsetA:57901,noLowerCase:1,fonts:[ai,P,T,O,c,an,D,z,n,ad,ae],italic:true},"-tex-oldstyle":{offsetN:57953,remap:{57954:57957,57955:57961,57956:57965,57957:57969,57958:57973,57959:57977,57960:57981,57961:57985,57962:57989},fonts:[M,E,al,K,e,Z,w,v,u,m,x,ae]},"-tex-caligraphic-bold":{offsetA:57927,noLowerCase:1,fonts:[F,R,ab,a,g,N,U,t,k,r,ah,ae],italic:true,bold:true},"-tex-oldstyle-bold":{offsetN:57953,remap:{57956:57959,57957:57963,57958:57967,57959:57971,57960:57975,57961:57979,57962:57983,57963:57987,57964:57991},fonts:[o,ak,Q,q,i,A,C,G,I,S,j,af,J,h,ae],bold:true},"-tex-mathit":{fonts:[P,T,O,c,an,D,z,n,ad,ai,ae],italic:true,noIC:true},"-largeOp":{fonts:[ae,E]},"-smallOp":{}},RANGES:[{name:"alpha",low:97,high:122,offset:"A",add:26},{name:"Alpha",low:65,high:90,offset:"A"},{name:"number",low:48,high:57,offset:"N"},{name:"greek",low:945,high:969,offset:"G",add:26},{name:"Greek",low:913,high:937,offset:"G"},{name:"vargreek",low:977,high:1014,offset:"G",remapOnly:true,remap:{1013:52,977:53,1008:54,981:55,1009:56,982:57,1012:17}},{name:"PUAgreek",low:945,high:969,offset:"P",add:25},{name:"PUAGreek",low:913,high:937,offset:"P"},{name:"varPUAgreek",low:977,high:1014,offset:"P",remapOnly:true,remap:{1013:50,977:51,981:52,1009:53,982:54,1012:17}}],RULECHAR:9135,REMAP:{10:32,12296:10216,12297:10217,10072:8739,755:730,756:714,65079:9182,65080:9183},REMAPACCENT:{"\u007E":"\u0303","\u2192":"\u20D7","\u2190":"\u20D6","\u0060":"\u0300","\u005E":"\u0302","\u00B4":"\u0301","\u2032":"\u0301","\u2035":"\u0300"},REMAPACCENTUNDER:{},DELIMITERS:{40:{dir:f,HW:[[0.853,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]],stretch:{bot:[57344,X],ext:[57345,X],top:[57346,X]}},41:{dir:f,HW:[[0.853,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]],stretch:{bot:[57347,X],ext:[57348,X],top:[57349,X]}},45:{alias:9135,dir:s},47:{dir:f,HW:[[0.69,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]]},61:L,91:{dir:f,HW:[[0.818,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]],stretch:{bot:[57350,X],ext:[57351,X],top:[57352,X]}},92:{dir:f,HW:[[0.69,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]]},93:{dir:f,HW:[[0.818,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]],stretch:{bot:[57353,X],ext:[57354,X],top:[57355,X]}},94:{alias:710,dir:s},95:{alias:9135,dir:s},123:{dir:f,HW:[[0.861,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]],stretch:{bot:[57356,X],ext:[57357,X],mid:[57358,X],top:[57359,X]}},124:{dir:f,HW:[[0.69,E]],stretch:{bot:[124,E],ext:[124,E]}},125:{dir:f,HW:[[0.861,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]],stretch:{bot:[57360,X],ext:[57357,X],mid:[57361,X],top:[57362,X]}},126:{alias:732,dir:s},175:{alias:9135,dir:s},710:{dir:s,HW:[[0.311,E],[0.56,ae],[0.979,ac],[1.46,aa],[1.886,Y],[2.328,X]]},711:L,713:{alias:9135,dir:s},717:L,732:{dir:s,HW:[[0.33,E],[0.56,ae],[0.979,ac],[1.46,aa],[1.886,Y],[2.328,X]]},759:L,770:{dir:s,HW:[[0.311,E],[0.56,ae],[0.979,ac],[1.46,aa],[1.886,Y],[2.328,X]]},771:{dir:s,HW:[[0.33,E],[0.56,ae],[0.979,ac],[1.46,aa],[1.886,Y],[2.328,X]]},773:{dir:s,HW:[[0.5,Z],[1,ae],[1.5,ac],[2,aa],[2.5,Y],[3,X]],stretch:{left:[57363,X],rep:[57363,X]}},780:{dir:s,HW:[[0.311,E],[0.56,ae],[0.979,ac],[1.46,aa],[1.886,Y],[2.328,X]]},816:{dir:s,HW:[[0.33,Z],[0.56,ae],[0.979,ac],[1.46,aa],[1.886,Y],[2.328,X]]},818:{dir:s,HW:[[0.5,Z],[1,ae],[1.5,ac],[2,aa],[2.5,Y],[3,X]],stretch:{left:[57364,X],rep:[57364,X]}},824:{dir:f,HW:[[0.818,E],[0.553,ae],[0.662,ac],[0.818,aa],[0.959,Y],[1.414,X]]},8213:{alias:9135,dir:s},8214:{dir:f,HW:[[0.879,E]],stretch:{bot:[8214,E],ext:[8214,E]}},8215:{alias:9135,dir:s},8254:{dir:s,HW:[[0.5,E],[1,ae],[1.5,ac],[2,aa],[2.5,Y],[3,X]],stretch:{left:[8254,E],rep:[8254,E]}},8400:L,8401:L,8406:L,8407:{dir:s,HW:[[0.436,E],[0.872,ae],[1.308,ac],[1.744,aa],[2.18,Y],[3,X]],stretch:{rep:[57366,X],right:[57369,X]}},8417:L,8428:L,8429:L,8430:L,8431:L,8512:y,8592:{dir:s,HW:[[0.786,E]],stretch:{left:[8592,E],rep:ag}},8593:{dir:f,HW:[[0.818,E]],stretch:{ext:[9168,E],top:[8593,E]}},8594:{dir:s,HW:[[0.786,E]],stretch:{rep:ag,right:[8594,E]}},8595:{dir:f,HW:[[0.818,E]],stretch:{bot:[8595,E],ext:[9168,E]}},8596:{dir:s,HW:[[0.85,E]],stretch:{left:[8592,E],rep:ag,right:[8594,E]}},8597:{dir:f,HW:[[0.954,E]],stretch:{bot:[8595,E],ext:[9168,E],top:[8593,E]}},8606:L,8607:y,8608:L,8609:y,8612:L,8613:y,8614:L,8615:y,8616:y,8617:L,8618:L,8624:y,8625:y,8626:y,8627:y,8628:L,8629:y,8636:L,8637:L,8638:y,8639:y,8640:L,8641:L,8642:y,8643:y,8651:L,8652:L,8656:{dir:s,HW:[[0.806,E]],stretch:{left:[8656,E],rep:[57375,X]}},8657:{dir:f,HW:[[0.818,E]],stretch:{ext:[57376,X],top:[8657,E]}},8658:{dir:s,HW:[[0.806,E]],stretch:{rep:[57375,X],right:[8658,E]}},8659:{dir:f,HW:[[0.818,E]],stretch:{bot:[8659,E],ext:[57376,X]}},8660:{dir:s,HW:[[0.886,E]],stretch:{left:[8656,E],rep:[57375,X],right:[8658,E]}},8661:{dir:f,HW:[[0.954,E]],stretch:{bot:[8659,E],ext:[57376,X],top:[8657,E]}},8666:L,8667:L,8672:L,8673:y,8674:L,8675:y,8676:L,8677:L,8701:L,8702:L,8703:L,8719:y,8720:y,8721:y,8722:{alias:9135,dir:s},8725:{alias:47,dir:f},8730:{dir:f,HW:[[1.232,E],[1.847,ae],[2.46,ac],[3.075,aa]],stretch:{bot:[57378,X],ext:[57379,X],top:[57380,X]}},8731:y,8732:y,8739:{dir:f,HW:[[0.879,E]],stretch:{ext:[8739,E]}},8741:{dir:f,HW:[[0.879,E]],stretch:{ext:[8741,E]}},8747:y,8748:y,8749:y,8750:y,8751:y,8752:y,8753:y,8754:y,8755:y,8896:y,8897:y,8898:y,8899:y,8968:{dir:f,HW:[[0.926,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]],stretch:{ext:[57351,X],top:[57352,X]}},8969:{dir:f,HW:[[0.926,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]],stretch:{ext:[57354,X],top:[57355,X]}},8970:{dir:f,HW:[[0.926,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]],stretch:{bot:[57350,X],ext:[57351,X]}},8971:{dir:f,HW:[[0.926,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]],stretch:{bot:[57353,X],ext:[57354,X]}},8978:{alias:9180,dir:s},8994:{alias:9180,dir:s},8995:{alias:9181,dir:s},9001:{alias:10216,dir:f},9002:{alias:10217,dir:f},9130:y,9135:{dir:s,HW:[[0.315,u]],stretch:{rep:[9135,u]}},9136:{dir:f,HW:[[1.001,X,null,57402]],stretch:{top:[57359,X],ext:[57357,X],bot:[57360,X]}},9137:{dir:f,HW:[[1.001,X,null,57403]],stretch:{top:[57362,X],ext:[57357,X],bot:[57356,X]}},9140:L,9141:L,9168:y,9180:L,9181:L,9182:{dir:s,HW:[[1,E],[0.925,ae],[1.46,ac],[1.886,aa],[2.328,Y],[3.238,X]],stretch:{left:[57393,X],rep:[57384,X],mid:[57394,X],right:[57395,X]}},9183:{dir:s,HW:[[1,E],[0.925,ae],[1.46,ac],[1.886,aa],[2.328,Y],[3.238,X]],stretch:{left:[57396,X],rep:[57387,X],mid:[57397,X],right:[57398,X]}},9184:L,9185:L,9472:{alias:8722,dir:s},10072:{alias:8739,dir:f},10098:y,10099:y,10214:y,10215:y,10216:{dir:f,HW:[[0.926,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]]},10217:{dir:f,HW:[[0.926,E],[1.23,ae],[1.35,ae,1.098],[1.845,ac],[2.46,aa],[3.075,Y]]},10218:y,10219:y,10222:{dir:f,HW:[[0.853,E]],stretch:{bot:[57344,X],ext:[57345,X],top:[57346,X]}},10223:{dir:f,HW:[[0.853,E]],stretch:{bot:[57347,X],ext:[57348,X],top:[57349,X]}},10224:y,10225:y,10229:{alias:8592,dir:s},10230:{alias:8594,dir:s},10231:{alias:8596,dir:s},10232:{alias:8656,dir:s},10233:{alias:8658,dir:s},10234:{alias:8660,dir:s},10235:{alias:8612,dir:s},10236:{alias:8614,dir:s},10237:{alias:10502,dir:s},10238:{alias:10503,dir:s},10502:L,10503:L,10506:y,10507:y,10514:y,10515:y,10574:L,10575:y,10576:L,10577:y,10578:L,10579:L,10580:y,10581:y,10582:L,10583:L,10584:y,10585:y,10586:L,10587:L,10588:y,10589:y,10590:L,10591:L,10592:y,10593:y,10624:y,10627:y,10628:y,10629:y,10630:y,10647:y,10648:y,10744:{dir:f,HW:[[1.02,E],[1.845,ae]]},10745:{dir:f,HW:[[1.02,E],[1.845,ae]]},10752:y,10753:y,10754:y,10755:y,10756:y,10757:y,10758:y,10759:y,10760:y,10761:y,10762:y,10763:y,10764:y,10765:y,10766:y,10767:y,10768:y,10769:y,10770:y,10771:y,10772:y,10773:y,10774:y,10775:y,10776:y,10777:y,10778:y,10779:y,10780:y,11004:y,11007:y,11077:L,11078:{dir:s,HW:[[0.818,m]],stretch:{rep:[57401,X],right:[11078,m]}},12296:{alias:10216,dir:f},12297:{alias:10217,dir:f},65079:{alias:9182,dir:s},65080:{alias:9183,dir:s}}}});MathJax.Hub.Register.LoadHook(aj.fontDir+"/Main/Regular/Main.js",function(){aj.FONTDATA.FONTS[E][8942][0]+=400;aj.FONTDATA.FONTS[E][8945][0]+=500;aj.FONTDATA.FONTS[E][8722][0]=aj.FONTDATA.FONTS[E][43][0];aj.FONTDATA.FONTS[E][8722][1]=aj.FONTDATA.FONTS[E][43][1];aj.FONTDATA.FONTS[E][61][1]+=100});MathJax.Hub.Register.LoadHook(aj.fontDir+"/Size5/Regular/Main.js",function(){var H;H=aj.FONTDATA.DELIMITERS[9182].stretch.rep[0];aj.FONTDATA.FONTS[X][H][0]+=200;aj.FONTDATA.FONTS[X][H][1]+=200;H=aj.FONTDATA.DELIMITERS[9183].stretch.rep[0];aj.FONTDATA.FONTS[X][H][0]+=200;aj.FONTDATA.FONTS[X][H][1]+=200});am.loadComplete(aj.fontDir+"/fontdata.js")})(MathJax.OutputJax["HTML-CSS"],MathJax.ElementJax.mml,MathJax.Ajax);
+(function (HTMLCSS,MML,AJAX) {
+
+  var VERSION = "2.7.5";
+
+  var ALPHABETSBOLDITALIC = "STIXMathJax_Alphabets-bold-italic",
+      ALPHABETSBOLD = "STIXMathJax_Alphabets-bold",
+      ALPHABETSITALIC = "STIXMathJax_Alphabets-italic",
+      ALPHABETS = "STIXMathJax_Alphabets",
+      ARROWSBOLD = "STIXMathJax_Arrows-bold",
+      ARROWS = "STIXMathJax_Arrows",
+      DOUBLESTRUCKBOLDITALIC = "STIXMathJax_DoubleStruck-bold-italic",
+      DOUBLESTRUCKBOLD = "STIXMathJax_DoubleStruck-bold",
+      DOUBLESTRUCKITALIC = "STIXMathJax_DoubleStruck-italic",
+      DOUBLESTRUCK = "STIXMathJax_DoubleStruck",
+      FRAKTURBOLD = "STIXMathJax_Fraktur-bold",
+      FRAKTUR = "STIXMathJax_Fraktur",
+      LATINBOLDITALIC = "STIXMathJax_Latin-bold-italic",
+      LATINBOLD = "STIXMathJax_Latin-bold",
+      LATINITALIC = "STIXMathJax_Latin-italic",
+      LATIN = "STIXMathJax_Latin",
+      MAINBOLDITALIC = "STIXMathJax_Main-bold-italic",
+      MAINBOLD = "STIXMathJax_Main-bold",
+      MAINITALIC = "STIXMathJax_Main-italic",
+      MAIN = "STIXMathJax_Main",
+      MARKSBOLDITALIC = "STIXMathJax_Marks-bold-italic",
+      MARKSBOLD = "STIXMathJax_Marks-bold",
+      MARKSITALIC = "STIXMathJax_Marks-italic",
+      MARKS = "STIXMathJax_Marks",
+      MISCBOLDITALIC = "STIXMathJax_Misc-bold-italic",
+      MISCBOLD = "STIXMathJax_Misc-bold",
+      MISCITALIC = "STIXMathJax_Misc-italic",
+      MISC = "STIXMathJax_Misc",
+      MONOSPACE = "STIXMathJax_Monospace",
+      NORMALBOLDITALIC = "STIXMathJax_Normal-bold-italic",
+      NORMALBOLD = "STIXMathJax_Normal-bold",
+      NORMALITALIC = "STIXMathJax_Normal-italic",
+      OPERATORSBOLD = "STIXMathJax_Operators-bold",
+      OPERATORS = "STIXMathJax_Operators",
+      SANSSERIFBOLDITALIC = "STIXMathJax_SansSerif-bold-italic",
+      SANSSERIFBOLD = "STIXMathJax_SansSerif-bold",
+      SANSSERIFITALIC = "STIXMathJax_SansSerif-italic",
+      SANSSERIF = "STIXMathJax_SansSerif",
+      SCRIPTBOLDITALIC = "STIXMathJax_Script-bold-italic",
+      SCRIPTITALIC = "STIXMathJax_Script-italic",
+      SCRIPT = "STIXMathJax_Script",
+      SHAPESBOLDITALIC = "STIXMathJax_Shapes-bold-italic",
+      SHAPESBOLD = "STIXMathJax_Shapes-bold",
+      SHAPES = "STIXMathJax_Shapes",
+      SIZE1 = "STIXMathJax_Size1",
+      SIZE2 = "STIXMathJax_Size2",
+      SIZE3 = "STIXMathJax_Size3",
+      SIZE4 = "STIXMathJax_Size4",
+      SIZE5 = "STIXMathJax_Size5",
+      SYMBOLSBOLD = "STIXMathJax_Symbols-bold",
+      SYMBOLS = "STIXMathJax_Symbols",
+      VARIANTSBOLDITALIC = "STIXMathJax_Variants-bold-italic",
+      VARIANTSBOLD = "STIXMathJax_Variants-bold",
+      VARIANTSITALIC = "STIXMathJax_Variants-italic",
+      VARIANTS = "STIXMathJax_Variants";
+
+  var H = "H", V = "V", EXTRAH = {load:"extra", dir:H}, EXTRAV = {load:"extra", dir:V};
+  var ARROWREP = [0x2212,MAIN,0,0,0,-.26,-.26];
+
+  HTMLCSS.Augment({
+    FONTDATA: {
+      version: VERSION,
+
+
+      TeX_factor: 1.125,
+      baselineskip: 1.200,
+      lineH: 0.800, lineD: 0.200,
+
+      hasStyleChar: true,  // char 0xEFFD encodes font style
+
+      FONTS: {
+        "STIXMathJax_Alphabets-bold-italic": "Alphabets/BoldItalic/Main.js",
+        "STIXMathJax_Alphabets-bold": "Alphabets/Bold/Main.js",
+        "STIXMathJax_Alphabets-italic": "Alphabets/Italic/Main.js",
+        "STIXMathJax_Alphabets": "Alphabets/Regular/Main.js",
+        "STIXMathJax_Arrows-bold": "Arrows/Bold/Main.js",
+        "STIXMathJax_Arrows": "Arrows/Regular/Main.js",
+        "STIXMathJax_DoubleStruck-bold-italic": "DoubleStruck/BoldItalic/Main.js",
+        "STIXMathJax_DoubleStruck-bold": "DoubleStruck/Bold/Main.js",
+        "STIXMathJax_DoubleStruck-italic": "DoubleStruck/Italic/Main.js",
+        "STIXMathJax_DoubleStruck": "DoubleStruck/Regular/Main.js",
+        "STIXMathJax_Fraktur-bold": "Fraktur/Bold/Main.js",
+        "STIXMathJax_Fraktur": "Fraktur/Regular/Main.js",
+        "STIXMathJax_Latin-bold-italic": "Latin/BoldItalic/Main.js",
+        "STIXMathJax_Latin-bold": "Latin/Bold/Main.js",
+        "STIXMathJax_Latin-italic": "Latin/Italic/Main.js",
+        "STIXMathJax_Latin": "Latin/Regular/Main.js",
+        "STIXMathJax_Main-bold-italic": "Main/BoldItalic/Main.js",
+        "STIXMathJax_Main-bold": "Main/Bold/Main.js",
+        "STIXMathJax_Main-italic": "Main/Italic/Main.js",
+        "STIXMathJax_Main": "Main/Regular/Main.js",
+        "STIXMathJax_Marks-bold-italic": "Marks/BoldItalic/Main.js",
+        "STIXMathJax_Marks-bold": "Marks/Bold/Main.js",
+        "STIXMathJax_Marks-italic": "Marks/Italic/Main.js",
+        "STIXMathJax_Marks": "Marks/Regular/Main.js",
+        "STIXMathJax_Misc-bold-italic": "Misc/BoldItalic/Main.js",
+        "STIXMathJax_Misc-bold": "Misc/Bold/Main.js",
+        "STIXMathJax_Misc-italic": "Misc/Italic/Main.js",
+        "STIXMathJax_Misc": "Misc/Regular/Main.js",
+        "STIXMathJax_Monospace": "Monospace/Regular/Main.js",
+        "STIXMathJax_Normal-bold-italic": "Normal/BoldItalic/Main.js",
+        "STIXMathJax_Normal-bold": "Normal/Bold/Main.js",
+        "STIXMathJax_Normal-italic": "Normal/Italic/Main.js",
+        "STIXMathJax_Operators-bold": "Operators/Bold/Main.js",
+        "STIXMathJax_Operators": "Operators/Regular/Main.js",
+        "STIXMathJax_SansSerif-bold-italic": "SansSerif/BoldItalic/Main.js",
+        "STIXMathJax_SansSerif-bold": "SansSerif/Bold/Main.js",
+        "STIXMathJax_SansSerif-italic": "SansSerif/Italic/Main.js",
+        "STIXMathJax_SansSerif": "SansSerif/Regular/Main.js",
+        "STIXMathJax_Script-bold-italic": "Script/BoldItalic/Main.js",
+        "STIXMathJax_Script-italic": "Script/Italic/Main.js",
+        "STIXMathJax_Script": "Script/Regular/Main.js",
+        "STIXMathJax_Shapes-bold-italic": "Shapes/BoldItalic/Main.js",
+        "STIXMathJax_Shapes-bold": "Shapes/Bold/Main.js",
+        "STIXMathJax_Shapes": "Shapes/Regular/Main.js",
+        "STIXMathJax_Size1": "Size1/Regular/Main.js",
+        "STIXMathJax_Size2": "Size2/Regular/Main.js",
+        "STIXMathJax_Size3": "Size3/Regular/Main.js",
+        "STIXMathJax_Size4": "Size4/Regular/Main.js",
+        "STIXMathJax_Size5": "Size5/Regular/Main.js",
+        "STIXMathJax_Symbols-bold": "Symbols/Bold/Main.js",
+        "STIXMathJax_Symbols": "Symbols/Regular/Main.js",
+        "STIXMathJax_Variants-bold-italic": "Variants/BoldItalic/Main.js",
+        "STIXMathJax_Variants-bold": "Variants/Bold/Main.js",
+        "STIXMathJax_Variants-italic": "Variants/Italic/Main.js",
+        "STIXMathJax_Variants": "Variants/Regular/Main.js"
+      },
+
+      VARIANT: {
+          "normal": {
+            fonts: [MAIN,MONOSPACE,LATIN,ALPHABETS,MARKS,ARROWS,OPERATORS,SYMBOLS,SHAPES,MISC,VARIANTS,SIZE1],
+            remap: {0x007C: [0x007C, "-STIX-Web-variant"]}
+          },
+          "bold": {
+            fonts: [MAINBOLD,NORMALBOLD,FRAKTURBOLD,DOUBLESTRUCKBOLD,SANSSERIFBOLD,LATINBOLD,ALPHABETSBOLD,MARKSBOLD,ARROWSBOLD,OPERATORSBOLD,SYMBOLSBOLD,SHAPESBOLD,MISCBOLD,VARIANTSBOLD,SIZE1],
+            offsetA: 0x1D400,
+            offsetG: 0x1D6A8,
+            bold: true,
+            remap: {0x2202: 0x1D6DB, 0x2207: 0x1D6C1}
+          },
+          "italic": {
+            fonts: [MAINITALIC,NORMALITALIC,SCRIPTITALIC,DOUBLESTRUCKITALIC,SANSSERIFITALIC,LATINITALIC,ALPHABETSITALIC,MARKSITALIC,MISCITALIC,VARIANTSITALIC,SIZE1],
+            offsetA: 0x1D434, offsetG: 0x1D6E2,
+            remap: {0x1D455: 0x210E, 0x2202: 0x1D715, 0x2207: 0x1D6FB},
+            italic: true
+          },
+          "bold-italic": {
+            fonts: [MAINBOLDITALIC,NORMALBOLDITALIC,SCRIPTBOLDITALIC,DOUBLESTRUCKBOLDITALIC,SANSSERIFBOLDITALIC,LATINBOLDITALIC,ALPHABETSBOLDITALIC,MARKSBOLDITALIC,SHAPESBOLDITALIC,MISCBOLDITALIC,VARIANTSBOLDITALIC,SIZE1],
+            offsetA: 0x1D434, offsetG: 0x1D71C,
+            remap: {0x1D455: 0x210E, 0x2202: 0x1D74F, 0x2207: 0x1D735},
+            bold: true, italic: true
+          },
+          "double-struck": {
+            fonts: [DOUBLESTRUCK],
+            offsetA: 0x1D538,
+            offsetN: 0x1D7D8,
+            remap: {0x1D53A: 0x2102, 0x1D53F: 0x210D, 0x1D545: 0x2115, 0x1D547: 0x2119, 0x1D548: 0x211A, 0x1D549: 0x211D, 0x1D551: 0x2124}
+          },
+          "fraktur": {
+            fonts: [FRAKTUR],
+            offsetA: 0x1D504,
+            remap: {0x1D506: 0x212D, 0x1D50B: 0x210C, 0x1D50C: 0x2111, 0x1D515: 0x211C, 0x1D51D: 0x2128}
+          },
+          "bold-fraktur": {
+            fonts: [FRAKTURBOLD],
+            offsetA: 0x1D56C,
+            bold: true
+          },
+          "script": {
+            fonts: [SCRIPTITALIC],
+            offsetA: 0x1D49C,
+            italic: true,
+            remap: {0x1D49D: 0x212C, 0x1D4A0: 0x2130, 0x1D4A1: 0x2131, 0x1D4A3: 0x210B, 0x1D4A4: 0x2110, 0x1D4A7: 0x2112, 0x1D4A8: 0x2133, 0x1D4AD: 0x211B, 0x1D4BA: 0x212F, 0x1D4BC: 0x210A, 0x1D4C4: 0x2134}
+          },
+          "bold-script": {
+            fonts: [SCRIPTBOLDITALIC],
+            offsetA: 0x1D4D0,
+            bold:true, italic: true
+          },
+          "sans-serif": {
+            fonts: [SANSSERIF],
+            offsetA: 0x1D5A0,
+            offsetN: 0x1D7E2,
+            offsetP: 0xE17D,
+            remap: {0x2202: 0xE17C}
+          },
+          "bold-sans-serif": {
+            fonts: [SANSSERIFBOLD],
+            offsetA: 0x1D5D4,
+            offsetN: 0x1D7EC,
+            offsetG: 0x1D756,
+            remap: {0x2202: 0x1D789, 0x2207: 0x1D76F}
+          },
+          "sans-serif-italic": {
+             fonts: [SANSSERIFITALIC], italic: true,
+             offsetA: 0x1D608,
+             offsetN: 0xE1B4,
+             offsetP: 0xE1BF,
+             remap: {0x2202: 0xE1BE},
+             bold: true
+          },
+          "sans-serif-bold-italic": {
+             fonts: [SANSSERIFBOLDITALIC],
+             offsetA: 0x1D63C,
+             offsetN: 0xE1F6,
+             offsetG: 0x1D790,
+             remap: {0x2202: 0x1D7C3, 0x2207: 0x1D7A9},
+             bold: true, italic: true
+          },
+          "monospace": {
+             fonts: [MONOSPACE],
+             offsetA: 0x1D670,
+             offsetN: 0x1D7F6
+          },
+          "-STIX-Web-variant": {remap: {0x2A87: 0xE010, 0x2A88: 0xE00F, 0x25B3: 0x25B5, 0x25BD: 0x25BF, 0x007C: [0x007C, MML.VARIANT.NORMAL]}, fonts: [VARIANTS,SHAPES,OPERATORS,MAIN,MONOSPACE,LATIN,ALPHABETS,MARKS,ARROWS,SYMBOLS,MISC,SIZE1]},
+          "-tex-caligraphic": {offsetA: 0xE22D, noLowerCase: 1, fonts: [VARIANTSITALIC,MAINITALIC,NORMALITALIC,SCRIPTITALIC,DOUBLESTRUCKITALIC,SANSSERIFITALIC,LATINITALIC,ALPHABETSITALIC,MARKSITALIC,MISCITALIC,SIZE1], italic: true},
+          "-tex-oldstyle": {offsetN: 0xE261, remap: {0xE262: 0xE265, 0xE263: 0xE269, 0xE264: 0xE26D, 0xE265: 0xE271, 0xE266: 0xE275, 0xE267: 0xE279, 0xE268: 0xE27D, 0xE269: 0xE281, 0xE26A: 0xE285}, fonts: [VARIANTS,MAIN,MONOSPACE,LATIN,ALPHABETS,MARKS,ARROWS,OPERATORS,SYMBOLS,SHAPES,MISC,SIZE1]},
+          "-tex-caligraphic-bold": {offsetA: 0xE247, noLowerCase: 1, fonts: [VARIANTSBOLDITALIC,MAINBOLDITALIC,NORMALBOLDITALIC,SCRIPTBOLDITALIC,DOUBLESTRUCKBOLDITALIC,SANSSERIFBOLDITALIC,LATINBOLDITALIC,ALPHABETSBOLDITALIC,MARKSBOLDITALIC,SHAPESBOLDITALIC,MISCBOLDITALIC,SIZE1], italic: true, bold: true},
+          "-tex-oldstyle-bold": {offsetN: 0xE261, remap: {0xE264: 0xE267, 0xE265: 0xE26B, 0xE266: 0xE26F, 0xE267: 0xE273, 0xE268: 0xE277, 0xE269: 0xE27B, 0xE26A: 0xE27F, 0xE26B: 0xE283, 0xE26C: 0xE287}, fonts: [VARIANTSBOLD,MAINBOLD,NORMALBOLD,FRAKTURBOLD,DOUBLESTRUCKBOLD,SANSSERIFBOLD,LATINBOLD,ALPHABETSBOLD,MARKSBOLD,ARROWSBOLD,OPERATORSBOLD,SYMBOLSBOLD,SHAPESBOLD,MISCBOLD,SIZE1], bold: true},
+          "-tex-mathit": {fonts: [MAINITALIC,NORMALITALIC,SCRIPTITALIC,DOUBLESTRUCKITALIC,SANSSERIFITALIC,LATINITALIC,ALPHABETSITALIC,MARKSITALIC,MISCITALIC,VARIANTSITALIC,SIZE1], italic:true, noIC:true},
+          "-largeOp": {fonts:[SIZE1,MAIN]},
+          "-smallOp": {}
+      },
+
+      RANGES: [
+        {name: "alpha", low: 0x61, high: 0x7A, offset: "A", add: 26},
+        {name: "Alpha", low: 0x41, high: 0x5A, offset: "A"},
+        {name: "number", low: 0x30, high: 0x39, offset: "N"},
+        {name: "greek", low: 0x03B1, high: 0x03C9, offset: "G", add: 26},
+        {name: "Greek", low: 0x0391, high: 0x03A9, offset: "G"},
+        {name: "vargreek", low: 0x03D1, high: 0x03F6, offset: "G", remapOnly: true,
+           remap: {0x03F5: 52, 0x03D1: 53, 0x03F0: 54, 0x03D5: 55, 0x03F1: 56, 0x03D6: 57, 0x03F4: 17}},
+        {name: "PUAgreek", low: 0x03B1, high: 0x03C9, offset: "P", add: 25},
+        {name: "PUAGreek", low: 0x0391, high: 0x03A9, offset: "P"}, 
+        {name: "varPUAgreek", low: 0x03D1, high: 0x03F6, offset: "P", remapOnly: true,
+          remap: {0x03F5: 50, 0x03D1: 51, 0x03D5: 52, 0x03F1: 53, 0x03D6: 54, 0x03F4: 17}}
+      ],
+
+      RULECHAR: 0x23AF,
+
+      REMAP: {
+        0xA: 0x20,
+        0x3008: 0x27E8,
+        0x3009: 0x27E9,
+        0x2758: 0x2223,
+        0x02F3: 0x02DA,
+        0x02F4: 0x02CA,
+        0xFE37: 0x23DE,
+        0xFE38: 0x23DF
+      },
+
+      REMAPACCENT: {
+        "\u007E": "\u0303",
+        "\u2192": "\u20D7",
+        "\u2190": "\u20D6",
+        "\u0060": "\u0300",
+        "\u005E": "\u0302",
+        "\u00B4": "\u0301",
+        "\u2032": "\u0301",
+        "\u2035": "\u0300"
+      },
+
+      REMAPACCENTUNDER: {
+      },
+
+      DELIMITERS: {
+        0x28:
+        {
+          dir: V,
+          HW: [[0.853,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]],
+          stretch: {bot:[0xE000,SIZE5], ext:[0xE001,SIZE5], top:[0xE002,SIZE5]}
+        },
+        0x29:
+        {
+          dir: V,
+          HW: [[0.853,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]],
+          stretch: {bot:[0xE003,SIZE5], ext:[0xE004,SIZE5], top:[0xE005,SIZE5]}
+        },
+        0x2D: {alias: 0x23AF, dir: H},
+        0x2F:
+        {
+          dir: V,
+          HW: [[0.690,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]]
+        },
+        0x3D: EXTRAH,
+        0x5B:
+        {
+          dir: V,
+          HW: [[0.818,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]],
+          stretch: {bot:[0xE006,SIZE5], ext:[0xE007,SIZE5], top:[0xE008,SIZE5]}
+        },
+        0x5C:
+        {
+          dir: V,
+          HW: [[0.690,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]]
+        },
+        0x5D:
+        {
+          dir: V,
+          HW: [[0.818,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]],
+          stretch: {bot:[0xE009,SIZE5], ext:[0xE00A,SIZE5], top:[0xE00B,SIZE5]}
+        },
+        0x5E: {alias: 0x2C6, dir: H},
+        0x5F: {alias: 0x23AF, dir: H},
+        0x7B:
+        {
+          dir: V,
+          HW: [[0.861,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]],
+          stretch: {bot:[0xE00C,SIZE5], ext:[0xE00D,SIZE5], mid:[0xE00E,SIZE5], top:[0xE00F,SIZE5]}
+        },
+        0x7C:
+        {
+          dir: V,
+          HW: [[0.690,MAIN]],
+          stretch: {bot:[0x7C,MAIN], ext:[0x7C,MAIN]}
+        },
+        0x7D:
+        {
+          dir: V,
+          HW: [[0.861,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]],
+          stretch: {bot:[0xE010,SIZE5], ext:[0xE00D,SIZE5], mid:[0xE011,SIZE5], top:[0xE012,SIZE5]}
+        },
+        0x7E: {alias: 0x2DC, dir: H},
+        0xAF: {alias: 0x23AF, dir: H},
+        0x2C6:
+        {
+          dir: H,
+          HW: [[0.311,MAIN], [0.560,SIZE1], [0.979,SIZE2], [1.460,SIZE3], [1.886,SIZE4], [2.328,SIZE5]]
+        },
+        0x2C7: EXTRAH,
+        0x2C9: {alias: 0x23AF, dir: H},
+        0x2CD: EXTRAH,
+        0x2DC:
+        {
+          dir: H,
+          HW: [[0.330,MAIN], [0.560,SIZE1], [0.979,SIZE2], [1.460,SIZE3], [1.886,SIZE4], [2.328,SIZE5]]
+        },
+        0x2F7: EXTRAH,
+        0x302:
+        {
+          dir: H,
+          HW: [[0.311,MAIN], [0.560,SIZE1], [0.979,SIZE2], [1.460,SIZE3], [1.886,SIZE4], [2.328,SIZE5]]
+        },
+        0x303:
+        {
+          dir: H,
+          HW: [[0.330,MAIN], [0.560,SIZE1], [0.979,SIZE2], [1.460,SIZE3], [1.886,SIZE4], [2.328,SIZE5]]
+        },
+        0x305:
+        {
+          dir: H,
+          HW: [[0.500,MARKS], [1.000,SIZE1], [1.500,SIZE2], [2.000,SIZE3], [2.500,SIZE4], [3.000,SIZE5]],
+          stretch: {left:[0xE013,SIZE5], rep:[0xE013,SIZE5]}
+        },
+        0x30C:
+        {
+          dir: H,
+          HW: [[0.311,MAIN], [0.560,SIZE1], [0.979,SIZE2], [1.460,SIZE3], [1.886,SIZE4], [2.328,SIZE5]]
+        },
+        0x330:
+        {
+          dir: H,
+          HW: [[0.330,MARKS], [0.560,SIZE1], [0.979,SIZE2], [1.460,SIZE3], [1.886,SIZE4], [2.328,SIZE5]]
+        },
+        0x332:
+        {
+          dir: H,
+          HW: [[0.500,MARKS], [1.000,SIZE1], [1.500,SIZE2], [2.000,SIZE3], [2.500,SIZE4], [3.000,SIZE5]],
+          stretch: {left:[0xE014,SIZE5], rep:[0xE014,SIZE5]}
+        },
+        0x338:
+        {
+          dir: V,
+          HW: [[0.818,MAIN], [0.553,SIZE1], [0.662,SIZE2], [0.818,SIZE3], [0.959,SIZE4], [1.414,SIZE5]]
+        },
+        0x2015: {alias: 0x23AF, dir: H},
+        0x2016:
+        {
+          dir: V,
+          HW: [[0.879,MAIN]],
+          stretch: {bot:[0x2016,MAIN], ext:[0x2016,MAIN]}
+        },
+        0x2017: {alias: 0x23AF, dir: H},
+        0x203E:
+        {
+          dir: H,
+          HW: [[0.500,MAIN], [1.000,SIZE1], [1.500,SIZE2], [2.000,SIZE3], [2.500,SIZE4], [3.000,SIZE5]],
+          stretch: {left:[0x203E,MAIN], rep:[0x203E,MAIN]}
+        },
+        0x20D0: EXTRAH,
+        0x20D1: EXTRAH,
+        0x20D6: EXTRAH,
+        0x20D7:
+        {
+          dir: H,
+          HW: [[0.436,MAIN], [0.872,SIZE1], [1.308,SIZE2], [1.744,SIZE3], [2.180,SIZE4], [3.000,SIZE5]],
+          stretch: {rep:[0xE016,SIZE5], right:[0xE019,SIZE5]}
+        },
+        0x20E1: EXTRAH,
+        0x20EC: EXTRAH,
+        0x20ED: EXTRAH,
+        0x20EE: EXTRAH,
+        0x20EF: EXTRAH,
+        0x2140: EXTRAV,
+        0x2190:
+        {
+          dir: H,
+          HW: [[0.786,MAIN]],
+          stretch: {left:[0x2190,MAIN], rep:ARROWREP}
+        },
+        0x2191:
+        {
+          dir: V,
+          HW: [[0.818,MAIN]],
+          stretch: {ext:[0x23D0,MAIN], top:[0x2191,MAIN]}
+        },
+        0x2192:
+        {
+          dir: H,
+          HW: [[0.786,MAIN]],
+          stretch: {rep:ARROWREP, right:[0x2192,MAIN]}
+        },
+        0x2193:
+        {
+          dir: V,
+          HW: [[0.818,MAIN]],
+          stretch: {bot:[0x2193,MAIN], ext:[0x23D0,MAIN]}
+        },
+        0x2194:
+        {
+          dir: H,
+          HW: [[0.850,MAIN]],
+          stretch: {left:[0x2190,MAIN], rep:ARROWREP, right:[0x2192,MAIN]}
+        },
+        0x2195:
+        {
+          dir: V,
+          HW: [[0.954,MAIN]],
+          stretch: {bot:[0x2193,MAIN], ext:[0x23D0,MAIN], top:[0x2191,MAIN]}
+        },
+        0x219E: EXTRAH,
+        0x219F: EXTRAV,
+        0x21A0: EXTRAH,
+        0x21A1: EXTRAV,
+        0x21A4: EXTRAH,
+        0x21A5: EXTRAV,
+        0x21A6: EXTRAH,
+        0x21A7: EXTRAV,
+        0x21A8: EXTRAV,
+        0x21A9: EXTRAH,
+        0x21AA: EXTRAH,
+        0x21B0: EXTRAV,
+        0x21B1: EXTRAV,
+        0x21B2: EXTRAV,
+        0x21B3: EXTRAV,
+        0x21B4: EXTRAH,
+        0x21B5: EXTRAV,
+        0x21BC: EXTRAH,
+        0x21BD: EXTRAH,
+        0x21BE: EXTRAV,
+        0x21BF: EXTRAV,
+        0x21C0: EXTRAH,
+        0x21C1: EXTRAH,
+        0x21C2: EXTRAV,
+        0x21C3: EXTRAV,
+        0x21CB: EXTRAH,
+        0x21CC: EXTRAH,
+        0x21D0:
+        {
+          dir: H,
+          HW: [[0.806,MAIN]],
+          stretch: {left:[0x21D0,MAIN], rep:[0xE01F,SIZE5]}
+        },
+        0x21D1:
+        {
+          dir: V,
+          HW: [[0.818,MAIN]],
+          stretch: {ext:[0xE020,SIZE5], top:[0x21D1,MAIN]}
+        },
+        0x21D2:
+        {
+          dir: H,
+          HW: [[0.806,MAIN]],
+          stretch: {rep:[0xE01F,SIZE5], right:[0x21D2,MAIN]}
+        },
+        0x21D3:
+        {
+          dir: V,
+          HW: [[0.818,MAIN]],
+          stretch: {bot:[0x21D3,MAIN], ext:[0xE020,SIZE5]}
+        },
+        0x21D4:
+        {
+          dir: H,
+          HW: [[0.886,MAIN]],
+          stretch: {left:[0x21D0,MAIN], rep:[0xE01F,SIZE5], right:[0x21D2,MAIN]}
+        },
+        0x21D5:
+        {
+          dir: V,
+          HW: [[0.954,MAIN]],
+          stretch: {bot:[0x21D3,MAIN], ext:[0xE020,SIZE5], top:[0x21D1,MAIN]}
+        },
+        0x21DA: EXTRAH,
+        0x21DB: EXTRAH,
+        0x21E0: EXTRAH,
+        0x21E1: EXTRAV,
+        0x21E2: EXTRAH,
+        0x21E3: EXTRAV,
+        0x21E4: EXTRAH,
+        0x21E5: EXTRAH,
+        0x21FD: EXTRAH,
+        0x21FE: EXTRAH,
+        0x21FF: EXTRAH,
+        0x220F: EXTRAV,
+        0x2210: EXTRAV,
+        0x2211: EXTRAV,
+        0x2212: {alias: 0x23AF, dir: H},
+        0x2215: {alias: 0x2F, dir: V},
+        0x221A:
+        {
+          dir: V,
+          HW: [[1.232,MAIN], [1.847,SIZE1], [2.460,SIZE2], [3.075,SIZE3]],
+          stretch: {bot:[0xE022,SIZE5], ext:[0xE023,SIZE5], top:[0xE024,SIZE5]}
+        },
+        0x221B: EXTRAV,
+        0x221C: EXTRAV,
+        0x2223:
+        {
+          dir: V,
+          HW: [[0.879,MAIN]],
+          stretch: {ext:[0x2223,MAIN]}
+        },
+        0x2225:
+        {
+          dir: V,
+          HW: [[0.879,MAIN]],
+          stretch: {ext:[0x2225,MAIN]}
+        },
+        0x222B: EXTRAV,
+        0x222C: EXTRAV,
+        0x222D: EXTRAV,
+        0x222E: EXTRAV,
+        0x222F: EXTRAV,
+        0x2230: EXTRAV,
+        0x2231: EXTRAV,
+        0x2232: EXTRAV,
+        0x2233: EXTRAV,
+        0x22C0: EXTRAV,
+        0x22C1: EXTRAV,
+        0x22C2: EXTRAV,
+        0x22C3: EXTRAV,
+        0x2308:
+        {
+          dir: V,
+          HW: [[0.926,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]],
+          stretch: {ext:[0xE007,SIZE5], top:[0xE008,SIZE5]}
+        },
+        0x2309:
+        {
+          dir: V,
+          HW: [[0.926,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]],
+          stretch: {ext:[0xE00A,SIZE5], top:[0xE00B,SIZE5]}
+        },
+        0x230A:
+        {
+          dir: V,
+          HW: [[0.926,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]],
+          stretch: {bot:[0xE006,SIZE5], ext:[0xE007,SIZE5]}
+        },
+        0x230B:
+        {
+          dir: V,
+          HW: [[0.926,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]],
+          stretch: {bot:[0xE009,SIZE5], ext:[0xE00A,SIZE5]}
+        },
+        0x2312: {alias: 0x23DC, dir:H},
+        0x2322: {alias: 0x23DC, dir:H},
+        0x2323: {alias: 0x23DD, dir:H},
+        0x2329: {alias: 0x27E8, dir: V},
+        0x232A: {alias: 0x27E9, dir: V},
+        0x23AA: EXTRAV,
+        0x23AF:
+        {
+          dir: H,
+          HW: [[0.315,SYMBOLS]],
+          stretch: {rep:[0x23AF,SYMBOLS]}
+        },
+        0x23B0:
+        {
+          dir: V,
+          HW: [[1.001,SIZE5,null,0xE03A]],
+          stretch: {top:[0xE00F,SIZE5], ext:[0xE00D,SIZE5], bot:[0xE010,SIZE5]}
+        },
+        0x23B1:
+        {
+          dir: V,
+          HW: [[1.001,SIZE5,null,0xE03B]],
+          stretch: {top:[0xE012,SIZE5], ext:[0xE00D,SIZE5], bot:[0xE00C,SIZE5]}
+        },
+        0x23B4: EXTRAH,
+        0x23B5: EXTRAH,
+        0x23D0: EXTRAV,
+        0x23DC: EXTRAH,
+        0x23DD: EXTRAH,
+        0x23DE:
+        {
+          dir: H,
+          HW: [[1.000,MAIN], [0.925,SIZE1], [1.460,SIZE2], [1.886,SIZE3], [2.328,SIZE4], [3.238,SIZE5]],
+          stretch: {left:[0xE031,SIZE5], rep:[0xE028,SIZE5], mid:[0xE032,SIZE5], right:[0xE033,SIZE5]}
+        },
+        0x23DF:
+        {
+          dir: H,
+          HW: [[1.000,MAIN], [0.925,SIZE1], [1.460,SIZE2], [1.886,SIZE3], [2.328,SIZE4], [3.238,SIZE5]],
+          stretch: {left:[0xE034,SIZE5], rep:[0xE02B,SIZE5], mid:[0xE035,SIZE5], right:[0xE036,SIZE5]}
+        },
+        0x23E0: EXTRAH,
+        0x23E1: EXTRAH,
+        0x2500: {alias: 0x2212, dir: H},
+        0x2758: {alias: 0x2223, dir: V},
+        0x2772: EXTRAV,
+        0x2773: EXTRAV,
+        0x27E6: EXTRAV,
+        0x27E7: EXTRAV,
+        0x27E8:
+        {
+          dir: V,
+          HW: [[0.926,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]]
+        },
+        0x27E9:
+        {
+          dir: V,
+          HW: [[0.926,MAIN], [1.230,SIZE1], [1.350,SIZE1,1.098], [1.845,SIZE2], [2.460,SIZE3], [3.075,SIZE4]]
+        },
+        0x27EA: EXTRAV,
+        0x27EB: EXTRAV,
+        0x27EE:
+        {
+          dir: V,
+          HW: [[0.853,MAIN]],
+          stretch: {bot:[0xE000,SIZE5], ext:[0xE001,SIZE5], top:[0xE002,SIZE5]}
+        },
+        0x27EF:
+        {
+          dir: V,
+          HW: [[0.853,MAIN]],
+          stretch: {bot:[0xE003,SIZE5], ext:[0xE004,SIZE5], top:[0xE005,SIZE5]}
+        },
+        0x27F0: EXTRAV,
+        0x27F1: EXTRAV,
+        0x27F5: {alias: 0x2190, dir: H},
+        0x27F6: {alias: 0x2192, dir: H},
+        0x27F7: {alias: 0x2194, dir: H},
+        0x27F8: {alias: 0x21D0, dir: H},
+        0x27F9: {alias: 0x21D2, dir: H},
+        0x27FA: {alias: 0x21D4, dir: H},
+        0x27FB: {alias: 0x21A4, dir: H},
+        0x27FC: {alias: 0x21A6, dir: H},
+        0x27FD: {alias: 0x2906, dir: H},
+        0x27FE: {alias: 0x2907, dir: H},
+        0x2906: EXTRAH,
+        0x2907: EXTRAH,
+        0x290A: EXTRAV,
+        0x290B: EXTRAV,
+        0x2912: EXTRAV,
+        0x2913: EXTRAV,
+        0x294E: EXTRAH,
+        0x294F: EXTRAV,
+        0x2950: EXTRAH,
+        0x2951: EXTRAV,
+        0x2952: EXTRAH,
+        0x2953: EXTRAH,
+        0x2954: EXTRAV,
+        0x2955: EXTRAV,
+        0x2956: EXTRAH,
+        0x2957: EXTRAH,
+        0x2958: EXTRAV,
+        0x2959: EXTRAV,
+        0x295A: EXTRAH,
+        0x295B: EXTRAH,
+        0x295C: EXTRAV,
+        0x295D: EXTRAV,
+        0x295E: EXTRAH,
+        0x295F: EXTRAH,
+        0x2960: EXTRAV,
+        0x2961: EXTRAV,
+        0x2980: EXTRAV,
+        0x2983: EXTRAV,
+        0x2984: EXTRAV,
+        0x2985: EXTRAV,
+        0x2986: EXTRAV,
+        0x2997: EXTRAV,
+        0x2998: EXTRAV,
+        0x29F8:
+        {
+          dir: V,
+          HW: [[1.020,MAIN], [1.845,SIZE1]]
+        },
+        0x29F9:
+        {
+          dir: V,
+          HW: [[1.020,MAIN], [1.845,SIZE1]]
+        },
+        0x2A00: EXTRAV,
+        0x2A01: EXTRAV,
+        0x2A02: EXTRAV,
+        0x2A03: EXTRAV,
+        0x2A04: EXTRAV,
+        0x2A05: EXTRAV,
+        0x2A06: EXTRAV,
+        0x2A07: EXTRAV,
+        0x2A08: EXTRAV,
+        0x2A09: EXTRAV,
+        0x2A0A: EXTRAV,
+        0x2A0B: EXTRAV,
+        0x2A0C: EXTRAV,
+        0x2A0D: EXTRAV,
+        0x2A0E: EXTRAV,
+        0x2A0F: EXTRAV,
+        0x2A10: EXTRAV,
+        0x2A11: EXTRAV,
+        0x2A12: EXTRAV,
+        0x2A13: EXTRAV,
+        0x2A14: EXTRAV,
+        0x2A15: EXTRAV,
+        0x2A16: EXTRAV,
+        0x2A17: EXTRAV,
+        0x2A18: EXTRAV,
+        0x2A19: EXTRAV,
+        0x2A1A: EXTRAV,
+        0x2A1B: EXTRAV,
+        0x2A1C: EXTRAV,
+        0x2AFC: EXTRAV,
+        0x2AFF: EXTRAV,
+        0x2B45: EXTRAH,
+        0x2B46:
+        {
+          dir: H,
+          HW: [[0.818,SHAPES]],
+          stretch: {rep:[0xE039,SIZE5], right:[0x2B46,SHAPES]}
+        },
+        0x3008: {alias: 0x27E8, dir: V},
+        0x3009: {alias: 0x27E9, dir: V},
+        0xFE37: {alias: 0x23DE, dir: H},
+        0xFE38: {alias: 0x23DF, dir: H}
+      }
+
+    }
+  });
+  MathJax.Hub.Register.LoadHook(HTMLCSS.fontDir+"/Main/Regular/Main.js",function () {
+    HTMLCSS.FONTDATA.FONTS[MAIN][0x22EE][0] += 400;  // adjust height for \vdots
+    HTMLCSS.FONTDATA.FONTS[MAIN][0x22F1][0] += 500;  // adjust height for \ddots
+    HTMLCSS.FONTDATA.FONTS[MAIN][0x2212][0] = HTMLCSS.FONTDATA.FONTS[MAIN][0x002B][0]; // - needs height and depth of +
+    HTMLCSS.FONTDATA.FONTS[MAIN][0x2212][1] = HTMLCSS.FONTDATA.FONTS[MAIN][0x002B][1]; // - needs height and depth of +
+    HTMLCSS.FONTDATA.FONTS[MAIN][0x003D][1] += 100;  // adjust depth for = (double arrow extender)
+  });
+  MathJax.Hub.Register.LoadHook(HTMLCSS.fontDir+"/Size5/Regular/Main.js",function () {
+    var u;
+    u = HTMLCSS.FONTDATA.DELIMITERS[0x23DE].stretch.rep[0];
+    HTMLCSS.FONTDATA.FONTS[SIZE5][u][0] += 200;  // adjust height for brace extender
+    HTMLCSS.FONTDATA.FONTS[SIZE5][u][1] += 200;  // adjust depth for brace extender
+    u = HTMLCSS.FONTDATA.DELIMITERS[0x23DF].stretch.rep[0];
+    HTMLCSS.FONTDATA.FONTS[SIZE5][u][0] += 200;  // adjust height for brace extender
+    HTMLCSS.FONTDATA.FONTS[SIZE5][u][1] += 200;  // adjust depth for brace extender
+  });
+
+  AJAX.loadComplete(HTMLCSS.fontDir + "/fontdata.js");
+
+})(MathJax.OutputJax["HTML-CSS"],MathJax.ElementJax.mml,MathJax.Ajax);

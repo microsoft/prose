@@ -1,14 +1,22 @@
-/*
- *  /MathJax/jax/output/CommonHTML/autoload/multiline.js
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
+/*************************************************************
  *
- *  Copyright (c) 2009-2018 The MathJax Consortium
+ *  MathJax/jax/output/CommonHTML/autoload/multiline.js
+ *  
+ *  Implements the CommonHTML output for <mrow>'s that contain line breaks.
  *
+ *  ---------------------------------------------------------------------
+ *  
+ *  Copyright (c) 2015-2018 The MathJax Consortium
+ * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,4 +24,770 @@
  *  limitations under the License.
  */
 
-MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function(){var e="2.7.5";var b=MathJax.ElementJax.mml,a=MathJax.Hub.config,c=MathJax.OutputJax.CommonHTML;var g=b.mo().With({CHTML:c.BBOX.empty()});var f={newline:0,nobreak:1000000,goodbreak:[-200],badbreak:[+200],auto:[0],maxwidth:1.33,toobig:800,nestfactor:400,spacefactor:-100,spaceoffset:2,spacelimit:1,fence:500,close:500};var d={linebreakstyle:"after"};b.mbase.Augment({CHTMLlinebreakPenalty:f,CHTMLmultiline:function(k){var q=this;while(q.inferred||(q.parent&&q.parent.type==="mrow"&&q.parent.isEmbellished())){q=q.parent}var o=((q.type==="math"&&q.Get("display")==="block")||q.type==="mtd");q.isMultiline=true;var r=this.getValues("linebreak","linebreakstyle","lineleading","linebreakmultchar","indentalign","indentshift","indentalignfirst","indentshiftfirst","indentalignlast","indentshiftlast");if(r.linebreakstyle===b.LINEBREAKSTYLE.INFIXLINEBREAKSTYLE){r.linebreakstyle=this.Get("infixlinebreakstyle")}r.lineleading=this.CHTMLlength2em(r.lineleading,0.5);c.BBOX.empty(this.CHTML);var p=c.addElement(k,"mjx-stack");var h={BBOX:this.CHTML,n:0,Y:0,scale:(this.CHTML.scale||1),isTop:o,values:{},VALUES:r},n=this.CHTMLgetAlign(h,{}),j=this.CHTMLgetShift(h,{},n),i=[],l={index:[],penalty:f.nobreak,w:0,W:j,shift:j,scanW:j,nest:0},m=false;while(this.CHTMLbetterBreak(l,h,true)&&(l.scanW>=c.linebreakWidth||l.penalty===f.newline)){this.CHTMLaddLine(p,i,l.index,h,l.values,m);i=l.index.slice(0);m=true;n=this.CHTMLgetAlign(h,l.values);j=this.CHTMLgetShift(h,l.values,n);l.W=l.shift=l.scanW=j;l.penalty=f.nobreak}h.isLast=true;this.CHTMLaddLine(p,i,[],h,d,m);k.style.width=p.style.width=this.CHTML.pwidth="100%";this.CHTML.mwidth=c.Em(this.CHTML.w);this.CHTML.isMultiline=q.CHTML.isMultiline=true;p.style.verticalAlign=c.Em(h.d-this.CHTML.d);return k},CHTMLbetterBreak:function(l,h,s){if(this.isToken){return false}if(this.isEmbellished()){l.embellished=this;return this.CoreMO().CHTMLbetterBreak(l,h)}if(this.linebreakContainer){return false}var r=l.index.slice(0),p=l.index.shift(),o=this.data.length,n,t,k,q=(l.index.length>0),j=false;if(p==null){p=-1}if(!q){p++;l.W+=l.w;l.w=0}k=l.scanW=l.W;l.nest++;while(p<o&&(l.scanW<f.maxwidth*c.linebreakWidth||l.w===0)){if(this.data[p]){if(this.data[p].CHTMLbetterBreak(l,h)){j=true;r=[p].concat(l.index);n=l.W;t=l.w;if(l.penalty===f.newline){l.index=r;if(l.nest){l.nest--}return true}}k=(q?l.scanW:this.CHTMLaddWidth(p,l,k))}l.index=[];p++;q=false}if(s&&j){g.parent=this.parent;g.inherit=this.inherit;if(g.CHTMLbetterBreak(l,h)){j=false;r=l.index}}if(l.nest){l.nest--}l.index=r;if(j){l.W=n;l.w=t}return j},CHTMLaddWidth:function(h,k,j){if(this.data[h]){var l=this.data[h].CHTML;j+=(l.w+(l.L||0)+(l.R||0))*(l.scale||1);k.W=k.scanW=j;k.w=0}return j},CHTMLaddLine:function(s,j,o,h,t,q){var n=c.addElement(s,"mjx-block",{},[["mjx-box"]]),v=n.firstChild;var u=h.bbox=c.BBOX.empty();h.first=q;h.last=true;this.CHTMLmoveLine(j,o,v,h,t);u.clean();var r=this.CHTMLgetAlign(h,t),k=this.CHTMLgetShift(h,t,r,true);var m=0;if(h.n>0){var p=c.FONTDATA.baselineskip;var l=(h.values.lineleading==null?h.VALUES:h.values).lineleading*h.scale;var i=h.Y;h.Y-=Math.max(p,h.d+u.h+l);m=i-h.Y-h.d-u.h}if(k){v.style.margin="0 "+c.Em(-k)+" 0 "+c.Em(k)}if(r!==b.INDENTALIGN.LEFT){n.style.textAlign=r}if(m){n.style.paddingTop=c.Em(m)}h.BBOX.combine(u,k,h.Y);h.d=h.bbox.d;h.values=t;h.n++},CHTMLgetAlign:function(k,h){var l=h,i=k.values,j=k.VALUES,m;if(k.n===0){m=l.indentalignfirst||i.indentalignfirst||j.indentalignfirst}else{if(k.isLast){m=i.indentalignlast||j.indentalignlast}else{m=i.indentalign||j.indentalign}}if(m===b.INDENTALIGN.INDENTALIGN){m=i.indentalign||j.indentalign}if(m===b.INDENTALIGN.AUTO){m=(k.isTop?a.displayAlign:b.INDENTALIGN.LEFT)}return m},CHTMLgetShift:function(h,p,n,l){var o=p,m=h.values,i=h.VALUES,j;if(h.n===0){j=o.indentshiftfirst||m.indentshiftfirst||i.indentshiftfirst}else{if(h.isLast){j=m.indentshiftlast||i.indentshiftlast}else{j=m.indentshift||i.indentshift}}if(j===b.INDENTSHIFT.INDENTSHIFT){j=m.indentshift||i.indentshift}if(j==="auto"||j===""){j="0"}j=this.CHTMLlength2em(j,c.cwidth);if(h.isTop&&a.displayIndent!=="0"){var k=this.CHTMLlength2em(a.displayIndent,c.cwidth);j+=(n===b.INDENTALIGN.RIGHT?-k:k)}return(n===b.INDENTALIGN.RIGHT&&!l?-j:j)},CHTMLmoveLine:function(q,h,o,p,k){var m=q[0],l=h[0];if(m==null){m=-1}if(l==null){l=this.data.length-1}if(m===l&&q.length>1){this.data[m].CHTMLmoveSlice(q.slice(1),h.slice(1),o,p,k,"marginLeft")}else{var n=p.last;p.last=false;while(m<l){if(this.data[m]){if(q.length<=1){this.data[m].CHTMLmoveNode(o,p,k)}else{this.data[m].CHTMLmoveSlice(q.slice(1),[],o,p,k,"marginLeft")}}m++;p.first=false;q=[]}p.last=n;if(this.data[m]){if(h.length<=1){this.data[m].CHTMLmoveNode(o,p,k)}else{this.data[m].CHTMLmoveSlice([],h.slice(1),o,p,k,"marginRight")}}}},CHTMLmoveSlice:function(n,h,j,l,i,k){var m=this.CHTMLcreateSliceNode(j);this.CHTMLmoveLine(n,h,m,l,i);if(m.style[k]){m.style[k]=""}if(this.CHTML.L){if(k!=="marginLeft"){l.bbox.w+=this.CHTML.L}else{m.className=m.className.replace(/ MJXc-space\d/,"")}}if(this.CHTML.R&&k!=="marginRight"){l.bbox.w+=this.CHTML.R}if(h.length===0){j=this.CHTMLnodeElement();if(this.href){j=j.parentNode}j.parentNode.removeChild(j);j.nextMathJaxNode.id=j.id}return m},CHTMLcreateSliceNode:function(j){var i=this.CHTMLnodeElement(),l=0;if(this.href){i=i.parentNode}var h=i;while(h.nextMathJaxNode){h=h.nextMathJaxNode;l++}var k=i.cloneNode(false);h.nextMathJaxNode=k;k.nextMathJaxNode=null;k.id+="-MJX-Continue-"+l;return j.appendChild(k)},CHTMLmoveNode:function(h,k,i){if(!(k.first||k.last)||(k.first&&k.values.linebreakstyle===b.LINEBREAKSTYLE.BEFORE)||(k.last&&i.linebreakstyle===b.LINEBREAKSTYLE.AFTER)){var j=this.CHTMLnodeElement();if(this.href){j=j.parentNode}h.appendChild(j);if(this.CHTML.pwidth&&!h.style.width){h.style.width=this.CHTML.pwidth}if(k.last){j.style.marginRight=""}if(k.first||k.nextIsFirst){j.style.marginLeft="";this.CHTML.L=0;j.className=j.className.replace(/ MJXc-space\d/,"")}if(k.first&&this.CHTML.w===0){k.nextIsFirst=true}else{delete k.nextIsFirst}k.bbox.combine(this.CHTML,k.bbox.w,0)}}});b.mfenced.Augment({CHTMLbetterBreak:function(n,h){var v=n.index.slice(0),t=n.index.shift(),q=this.data.length,p,x,o,u=(n.index.length>0),l=false;if(t==null){t=-1}if(!u){t++;n.W+=n.w;n.w=0}o=n.scanW=n.W;n.nest++;if(!this.dataI){this.dataI=[];if(this.data.open){this.dataI.push("open")}if(q){this.dataI.push(0)}for(var s=1;s<q;s++){if(this.data["sep"+s]){this.dataI.push("sep"+s)}this.dataI.push(s)}if(this.data.close){this.dataI.push("close")}}q=this.dataI.length;while(t<q&&(n.scanW<f.maxwidth*c.linebreakWidth||n.w===0)){var r=this.dataI[t];if(this.data[r]){if(this.data[r].CHTMLbetterBreak(n,h)){l=true;v=[t].concat(n.index);p=n.W;x=n.w;if(n.penalty===f.newline){n.index=v;if(n.nest){n.nest--}return true}}o=(u?n.scanW:this.CHTMLaddWidth(t,n,o))}n.index=[];t++;u=false}if(n.nest){n.nest--}n.index=v;if(l){n.W=p;n.w=x}return l},CHTMLmoveLine:function(l,o,m,h,s){var q=l[0],p=o[0];if(q==null){q=-1}if(p==null){p=this.dataI.length-1}if(q===p&&l.length>1){this.data[this.dataI[q]].CHTMLmoveSlice(l.slice(1),o.slice(1),m,h,s,"marginLeft")}else{var r=h.last;h.last=false;var n=this.dataI[q];while(q<p){if(this.data[n]){if(l.length<=1){this.data[n].CHTMLmoveNode(m,h,s)}else{this.data[n].CHTMLmoveSlice(l.slice(1),[],m,h,s,"marginLeft")}}q++;n=this.dataI[q];h.first=false;l=[]}h.last=r;if(this.data[n]){if(o.length<=1){this.data[n].CHTMLmoveNode(m,h,s)}else{this.data[n].CHTMLmoveSlice([],o.slice(1),m,h,s,"marginRight")}}}}});b.msubsup.Augment({CHTMLbetterBreak:function(k,h){if(!this.data[this.base]){return false}var p=k.index.slice(0),n=k.index.shift(),m,q,l,o=(k.index.length>0),j=false;if(!o){k.W+=k.w;k.w=0}l=k.scanW=k.W;if(n==null){this.CHTML.baseW=this.data[this.base].CHTML.w;this.CHTML.dw=this.CHTML.w-this.CHTML.baseW}if(this.data[this.base].CHTMLbetterBreak(k,h)){j=true;p=[this.base].concat(k.index);m=k.W;q=k.w;if(k.penalty===f.newline){j=o=true}}if(!o){this.CHTMLaddWidth(this.base,k,l)}k.scanW+=this.CHTML.dw;k.W=k.scanW;k.index=[];if(j){k.W=m;k.w=q;k.index=p}return j},CHTMLmoveLine:function(j,n,m,i,r){if(this.data[this.base]){var k=c.addElement(m,"mjx-base");if(j.length>1){this.data[this.base].CHTMLmoveSlice(j.slice(1),n.slice(1),k,i,r,"marginLeft")}else{if(n.length<=1){this.data[this.base].CHTMLmoveNode(k,i,r)}else{this.data[this.base].CHTMLmoveSlice([],n.slice(1),k,i,r,"marginRight")}}}if(n.length===0){var l=this.CHTMLnodeElement(),p=c.getNode(l,"mjx-stack"),o=c.getNode(l,"mjx-sup"),h=c.getNode(l,"mjx-sub");if(p){m.appendChild(p)}else{if(o){m.appendChild(o)}else{if(h){m.appendChild(h)}}}var q=i.bbox.w,s;if(o){s=this.data[this.sup].CHTML;i.bbox.combine(s,q,s.Y)}if(h){s=this.data[this.sub].CHTML;i.bbox.combine(s,q,s.Y)}}}});b.mmultiscripts.Augment({CHTMLbetterBreak:function(l,i){if(!this.data[this.base]){return false}var p=l.index.slice(0);l.index.shift();var n,q,m,o=(l.index.length>0),k=false;if(!o){l.W+=l.w;l.w=0}l.scanW=l.W;var r=this.CHTML,j=this.data[this.base].CHTML;var h=r.w-j.w-(r.X||0);l.scanW+=r.X||0;m=l.scanW;if(this.data[this.base].CHTMLbetterBreak(l,i)){k=true;p=[this.base].concat(l.index);n=l.W;q=l.w;if(l.penalty===f.newline){k=o=true}}if(!o){this.CHTMLaddWidth(this.base,l,m)}l.scanW+=h;l.W=l.scanW;l.index=[];if(k){l.W=n;l.w=q;l.index=p}return k},CHTMLmoveLine:function(m,p,o,j,v){var n,i=this.CHTMLbbox,u;if(m.length<1){n=this.CHTMLnodeElement();var r=c.getNode(n,"mjx-prestack"),s=c.getNode(n,"mjx-presup"),l=c.getNode(n,"mjx-presub");if(r){o.appendChild(r)}else{if(s){o.appendChild(s)}else{if(l){o.appendChild(l)}}}u=j.bbox.w;if(s){j.bbox.combine(i.presup,u+i.presup.X,i.presup.Y)}if(l){j.bbox.combine(i.presub,u+i.presub.X,i.presub.Y)}}if(this.data[this.base]){var k=c.addElement(o,"mjx-base");if(m.length>1){this.data[this.base].CHTMLmoveSlice(m.slice(1),p.slice(1),k,j,v,"marginLeft")}else{if(p.length<=1){this.data[this.base].CHTMLmoveNode(k,j,v)}else{this.data[this.base].CHTMLmoveSlice([],p.slice(1),k,j,v,"marginRight")}}}if(p.length===0){n=this.CHTMLnodeElement();var t=c.getNode(n,"mjx-stack"),q=c.getNode(n,"mjx-sup"),h=c.getNode(n,"mjx-sub");if(t){o.appendChild(t)}else{if(q){o.appendChild(q)}else{if(h){o.appendChild(h)}}}u=j.bbox.w;if(q){j.bbox.combine(i.sup,u,i.sup.Y)}if(h){j.bbox.combine(i.sub,u,i.sub.Y)}}}});b.mo.Augment({CHTMLbetterBreak:function(j,h){if(j.values&&j.values.id===this.CHTMLnodeID){return false}var p=this.getValues("linebreak","linebreakstyle","lineleading","linebreakmultchar","indentalign","indentshift","indentalignfirst","indentshiftfirst","indentalignlast","indentshiftlast","texClass","fence");if(p.linebreakstyle===b.LINEBREAKSTYLE.INFIXLINEBREAKSTYLE){p.linebreakstyle=this.Get("infixlinebreakstyle")}if(p.texClass===b.TEXCLASS.OPEN){j.nest++}if(p.texClass===b.TEXCLASS.CLOSE&&j.nest){j.nest--}var k=j.scanW;delete j.embellished;var o=this.CHTML.w+(this.CHTML.L||0)+(this.CHTML.R||0);if(p.linebreakstyle===b.LINEBREAKSTYLE.AFTER){k+=o;o=0}if(k-j.shift===0&&p.linebreak!==b.LINEBREAK.NEWLINE){return false}var l=c.linebreakWidth-k;if(h.n===0&&(p.indentshiftfirst!==h.VALUES.indentshiftfirst||p.indentalignfirst!==h.VALUES.indentalignfirst)){var m=this.CHTMLgetAlign(h,p),i=this.CHTMLgetShift(h,p,m);l+=(j.shift-i)}var n=Math.floor(l/c.linebreakWidth*1000);if(n<0){n=f.toobig-3*n}if(p.fence){n+=f.fence}if((p.linebreakstyle===b.LINEBREAKSTYLE.AFTER&&p.texClass===b.TEXCLASS.OPEN)||p.texClass===b.TEXCLASS.CLOSE){n+=f.close}n+=j.nest*f.nestfactor;var q=f[p.linebreak||b.LINEBREAK.AUTO]||0;if(!MathJax.Object.isArray(q)){if(q||l>=0){n=q*j.nest}}else{n=Math.max(1,n+q[0]*j.nest)}if(n>=j.penalty){return false}j.penalty=n;j.values=p;j.W=k;j.w=o;p.lineleading=this.CHTMLlength2em(p.lineleading,h.VALUES.lineleading);p.id=this.CHTMLnodeID;return true}});b.mspace.Augment({CHTMLbetterBreak:function(i,h){if(i.values&&i.values.id===this.CHTMLnodeID){return false}var o=this.getValues("linebreak");var l=o.linebreak;if(!l||this.hasDimAttr()){l=b.LINEBREAK.AUTO}var j=i.scanW,n=this.CHTML.w+(this.CHTML.L||0)+(this.CHTML.R||0);if(j-i.shift===0){return false}var k=c.linebreakWidth-j;var m=Math.floor(k/c.linebreakWidth*1000);if(m<0){m=f.toobig-3*m}m+=i.nest*f.nestfactor;var p=f[l]||0;if(l===b.LINEBREAK.AUTO&&n>=f.spacelimit&&!this.mathbackground&&!this.background){p=[(n+f.spaceoffset)*f.spacefactor]}if(!MathJax.Object.isArray(p)){if(p||k>=0){m=p*i.nest}}else{m=Math.max(1,m+p[0]*i.nest)}if(m>=i.penalty){return false}i.penalty=m;i.values=o;i.W=j;i.w=n;o.lineleading=h.VALUES.lineleading;o.linebreakstyle="before";o.id=this.CHTMLnodeID;return true}});MathJax.Hub.Register.StartupHook("TeX mathchoice Ready",function(){b.TeXmathchoice.Augment({CHTMLbetterBreak:function(i,h){return this.Core().CHTMLbetterBreak(i,h)},CHTMLmoveLine:function(l,h,j,k,i){return this.Core().CHTMLmoveSlice(l,h,j,k,i)}})});b.maction.Augment({CHTMLbetterBreak:function(i,h){return this.Core().CHTMLbetterBreak(i,h)},CHTMLmoveLine:function(l,h,j,k,i){return this.Core().CHTMLmoveSlice(l,h,j,k,i)}});b.semantics.Augment({CHTMLbetterBreak:function(i,h){return(this.data[0]?this.data[0].CHTMLbetterBreak(i,h):false)},CHTMLmoveLine:function(l,h,j,k,i){return(this.data[0]?this.data[0].CHTMLmoveSlice(l,h,j,k,i):null)}});MathJax.Hub.Startup.signal.Post("CommonHTML multiline Ready");MathJax.Ajax.loadComplete(c.autoloadDir+"/multiline.js")});
+MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
+  var VERSION = "2.7.5";
+  var MML = MathJax.ElementJax.mml,
+      CONFIG = MathJax.Hub.config,
+      CHTML = MathJax.OutputJax.CommonHTML;
+  //
+  //  Fake node used for testing end-of-line potential breakpoint
+  //
+  var MO = MML.mo().With({CHTML: CHTML.BBOX.empty()});
+  
+  //
+  //  Penalties for the various line breaks
+  //
+  var PENALTY = {
+    newline:         0,
+    nobreak:   1000000,
+    goodbreak:   [-200],
+    badbreak:    [+200],
+    auto:           [0],
+    
+    maxwidth:     1.33,  // stop looking for breaks after this time the line-break width
+    toobig:        800,
+    nestfactor:    400,
+    spacefactor:  -100,
+    spaceoffset:     2,
+    spacelimit:      1,  // spaces larger than this get a penalty boost
+    fence:         500,
+    close:         500
+  };
+  
+  var ENDVALUES = {linebreakstyle: "after"};
+
+  
+  /**************************************************************************/
+  
+  MML.mbase.Augment({
+    CHTMLlinebreakPenalty: PENALTY,
+    
+    /****************************************************************/
+    //
+    // Handle breaking an mrow into separate lines
+    //
+    CHTMLmultiline: function (node) {
+
+      //
+      //  Find the parent element and mark it as multiline
+      //
+      var parent = this;
+      while (parent.inferred || (parent.parent && parent.parent.type === "mrow" &&
+             parent.parent.isEmbellished())) {parent = parent.parent}
+      var isTop = ((parent.type === "math" && parent.Get("display") === "block") ||
+                    parent.type === "mtd");
+      parent.isMultiline = true;
+      
+      //
+      //  Default values for the line-breaking parameters
+      //
+      var VALUES = this.getValues(
+        "linebreak","linebreakstyle","lineleading","linebreakmultchar",
+        "indentalign","indentshift",
+        "indentalignfirst","indentshiftfirst",
+        "indentalignlast","indentshiftlast"
+      );
+      if (VALUES.linebreakstyle === MML.LINEBREAKSTYLE.INFIXLINEBREAKSTYLE) 
+        VALUES.linebreakstyle = this.Get("infixlinebreakstyle");
+      VALUES.lineleading = this.CHTMLlength2em(VALUES.lineleading,0.5);
+
+      //
+      //  Break the math at its best line breaks
+      //
+      CHTML.BBOX.empty(this.CHTML);
+      var stack = CHTML.addElement(node,"mjx-stack");
+      var state = {
+            BBOX: this.CHTML,
+            n: 0, Y: 0,
+            scale: (this.CHTML.scale||1),
+            isTop: isTop,
+            values: {},
+            VALUES: VALUES
+          },
+          align = this.CHTMLgetAlign(state,{}),
+          shift = this.CHTMLgetShift(state,{},align),
+          start = [],
+          end = {
+            index:[], penalty:PENALTY.nobreak,
+            w:0, W:shift, shift:shift, scanW:shift,
+            nest: 0
+          },
+          broken = false;
+          
+      while (this.CHTMLbetterBreak(end,state,true) && 
+             (end.scanW >= CHTML.linebreakWidth || end.penalty === PENALTY.newline)) {
+        this.CHTMLaddLine(stack,start,end.index,state,end.values,broken);
+        start = end.index.slice(0); broken = true;
+        align = this.CHTMLgetAlign(state,end.values);
+        shift = this.CHTMLgetShift(state,end.values,align);
+        end.W = end.shift = end.scanW = shift; end.penalty = PENALTY.nobreak;
+      }
+      state.isLast = true;
+      this.CHTMLaddLine(stack,start,[],state,ENDVALUES,broken);
+
+      node.style.width = stack.style.width = this.CHTML.pwidth = "100%";
+      this.CHTML.mwidth = CHTML.Em(this.CHTML.w);
+      this.CHTML.isMultiline = parent.CHTML.isMultiline = true;
+      stack.style.verticalAlign = CHTML.Em(state.d - this.CHTML.d);
+      
+      return node;
+    },
+
+    /****************************************************************/
+    //
+    //  Locate the next linebreak that is better than the current one
+    //
+    CHTMLbetterBreak: function (info,state,toplevel) {
+      if (this.isToken) return false;  // FIXME: handle breaking of token elements
+      if (this.isEmbellished()) {
+        info.embellished = this;
+        return this.CoreMO().CHTMLbetterBreak(info,state);
+      }
+      if (this.linebreakContainer) return false;
+      //
+      //  Get the current breakpoint position and other data
+      //
+      var index = info.index.slice(0), i = info.index.shift(),
+          m = this.data.length, W, w, scanW, broken = (info.index.length > 0), better = false;
+      if (i == null) i = -1; if (!broken) {i++; info.W += info.w; info.w = 0}
+      scanW = info.scanW = info.W; info.nest++;
+      //
+      //  Look through the line for breakpoints,
+      //    (as long as we are not too far past the breaking width)
+      //
+      while (i < m && (info.scanW < PENALTY.maxwidth*CHTML.linebreakWidth || info.w === 0)) {
+        if (this.data[i]) {
+          if (this.data[i].CHTMLbetterBreak(info,state)) {
+            better = true; index = [i].concat(info.index); W = info.W; w = info.w;
+            if (info.penalty === PENALTY.newline) {
+              info.index = index;
+              if (info.nest) {info.nest--}
+              return true;
+            }
+          }
+          scanW = (broken ? info.scanW : this.CHTMLaddWidth(i,info,scanW));
+        }
+        info.index = []; i++; broken = false;
+      }
+      //
+      //  Check if end-of-line is a better breakpoint
+      //
+      if (toplevel && better) {
+        MO.parent = this.parent; MO.inherit = this.inherit;
+        if (MO.CHTMLbetterBreak(info,state)) {better = false; index = info.index}
+      }
+      if (info.nest) {info.nest--}
+      info.index = index;
+      if (better) {info.W = W; info.w = w}
+      return better;
+    },
+    CHTMLaddWidth: function (i,info,scanW) {
+      if (this.data[i]) {
+        var bbox = this.data[i].CHTML;
+        scanW += (bbox.w + (bbox.L||0) + (bbox.R||0)) * (bbox.scale || 1);
+        info.W = info.scanW = scanW; info.w = 0;
+      }
+      return scanW;
+    },
+    
+    /****************************************************************/
+    //
+    //  Create a new line and move the required elements into it
+    //  Position it using proper alignment and indenting
+    //
+    CHTMLaddLine: function (stack,start,end,state,values,broken) {
+      //
+      //  Create a box for the line, with empty BBox
+      //    fill it with the proper elements,
+      //    and clean up the bbox
+      //
+      var block = CHTML.addElement(stack,"mjx-block",{},[["mjx-box"]]), line = block.firstChild;
+      var bbox = state.bbox = CHTML.BBOX.empty();
+      state.first = broken; state.last = true;
+      this.CHTMLmoveLine(start,end,line,state,values);
+      bbox.clean();
+      //
+      //  Get the alignment and shift values
+      //
+      var align = this.CHTMLgetAlign(state,values),
+          shift = this.CHTMLgetShift(state,values,align,true);
+      //
+      //  Set the Y offset based on previous depth, leading, and current height
+      //
+      var dY = 0;
+      if (state.n > 0) {
+        var LHD = CHTML.FONTDATA.baselineskip;
+        var leading = (state.values.lineleading == null ? state.VALUES : state.values).lineleading * state.scale;
+        var Y = state.Y;
+        state.Y -= Math.max(LHD,state.d + bbox.h + leading);
+        dY = Y - state.Y - state.d - bbox.h;
+      }
+      //
+      //  Place the new line
+      //
+      if (shift) line.style.margin = "0 "+CHTML.Em(-shift)+" 0 "+CHTML.Em(shift);
+      if (align !== MML.INDENTALIGN.LEFT) block.style.textAlign = align;
+      if (dY) block.style.paddingTop = CHTML.Em(dY);
+      state.BBOX.combine(bbox,shift,state.Y);
+      //
+      //  Save the values needed for the future
+      //
+      state.d = state.bbox.d; state.values = values; state.n++;
+    },
+    
+    /****************************************************************/
+    //
+    //  Get alignment and shift values from the given data
+    //
+    CHTMLgetAlign: function (state,values) {
+      var cur = values, prev = state.values, def = state.VALUES, align;
+      if (state.n === 0)     align = cur.indentalignfirst || prev.indentalignfirst || def.indentalignfirst;
+      else if (state.isLast) align = prev.indentalignlast || def.indentalignlast;
+      else                   align = prev.indentalign || def.indentalign;
+      if (align === MML.INDENTALIGN.INDENTALIGN) align = prev.indentalign || def.indentalign;
+      if (align === MML.INDENTALIGN.AUTO) align = (state.isTop ? CONFIG.displayAlign : MML.INDENTALIGN.LEFT);
+      return align;
+    },
+    CHTMLgetShift: function (state,values,align,noadjust) {
+      var cur = values, prev = state.values, def = state.VALUES, shift;
+      if (state.n === 0)     shift = cur.indentshiftfirst || prev.indentshiftfirst || def.indentshiftfirst;
+      else if (state.isLast) shift = prev.indentshiftlast || def.indentshiftlast;
+      else                   shift = prev.indentshift || def.indentshift;
+      if (shift === MML.INDENTSHIFT.INDENTSHIFT) shift = prev.indentshift || def.indentshift;
+      if (shift === "auto" || shift === "") shift = "0";
+      shift = this.CHTMLlength2em(shift,CHTML.cwidth);
+      if (state.isTop && CONFIG.displayIndent !== "0") {
+        var indent = this.CHTMLlength2em(CONFIG.displayIndent,CHTML.cwidth);
+        shift += (align === MML.INDENTALIGN.RIGHT ? -indent : indent);
+      }
+      return (align === MML.INDENTALIGN.RIGHT && !noadjust ? -shift : shift);
+    },
+    
+    /****************************************************************/
+    //
+    //  Move the selected elements into the new line's box,
+    //    moving whole items when possible, and parts of ones
+    //    that are split by a line break.
+    //  
+    CHTMLmoveLine: function (start,end,node,state,values) {
+      var i = start[0], j = end[0];
+      if (i == null) i = -1; if (j == null) j = this.data.length-1;
+      if (i === j && start.length > 1) {
+        //
+        //  If starting and ending in the same element move the subpiece to the new line
+        //
+        this.data[i].CHTMLmoveSlice(start.slice(1),end.slice(1),node,state,values,"marginLeft");
+      } else {
+        //
+        //  Otherwise, move the remainder of the initial item
+        //  and any others up to the last one
+        //
+        var last = state.last; state.last = false;
+        while (i < j) {
+          if (this.data[i]) {
+            if (start.length <= 1) this.data[i].CHTMLmoveNode(node,state,values);
+              else this.data[i].CHTMLmoveSlice(start.slice(1),[],node,state,values,"marginLeft");
+          }
+          i++; state.first = false; start = [];
+        }
+        //
+        //  If the last item is complete, move it,
+        //    otherwise move the first part of it up to the split
+        //
+        state.last = last;
+        if (this.data[i]) {
+          if (end.length <= 1) this.data[i].CHTMLmoveNode(node,state,values);
+            else this.data[i].CHTMLmoveSlice([],end.slice(1),node,state,values,"marginRight");
+        }
+      }
+    },
+    
+    /****************************************************************/
+    //
+    //  Split an element and copy the selected items into the new part
+    //
+    CHTMLmoveSlice: function (start,end,node,state,values,margin) {
+      //
+      //  Create a new box for the slice of the element
+      //  Move the selected portion into the slice
+      //  If it is the last slice
+      //    Remove the original (now empty) node
+      //    Rename the Continue-0 node with the original name (for CHTMLnodeElement)
+      //
+      var slice = this.CHTMLcreateSliceNode(node);
+      this.CHTMLmoveLine(start,end,slice,state,values);
+      if (slice.style[margin]) slice.style[margin] = "";
+      if (this.CHTML.L) {
+        if (margin !== "marginLeft") state.bbox.w += this.CHTML.L;
+          else slice.className = slice.className.replace(/ MJXc-space\d/,"");
+      }
+      if (this.CHTML.R && margin !== "marginRight") state.bbox.w += this.CHTML.R;
+      if (end.length === 0) {
+        node = this.CHTMLnodeElement();
+        if (this.href) node = node.parentNode;
+        node.parentNode.removeChild(node);
+        node.nextMathJaxNode.id = node.id;
+      }
+      return slice;
+    },
+
+    /****************************************************************/
+    //
+    //  Create a new node for an element that is split in two
+    //    Clone the original and update its ID.
+    //    Link the old node to the new one so we can find it later
+    //
+    CHTMLcreateSliceNode: function (node) {
+      var NODE = this.CHTMLnodeElement(), n = 0;
+      if (this.href) NODE = NODE.parentNode;
+      var LAST = NODE; while (LAST.nextMathJaxNode) {LAST = LAST.nextMathJaxNode; n++}
+      var SLICE = NODE.cloneNode(false); LAST.nextMathJaxNode = SLICE; SLICE.nextMathJaxNode = null;
+      SLICE.id += "-MJX-Continue-"+n;
+      return node.appendChild(SLICE);
+    },
+    
+    /****************************************************************/
+    //
+    //  Move an element from its original node to its new location in
+    //    a split element or the new line's node
+    //
+    CHTMLmoveNode: function (line,state,values) {
+      // FIXME:  handle linebreakstyle === "duplicate"
+      // FIXME:  handle linebreakmultchar
+      if (!(state.first || state.last) ||
+           (state.first && state.values.linebreakstyle === MML.LINEBREAKSTYLE.BEFORE) ||
+           (state.last && values.linebreakstyle === MML.LINEBREAKSTYLE.AFTER)) {
+        //
+        //  Move node
+        //
+        var node = this.CHTMLnodeElement();
+        if (this.href) node = node.parentNode;
+        line.appendChild(node);
+        if (this.CHTML.pwidth && !line.style.width) line.style.width = this.CHTML.pwidth;
+        //
+        //  If it is last, remove right margin
+        //  If it is first, remove left margin
+        //
+        if (state.last) node.style.marginRight = "";
+        if (state.first || state.nextIsFirst) {
+          node.style.marginLeft = ""; this.CHTML.L = 0;
+          node.className = node.className.replace(/ MJXc-space\d/,"");
+        }
+        if (state.first && this.CHTML.w === 0) state.nextIsFirst = true;
+          else delete state.nextIsFirst;
+        //
+        //  Update bounding box
+        //
+        state.bbox.combine(this.CHTML,state.bbox.w,0);
+      }
+    }
+  });
+
+  /**************************************************************************/
+
+  MML.mfenced.Augment({
+    CHTMLbetterBreak: function (info,state) {
+      //
+      //  Get the current breakpoint position and other data
+      //
+      var index = info.index.slice(0), i = info.index.shift(),
+          m = this.data.length, W, w, scanW, broken = (info.index.length > 0), better = false;
+      if (i == null) i = -1; if (!broken) {i++; info.W += info.w; info.w = 0}
+      scanW = info.scanW = info.W; info.nest++;
+      //
+      //  Create indices that include the delimiters and separators
+      //
+      if (!this.dataI) {
+        this.dataI = [];
+        if (this.data.open) this.dataI.push("open");
+        if (m) this.dataI.push(0);
+        for (var j = 1; j < m; j++) {
+          if (this.data["sep"+j]) this.dataI.push("sep"+j);
+          this.dataI.push(j);
+        }
+        if (this.data.close) this.dataI.push("close");
+      }
+      m = this.dataI.length;
+      //
+      //  Look through the line for breakpoints, including the open, close, and separators
+      //    (as long as we are not too far past the breaking width)
+      //
+      while (i < m && (info.scanW < PENALTY.maxwidth*CHTML.linebreakWidth || info.w === 0)) {
+        var k = this.dataI[i];
+        if (this.data[k]) {
+          if (this.data[k].CHTMLbetterBreak(info,state)) {
+            better = true; index = [i].concat(info.index); W = info.W; w = info.w;
+            if (info.penalty === PENALTY.newline) {
+              info.index = index;
+              if (info.nest) info.nest--;
+              return true;
+            }
+          }
+          scanW = (broken ? info.scanW : this.CHTMLaddWidth(i,info,scanW));
+        }
+        info.index = []; i++; broken = false;
+      }
+      if (info.nest) info.nest--;
+      info.index = index;
+      if (better) {info.W = W; info.w = w}
+      return better;
+    },
+    
+    CHTMLmoveLine: function (start,end,node,state,values) {
+      var i = start[0], j = end[0];
+      if (i == null) i = -1; if (j == null) j = this.dataI.length-1;
+      if (i === j && start.length > 1) {
+        //
+        //  If starting and ending in the same element move the subpiece to the new line
+        //
+        this.data[this.dataI[i]].CHTMLmoveSlice(start.slice(1),end.slice(1),node,state,values,"marginLeft");
+      } else {
+        //
+        //  Otherwise, move the remainder of the initial item
+        //  and any others (including open and separators) up to the last one
+        //
+        var last = state.last; state.last = false; var k = this.dataI[i];
+        while (i < j) {
+          if (this.data[k]) {
+            if (start.length <= 1) this.data[k].CHTMLmoveNode(node,state,values);
+              else this.data[k].CHTMLmoveSlice(start.slice(1),[],node,state,values,"marginLeft");
+          }
+          i++; k = this.dataI[i]; state.first = false; start = [];
+        }
+        //
+        //  If the last item is complete, move it
+        //
+        state.last = last;
+        if (this.data[k]) {
+          if (end.length <= 1) this.data[k].CHTMLmoveNode(node,state,values);
+            else this.data[k].CHTMLmoveSlice([],end.slice(1),node,state,values,"marginRight");
+        }
+      }
+    }
+
+  });
+  
+  /**************************************************************************/
+
+  MML.msubsup.Augment({
+    CHTMLbetterBreak: function (info,state) {
+      if (!this.data[this.base]) {return false}
+      //
+      //  Get the current breakpoint position and other data
+      //
+      var index = info.index.slice(0), i = info.index.shift(),
+          W, w, scanW, broken = (info.index.length > 0), better = false;
+      if (!broken) {info.W += info.w; info.w = 0}
+      scanW = info.scanW = info.W;
+      //
+      //  Record the width of the base and the super- and subscripts
+      //
+      if (i == null) {
+        this.CHTML.baseW = this.data[this.base].CHTML.w;
+        this.CHTML.dw = this.CHTML.w - this.CHTML.baseW;
+      }
+      //
+      //  Check if the base can be broken
+      //
+      if (this.data[this.base].CHTMLbetterBreak(info,state)) {
+        better = true; index = [this.base].concat(info.index); W = info.W; w = info.w;
+        if (info.penalty === PENALTY.newline) better = broken = true;
+      }
+      //
+      //  Add in the base if it is unbroken, and add the scripts
+      //
+      if (!broken) this.CHTMLaddWidth(this.base,info,scanW);
+      info.scanW += this.CHTML.dw; info.W = info.scanW;
+      info.index = []; if (better) {info.W = W; info.w = w; info.index = index}
+      return better;
+    },
+    
+    CHTMLmoveLine: function (start,end,node,state,values) {
+      //
+      //  Move the proper part of the base
+      //
+      if (this.data[this.base]) {
+        var base = CHTML.addElement(node,"mjx-base");
+        if (start.length > 1) {
+          this.data[this.base].CHTMLmoveSlice(start.slice(1),end.slice(1),base,state,values,"marginLeft");
+        } else {
+          if (end.length <= 1) this.data[this.base].CHTMLmoveNode(base,state,values);
+            else this.data[this.base].CHTMLmoveSlice([],end.slice(1),base,state,values,"marginRight");
+        }
+      }
+      //
+      //  If this is the end, check for super and subscripts, and move those
+      //  by moving the elements that contains them.  Adjust the bounding box
+      //  to include the super and subscripts.
+      //
+      if (end.length === 0) {
+        var NODE = this.CHTMLnodeElement(),
+            stack = CHTML.getNode(NODE,"mjx-stack"),
+            sup = CHTML.getNode(NODE,"mjx-sup"),
+            sub = CHTML.getNode(NODE,"mjx-sub");
+        if (stack)      node.appendChild(stack);
+          else if (sup) node.appendChild(sup);
+          else if (sub) node.appendChild(sub);
+        var w = state.bbox.w, bbox;
+        if (sup) {
+          bbox = this.data[this.sup].CHTML;
+          state.bbox.combine(bbox,w,bbox.Y);
+        }
+        if (sub) {
+          bbox = this.data[this.sub].CHTML;
+          state.bbox.combine(bbox,w,bbox.Y);
+        }
+      }
+    }
+
+  });
+  
+  /**************************************************************************/
+
+  MML.mmultiscripts.Augment({
+    CHTMLbetterBreak: function (info,state) {
+      if (!this.data[this.base]) return false;
+      //
+      //  Get the current breakpoint position and other data
+      //
+      var index = info.index.slice(0); info.index.shift();
+      var W, w, scanW, broken = (info.index.length > 0), better = false;
+      if (!broken) {info.W += info.w; info.w = 0}
+      info.scanW = info.W;
+      //
+      //  Get the bounding boxes and the width of the scripts
+      //
+      var bbox = this.CHTML, base = this.data[this.base].CHTML;
+      var dw = bbox.w - base.w - (bbox.X||0);
+      //
+      //  Add in the width of the prescripts
+      //  
+      info.scanW += bbox.X||0; scanW = info.scanW;
+      //
+      //  Check if the base can be broken
+      //
+      if (this.data[this.base].CHTMLbetterBreak(info,state)) {
+        better = true; index = [this.base].concat(info.index); W = info.W; w = info.w;
+        if (info.penalty === PENALTY.newline) better = broken = true;
+      }
+      //
+      //  Add in the base if it is unbroken, and add the scripts
+      //
+      if (!broken) this.CHTMLaddWidth(this.base,info,scanW);
+      info.scanW += dw; info.W = info.scanW;
+      info.index = []; if (better) {info.W = W; info.w = w; info.index = index}
+      return better;
+    },
+    
+    CHTMLmoveLine: function (start,end,node,state,values) {
+      var NODE, BOX = this.CHTMLbbox, w;
+      //
+      //  If this is the start, move the prescripts, if any.
+      //
+      if (start.length < 1) {
+        NODE = this.CHTMLnodeElement();
+        var prestack = CHTML.getNode(NODE,"mjx-prestack"),
+            presup = CHTML.getNode(NODE,"mjx-presup"),
+            presub = CHTML.getNode(NODE,"mjx-presub");
+        if (prestack)      node.appendChild(prestack);
+          else if (presup) node.appendChild(presup);
+          else if (presub) node.appendChild(presub);
+        w = state.bbox.w;
+        if (presup) state.bbox.combine(BOX.presup,w+BOX.presup.X,BOX.presup.Y);
+        if (presub) state.bbox.combine(BOX.presub,w+BOX.presub.X,BOX.presub.Y);
+      }
+      //
+      //  Move the proper part of the base
+      //
+      if (this.data[this.base]) {
+        var base = CHTML.addElement(node,"mjx-base");
+        if (start.length > 1) {
+          this.data[this.base].CHTMLmoveSlice(start.slice(1),end.slice(1),base,state,values,"marginLeft");
+        } else {
+          if (end.length <= 1) this.data[this.base].CHTMLmoveNode(base,state,values);
+            else this.data[this.base].CHTMLmoveSlice([],end.slice(1),base,state,values,"marginRight");
+        }
+      }
+      //
+      //  If this is the end, check for super and subscripts, and move those
+      //  by moving the elements that contains them.  Adjust the bounding box
+      //  to include the super and subscripts.
+      //
+      if (end.length === 0) {
+        NODE = this.CHTMLnodeElement();
+        var stack = CHTML.getNode(NODE,"mjx-stack"),
+            sup = CHTML.getNode(NODE,"mjx-sup"),
+            sub = CHTML.getNode(NODE,"mjx-sub");
+        if (stack)      node.appendChild(stack);
+          else if (sup) node.appendChild(sup);
+          else if (sub) node.appendChild(sub);
+        w = state.bbox.w;
+        if (sup) state.bbox.combine(BOX.sup,w,BOX.sup.Y);
+        if (sub) state.bbox.combine(BOX.sub,w,BOX.sub.Y);
+      }
+    }
+
+  });
+  
+  /**************************************************************************/
+
+  MML.mo.Augment({
+    //
+    //  Override the method for checking line breaks to properly handle <mo>
+    //
+    CHTMLbetterBreak: function (info,state) {
+      if (info.values && info.values.id === this.CHTMLnodeID) return false;
+      var values = this.getValues(
+        "linebreak","linebreakstyle","lineleading","linebreakmultchar",
+        "indentalign","indentshift",
+        "indentalignfirst","indentshiftfirst",
+        "indentalignlast","indentshiftlast",
+        "texClass", "fence"
+      );
+      if (values.linebreakstyle === MML.LINEBREAKSTYLE.INFIXLINEBREAKSTYLE) 
+        values.linebreakstyle = this.Get("infixlinebreakstyle");
+      //
+      //  Adjust nesting by TeX class (helps output that does not include
+      //  mrows for nesting, but can leave these unbalanced.
+      //
+      if (values.texClass === MML.TEXCLASS.OPEN) info.nest++;
+      if (values.texClass === MML.TEXCLASS.CLOSE && info.nest) info.nest--;
+      //
+      //  Get the default penalty for this location
+      //
+      var W = info.scanW; delete info.embellished;
+      var w = this.CHTML.w + (this.CHTML.L||0) + (this.CHTML.R||0);
+      if (values.linebreakstyle === MML.LINEBREAKSTYLE.AFTER) {W += w; w = 0}
+      if (W - info.shift === 0 && values.linebreak !== MML.LINEBREAK.NEWLINE)
+        return false; // don't break at zero width (FIXME?)
+      var offset = CHTML.linebreakWidth - W;
+      // Adjust offest for explicit first-line indent and align
+      if (state.n === 0 && (values.indentshiftfirst !== state.VALUES.indentshiftfirst ||
+          values.indentalignfirst !== state.VALUES.indentalignfirst)) {
+        var align = this.CHTMLgetAlign(state,values),
+            shift = this.CHTMLgetShift(state,values,align);
+        offset += (info.shift - shift);
+      }
+      //
+      var penalty = Math.floor(offset / CHTML.linebreakWidth * 1000);
+      if (penalty < 0) penalty = PENALTY.toobig - 3*penalty;
+      if (values.fence) penalty += PENALTY.fence;
+      if ((values.linebreakstyle === MML.LINEBREAKSTYLE.AFTER &&
+          values.texClass === MML.TEXCLASS.OPEN) ||
+          values.texClass === MML.TEXCLASS.CLOSE) penalty += PENALTY.close;
+      penalty += info.nest * PENALTY.nestfactor;
+      //
+      //  Get the penalty for this type of break and
+      //    use it to modify the default penalty
+      //
+      var linebreak = PENALTY[values.linebreak||MML.LINEBREAK.AUTO]||0;
+      if (!MathJax.Object.isArray(linebreak)) {
+        //  for breaks past the width, keep original penalty for newline
+        if (linebreak || offset >= 0) {penalty = linebreak * info.nest}
+      } else {penalty = Math.max(1,penalty + linebreak[0] * info.nest)}
+      //
+      //  If the penalty is no better than the current one, return false
+      //  Otherwise save the data for this breakpoint and return true
+      //
+      if (penalty >= info.penalty) return false;
+      info.penalty = penalty; info.values = values; info.W = W; info.w = w;
+      values.lineleading = this.CHTMLlength2em(values.lineleading,state.VALUES.lineleading);
+      values.id = this.CHTMLnodeID;
+      return true;
+    }
+  });
+  
+  /**************************************************************************/
+
+  MML.mspace.Augment({
+    //
+    //  Override the method for checking line breaks to properly handle <mspace>
+    //
+    CHTMLbetterBreak: function (info,state) {
+      if (info.values && info.values.id === this.CHTMLnodeID) return false;
+      var values = this.getValues("linebreak");
+      var linebreakValue = values.linebreak;
+      if (!linebreakValue || this.hasDimAttr()) {
+        // The MathML spec says that the linebreak attribute should be ignored
+        // if any dimensional attribute is set.
+        linebreakValue = MML.LINEBREAK.AUTO;
+      }
+      //
+      //  Get the default penalty for this location
+      //
+      var W = info.scanW, w = this.CHTML.w + (this.CHTML.L||0) + (this.CHTML.R||0);
+      if (W - info.shift === 0) return false; // don't break at zero width (FIXME?)
+      var offset = CHTML.linebreakWidth - W;
+      //
+      var penalty = Math.floor(offset / CHTML.linebreakWidth * 1000);
+      if (penalty < 0) penalty = PENALTY.toobig - 3*penalty;
+      penalty += info.nest * PENALTY.nestfactor;
+      //
+      //  Get the penalty for this type of break and
+      //    use it to modify the default penalty
+      //
+      var linebreak = PENALTY[linebreakValue]||0;
+      if (linebreakValue === MML.LINEBREAK.AUTO && w >= PENALTY.spacelimit &&
+          !this.mathbackground && !this.background)
+        linebreak = [(w+PENALTY.spaceoffset)*PENALTY.spacefactor];
+      if (!MathJax.Object.isArray(linebreak)) {
+        //  for breaks past the width, keep original penalty for newline
+        if (linebreak || offset >= 0) {penalty = linebreak * info.nest}
+      } else {penalty = Math.max(1,penalty + linebreak[0] * info.nest)}
+      //
+      //  If the penalty is no better than the current one, return false
+      //  Otherwise save the data for this breakpoint and return true
+      //
+      if (penalty >= info.penalty) return false;
+      info.penalty = penalty; info.values = values; info.W = W; info.w = w;
+      values.lineleading = state.VALUES.lineleading;
+      values.linebreakstyle = "before"; values.id = this.CHTMLnodeID;
+      return true;
+    }
+  });
+  
+  //
+  //  Hook into the mathchoice extension
+  //
+  MathJax.Hub.Register.StartupHook("TeX mathchoice Ready",function () {
+    MML.TeXmathchoice.Augment({
+      CHTMLbetterBreak: function (info,state) {
+        return this.Core().CHTMLbetterBreak(info,state);
+      },
+      CHTMLmoveLine: function (start,end,node,state,values) {
+        return this.Core().CHTMLmoveSlice(start,end,node,state,values);
+      }
+    });
+  });
+  
+  //
+  //  Have maction process only the selected item
+  //
+  MML.maction.Augment({
+    CHTMLbetterBreak: function (info,state) {
+      return this.Core().CHTMLbetterBreak(info,state);
+    },
+    CHTMLmoveLine: function (start,end,node,state,values) {
+      return this.Core().CHTMLmoveSlice(start,end,node,state,values);
+    }
+  });
+  
+  //
+  //  Have semantics only do the first element
+  //  (FIXME:  do we need to do anything special about annotation-xml?)
+  //
+  MML.semantics.Augment({
+    CHTMLbetterBreak: function (info,state) {
+      return (this.data[0] ? this.data[0].CHTMLbetterBreak(info,state) : false);
+    },
+    CHTMLmoveLine: function (start,end,node,state,values) {
+      return (this.data[0] ? this.data[0].CHTMLmoveSlice(start,end,node,state,values) : null);
+    }
+  });
+  
+  /**************************************************************************/
+
+  MathJax.Hub.Startup.signal.Post("CommonHTML multiline Ready");
+  MathJax.Ajax.loadComplete(CHTML.autoloadDir+"/multiline.js");
+  
+});

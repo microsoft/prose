@@ -1,14 +1,22 @@
-/*
- *  /MathJax/jax/output/CommonHTML/autoload/mglyph.js
+/* -*- Mode: Javascript; indent-tabs-mode:nil; js-indent-level: 2 -*- */
+/* vim: set ts=2 et sw=2 tw=80: */
+
+/*************************************************************
  *
- *  Copyright (c) 2009-2018 The MathJax Consortium
+ *  MathJax/jax/output/CommonHTML/autoload/mglyph.js
+ *  
+ *  Implements the CommonHTML output for <mglyph> elements.
  *
+ *  ---------------------------------------------------------------------
+ *  
+ *  Copyright (c) 2015-2018 The MathJax Consortium
+ * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,4 +24,71 @@
  *  limitations under the License.
  */
 
-MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function(){var c="2.7.5";var a=MathJax.ElementJax.mml,b=MathJax.OutputJax.CommonHTML,d=MathJax.Localization;a.mglyph.Augment({toCommonHTML:function(f,r){var o=this.getValues("src","width","height","valign","alt");f=this.CHTMLcreateNode(f);this.CHTMLhandleStyle(f);this.CHTMLhandleScale(f);if(o.src===""){var k=this.Get("index");this.CHTMLgetVariant();if(k&&this.CHTMLvariant.style){this.CHTMLhandleText(f,String.fromCharCode(k),this.CHTMLvariant)}}else{var p=this.CHTML;if(!p.img){p.img=a.mglyph.GLYPH[o.src]}if(!p.img){p.img=a.mglyph.GLYPH[o.src]={img:new Image(),status:"pending"};p.img.img.onload=MathJax.Callback(["CHTMLimgLoaded",this]);p.img.img.onerror=MathJax.Callback(["CHTMLimgError",this]);p.img.img.src=o.src;MathJax.Hub.RestartAfter(p.img.img.onload)}if(p.img.status!=="OK"){var g=a.Error(d._(["MathML","BadMglyph"],"Bad mglyph: %1",o.src));g.data[0].data[0].mathsize="75%";this.Append(g);g.toCommonHTML(f);this.data.pop();p.combine(g.CHTML,0,0,1)}else{var i=b.addElement(f,"img",{isMathJax:true,src:o.src,alt:o.alt,title:o.alt});var m=o.width,j=o.height;var e=p.img.img.width/b.em,n=p.img.img.height/b.em;var q=e,l=n;if(m!==""){e=this.CHTMLlength2em(m,q);n=(q?e/q*l:0)}if(j!==""){n=this.CHTMLlength2em(j,l);if(m===""){e=(l?n/l*q:0)}}i.style.width=b.Em(e);p.w=p.r=e;i.style.height=b.Em(n);p.h=p.t=n;if(o.valign){p.d=p.b=-this.CHTMLlength2em(o.valign,l);i.style.verticalAlign=b.Em(-p.d);p.h-=p.d;p.t=p.h}}}this.CHTMLhandleSpace(f);this.CHTMLhandleBBox(f);this.CHTMLhandleColor(f);return f},CHTMLimgLoaded:function(f,e){if(typeof(f)==="string"){e=f}this.CHTML.img.status=(e||"OK")},CHTMLimgError:function(){this.CHTML.img.img.onload("error")}},{GLYPH:{}});MathJax.Hub.Startup.signal.Post("CommonHTML mglyph Ready");MathJax.Ajax.loadComplete(b.autoloadDir+"/mglyph.js")});
+MathJax.Hub.Register.StartupHook("CommonHTML Jax Ready",function () {
+  var VERSION = "2.7.5";
+  var MML = MathJax.ElementJax.mml,
+      CHTML = MathJax.OutputJax.CommonHTML,
+      LOCALE = MathJax.Localization;
+  
+  MML.mglyph.Augment({
+    toCommonHTML: function (node,options) {
+      var values = this.getValues("src","width","height","valign","alt");
+      node = this.CHTMLcreateNode(node);
+      this.CHTMLhandleStyle(node);
+      this.CHTMLhandleScale(node);
+      if (values.src === "") {
+        var index = this.Get("index");
+        this.CHTMLgetVariant();
+        if (index && this.CHTMLvariant.style)
+          this.CHTMLhandleText(node,String.fromCharCode(index),this.CHTMLvariant);
+      } else {
+        var bbox = this.CHTML;
+        if (!bbox.img) bbox.img = MML.mglyph.GLYPH[values.src];
+        if (!bbox.img) {
+          bbox.img = MML.mglyph.GLYPH[values.src] = {img: new Image(), status: "pending"};
+          bbox.img.img.onload  = MathJax.Callback(["CHTMLimgLoaded",this]);
+          bbox.img.img.onerror = MathJax.Callback(["CHTMLimgError",this]);
+          bbox.img.img.src = values.src;
+          MathJax.Hub.RestartAfter(bbox.img.img.onload);
+        }
+        if (bbox.img.status !== "OK") {
+          var err = MML.Error(LOCALE._(["MathML","BadMglyph"],"Bad mglyph: %1",values.src));
+          err.data[0].data[0].mathsize = "75%";
+          this.Append(err); err.toCommonHTML(node); this.data.pop();
+          bbox.combine(err.CHTML,0,0,1);
+        } else {
+          var img = CHTML.addElement(node,"img",{
+            isMathJax:true, src:values.src, alt:values.alt, title:values.alt
+          });
+          var w = values.width, h = values.height;
+          var W = bbox.img.img.width/CHTML.em, H = bbox.img.img.height/CHTML.em;
+          var WW = W, HH = H;
+          if (w !== "") {W = this.CHTMLlength2em(w,WW); H = (WW ? W/WW * HH : 0)}
+          if (h !== "") {H = this.CHTMLlength2em(h,HH); if (w === "") W = (HH ? H/HH * WW : 0)}
+          img.style.width  = CHTML.Em(W); bbox.w = bbox.r = W;
+          img.style.height = CHTML.Em(H); bbox.h = bbox.t = H;
+          if (values.valign) {
+            bbox.d = bbox.b = -this.CHTMLlength2em(values.valign,HH);
+            img.style.verticalAlign = CHTML.Em(-bbox.d);
+            bbox.h -= bbox.d; bbox.t = bbox.h;
+          }
+        }
+      }
+      this.CHTMLhandleSpace(node);
+      this.CHTMLhandleBBox(node);
+      this.CHTMLhandleColor(node);
+      return node;
+    },
+    CHTMLimgLoaded: function (event,status) {
+      if (typeof(event) === "string") status = event;
+      this.CHTML.img.status = (status || "OK");
+    },
+    CHTMLimgError: function () {this.CHTML.img.img.onload("error")}
+  },{
+    GLYPH: {}    // global list of all loaded glyphs
+  });
+  
+  MathJax.Hub.Startup.signal.Post("CommonHTML mglyph Ready");
+  MathJax.Ajax.loadComplete(CHTML.autoloadDir+"/mglyph.js");
+});
+
