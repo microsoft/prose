@@ -15,7 +15,7 @@ Follows [the official Github Pages instructions](https://help.github.com/article
     git checkout gh-pages
     gem install bundler
     bundle install  # install the github-pages version of Jekyll and its dependencies
-    npm install     # install the frontend dependencies and build the JS/CSS files
+    npm ci          # download the frontend dependencies and build the JS/CSS files
     ```
 
 ## How to run locally
