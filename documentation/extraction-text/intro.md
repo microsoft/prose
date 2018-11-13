@@ -61,14 +61,14 @@ Users highlight a text in one cell of the source field that they want to create 
 
 <a href="{{ site.baseurl }}/img/custom-field-example.png" class="popup-image mfp-image"
    title="Create a new custom field by selecting the example.">
-    <img class="pure-img mx-auto" src="{{ site.baseurl }}/img/custom-field-example.png">
+    <img class="pure-img mx-auto" src="{{ site.baseurl }}/img/custom-field-example.png" alt="Custom field example">
 </a>
 
 The UI calls the **Extraction.Text.Region** API to learn a substring extraction program, and populates other cells of the new field. Users may give more examples if necessary.
 
 <a href="{{ site.baseurl }}/img/custom-field-result.png" class="popup-image mfp-image"
    title="The UI returns similar extracted entries.">
-    <img class="pure-img mx-auto" src="{{ site.baseurl }}/img/custom-field-result.png">
+    <img class="pure-img mx-auto" src="{{ site.baseurl }}/img/custom-field-result.png" alt="Custom field result">
 </a>
 
  **Read more:** [Create your own fields in OMS with Custom Fields!](https://blogs.technet.microsoft.com/momteam/2015/08/18/create-your-own-fields-in-oms-with-custom-fields/).
@@ -77,7 +77,7 @@ The [**Custom Log**](https://docs.microsoft.com/en-us/azure/log-analytics/log-an
 
 <a href="{{ site.baseurl }}/img/custom-log.png" class="popup-image mfp-image"
    title="Custom Log.">
-    <img class="pure-img mx-auto" src="{{ site.baseurl }}/img/custom-log.png">
+    <img class="pure-img mx-auto" src="{{ site.baseurl }}/img/custom-log.png" alt="Custom log">
 </a>
 
 
