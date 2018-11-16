@@ -3,6 +3,46 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+
+# Release 6.9.0 -- 2018/11/16
+
+## Breaking changes
+
+- Compound.Split
+    - Hides the ReadInputLineCount constraint and instead users can specify no. of lines to read while adding inputs.
+    
+## New features
+
+- Transformation.Text
+    - Generate readable python code for Lookup() semantics operator.
+- Extraction.Web
+    - Parametrized the SimplePrograms constraint by program input and output type, allowing it to be used for any kind of program (field extraction, sequence extraction, etc).
+    
+## Bugfixes/Enhancements
+
+- Detection.DataType 
+    - Better handling of integer columns that look like categorical data, and handling of “NaN” values in string columns.
+    - Various bugfixes, including improving datatype detection, including non-separated dates (“20120513”) and numbers in parenthesis (“(45,345)”), and other improvements to parsing ambiguous date formats.
+    - Enhancements to generated Python code for datatype detection.
+- Core Framework 
+    - Improvement to how variable substitution is done for external grammars (relevant for DSL authors).
+- Extraction.PDF
+    - Various improvements: better handling of alignments dots, text decoration (underline, overline, strikethrough) detection, better alignment learning for overlapping cells, better recognition of axis-aligned border lines, and new row detection based on line spacing and alignments, added version resources to the pdf2text.dll, added check to filter offscreen glyph boundaries.
+    - Various bug fixes to improving PDF extraction.
+- Compound.Split
+    - Better handling of CRLF escape characters.
+- Extraction.JSON
+    - Bug fixes for Python code generation to prevent unnecessary column aliases: col("color") instead of col("color").alias("color").
+- Transformation.Text
+    - Bug fixes to entity detection.
+    - Readability enhancements to Python translation.
+- Matching.Text
+    - Generate better regex to match newlines.
+    - Minor bug fixes.
+- Transformation.Tree
+    - Fix a bug where learning on large input could lead to StackOverflow.
+        
+
 # Release 6.8.1 -- 2018/10/18
 
 ## Breaking Changes
