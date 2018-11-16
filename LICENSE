@@ -1,8 +1,3 @@
-PLEASE NOTE: This license applies to the sample source code in this repository
-which demonstrates how to use the Microsoft PROSE SDK for .NET.  It does NOT
-apply to the Microsoft PROSE SDK itself which has its own license that can 
-be found in the Microsoft.ProgramSynthesis packages at https://www.nuget.org
-
 The MIT License (MIT)
 
 Copyright (c) 2015 Microsoft
