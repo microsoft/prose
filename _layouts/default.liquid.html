@@ -13,13 +13,13 @@
         <span></span>
     </a>
 
-    <div id="menu">
+    <div role="navigation" id="menu">
         <div class="pure-menu">
             {% include menu.liquid.html %}
         </div>
     </div>
 
-    <div id="main">
+    <div role="main" id="main">
         {% unless page.path == "index.liquid.html" %}
         <div class="header">
             <h1>{{ page.title }}</h1>
