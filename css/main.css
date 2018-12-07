@@ -144,18 +144,6 @@ blockquote {
     background-color: hsl(0, 0%, 98%);
 }
 
-a.header-link {
-    margin-left: 12px;
-    color: #aaa;
-    font-weight: 300;
-    visibility: hidden;
-}
-
-h1:hover a.header-link, h2:hover a.header-link, h3:hover a.header-link,
-h4:hover a.header-link, h5:hover a.header-link, h6:hover a.header-link {
-    visibility: visible;
-}
-
 /* Code */
 
 code {
