@@ -68,13 +68,6 @@ blockquote .small:before {
     margin-bottom: -1rem;
 }
 
-.hyphenate {
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto;
-}
-
 .semibold {
     font-weight: 500;
 }
