@@ -3,6 +3,34 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+# Release 6.10.0 -- 2018/12/17
+
+## New Features
+
+- Compound.Split
+    - Added support to read CSV/FW files with "junk rows"; that is, repeated headers and non-data, non-comment rows,
+      anywhere in the file. This is not enabled by default, but rather by adding the newly introduced
+      `AllowRowFiltering` constraint.
+- Detection.DataType
+    - Add alternate, more efficient entry point for completing the task of performing datatype detection and conversion
+      on a specific data set rather than generating code for doing so.
+    - Make the Python code generator available in the C# SDK.
+
+## Bug Fixes / Enhancements
+
+- Compound.Split
+    - Improve handling of comments and empty records.
+    - Added support to learn a row-selector, which can now be potentially different from the first column selector.
+- Extraction.Web:
+    - Learning now integrates top-down (by example) synthesis with bottom-up (predictive learning with zero examples)
+      synthesis, which improves the quality of the tables extracted from web pages
+- Transformation.Text
+    - Support new Python translation parameter OptimizeFor.StrongReadability that gives more flexibility to the
+      translator to produce more readable code by removing error handling.
+- Transformation.Tree:
+    - Node construction adds parent field during object creation, instead of after it.
+    - Refactored the grammar to merge predicates related to the current node, parent node, and children.
+
 
 # Release 6.9.0 -- 2018/11/16
 
@@ -11,28 +39,34 @@ title: Release Notes
 - Compound.Split
     - Hides the ReadInputLineCount constraint and instead users can specify no. of lines to read while adding inputs.
     
-## New features
+## New Features
 
 - Transformation.Text
     - Generate readable python code for Lookup() semantics operator.
 - Extraction.Web
-    - Parametrized the SimplePrograms constraint by program input and output type, allowing it to be used for any kind of program (field extraction, sequence extraction, etc).
+    - Parametrized the SimplePrograms constraint by program input and output type, allowing it to be used for any kind
+      of program (field extraction, sequence extraction, etc).
     
-## Bugfixes/Enhancements
+## Bug Fixes / Enhancements
 
 - Detection.DataType 
     - Better handling of integer columns that look like categorical data, and handling of “NaN” values in string columns.
-    - Various bugfixes, including improving datatype detection, including non-separated dates (“20120513”) and numbers in parenthesis (“(45,345)”), and other improvements to parsing ambiguous date formats.
+    - Various bugfixes, including improving datatype detection, including non-separated dates (“20120513”) and numbers
+      in parenthesis (“(45,345)”), and other improvements to parsing ambiguous date formats.
     - Enhancements to generated Python code for datatype detection.
 - Core Framework 
     - Improvement to how variable substitution is done for external grammars (relevant for DSL authors).
 - Extraction.PDF
-    - Various improvements: better handling of alignments dots, text decoration (underline, overline, strikethrough) detection, better alignment learning for overlapping cells, better recognition of axis-aligned border lines, and new row detection based on line spacing and alignments, added version resources to the pdf2text.dll, added check to filter offscreen glyph boundaries.
+    - Various improvements: better handling of alignments dots, text decoration (underline, overline, strikethrough)
+      detection, better alignment learning for overlapping cells, better recognition of axis-aligned border lines, and
+      new row detection based on line spacing and alignments, added version resources to the pdf2text.dll, added check
+      to filter offscreen glyph boundaries.
     - Various bug fixes to improving PDF extraction.
 - Compound.Split
     - Better handling of CRLF escape characters.
 - Extraction.JSON
-    - Bug fixes for Python code generation to prevent unnecessary column aliases: col("color") instead of col("color").alias("color").
+    - Bug fixes for Python code generation to prevent unnecessary column aliases: col("color") instead of
+      col("color").alias("color").
 - Transformation.Text
     - Bug fixes to entity detection.
     - Readability enhancements to Python translation.
