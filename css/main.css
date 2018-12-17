@@ -458,3 +458,30 @@ span.title-blue {
 .mfp-title {
     text-align: center;
 }
+
+a.skip-main {
+    left:-999px;
+    position:absolute;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    z-index:-999;
+}
+a.skip-main:focus, a.skip-main:active {
+    color:#0067b8;
+    background-color:#e6e6e6;
+    left: auto;
+    top: auto;
+    width: 20%;
+    height: auto;
+    right: 0; 
+    overflow:auto;    
+    padding:24px;
+    position: fixed;
+    border:4px dashed black;
+    text-align:center;    
+    text-decoration: underline;
+    outline: none;
+    z-index:999;
+}
