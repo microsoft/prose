@@ -7,5 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.ProgramSynthesis" Version="6.10.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.CommandLine" Version="6.10.0" />
   </ItemGroup>
+
 </Project>
