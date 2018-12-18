@@ -2,7 +2,7 @@
 date: 2015-10-28T12:19:15-07:00
 title: FAQ
 ---
-{% include toc.liquid.md fullwidth=true %}
+{% include toc.liquid.md %}
 
 # General questions
 
