@@ -2,22 +2,30 @@
 <a class="pure-menu-heading {{ class_selected }}" href="{{ site.baseurl }}/">
     <i class="fa fa-bolt" aria-hidden="true"></i> PROSE SDK
 </a>
+
 <ul class="pure-menu-list">
     {% include menu-item.liquid.html url="/documentation/prose/tutorial" %}
     {% include menu-item.liquid.html url="/faq" %}
+</ul>
 
-    {% include menu-item.liquid.html title="Demos" divided=true disabled=true %}
+<span class="pure-menu-heading">Demos</span>
+
+<ul class="pure-menu-list">
     {% include menu-item.liquid.html absolute=true url="https://prose-splittext.azurewebsites.net" title="Text Splitting" %}
+</ul>
 
-    {% include menu-item.liquid.html title="Videos" divided=true disabled=true %}
+<span class="pure-menu-heading">Videos</span>
+
+<ul class="pure-menu-list">
     {% include menu-item.liquid.html absolute=true url="https://databricks.com/session/programming-by-examples" title="Overview" %}
-    {% include menu-item.liquid.html absolute=true url="https://aka.ms/prose-showcase" title="PROSE Showcase" %}
+    {% include menu-item.liquid.html url="/demo/prose-showcase" title="PROSE Showcase" %}
     {% include menu-item.liquid.html absolute=true url="https://www.youtube.com/watch?v=w-k9WjRJvIY" title="Flash Fill/Extract" %}
     {% include menu-item.liquid.html absolute=true url="https://www.youtube.com/watch?v=XWRsxy8SbzY" title="Data Wrangling" %}
-    
-    
-    {% include menu-item.liquid.html title="Documentation" divided=true disabled=true %}
+</ul>
 
+<span class="pure-menu-heading">Documentation</span>
+
+<ul class="pure-menu-list">
     {% capture prose_selected %}
         {% unless page.url contains "/documentation/prose/tutorial" %}{% include menu-active.liquid.html url="/documentation/prose" %}{% endunless %}
     {% endcapture %}
@@ -82,8 +90,10 @@
 
     {% include menu-item.liquid.html url="https://github.com/Microsoft/prose" title="Samples" absolute=true %}
     {% include menu-item.liquid.html url="/documentation/api" title="API" %}
+</ul>
 
-    {% include menu-item.liquid.html url="/resources" divided=true %}
+<ul class="pure-menu-list">
+    {% include menu-item.liquid.html url="/resources" %}
 	{% include menu-item.liquid.html url="/impact" %}
     {% include menu-item.liquid.html url="/team" %}
 </ul>

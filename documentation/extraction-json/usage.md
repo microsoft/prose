@@ -16,7 +16,7 @@ and `Microsoft.ProgramSynthesis.Extraction.Json.Semantics.dll`.
 
 The [Sample Project](https://github.com/Microsoft/prose/tree/master/Extraction.Json) illustrates our API usage.
 
-## Basic Usage
+# Basic Usage
 
 By default, **Extraction.Json** learns a *join* program in which inner arrays are joined with other fields. 
 As a result, an outer object in the input Json can be flattened into several rows in the output table.
@@ -42,7 +42,7 @@ Program noJoinProgram = noJoinSession.Learn();
 The [Introduction page]({{ site.baseurl }}/documentation/extraction-json/intro) has more discussion on this topic.
 
 
-## Serializing/Deserializing a Program
+# Serializing/Deserializing a Program
 
 The `Extraction.Json.Program.Serialize()` method serializes the learned program to a string.
 The `Extraction.Json.Loader.Instance.Load()` method deserializes the program text to a program.
@@ -54,12 +54,12 @@ string progText = program.Serialize();
 Program loadProg = Loader.Instance.Load(progText);
 ```
 
-## Executing a Program
+# Executing a Program
 
 Given an input Json, a program can generate a hierarchical tree or a flattened table.
 If the program is a join program, the table is flattened either using *outer join* (default) or *inner join* semantics.
 
-### Generating a Tree
+## Generating a Tree
 
 Use this method to obtain a hierarchical tree of the input document.
 
@@ -68,7 +68,7 @@ Use this method to obtain a hierarchical tree of the input document.
 ITreeOutput<JsonRegion> tree = program.Run(jsonText);
 ```
 
-### Generating a Table
+## Generating a Table
 
 Supply the desired join semantics to the `RunTable()` method as follows:
 

@@ -4,7 +4,7 @@ html {
 
 html, body {
     font-size: 1em;
-    color: #777;
+    color: #666;
     min-height: 100%;
     line-height: 1.6em;
 }
@@ -21,7 +21,7 @@ html, body, button, input, select, textarea,
 }
 
 a {
-    color: #3da6d6;
+    color: #0067b8;
     text-decoration: none;
 }
 
@@ -66,13 +66,6 @@ blockquote .small:before {
 
 .mb-1 {
     margin-bottom: -1rem;
-}
-
-.hyphenate {
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto;
 }
 
 .semibold {
@@ -144,18 +137,6 @@ blockquote {
     background-color: hsl(0, 0%, 98%);
 }
 
-a.header-link {
-    margin-left: 12px;
-    color: #aaa;
-    font-weight: 300;
-    visibility: hidden;
-}
-
-h1:hover a.header-link, h2:hover a.header-link, h3:hover a.header-link,
-h4:hover a.header-link, h5:hover a.header-link, h6:hover a.header-link {
-    visibility: visible;
-}
-
 /* Code */
 
 code {
@@ -176,7 +157,7 @@ pre {
     word-break: break-all;
     word-wrap: break-word;
     border-radius: 4px;
-    border: 1px solid #e4decb;
+    border: 1px solid #aaa;
 }
 
 pre code {
@@ -194,7 +175,7 @@ h1 code, h2 code, h3 code, h4 code, h5 code, h6 code,
 }
 
 .token.optional-start, .token.optional-end {
-    color: #aaa;
+    color: #000;
     font-size: 1.2em;
 }
 
@@ -220,7 +201,7 @@ pre div.toolbar .toolbar-item:first-child {
 
 pre div.toolbar .toolbar-item:first-child span {
     font-family: Consolas, "Source Code Pro", Inconsolata, "Courier New", monospace;
-    color: #af902f;
+    color: #000;
     -webkit-border-radius: 0 0 8px 0;
     -moz-border-radius: 0 0 8px 0;
     border-radius: 0 0 8px 0;
@@ -331,7 +312,7 @@ a.reversefootnote {
 }
 
 #menu a.pure-menu-heading.pure-menu-selected {
-    background: #1f8dd6;
+    background: #0067b8;
 }
 
 #menu .pure-menu-selected li:not(.pure-menu-selected) a {
@@ -399,13 +380,17 @@ a.reversefootnote {
     max-height: 160px;
 }
 
+.force-flex {
+    display: flex !important
+}
+
 /* Index page */
 .title, .subtitle {
     font-family: Raleway, Lato, sans-serif;
 }
 
 .title {
-    font-size: 2.5em;
+    font-size: 2.4em;
     line-height: 1.1em;
 }
 
@@ -414,7 +399,7 @@ h2.subtitle {
 }
 
 span.title-blue {
-    color: #1f8dd6;
+    color: #0067b8;
 }
 
 /* Popups */
@@ -472,4 +457,31 @@ span.title-blue {
 
 .mfp-title {
     text-align: center;
+}
+
+a.skip-main {
+    left:-999px;
+    position:absolute;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    z-index:-999;
+}
+a.skip-main:focus, a.skip-main:active {
+    color:#0067b8;
+    background-color:#e6e6e6;
+    left: auto;
+    top: auto;
+    width: 20%;
+    height: auto;
+    right: 0; 
+    overflow:auto;    
+    padding:24px;
+    position: fixed;
+    border:4px dashed black;
+    text-align:center;    
+    text-decoration: underline;
+    outline: none;
+    z-index:999;
 }

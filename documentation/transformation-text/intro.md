@@ -6,7 +6,7 @@ title: "Text Transformation"
 **`Transformation.Text`** is a system that performs string transformations using examples
 allowing for many tasks involving strings to be performed automatically.
 `Transformation.Text` is based on the same research as the
-[FlashFill feature in Excel](http://research.microsoft.com/en-us/um/people/sumitg/flashfill.html),
+[FlashFill feature in Excel](https://research.microsoft.com/en-us/um/people/sumitg/flashfill.html),
 but with extended capabilities for semantic transformations involving dates
 and numbers as well as support for interactivity due to being part of PROSE.
 The [Usage]({{ site.baseurl }}/documentation/transformation-text/usage) page and the

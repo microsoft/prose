@@ -76,31 +76,11 @@ function setupTables() {
     $(".content").find("table").addClass("pure-table pure-table-horizontal mx-auto");
 }
 
-function setupHeaderLinks() {
-    const $root = $('html, body');
-    $("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]").each(function () {
-        $(this).append($(`<a title="Permalink" href="#${$(this).attr('id')}" class="header-link">#</a>`));
-        const $scrollLink = $(`<a title="Scroll to top" href="#" class="header-link">&#8593;</a>`);
-        $scrollLink.click(() => $root.animate({scrollTop: 0}, "slow"));
-        $(this).append($scrollLink);
-    });
-}
-
 function setupPopups() {
     $(".popup-image").magnificPopup({
         autoFocusLast: false,
         removalDelay: 300,
         mainClass: 'mfp-fade'
-    });
-}
-
-function setupAnchors() {
-    const $root = $('html, body');
-    $("a[href^=\\#]").click(function () {
-        const href = $(this).attr('href').substring(1);
-        if (href == "") return true;
-        $root.animate({scrollTop: $("#" + $.escapeSelector(href)).offset().top}, 500, () => window.location.hash = href);
-        return false;
     });
 }
 
@@ -116,10 +96,8 @@ function defer(method: () => void) {
 defer(function () {
     $(() => {
         setupPrism();
-        setupTables();
-        setupHeaderLinks();
-        setupPopups();
-        setupAnchors();
+        setupTables();        
+        setupPopups();        
     });
 });
 
