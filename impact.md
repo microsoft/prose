@@ -2,7 +2,7 @@
 title: Impact
 ---
 
-# Azure ML Workbench
+## Azure ML Workbench
 
 Azure ML Workbench is a cross-platform environment for *data wrangling*, *ML experimentation*, and *operationalization*. 
 Workbench builds on top of PROSE SDK, including *column derivation by example*, *splitting*, *combination*, *JSON expansion*, *autocompletion*.
@@ -13,7 +13,7 @@ More information:
 - [Derive column by example transformation](https://docs.microsoft.com/en-us/azure/machine-learning/preview/data-prep-derive-column-by-example)
 - [Bike-share tutorial: Advanced data preparation with Azure Machine Learning Workbench](https://docs.microsoft.com/en-us/azure/machine-learning/preview/tutorial-bikeshare-dataprep)
 
-# SQL Server Management Studio - Import Flat File
+## SQL Server Management Studio - Import Flat File
 
 Our predictive program synthesis technology has been released in SQL Server Management Studio,
 behind the new feature *Import Flat File Wizard*, which helps streamline the import experience for a user who wants to import `.csv` or `.txt` files without specialized domain knowledge.
@@ -24,7 +24,7 @@ This feature builds on top of the PROSE SDK, and leverages ideas from the follow
 Video describing the feature:
 - [Introducing the new Import Flat File Wizard in SSMS 17.3](https://channel9.msdn.com/Shows/Data-Exposed/Introducing-the-new-Import-Flat-File-Wizard-in-SSMS-173)
 
-# Stack OverFlow Bot
+## Stack OverFlow Bot
 
 Our _Flash Fill++_ technology is part of the *Stack Overflow Bot*.
 
