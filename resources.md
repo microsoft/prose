@@ -3,10 +3,10 @@ title: Resources
 ---
 {::options auto_ids="false" /}
 
-# Publications
+## Publications
 {: .title}
 
-## Framework
+### Framework
 <ul>
 {% include paper.liquid.md title="FlashMeta: A Framework for Inductive Program Synthesis"
                     authors="Oleksandr Polozov, Sumit Gulwani"
@@ -16,7 +16,7 @@ title: Resources
 %}
 </ul>
 
-## Applications
+### Applications
 <ul>
 {% include paper.liquid.md title="Automating String Processing in Spreadsheets using Input-Output Examples"
                     authors="Sumit Gulwani"
@@ -53,7 +53,7 @@ title: Resources
 %}
 </ul>
 
-## Predictive Program Synthesis
+### Predictive Program Synthesis
 <ul>
 {% include paper.liquid.md title="Automated Data Extraction using Predictive Program Synthesis"
                     authors="Mohammad Raza, Sumit Gulwani"
@@ -62,7 +62,7 @@ title: Resources
 %}
 </ul>
 
-## Ranking
+### Ranking
 <ul>
 {% include paper.liquid.md title="Learning to Learn Programs from Examples: Going Beyond Program Structure"
                     authors="Kevin Ellis, Sumit Gulwani" 
@@ -72,7 +72,7 @@ title: Resources
 </ul>
 
 
-## User Interaction Models
+### User Interaction Models
 <ul>
 {% include paper.liquid.md title="User Interaction Models for Disambiguation in Programming by Example"
                     authors="Mikaël Mayer, Gustavo Soares, Maxim Grechkin, Vu Le, Mark Marron, Oleksandr Polozov, Rishabh Singh, Ben Zorn, Sumit Gulwani"
@@ -82,7 +82,7 @@ title: Resources
 </ul>
 
 
-# Talks
+## Talks
 {: .title}
 
 <ul>
