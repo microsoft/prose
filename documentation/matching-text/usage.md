@@ -3,8 +3,6 @@ date: 2018-05-23
 title: "Matching Text - Usage"
 ---
 
-{% include toc.liquid.md %}
-
 The `Matching.Text` API is accessed through the
 [`Matching.Text.Session`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Matching_Text_Session.htm) class.
 The input strings are added using [`Session.Constraints.Add()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_AddConstraints.htm).
