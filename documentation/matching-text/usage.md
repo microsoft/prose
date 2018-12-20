@@ -16,8 +16,7 @@ Each `PatternInfo` object either has:
 
 The other fields indicate the frequency of the pattern (`MatchingFraction`), a description in a PROSE specific format (`Description`), and a few examples of the input strings matched by the pattern (`Examples`).
 
-Basic usage
-===========
+## Basic usage
 
 ```csharp
 using Microsoft.ProgramSynthesis.Matching.Text;
