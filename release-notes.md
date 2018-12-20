@@ -3,9 +3,9 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
-# Release 6.10.0 -- 2018/12/17
+## Release 6.10.0 -- 2018/12/17
 
-## New Features
+### New Features
 
 - Compound.Split
     - Added support to read CSV/FW files with "junk rows"; that is, repeated headers and non-data, non-comment rows,
@@ -16,7 +16,7 @@ title: Release Notes
       on a specific data set rather than generating code for doing so.
     - Make the Python code generator available in the C# SDK.
 
-## Bug Fixes / Enhancements
+### Bug Fixes / Enhancements
 
 - Compound.Split
     - Improve handling of comments and empty records.
@@ -32,14 +32,14 @@ title: Release Notes
     - Refactored the grammar to merge predicates related to the current node, parent node, and children.
 
 
-# Release 6.9.0 -- 2018/11/16
+## Release 6.9.0 -- 2018/11/16
 
-## Breaking changes
+### Breaking changes
 
 - Compound.Split
     - Hides the ReadInputLineCount constraint and instead users can specify no. of lines to read while adding inputs.
     
-## New Features
+### New Features
 
 - Transformation.Text
     - Generate readable python code for Lookup() semantics operator.
@@ -47,7 +47,7 @@ title: Release Notes
     - Parametrized the SimplePrograms constraint by program input and output type, allowing it to be used for any kind
       of program (field extraction, sequence extraction, etc).
     
-## Bug Fixes / Enhancements
+### Bug Fixes / Enhancements
 
 - Detection.DataType 
     - Better handling of integer columns that look like categorical data, and handling of “NaN” values in string columns.
@@ -77,9 +77,9 @@ title: Release Notes
     - Fix a bug where learning on large input could lead to StackOverflow.
         
 
-# Release 6.8.1 -- 2018/10/18
+## Release 6.8.1 -- 2018/10/18
 
-## Breaking Changes
+### Breaking Changes
 
 - Compound.Split
     - `ReadInputFromReaders(TextReader reader)` and `ReadInputLineCount(int limit)` are deprecated. They are replaced by
@@ -90,7 +90,7 @@ title: Release Notes
     -   Removed the optional `JPath` parameter from the constraint `JoinSingleTopArray` – the new constraint `JoinArray`
         should be used instead.
 
-## New Features
+### New Features
 
 -   Common Framework
 	-   New learning/running exception hierarchy to raise friendlier exceptions.
@@ -110,7 +110,7 @@ title: Release Notes
     -   `Node.Value` of type `string` has been replaced by `Node.Attributes` of type `Dictionary<string, string>` to
         permit learning from distinct attributes.
 
-## Bug Fixes / Enhancements
+### Bug Fixes / Enhancements
 
 -   Detection.DataType
 	-   Various bug fixes and enhancement.
@@ -131,9 +131,9 @@ title: Release Notes
 	-   Various bug fixes.
 
 
-# Release 6.7.0 -- 2018/09/20
+## Release 6.7.0 -- 2018/09/20
 
-## New Features
+### New Features
 
 - Common framework
     - Configurable equality for `FeatureCalculationContext`; Classes implementing `IFeature` can now force deep/shallow
@@ -150,7 +150,7 @@ title: Release Notes
     - Support added for `UseLongConstantOptimization` constraint which aggressively generates constant tokens whenever
       possible. (Note: This makes the learning incompelete.)
 
-## Bug Fixes / Enhancements
+### Bug Fixes / Enhancements
 
 - Common framework
     - Optimizations and style improvements in quality of generated Python code.
@@ -172,15 +172,15 @@ title: Release Notes
     - Improved row selector inference based on ancestor nodes rather than just the boundary nodes.
 
 
-# Release 6.6.0 -- 2018/08/20
+## Release 6.6.0 -- 2018/08/20
 
-## Breaking Changes
+### Breaking Changes
 
 - Compound.Split
     - The property `FieldStartPositions` has been removed and a new `IReadOnlyList<Record<int, int?>> FieldPositions`
       property has been added in its place.
 
-## New Features
+### New Features
 
 - Common Framework
     - Support for serialization and deserialization of spec objects (used to track subtasks during synthesis).
@@ -211,7 +211,7 @@ title: Release Notes
 - Transformation.Text
     - Support for serialization and deserialization for all types referenced in the grammar.
 
-## Bug Fixes / Enhancements
+### Bug Fixes / Enhancements
 
 - Common Framework
     - Bug fixes in ProgramSet.TopK(k) method to return no less than k programs. Temporarily, this slightly degrades
@@ -231,14 +231,14 @@ title: Release Notes
     - Performance improvement using incremental learning such that previously learned programs are updated with newer
       examples provided on subsequent Learn() calls.
 
-# Release 6.5.0 -- 2018/07/23
+## Release 6.5.0 -- 2018/07/23
 
-## New Features
+### New Features
 
 - Extraction.Web:
     - Now supports predictive table extraction from webpages (that is, from 0 examples).
 
-## Bug Fixes / Enhancements
+### Bug Fixes / Enhancements
 
 - Common framework:
     - Added support for a common extension hook for custom entity detectors.  This hook is currently used in 
@@ -264,9 +264,9 @@ title: Release Notes
     - Readability of python translations is improved in some cases by removing unnecessary wrapping functions/classes.
     - Python translator now creates much more readable translations for programs including date time rounding.
 
-# Release 6.4.0 -- 2018/06/26
+## Release 6.4.0 -- 2018/06/26
 
-## Breaking Changes
+### Breaking Changes
 
 - Common Framework
     - When running on CoreClr, we now require runtime version 2.0.3 or newer.  Previously we had workarounds for a
@@ -286,7 +286,7 @@ title: Release Notes
         - NormalizeArrays -> JoinSingleTopArray
         - SplitTopArrayToColumns -> SplitTopArrays
 
-## New Features
+### New Features
 
 - Common Framework
     - VSA data structures now support Serialization and Deserialization
@@ -301,7 +301,7 @@ title: Release Notes
 - Extraction.Json
     - Now supports trailing commas.
 
-## Bug Fixes / Enhancements
+### Bug Fixes / Enhancements
 
 - Compound.Split
     - Improved learning of header/skip.
@@ -347,16 +347,16 @@ title: Release Notes
     - Program now exposes separate methods for finding the nodes that should be changed and for performing the
       transformation instead of just doing the whole operation in a single method call.
 
-# Release 6.3.0 -- 2018/05/15
+## Release 6.3.0 -- 2018/05/15
 
-## Breaking Changes
+### Breaking Changes
 
 - Matching.Text
     - ForbidConstantTokens constraint has been removed.
 - Transformation.Tree
     - Utils.Parse has been renamed to Utils.ParseStatementIgnoreWhiteSpace
     
-## New Features
+### New Features
 
 - Compound.Split
     - Key/Value extraction now supports fixed width extraction such as where the keys and values are in a table where
@@ -365,7 +365,7 @@ title: Release Notes
 - Transformation.Text
     - Now supports pluggable Entity Detectors specified in a constraint.
 
-## Bug Fixes / Enhancements
+### Bug Fixes / Enhancements
 
 - Common Framework
     - PROSE now depends on a slightly older version of Newtonsoft.Json (v9.0.1) for .Net Framework consumers.  For
@@ -389,20 +389,20 @@ title: Release Notes
       apply them to specific nodes bypassing the filter checking.
     - Performance improvements.
 
-# Release 6.2.0 -- 2018/04/25
+## Release 6.2.0 -- 2018/04/25
 
-## Breaking Changes
+### Breaking Changes
 
 - Matching.Text
     - The `Patterns` property has been removed.  Patterns should be retrieved by calling the `LearnPatterns()`
       method on the session object instead.
 
-## New Features
+### New Features
 
 - Changes that only affect those building their own DSLs
     - The [Samples](https://github.com/microsoft/prose) contain a new DSL Authoring tutorial.
 
-## Bug Fixes / Enhancements
+### Bug Fixes / Enhancements
 
 - Compound.Split
     - The system now attempts to learn an ingestion program that obeys standard CSV quoting first
@@ -418,15 +418,15 @@ title: Release Notes
 - Common Framework
     - The interface for implementing a subprogram translator has been enhanced.
 
-# Release 6.1.0 -- 2018/04/16
+## Release 6.1.0 -- 2018/04/16
 
-## New Features
+### New Features
 
 - Compound.Split
     - Can now extract the schema of a fixed width file from a free-form text file description of the schema and use that
       to learn an extraction program.
 
-## Bug Fixes / Enhancements
+### Bug Fixes / Enhancements
 
 - Compound.Split
     - Fixed width inference (for cases where the schema file is not available) is improved to prevent splitting inside
@@ -455,9 +455,9 @@ title: Release Notes
     - There is a new subprogram translator extension point interface which enables pattern based code generators to be
       plugged into the overall translation system.
 
-# Release 6.0.0 -- 2018/03/19
+## Release 6.0.0 -- 2018/03/19
 
-## Breaking Changes
+### Breaking Changes
 
 - Our session base class no longer implements `IDisposable`, and its serialization format has changed because the 
   `AllowBackgroundComputations` member has been deleted.
@@ -477,13 +477,13 @@ title: Release Notes
 - Transformation.Text's `GetSignificantInputClustersAsync` method has been removed and replaced with
   `GetSignificantInputsAsync`.
 
-## New Features
+### New Features
 
 - Compound.Split
     - Now supports Multi-record splitting which enables splitting of files with key-value pairs and pivoting the results
       into a table with the keys as columns.
 
-## Bug Fixes / Enhancements
+### Bug Fixes / Enhancements
 
 - The `LearnTopK` method on `Session` has a new optional parameter for requesting not only the top K programs but also a
   random sample of additional programs learned.
@@ -523,9 +523,9 @@ title: Release Notes
 - Transformation.Text
     - Fixed a bug in datetime rounding learning where sometimes too many dates were rounded.
 
-# Release 5.1.0 -- 2018/02/07
+## Release 5.1.0 -- 2018/02/07
 
-## Breaking Changes
+### Breaking Changes
 
 - The packaging of PROSE functionality has been significantly refactored both to reduce the number of DLLs and
   dependencies and to allow fine-grained selection of the functionality to be included in a consuming application.
@@ -562,7 +562,7 @@ title: Release Notes
       inefficient cast operations.
     - AutoComplete now uses IRow instead of IEnumerable<string> for input.
 
-## New Features
+### New Features
 
 - Extraction.Web is a new DSL for extracting structured data from HTML pages.
     - Can extract fields, sequences or tables given examples of specific web regions or text strings.
@@ -579,7 +579,7 @@ title: Release Notes
     - Split.Text
     - Extraction.Json
 
-## Bug Fixes / Enhancements
+### Bug Fixes / Enhancements
 
 - Compound.Split:
     - Considers more lines when determining the column delimiter.
@@ -624,9 +624,9 @@ title: Release Notes
 
 - Many other general performance and stability fixes.
 
-# Release 4.0.0 -- 2017/09/15
+## Release 4.0.0 -- 2017/09/15
 
-## Breaking Changes
+### Breaking Changes
 
 - State.Create method has been split into two versions: CreateForLearning and CreateForExecution.  The CreateForLearning
   version can be slower but is necessary (as you might imagine from the name) when the state is going to be used for
@@ -637,13 +637,13 @@ title: Release Notes
     - Plus the move to .netstandard 2.0 and corresponding upgrade to related corefx packages (mostly moving to version
       4.4.0)
 
-## New Features
+### New Features
 
 - A new API has been added for working with significant inputs which enables quick retrieval of some significant inputs
   and then async calculation and later retrieval of additional significant inputs as they become available.
 - Matching.Text now exposes the DescriptionTokens property to enable rich-text rendering of pattern descriptions.
 
-## Bug fixes / Enhancements
+### Bug fixes / Enhancements
 
 - Our nuget package should now work properly in both desktop .net and net core projects.
 - Compound.Split has a new constraint for specifying column delimiters.
@@ -653,9 +653,9 @@ title: Release Notes
   examples.
 - Miscellaneous perf and correctness fixes
 
-# Release 3.2.0 -- 2017/08/16
+## Release 3.2.0 -- 2017/08/16
 
-## New Features
+### New Features
 
 - A new Transformation.Tree DSL which may be used in scenarios such as code transformation/refactoring.
 - Transformation.Text improvements to date/time and number handling:
@@ -665,7 +665,7 @@ title: Release Notes
     - Lowercase am/pm in times
 - Matching.Text now has the ability to generate representative examples and a regex description for each cluster.
 
-## Bug fixes / Enhancements
+### Bug fixes / Enhancements
 
 - New Compound.Split streaming interface for running split programs on large files and the ability to specify a fill
   strategy for filling values in non-rectangular tables.
@@ -675,18 +675,18 @@ title: Release Notes
 - Extraction.Json no longer treats bare strings/numbers as valid json, so it won't learn a no-op program for them.
 - Miscellaneous correctness and performance improvements.
 
-# Release 3.1.3 -- 2017/07/18
+## Release 3.1.3 -- 2017/07/18
 
-## Bug fixes / Enhancements
+### Bug fixes / Enhancements
 
 - Transformation.Text date/time support has been fixed to prefer ranges over rounding in some key cases.
 - A number of general stability and performance improvements.
 
-# Release 3.0.0 -- 2017/06/28
+## Release 3.0.0 -- 2017/06/28
 
 *This release fixes the issues using the nuget packages in VS2015 and VS2017 (when using old-style packages.config).*
 
-## Breaking Changes
+### Breaking Changes
 
 - De-serializing programs in human readable format is removed.  Human readable was never a reliable serialization format
   (although it is nice for debugging purposes) because it does not contain enough information to guarantee backward
@@ -709,7 +709,7 @@ title: Release Notes
       arrays are flattened.  Default is for arrays to turn into rows, but there is a new constraint which allows
       flattening them into columns.
 
-## Bug fixes / Enhancements
+### Bug fixes / Enhancements
 
 - Detection.DataType is a new DLL added to the package which when given a series of strings can detect the datatypes
   those string values represent (ie. number, date, etc.).
@@ -727,12 +727,12 @@ title: Release Notes
 - Grammar files now support an annotation to indicate that a rule is deprecated (but kept in the grammar to allow
   deserialization of programs learned on older versions).
 
-# Release 2.3.0 -- 2017/05/15
+## Release 2.3.0 -- 2017/05/15
 
 *Note: We have had some reports of folks having trouble using the public nuget packages in VS2015 since the 2.0.0 release.
 We are aware of the issues and hope to have a fix soon.  In the meantime, the available packages should work in VS2017.*
 
-## Bug fixes / Enhancements
+### Bug fixes / Enhancements
 
 - This release includes significant performance improvements including:
     - A long-standing memory leak was fixed in the core framework that affected learning performance.
@@ -749,9 +749,9 @@ We are aware of the issues and hope to have a fix soon.  In the meantime, the av
 - Fix for a bug when generating programs for MergeColumns constraints with no separators/constants specified if there was
   a constant string at the end.
 
-# Release 2.2.0 -- 2017/04/24
+## Release 2.2.0 -- 2017/04/24
 
-## Bug fixes / Enhancements
+### Bug fixes / Enhancements
 
 - Transformation.Text now supports scientific notation and more flexible ways of indicating that a number is negative
   when parsing.  (It does not format numbers in these ways--only parses them.)
@@ -760,15 +760,15 @@ We are aware of the issues and hope to have a fix soon.  In the meantime, the av
 - Some API usability improvements have been made to Matching.Text.
 - Miscellaneous performance and stability improvements.
 
-# Release 2.1.0 -- 2017/04/17
+## Release 2.1.0 -- 2017/04/17
 
-## New Features
+### New Features
 
 - Split.Text now supports fixed width files.
 - Transformation.Json now includes Transformation.Text support.  This means it can synthesize programs which not only
   change the structure of a json document but also transform the values.
 
-## Bug fixes / Enhancements
+### Bug fixes / Enhancements
 
 - A number of bug fixes/enhancements were made to Extraction.Json--especially for the scenario of handling
   new-line delimited json (ndjson) documents or the similar case of having an input column containing a json
@@ -786,11 +786,11 @@ We are aware of the issues and hope to have a fix soon.  In the meantime, the av
   from a stream.  Instead, if a stream is passed to the session, it assumes that behavior automatically.
 - Split.File now supports new lines in quotes.
 
-# Release 2.0.1 -- 2017/03/17
+## Release 2.0.1 -- 2017/03/17
 
 Minor bug fix release.
 
-# Release 2.0.0 -- 2017/03/16
+## Release 2.0.0 -- 2017/03/16
 
 We have bumped the major number this time around because this release includes a breaking change (and we are doing our
 best to conform to semantic versioning).  The change is to the way `dslc` compiles grammar files.  Previously it produced
@@ -798,7 +798,7 @@ a .Net assembly.  Now it outputs c# source code which can be compiled into your 
 reduces the number of assemblies required to deploy your solution but also allows us to generate helper methods for 
 advanced scenarios involving manually creating program trees for a DSL.
 
-## New Features
+### New Features
 
 - Grammar files may now have a `using grammar <grammarName> = <class>.<property>` statement to indicate that the grammar
   depends on another grammar.
@@ -809,7 +809,7 @@ advanced scenarios involving manually creating program trees for a DSL.
   for the DSL.  If this is done, PROSE will call the `ILogger` with telemetry information such as the time required to
   learn programs, etc.
 
-## Bug fixes / Enhancements
+### Bug fixes / Enhancements
 
 - Significant inputs are now computed using the Z3 theorem prover from MSR (included in our nuget package as a set of 
   native libraries for Windows, Mac and Linux) which significantly decreases the time required to determine them.
@@ -822,13 +822,13 @@ advanced scenarios involving manually creating program trees for a DSL.
 - Several other ranking and stability improvements.
 
 
-# Release 1.1.0 -- 2017/02/15
+## Release 1.1.0 -- 2017/02/15
 
 With this release we are starting a regular monthly public release rhythm.  The biggest change in this month's release is 
 major improvements to our samples and documentation.  At the same time we have added several small new features and bug
 fixes.
 
-## New Features
+### New Features
 
 - Made more spec methods `protected internal` to enable third-party implementation of
   [`Spec`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Specifications_Spec.htm) subclasses.
@@ -837,7 +837,7 @@ fixes.
 - More flexibility in time ranges in `Transformation.Text`.
 - Allowed omitting leading zeros at the start of numeric date formats in `Transformation.Text`.
 
-## Bug Fixes
+### Bug Fixes
 
 - Improved `RunMerge`'s handling of empty lines in `Split.File`.
 - Fixed learning with missing lookahead/lookbehind regexes in `Extraction.Text`
@@ -848,10 +848,10 @@ fixes.
   program across the SDK.
 
 
-# Release 1.0.3 -- 2017/01/22
+## Release 1.0.3 -- 2017/01/22
 
 First public release. Added support for .NET Core as well as several new DSLs.
 
-# Release 0.1.1 -- 2015/10/29
+## Release 0.1.1 -- 2015/10/29
 
 First public preview.
