@@ -16,8 +16,7 @@ In order to use `Transformation.Text`, you need assembly references to
 `Microsoft.ProgramSynthesis.Transformation.Text.Semantics.dll`.
 
 
-Basic usage
-===========
+## Basic usage
 
 ```csharp
 Session session = new Session();
@@ -38,7 +37,7 @@ without naming the columns. To get more control,
 implement `Transformation.Text`&apos;s [`IRow`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Semantics_IRow.htm) interface.
 
 
-#### One example with multiple strings
+### One example with multiple strings
 
 ```csharp
 var session = new Session();
@@ -53,7 +52,7 @@ current version. The cast to `string` is done using `as string`
 to acknowledge that future versions of `Transformation.Text`
 may support other return types.)
 
-#### Multiple examples
+### Multiple examples
 
 `Transformation.Text` can be given multiple examples in order to generate a
 program that
@@ -92,8 +91,7 @@ string output = program.Run(new InputRow("425 311 1234")) as string; // output i
 ```
 
 
-Inputs without known outputs
-============================
+## Inputs without known outputs
 
 Most likely, when learning a program, you will have some idea of other inputs
 you intend to run the program on in the future. `Transformation.Text`
@@ -109,8 +107,7 @@ string output = program.Run("31/01/1983") as string; // output is "1983-01-31"
 ```
 
 
-Learning multiple programs
-==========================
+## Learning multiple programs
 
 There are usually a large number of programs consistent with any given set of
 examples. `Transformation.Text` has a ranking scheme which it uses to return
@@ -150,8 +147,7 @@ foreach (object output in outputs)
 }
 ```
 
-Serializing programs
-====================
+## Serializing programs
 
 Sometimes you will want to learn a program in one session and run it on other
 data in a future session or transfer learned programs between computers.
@@ -169,14 +165,12 @@ Program parsedProgram = Loader.Instance.Load(serializedProgram);
 Console.WriteLine(parsedProgram.Run(new InputRow("Etelka Bala"))); // outputs "Bala, E."
 ```
 
-API
-===
+## API
 
 See [Documentation]({{ site.baseurl }}/documentation/api) for the full API documentation.
 
 
-Learning `Transformation.Text` programs
----------------------------------------
+### Learning `Transformation.Text` programs
 
 To start, construct an empty [`Session`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Transformation_Text_Session.htm)
 which encapsulates learning a program for a single task, often refined
