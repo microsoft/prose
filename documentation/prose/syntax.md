@@ -9,7 +9,7 @@ This document describes the syntax of PROSE v1 DSL grammars.
 
 > Hereafter in the general syntax descriptions, angle brackets `<>` denote a placeholder to be filled with a concrete value, and curly braces `{}` with an `opt` subscript denote an optional component (unless specified otherwise).
 
-# Basic structure
+## Basic structure
 
 The basic structure of a `*.grammar` file is as follows:
 
@@ -29,9 +29,9 @@ language <Name>;
 It first specifies some metadata about the DSL, and then describes it as a grammar. A PROSE language is represented as a [context-free grammar](https://en.wikipedia.org/wiki/Context-free_grammar) – *i.e.,* as a set of *rules*, where each *symbol* on the left-hand side is bound to a set of possible expansions of this symbol on the right-hand side.
 
 
-# Usings
+## Usings
 
-## Namespace usings
+### Namespace usings
 
 These statements are identical to the corresponding C# forms. They import a namespace into the current scope.
 
@@ -40,7 +40,7 @@ using System.Text.RegularExpressions;
 ```
 {: .language-bnf}
 
-## Semantics usings
+### Semantics usings
 
 These statements specify *semantics holders* – static classes that contain implementations of the grammar's operators. There may be more than one semantics holder, as long as their members do not conflict with each other.
 
@@ -49,7 +49,7 @@ using semantics TestLanguage.Semantics.Holder;
 ```
 {: .language-bnf}
 
-## Learner usings
+### Learner usings
 
 These statements specify *learning logic holders* – non-static classes that inherit `DomainLearningLogic` and contain domain-specific helper learning logic such as [witness functions]({{site.baseurl}}/documentation/prose/backpropagation/#witness-functions) and value generators. There may be more than one learning logic holder.
 
@@ -58,11 +58,11 @@ using learners TestLanguage.Learning.LogicHolder;
 ```
 {: .language-bnf}
 
-# Language name
+## Language name
 
 May be any valid C# *full type identifier* – that is, a dot-separated string where each element is a valid C# identifier.
 
-# Features
+## Features
 
 A [feature]({{site.baseurl}}/documentation/prose/tutorial/#features) is a computed property on an AST in the language. Each such property has a name, type, and associated *feature calculator* functions that compute the value of this property on each given AST. A feature may be declared as *complete*, which requires it to be defined on every possible AST kind in the language. By default, a feature is not complete.
 
@@ -92,7 +92,7 @@ feature HashSet<int> UsedConstants = TestLanguage.UsedConstantsCalculator;
 ```
 {: .language-bnf}
 
-# Terminal rules
+## Terminal rules
 
 Each *terminal symbol* of the grammar is associated with its own unique *terminal rule*. Terminal rules specify the leaf symbols that will be replaced with literal constants or variables in the AST. For example:
 
@@ -106,13 +106,13 @@ Each *terminal symbol* of the grammar is associated with its own unique *termina
 ```
 {: .language-bnf}
 
-## Annotations
+### Annotations
 
-#### `@input`
+##### `@input`
 
 Denotes the input variable passed to the DSL programs. A DSL program may depend only on a single input variable, although of an arbitrary type.
 
-#### `@values`
+##### `@values`
 
 A user can specify the list of possible values that a literal symbol can be set to. This is done with a **@values[**$G$**]** annotation, where $G$ is a **value generator** – a reference to a user-defined static field, property, or method. The compiler will search for $G$ in the provided learning logic holders, and will report an error if it does not find a type-compatible member.
 
@@ -149,7 +149,7 @@ namespace TestLanguage
 }
 ```
 
-# Nonterminal rules
+## Nonterminal rules
 
 A *nonterminal rule* describes a possible [production](https://en.wikipedia.org/wiki/Production_(computer_science)) in a context-free grammar of the DSL. In contrast to conventional programming languages, the productions of PROSE grammars describe not the surface syntax of DSL programs, but their direct semantics as ASTs. In other words, where a conventional context-free grammar would specify something like
 
@@ -166,7 +166,7 @@ expression := Plus(atom, atom) | Minus(atom, atom) ;
 
 This snippet contains two nonterminal rules `expression := Plus(atom, atom)` and `expression := Minus(atom, atom)`. The functions `Plus` and `Minus` are *operators* in the grammar – domain-specific functions that may be included as steps of your  DSL programs. Thusly, PROSE DSLs do not have a syntax – they directly describe a grammar of possible domain-specific program actions.
 
-## Structure
+### Structure
 
 Every nonterminal rule has a *head* and a *body*. Its head is a typed *nonterminal symbol* on the left-hand side of the production. Its body is a sequence of free symbols on the right-hand side, which may be nonterminal or terminal (i.e. variables or constants). There exist multiple different kinds of nonterminal rules, which differ in their semantics as well as in the roles of the symbols in their bodies.
 
@@ -177,32 +177,32 @@ Every nonterminal rule has a *head* and a *body*. Its head is a typed *nontermin
 ```
 {: .language-bnf}
 
-### Annotations
+#### Annotations
 
-#### `@start`
+##### `@start`
 
 An optional annotation that specifies the _start symbol_ of the grammar – that is, the root nonterminal symbol of all programs in this DSL.
 
-## Operator rules
+### Operator rules
 
 > Coming soon...
 
-## Conversion rules
+### Conversion rules
 
 > Coming soon...
 
-## Let bindings
+### Let bindings
 
 > Coming soon...
 
-## Standard concepts
+### Standard concepts
 
 > Coming soon...
 
-### Lambda functions
+#### Lambda functions
 
 > Coming soon...
 
-## External rules
+### External rules
 
 > Coming soon...

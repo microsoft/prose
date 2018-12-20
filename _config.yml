@@ -4,7 +4,7 @@ kramdown:
   input: GFM
   hard_wrap: false
   math_engine: mathjax
-  toc_levels: 1..1
+  toc_levels: 2..2
   syntax_highlighter: rouge
   extensions: ['options']
 

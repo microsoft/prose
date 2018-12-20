@@ -1,12 +1,13 @@
 ---
 title: Standard concepts
 ---
+{% include toc.liquid.md %}
 
 ***Standard concepts*** are built-in PROSE operators.
 They have predefined semantics and, most of the time, witness functions for [backpropagation]({{site.baseurl}}/documenation/prose/backpropagation).
 Thus, you can use standard concepts arbitrarily in your own DSLs without reimplementing them or designing your own synthesis procedures for them.
 
-# Concept rules
+## Concept rules
 
 The grammar syntax for a simple *concept rule* looks as follows:
 
@@ -28,7 +29,7 @@ The parameter symbols `E1`, $...$, `Ek` are passed directly to the standard conc
 >
 > The two `r` parameters denote the regexes to the left and to the right of a given position boundary. They are united into a tuple with a standard concept `Pair`.
 
-## Lambda functions
+### Lambda functions
 
 More complex concept rules may include a *lambda function* on their right-hand side.
 For instance, a list-processing operator `Filter` takes as input a predicate of type `Func<T, bool>` and a sequence of type `IEnumerable<T>`, and returns the filtered subsequence of elements that satisfy the predicate.
@@ -52,7 +53,7 @@ Here the *custom operator* `Selected(f, v)` is implemented as a *concept rule* `
 The first parameter of `Filter` is a lambda `\x: string => f`, and the second one is `v`.
 Notice that *you can either use a formal parameter directly in a concept, or pass it down into a lambda body*.
 
-# List of concepts
+## List of concepts
 
 Concept                                           | Semantics                      | Specs handled by PROSE    | Witness functions needed?
 -----------|----------------------------------|--------------------------------|---------------------------|--------------------------

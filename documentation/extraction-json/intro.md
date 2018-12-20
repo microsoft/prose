@@ -2,6 +2,7 @@
 date: 2017-02-02
 title: "Json Extraction"
 ---
+{% include toc.liquid.md %}
 
 **Extraction.Json** automatically extracts tabular data from Json files. It supports extracting [Newline Delimited Json](http://ndjson.org/) and truncated Json.
 

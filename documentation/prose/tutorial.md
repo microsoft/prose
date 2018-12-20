@@ -7,7 +7,7 @@ The core component of the PROSE SDK is its program synthesis framework for custo
 
 This is a step-by-step tutorial on using the PROSE framework to *create new DSLs*. To use an existing DSL in your programming-by-examples application, please check out its individual documentation link on the left.
 
-# DSL Structure
+## DSL Structure
 
 A DSL consists of four main components:
 
@@ -18,7 +18,7 @@ A DSL consists of four main components:
 
 Below, we illustrate the usage of all four components on a small example DSL -- a portion of FlashFill.
 
-# Syntax
+## Syntax
 
 Our example DSL describes a space of programs that extract a substring from a given string. They can do it in two possible ways -- either extract a substring based on absolute position indices, or based on matches of regular expressions.
 
@@ -100,7 +100,7 @@ A `ParseGrammarFromFile` invocation returns a `Result<Grammar>`, which either ho
 
 At this moment grammar parsing will fail since we haven't defined any execution semantics for the operators in our DSL, only its syntax. Let's fix that.
 
-# Semantics
+## Semantics
 
 An *executable semantics* for an operator $F$ in PROSE is a .NET function that matches the signature of $F$.
 You need to provide it for every operator in your DSL that is not imported from the standard library of PROSE or another language.
@@ -168,7 +168,7 @@ This code illustrates several important points that you should keep in mind when
 
 Syntax and semantics above constitute a minimal DSL definition. They are sufficient for our little parsing/execution sample to work. Let's proceed now to synthesizing programs in this DSL.
 
-# Synthesis
+## Synthesis
 
 PROSE comes with a default synthesis strategy which we call [deductive backpropagation]({{ site.baseurl }}/documentation/prose/backpropagation). It also enables researchers in the field of synthesis to develop their own strategies on top of its common API. However, in this tutorial we explain how to use backpropagation for synthesis of programs in our `SubstringExtraction` DSL.
 
@@ -195,7 +195,7 @@ What we just did here was backwards reasoning over the DSL structure: we deduced
 To do that, we essentially *inverted the semantics of `AbsolutePosition`*, deducing its inputs (or their properties) given the output.
 In PROSE, such a procedure is called a *witness function*, and it is a surprisingly simple way to specify immensely powerful hints for the learning process.
 
-## Witness Functions
+### Witness Functions
 A witness function is defined for a *parameter* of a DSL operator. In its simplest form a witness function deduces a specification on that parameter given a specification on the entire operator. A witness function does not by itself constitute a learning algorithm (or even a substantial portion of it), it is simply a domain-specific property of some operator in your language -- its inverse semantics.
 
 For instance, the first witness function we'll write in this tutorial is defined for the parameter `posPair` of the rule `Substring(x, posPair)` of our `SubstringExtraction` DSL.
@@ -257,7 +257,7 @@ using learners SubstringExtraction.WitnessFunctions;
 
 Similarly to semantics, a grammar may contain multiple `using learners` statements.
 
-### Writing witness functions
+#### Writing witness functions
 
 Some important points on writing witness functions:
 
@@ -271,7 +271,7 @@ Some important points on writing witness functions:
 * **Hint:** use C# `nameof` operator with your `Semantics` implementations to provide an operator name in the `[WitnessFunction]` attribute.
 
 
-### Absolute positions
+#### Absolute positions
 
 Covering more DSL operators with witness functions is straightforward. The next one witnesses `k` in the `AbsolutePosition` operator.
 
@@ -299,7 +299,7 @@ DisjunctiveExamplesSpec WitnessK(GrammarRule rule, DisjunctiveExamplesSpec spec)
 }
 ```
 
-### Regex-based positions
+#### Regex-based positions
 Operator `RegexPosition` needs two witness functions: one for its `rr` parameter and one for its `k` parameter.  
 For the first one, we need to learn a list of regular expressions that match to the left and to the right of given position. There are many techniques for doing that; in this tutorial, we assume that we have a predefined list of "common" regexes like `/[0-9]+/`, and enumerate them exhaustively at a given position.
 
@@ -370,7 +370,7 @@ DisjunctiveExamplesSpec WitnessRegexPair(GrammarRule rule, DisjunctiveExamplesSp
 }
 ```
 
-### Conditional witness functions
+#### Conditional witness functions
 The last witness function in this tutorial witnesses a match index `k` for each regex pair in `RegexPosition`. To write this witness function, an outer spec on `RegexPosition` alone is insufficient: we can only write it for each individual regex pair, but not for all possible regex pairs at once. Thus, our witness function for `k` is *conditional* on `rr`: in addition to an outer spec, it takes an additional input -- a spec on its *prerequisite parameter* `rr`.
 
 In general, the prerequisite spec can be of any kind that provides your witness function any useful information. Typically, an `ExampleSpec` (i.e., a concrete value of prerequisite -- in this case `rr`) is the most useful and common prerequisite spec. We use `ExampleSpec` here to deduce possible indices `k` for each regex pair in a manner similar to deducing absolute positions above.
@@ -410,7 +410,7 @@ DisjunctiveExamplesSpec WitnessKForRegexPair(GrammarRule rule, DisjunctiveExampl
 }
 ```
 
-## Learning with witness functions
+### Learning with witness functions
 
 After completing these four witness functions, we must make one final change in order for learning to happen -- we must create an instance of  `WitnessFunctions` and communicate it to the synthesis engine at learning time. To do that, we override a standard configuration of a `SynthesisEngine`, providing our `WitnessFunctions` to the `DeductiveSynthesis` strategy.
 
@@ -426,13 +426,13 @@ var engine = new SynthesisEngine(grammar, new SynthesisEngine.Config
 
 After making this change, our `LearnGrammar` call succeeds, and we get back a set of several dozens possible consistent programs!
 
-# Ranking
+## Ranking
 
 Example are inherently an ambiguous form of specification. A user-provided spec of several input-output examples usually produces a huge set of DSL programs that are consistent with it (often billions of them!). To build a useful application, a synthesis-based technology has to somehow pick one "most likely" program from such a set. Many disambiguation techniques exist; in this tutorial, we show the most common one -- ranking.
 
 Ranking assigns each program a *score* -- an approximation to its "likelihood" of being a desired program. For instance, string extraction based on absolute indices is less common than extraction based on regular expressions, therefore the former should be assigned a smaller score than the latter.
 
-## Features
+### Features
 
 In PROSE, scores are represented using *computed features*. A feature is a named attribute on a program AST, computed using provided *feature calculator* functions.  
 A feature can be *complete*, which means that it must be defined with some value for each possible DSL program, or *incomplete* if it only exists on some DSL programs.
@@ -473,11 +473,11 @@ Console.WriteLine(p.GetFeatureValue(scoreFeature));
 
 > **Note:** Since we defined `Score` as a complete feature, we had to override its `GetFeatureValueForVariable` method to provide an implementation of this feature computation on variable ASTs such as `x`.
 
-### Feature calculators
+#### Feature calculators
 
 A feature calculator is defined for a grammar rule. There are four ways to define a calculator: based on *recursive feature values*, based on *program syntax* (given a `ProgramNode` or its children), or based on *literal values*.
 
-#### Calculation from recursive values
+##### Calculation from recursive values
 The most common feature definitions are inductive, recursively defined over the grammar. For instance, a score for `RegexPosition(x, rr, k)` would be defined as a formula over a score for `rr` and a score for `k`. Such feature calculators take as input recursively computed values of the same feature on parameters of a current program AST:
 
 ``` csharp
@@ -485,7 +485,7 @@ The most common feature definitions are inductive, recursively defined over the 
 double ScoreRegexPosition(double inScore, double rrScore, double kScore) => rrScore * kScore;
 ```
 
-#### Calculation from program syntax
+##### Calculation from program syntax
 
 When recursively computed feature values are insufficient, you can take into account the entire syntax of a program AST. There are two ways to define such a calculator: **(a)** take as input a `ProgramNode` to score, or **(b)** take as input several individual `ProgramNode` instances representing ASTs of its parameter programs.
 
@@ -507,7 +507,7 @@ double ScoreAbsolutePosition(VariableNode x, LiteralNode k)
 double ScoreAbsolutePosition(ProgramNode p) { ... }
 ```
 
-#### Calculation from literals
+##### Calculation from literals
 
 An inductively defined computed feature needs a basic case -- its value on literal program ASTs. Feature calculators on terminal rules can take as input simply the value of a literal in a `LiteralNode` currently being scored. Instead of an operator name, you provide the name of the corresponding terminal symbol in the `[FeatureCalculator]` attribute:
 
@@ -516,7 +516,7 @@ An inductively defined computed feature needs a basic case -- its value on liter
 double KScore(int k) => 1.0 / (1 + Math.Abs(k));
 ```
 
-## Learning top programs
+### Learning top programs
 
 Our `SubstringExtraction` grammar needs a `Score` calculator for each rule (including standard library rules like `PositionPair`). After you define all of them, you can extract $k$ top-ranked programs out of the candidates returned by learning:
 
@@ -545,7 +545,7 @@ Console.WriteLine(p.Invoke(input));
 /*  Program  */
 ```
 
-# Further reading
+## Further reading
 
 This concludes our basic PROSE tutorial. To learn about more PROSE features, please check out these resources:
 

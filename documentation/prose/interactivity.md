@@ -42,7 +42,7 @@ var session = new Session();
 ```
 
 
-# Inputs
+## Inputs
 
 The collection of all known inputs the program is expected to be run on
 should be provided using
@@ -68,7 +68,7 @@ session.Inputs.Add(new InputRow("Greta", "Hermansson"),
 ```
 
 
-# Constraints
+## Constraints
 
 Constraints are any information that describe the program to be synthesized.
 The most common kind of constraint is an [example](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Wrangling_Constraints_Example_2.htm),
@@ -95,7 +95,7 @@ session.Constraints.Add(new Example(new InputRow("Greta", "Hermansson"), "Herman
 ```
 
 
-# Synthesizing programs
+## Synthesizing programs
 
 Once a `Session` has some inputs and constraints, a program can be synthesized.
 Programs are generated using the various `.Learn*()` methods, which use the
@@ -116,7 +116,7 @@ var program = session.Learn();
 ```
 
 
-# Explanations
+## Explanations
 
 In order to decide if the synthesized program is satisfactory, the user has
 to comprehend what has been learned. As we assume that, in general, the
@@ -127,7 +127,7 @@ be easy for a computer to synthesize programs in as opposed to being
 easy for a human to read.
 
 
-## Running the program
+### Running the program
 
 The most straightforward way to explain the program is to run it.
 To run a `Program`, use its [`Run()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Program_2_Run.htm) method:
@@ -146,7 +146,7 @@ foreach(var input in session.Inputs)
 | Etelka | bala       | bala, E.       |
 
 
-## DSL-specific
+### DSL-specific
 
 Other explanations might be DSL-specific. For instance, `Transformation.Text`
 offers a feature called "[output provenance](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Transformation_Text_Program_ComputeOutputProvenance.htm)"
@@ -174,7 +174,7 @@ input a specific part of the output should come from, although the current
 implementation of `Transformation.Text` does not support such a constraint.
 
 
-# Significant Inputs
+## Significant Inputs
 
 While explanations help the user understand how the program works on inputs
 they are looking at, if the input set is large, it is likely some problems
@@ -208,7 +208,7 @@ to define the program to synthesize (modulo the inputs provided),
 which should give the user confidence that the synthesized program is correct.
 
 
-# Conclusion
+## Conclusion
 
 PROSE&apos;s `Session` API provides a mechanism for supporting an
 interactive synthesis task. After loading in the data to work with,

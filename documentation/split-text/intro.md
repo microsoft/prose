@@ -2,6 +2,7 @@
 date: 2017-02-01T20:00:06-07:00
 title: "Text Splitting"
 ---
+{% include toc.liquid.md %}
 
 **Split.Text** is a system for splitting data in plain text format, where there may be multiple fields that need to be separated into different columns. The [Usage]({{ site.baseurl }}/documentation/split-text/usage) page and the [`Split.Text` sample project](https://github.com/Microsoft/prose/tree/master/Split.Text) show examples of how to use the Split.Text API. The Split.Text system supports purely predictive as well as interactive techniques to learn programs for splitting textual data. 
 
