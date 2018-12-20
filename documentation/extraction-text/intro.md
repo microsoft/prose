@@ -15,7 +15,7 @@ The [Usage]({{ site.baseurl }}/documentation/extraction-text/usage) page and the
 **Read more:** ["FlashExtract: A Framework for Data Extraction by Examples"](https://research.microsoft.com/en-us/um/people/sumitg/pubs/pldi14-flashextract.pdf)
 
 
-# Substring Extraction
+## Substring Extraction
 
 From input/output example(s) in the form of `<input string, substring of input string>`, **Extraction.Text.Region** learns a program to extract a substring from an input string. The program can be run on new input strings to obtain new output substrings.
 
@@ -32,7 +32,7 @@ For instance, given this example:
 | Leonard `Robledo` 75 | `Robledo`   |
 
 
-# Sequence Extraction
+## Sequence Extraction
 
 From input/output example(s) in the form of `<input string, subsequence of the intended sequence>`, **Extraction.Text.Sequence** learns a program to extract a *complete* sequence of substrings from an input string. The program can be run on the same training input string to obtain the complete output sequence, or on new input strings to obtain new output sequences.
 
@@ -49,11 +49,11 @@ For instance, given this example that contains a subsequence of the intended seq
 | United States<br/> &nbsp;`Carrie` Dodson 100<br/> &nbsp;`Leonard` Robledo 75<br/> &nbsp;`Margaret` Cook 320<br/>Canada<br/> &nbsp;`Concetta` Beck 350<br/> &nbsp;`Nicholas` Sayers 90<br/> &nbsp;`Francis` Terrill 2430<br/>Great Britain<br/> &nbsp;`Nettie` Pope 50<br/> &nbsp;`Mack` Beeson 1070 | `Carrie`<br/> `Leonard`<br/> `Margaret`<br/>`Concetta` <br/>`Nicholas` <br/>`Francis` <br/>`Nettie` <br/>`Mack` |
 
 
-# Applications
+## Applications
 
 Clients may use these two APIs directly, or combine them to extract nested/hierarchical data (*i.e*, tree) from documents. Below are several real usages of **Extraction.Text**.
 
-## Operations Management Suite (OMS)
+### Operations Management Suite (OMS)
 
 The [**Custom Fields**](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-custom-fields) feature in OMS allows users to create a new *custom* field based on an existing field in the log. **Custom Fields** uses the **Extraction.Text.Region** API because each cell in the new field is a substring of a cell in the existing field.
 
@@ -81,7 +81,7 @@ The [**Custom Log**](https://docs.microsoft.com/en-us/azure/log-analytics/log-an
 </a>
 
 
-## PowerShell ConvertFrom-String
+### PowerShell ConvertFrom-String
 
 [**ConvertFrom-String**](https://msdn.microsoft.com/en-us/powershell/reference/5.0/microsoft.powershell.utility/convertfrom-string) allows users to extract hierarchical data from a document from an example template, which is a sample of the complete document.
 

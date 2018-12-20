@@ -13,7 +13,7 @@ These program classes have the `Serialize()` methods to serialize the program. T
 
 The [Sample Project](https://github.com/Microsoft/prose/tree/master/Extraction.Text) illustrates our API usage.
 
-# StringRegion
+## StringRegion
 
 A substring in Extraction.Text is called `StringRegion`.
 A `StringRegion` is a triple `(S, Start, End)`, where `S` is the input string, `Start` and `End` are the starting/ending positions within `S`.
@@ -53,9 +53,9 @@ StringRegion name = record.Slice(0u, 13u); // "Carrie Dodson""
 StringRegion number = record.Slice(14u, 17u); // "100"
 ```
 
-# Extracting a StringRegion
+## Extracting a StringRegion
 
-## Positive Example
+### Positive Example
 
 An `RegionExample` is a pair of an input`StringRegion` and its corresponding output `StringRegion`.
 
@@ -81,7 +81,7 @@ var example = new RegionExample(number /*100*/, name /*Carrie Dodson*/);
 
 Most applications use only the *referencing-parent* example.
 
-## Negative Example
+### Negative Example
 
 A `RegionNegativeExample` defines a subregion in which the output of the learned program should not *overlap* with.
 
@@ -91,7 +91,7 @@ For instance, the following negative example dictates that all learned programs 
 var example = new RegionNegativeExample(record /*Carrie Dodson 100*/ , name /*Carrie Dodson*/);
 ```
 
-## Basic Usage
+### Basic Usage
 
 **Extraction.Text** may take *one or more* examples to learn a region program. It accepts multiple examples that come from different regions in a file, or from different files.
 
@@ -114,7 +114,7 @@ session.Constraints.Add(
 Program topRankedProg = session.Learn();
 ```
 
-## Running RegionProgram
+### Running RegionProgram
 
 Executing the `Run(StringRegion)` method on the input string returns the extraction output.
 
@@ -140,7 +140,7 @@ This is the intended behavior of this program.
 
 Parent referencing scenario is not affected because Extraction.Text searches for the match *within* the parent.
 
-## Learning With Negative Examples
+### Learning With Negative Examples
 We specify negative examples to rule out programs whose outputs overlap with at least one of the negative examples.
 
 The below example illustrates the usage of negative examples.
@@ -166,7 +166,7 @@ foreach (StringRegion record in records)
 }
 ```
 
-## Learning With Additional References
+### Learning With Additional References
 
 We may provide additional references (which may come from the same file or different files) to the learning session.
 **Extraction.Text** observes the behavior of the learnt programs on these additional references, and uses this observation to better rank programs.
@@ -196,7 +196,7 @@ foreach (StringRegion record in records)
 }
 ```
 
-## Learning With Regular Expressions
+### Learning With Regular Expressions
 
 Users also have an option to provide 3 regular expressions for the extracted region: the lookbehind regex, the matching regex, and the lookahead regex.
 All 3 regular expressions are optional.
@@ -226,7 +226,7 @@ foreach (StringRegion record in records)
 ```
 
 
-# Extracting a Sequence of StringRegions
+## Extracting a Sequence of StringRegions
 
 Learning a program to extract a sequence of `StringRegion` is similar to learning a program to extract a `StringRegion`.
 
@@ -238,7 +238,7 @@ Learning a program to extract a sequence of `StringRegion` is similar to learnin
 > Extraction.Text assumes that all the text prior to the last example that are not selected are negative examples.
 > For instance, in extracting {"A", "C"} from "A B C", Extraction.Text assumes that " B " is a negative example.
 
-## Positive Example
+### Positive Example
 
 An `SequenceExample` is a pair of an input `StringRegion` and its corresponding *subsequence* of the indented output sequence.
 
@@ -258,7 +258,7 @@ var sequenceExample = new SequenceExample(
 
 Similar to `Example` in region learning, a `SequenceExample` can also be one of the three referencing kinds, in which *referencing-parent* is the most popular (it is also demonstrated above).
 
-## Negative Example
+### Negative Example
 
 A `SequenceNegativeExample` defines a subregion in which the output of the learned program should not *overlap* with.
 
@@ -268,7 +268,7 @@ For instance, the following negative example dictates that the output of all lea
 var example = new SequenceNegativeExample(input , input.Slice(0, 13) /*United States*/);
 ```
 
-## Basic Usage
+### Basic Usage
 
 The examples (if any) in each referencing region have to be continuous.
 However, we do not need to provide all examples in previous regions before providing examples in the current region.
@@ -306,11 +306,11 @@ The other APIs for learning a sequence program are similar to their region learn
 
 
 
-# Learning multiple programs
+## Learning multiple programs
 
 There are usually a large number of programs consistent with any given set of examples. **Extraction.Text** uses a ranking scheme to return the most likely program for the examples, but in some cases this may not be the desired program.
 
-## Learn Top k Programs
+### Learn Top k Programs
 
 `LearnTopK` returns the top `k` ranked programs. If there are fewer than `k` programs, this method returns all programs. If there are tied programs at `k`, it includes all tied programs.
 
@@ -338,7 +338,7 @@ foreach (RegionProgram prog in topKPrograms)
 }
 ```
 
-## Learn All Programs
+### Learn All Programs
 
 `LearnAll` returns a set of all programs consistent with the examples.
 
@@ -369,7 +369,7 @@ foreach (ProgramNode prog in topKPrograms)
 ```
 
 
-# Serializing/Deserializing a Program
+## Serializing/Deserializing a Program
 
 The  `Serialize()` methods of `RegionProgram` and `SequenceProgram` serialize the learned `RegionProgram` and `SequenceProgram` to a string.
 The `Load()` methods of `RegionLoader` and `SequenceLoader` deserialize the program text to a `RegionProgram` and `SequenceProgram`.
