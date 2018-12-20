@@ -5,7 +5,7 @@ title: Usage
 
 {% include toc.liquid.md %}
 
-# Terminology
+## Terminology
 
 A **domain-specific language (DSL)** is a context-free programming
 language, created for a specific purpose, which can express tasks from a
@@ -28,7 +28,7 @@ which the program is invoked. AST nodes can modify this state (add new
 variable bindings in scope) and pass it down to children nodes in
 recursive invocations of `Invoke`.
 
-# Architecture
+## Architecture
 
 The Microsoft.ProgramSynthesis package unites the core pieces of the meta-synthesizer.
 Here are the included assemblies:
@@ -62,7 +62,7 @@ A typical workflow of a DSL designer consists of the following steps:
         application. At run-time, compile your DSL definition in memory
         using `DSLCompiler.Compile` method.
 
-# Language definition
+## Language definition
 
 The main class `Grammar` represents a context-free grammar as a
 set of DSL rules and a list of references to operators’ semantics and/or
@@ -114,7 +114,7 @@ is a start symbol of the grammar (i.e., the topmost node of every AST).
 Exactly one terminal rule should be annotated as “**@input**” – this is
 the input data to the program.
 
-## Terminals
+### Terminals
 
 Terminal rules specify the leaf symbols that will be replaced with
 literal constants or variables in the AST. For example:
@@ -156,7 +156,7 @@ standard generator for some common types (such as `byte`), or
 assume that the literal can be set to any value. This can impact the
 performance of some synthesis strategies or even make them inapplicable.
 
-## Black-box operators
+### Black-box operators
 
 A **black-box** operator is an operator that does not refer to any
 standard concepts, and its invocation semantics do not modify the
@@ -244,7 +244,7 @@ their operators on anything other than the program input data, they have
 to introduce additional variables using `Let` construct and/or
 lambda functions.
 
-## Let construct
+### Let construct
 
 `Let` construct is a standard concept with the following syntax:
 
@@ -293,7 +293,7 @@ program (AST). The first symbol is a variable $x$; when executed on a
 state $\sigma'$, it will just extract the binding $x \mapsto \vartheta$
 from it, and return $\vartheta$.
 
-## Standard concepts
+### Standard concepts
 
 There exists a range of concepts that are common for many DSLs and
 implement standard functionality. In particular, many list/set
@@ -366,7 +366,7 @@ should satisfy the following contract:
     `Filter` concept specifically, the return type of this
     “function” should be assignable to `bool`.
 
-### Lambda functions
+#### Lambda functions
 
 One can capture functional semantics in an explicit
 lambda function in the grammar:
@@ -449,7 +449,7 @@ on the RHS is resolved as follows:
 Two usages of the same symbol $P$ among parameters were resolved in a
 left-to-right order.
 
-# Language usage
+## Language usage
 
 Definition and usage of custom DSLs starts with the following steps:
 
@@ -481,7 +481,7 @@ var grammar = DSLCompiler.Compile(new CompilerOptions()
     }).Value;
 ```
 
-## Partial programs
+### Partial programs
 
 In many applications there is need to manipulate **partial programs** –
 ASTs where some tree nodes are replaced with **holes**. A hole is a
@@ -501,9 +501,9 @@ children, and $H$ is the hole itself.
 A string representation of a hole of symbol $S$ is **“?S”.** The
 framework supports parsing AST strings that contain holes.
 
-# Synthesis
+## Synthesis
 
-## Specifications
+### Specifications
 
 Program synthesis in the PROSE SDK is defined as a process of
 generating a **set of programs** $\tilde{P}$ that start with a
@@ -568,7 +568,7 @@ Some of the main inductive specification kinds are described below:
         that specifies the single desired program output for each
         provided input state.
 
-## Strategies
+### Strategies
 
 The main point of program synthesis in the framework is the
 `SynthesisEngine` class. Its function is to execute different
@@ -610,7 +610,7 @@ whether this synthesis strategy supports learning for a given
 specification `spec` (in the default implementation, the result is
 `true` if and only if `spec` is an instance of `TSpec`).
 
-## Version space algebra
+### Version space algebra
 
 The return type of `Learn` in `SynthesisStrategy` is
 `Microsoft.ProgramSynthesis.VersionSpace.ProgramSet`. This is an
@@ -658,7 +658,7 @@ public abstract class ProgramSet : ILanguage
 The property `RealizedPrograms` calculates the set of programs
 stored in the version space.
 
-### Direct version space
+#### Direct version space
 Direct version space is a primitive version space
 that represents a set of programs explicitly, by storing a reference to
 `IEnumerable<ProgramSet>`. Since
@@ -670,7 +670,7 @@ the required number of consistent programs on the fly, as needed.
 Moreover, such an iterator can even be theoretically infinite, as long
 as the end-user requests only a finite number of consistent programs.
 
-### Union version space
+#### Union version space
 A union of $k$ version spaces is a version space
 that contains those and only those programs that belong to at least one
 of the given $k$ spaces. Such a version space naturally arises when we
@@ -689,7 +689,7 @@ $G(?C,\ \ ?D)$. If all the programs in $\tilde{F}$ and $\tilde{G}$ are
 consistent with $\varphi$, then $\tilde{F} \cup \tilde{G}$ is a valid
 answer to the outer learning task $\left\langle P,\varphi \right\rangle$.
 
-### Join version space
+#### Join version space
 A join version space is defined for a single
 operator `$P := F\left( E_{1},\ldots,E_{k} \right)$`. It represents a set of
 programs $\tilde{P}$ formed by a Cartesian product of parameter version
