@@ -59,7 +59,7 @@ The [**Custom Fields**](https://docs.microsoft.com/en-us/azure/log-analytics/log
 
 The [**Custom Log**](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-data-sources-custom-logs) feature in Azure Monitor allows users to split the input text stream into records, which can be split further into fields using **Custom Fields**.
 
- **Read more:** [Create your own fields in OMS with Custom Fields!](https://blogs.technet.microsoft.com/momteam/2015/08/18/create-your-own-fields-in-oms-with-custom-fields/).
+ **Read more:** [Create your own fields in Log Analytics with Custom Fields!](https://blogs.technet.microsoft.com/momteam/2015/08/18/create-your-own-fields-in-oms-with-custom-fields/).
 
 ### PowerShell ConvertFrom-String
 
