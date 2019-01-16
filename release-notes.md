@@ -18,7 +18,7 @@ title: Release Notes
     - Improved multi-line cell recognition in tables.
 - Extraction.Web
     - Support providing predictively learned programs as a constraint to be passed into by-example learn calls to improve
-      performance and prevent needing to relearn predictively learned programs.
+      performance and prevent needing to re-learn predicatively learned programs.
 - Transformation.Text
     - Improved python translator to support ToSimpleTitleCase, EndsWith conditions, further Datetime programs, regex pair matches
       and number transformations.
