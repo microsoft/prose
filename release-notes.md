@@ -10,7 +10,7 @@ title: Release Notes
 - Extraction.Pdf
     - Added initial support for merging tables across page boundaries.
 - Extraction.Web
-    - Added table title recognition.
+    - Added HTML table title recognition.
     
 ### Bug Fixes / Enhancements
 
