@@ -20,7 +20,7 @@ title: Release Notes
     - Support providing predictively learned programs as a constraint to be passed into by-example learn calls to improve
       performance and prevent needing to re-learn predicatively learned programs.
 - Transformation.Text
-    - Improved python translator to support ToSimpleTitleCase, EndsWith conditions, further Datetime programs, regex pair matches
+    - Improved Python translator to support ToSimpleTitleCase, EndsWith conditions, further Datetime programs, regex pair matches
       and number transformations.
 
 ## Release 6.10.0 -- 2018/12/17
