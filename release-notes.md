@@ -3,7 +3,7 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
-## Release 6.11.0 -- 2019/1/16
+## Release 6.11.0 -- 2019/01/16
 
 ### New Features
 
