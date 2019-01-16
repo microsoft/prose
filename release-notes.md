@@ -3,6 +3,26 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 6.11.0 -- 2019/1/16
+
+### New Features
+
+- Extraction.Pdf
+    - Added initial support for merging tables across page boundaries.
+- Extraction.Web
+    - Added table title recognition.
+    
+### Bug Fixes / Enhancements
+
+- Extraction.Pdf
+    - Improved multi-line cell recognition in tables.
+- Extraction.Web
+    - Support providing predictively learned programs as a constraint to be passed into by-example learn calls to improve
+      performance and prevent needing to relearn predictively learned programs.
+- Transformation.Text
+    - Improved python translator to support ToSimpleTitleCase, EndsWith conditions, further Datetime programs, regex pair matches
+      and number transformations.
+
 ## Release 6.10.0 -- 2018/12/17
 
 ### New Features
