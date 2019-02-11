@@ -5,15 +5,14 @@ This repository contains documents and templates used to build and deploy the PR
 ## How to setup
 Follows [the official Github Pages instructions](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/).
 
-1. From [RubyInstaller](http://rubyinstaller.org/downloads/) get the latest x64 version of Ruby and the `mingw64-64` version of the Development Kit.
-2. Install the development kit by running `ruby dk.rb init` followed by `ruby dk.rb install` in the directory you extracted it to.
+1. Install Ruby: `cinst -y ruby`
+2. Install Jekyl Bundler: `gem install jekyll bundler`
 3. Reopen your shell to pick up the new PATH, and run:
 
     ``` bash
     git clone https://github.com/Microsoft/prose prose-site
     cd prose-site
     git checkout gh-pages
-    gem install bundler
     bundle install  # install the github-pages version of Jekyll and its dependencies
     npm ci          # download the frontend dependencies and build the JS/CSS files
     ```
