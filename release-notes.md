@@ -3,19 +3,41 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 6.14.0 -- 2019/02/15
+
+### New Features
+
+-	Transformation.Tree
+    - Supports learning transformations “on the fly” by watching user edits.
+    - Supports negative examples.
+
+### Bug Fixes / Enhancements
+
+-	Along with .NET 4.5 and .NET core binaries, the nuget packages now include binaries for .NET 4.6.
+-	Extraction.Web
+    - Multicolumn task learning now falls back to predictive programs and ensures consistency with previous program constraints.
+    - Improved ranking of predictive tables by taking into account image nodes.
+    - Exclude tables from result that are duplicate or sub-tables of other tables.
+    - Ordering of table column and exclude duplication columns.
+    - Improved title detection.
+    - LearnTopK now supports an optional timeout.
+- Matching.Text
+    - Miscellaneous bug fixes.
+-	Transformation.Text
+    - Python readable translation now supports programs involving datetime parsing with formats that do not map directly to posix.
+    - Python readable translation better handles regex matching when tokens do not overlap and other simplification rules.
+    - Python readable translation is less aggressive about inlining expressions making for much more readable code.
+    - Improved performance of the interpreter.
+
 ## Release 6.11.0 -- 2019/01/16
 
 ### New Features
 
-- Extraction.Pdf
-    - Added initial support for merging tables across page boundaries.
 - Extraction.Web
     - Added HTML table title recognition.
     
 ### Bug Fixes / Enhancements
 
-- Extraction.Pdf
-    - Improved multi-line cell recognition in tables.
 - Extraction.Web
     - Support providing predictively learned programs as a constraint to be passed into by-example learn calls to improve
       performance and prevent needing to re-learn predicatively learned programs.
@@ -76,12 +98,6 @@ title: Release Notes
     - Enhancements to generated Python code for datatype detection.
 - Core Framework 
     - Improvement to how variable substitution is done for external grammars (relevant for DSL authors).
-- Extraction.PDF
-    - Various improvements: better handling of alignments dots, text decoration (underline, overline, strikethrough)
-      detection, better alignment learning for overlapping cells, better recognition of axis-aligned border lines, and
-      new row detection based on line spacing and alignments, added version resources to the pdf2text.dll, added check
-      to filter offscreen glyph boundaries.
-    - Various bug fixes to improving PDF extraction.
 - Compound.Split
     - Better handling of CRLF escape characters.
 - Extraction.JSON
@@ -137,12 +153,6 @@ title: Release Notes
 
 -   Extraction.Json
 	-   Improved flattening of embedded arrays in new-line delimited JSON (NDJSON) files.
-
--   Extraction.Pdf
-	-   Now throws a clearer exception when passed a non-seekable stream.
-	-   Word to/bottom bounds are now based on the glyph baseline rather than the bounding box.
-	-   Fixed an issue where all small caps text on a page were being combined into a single line.
-	-   Improved handling of overlapping filled boxes by taking rendering order into account.
 
 -   Split.Text
 	-  	Various performance improvements to program learning and execution.
