@@ -3,6 +3,24 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 6.17.0 -- 2019/03/15
+
+### New Features
+
+- Detection.DataType
+  - Implemented entity validators for e-mail addresses, IPv4 and IPv6 addresses, geographic coordinates (Lat/Lng), US zip codes, and US phone numbers.
+
+### Bug Fixes / Enhancements
+
+- Compound.Split
+  - Allow learning even when the last record is trimmed by ignoring the last record during learn.
+- Extraction.Web
+  - Added performance optimizations to learning.
+- Matching.Text
+  - Fix pattern order in generated programs.
+- Transformation.Text
+  - Improved readability of Python translation, including regular expressions and number format simplifications.
+
 ## Release 6.14.6 -- 2019/02/15
 
 ### New Features
