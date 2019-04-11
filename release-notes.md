@@ -13,7 +13,7 @@ title: Release Notes
 ### Bug Fixes / Enhancements
 
 - Compound.Split
-  - Improved learning of quoted strings. [Todo]
+  - Improved learning of quoted strings.
 
 ## Release 6.17.0 -- 2019/03/15
 
