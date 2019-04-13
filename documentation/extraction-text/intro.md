@@ -40,13 +40,13 @@ For instance, given this example that contains a subsequence of the intended seq
 
 |        Input      | Example output |
 |:------------------|:---------------|
-| United States<br/> &nbsp;`Carrie` Dodson 100<br/> &nbsp;`Leonard` Robledo 75<br/>&nbsp;Margaret Cook 320<br/>Canada<br/> &nbsp;Concetta Beck 350<br/> &nbsp;Nicholas Sayers 90<br/> &nbsp;Francis Terrill 2430<br/> Great Britain<br/> &nbsp;Nettie Pope 50<br/> &nbsp;Mack Beeson 1070 | `Carrie`<br/> `Leonard` |
+| United States<br/> &nbsp;`Carrie` Dodson 100<br/> &nbsp;`Leonard` Robledo 75<br/>&nbsp;Margaret Cook 320<br/>Canada<br/> &nbsp;Concetta Beck 350<br/> &nbsp;Nicholas Sayers 90<br/> &nbsp;Francis Terrill 2430<br/> United Kingdom<br/> &nbsp;Nettie Pope 50<br/> &nbsp;Mack Beeson 1070 | `Carrie`<br/> `Leonard` |
 
 **Extraction.Text.Sequence** generates a program to extract the sequence of all first names:
 
 |        Input      | Program output |
 |:------------------|:---------------|
-| United States<br/> &nbsp;`Carrie` Dodson 100<br/> &nbsp;`Leonard` Robledo 75<br/> &nbsp;`Margaret` Cook 320<br/>Canada<br/> &nbsp;`Concetta` Beck 350<br/> &nbsp;`Nicholas` Sayers 90<br/> &nbsp;`Francis` Terrill 2430<br/>Great Britain<br/> &nbsp;`Nettie` Pope 50<br/> &nbsp;`Mack` Beeson 1070 | `Carrie`<br/> `Leonard`<br/> `Margaret`<br/>`Concetta` <br/>`Nicholas` <br/>`Francis` <br/>`Nettie` <br/>`Mack` |
+| United States<br/> &nbsp;`Carrie` Dodson 100<br/> &nbsp;`Leonard` Robledo 75<br/> &nbsp;`Margaret` Cook 320<br/>Canada<br/> &nbsp;`Concetta` Beck 350<br/> &nbsp;`Nicholas` Sayers 90<br/> &nbsp;`Francis` Terrill 2430<br/>United Kingdom<br/> &nbsp;`Nettie` Pope 50<br/> &nbsp;`Mack` Beeson 1070 | `Carrie`<br/> `Leonard`<br/> `Margaret`<br/>`Concetta` <br/>`Nicholas` <br/>`Francis` <br/>`Nettie` <br/>`Mack` |
 
 
 ## Applications

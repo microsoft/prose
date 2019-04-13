@@ -246,7 +246,7 @@ An `SequenceExample` is a pair of an input `StringRegion` and its corresponding 
 var input = SequenceSession.CreateStringRegion(
     "United States\n Carrie Dodson 100\n Leonard Robledo 75\n Margaret Cook 320\n" +
     "Canada\n Concetta Beck 350\n Nicholas Sayers 90\n Francis Terrill 2430\n" +
-    "Great Britain\n Nettie Pope 50\n Mack Beeson 1070");
+    "United Kingdom\n Nettie Pope 50\n Mack Beeson 1070");
 // Suppose we want to extract all last names from the input string.
 var sequenceExample = new SequenceExample(
                         input,  // input
@@ -283,7 +283,7 @@ var session = new SequenceSession();
 var input = SequenceSession.CreateStringRegion(
     "United States\n Carrie Dodson 100\n Leonard Robledo 75\n Margaret Cook 320\n" +
     "Canada\n Concetta Beck 350\n Nicholas Sayers 90\n Francis Terrill 2430\n" +
-    "Great Britain\n Nettie Pope 50\n Mack Beeson 1070");
+    "United Kingdom\n Nettie Pope 50\n Mack Beeson 1070");
     
 // Suppose we want to extract all last names from the input string.
 session.Constraints.Add(
