@@ -3,6 +3,18 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 6.18.0 -- 2019/04/11
+
+### New Features
+
+- Extraction.Web
+  - Inner text excludes script/style tag contents.
+
+### Bug Fixes / Enhancements
+
+- Compound.Split
+  - Improved learning of quoted strings.
+
 ## Release 6.17.0 -- 2019/03/15
 
 ### New Features
