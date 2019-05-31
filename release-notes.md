@@ -3,6 +3,24 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 6.20.0 -- 2019/05/29
+
+### New Features
+
+- Data.Diff is a new package for computing differences in data distributions -- currently supports the 1D numerical case and the simplest categorical case.
+
+### Bug Fixes / Enhancements
+
+- Compound.Split
+  - Added performance optimizations to learning.
+- Detection
+  - Now depends on the ExcelDataReader NuGet package.
+- Extraction.Web
+  - In predictive mode, include columns that are supersets of other columns when both granularities could make sense.
+  - When learning a new selector, prefer previously learned column selectors if they satisfy the global alignment even if the newly learned selectors also satisfy the examples for those columns.
+- Split.Text
+  - Added performance optimizations to learning.
+
 ## Release 6.18.0 -- 2019/04/11
 
 ### New Features
