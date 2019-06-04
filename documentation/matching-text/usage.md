@@ -3,16 +3,17 @@ date: 2018-05-23
 title: "Matching Text - Usage"
 ---
 
-The `Matching.Text` API is accessed through the
-[`Matching.Text.Session`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Matching_Text_Session.htm) class.
-The input strings are added using [`Session.Constraints.Add()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Wrangling_Session_Session_3_AddConstraints.htm).
-Once the inputs are added, calling [`Session.LearnPatterns()`](https://prose-docs.azurewebsites.net/html/M_Microsoft_ProgramSynthesis_Matching_Text_Session_LearnPatterns.htm) returns a list of [`PatternInfo`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Matching_Text_PatternInfo.htm) objects that describe each pattern.
+The `Matching.Text` API is accessed through the `Matching.Text.Session` class. The input strings are added using
+`Session.Constraints.Add()`. Once the inputs are added, calling `Session.LearnPatterns()` returns a list of
+`PatternInfo` objects that describe each pattern.
 
 Each `PatternInfo` object either has:
 1. The `IsNull` field set to true that indicates that the pattern matches only `null` strings, or
-2. The `IsNull` field set to false, and the strings that match the pattern are those that match the regular expression in the `Regex` field and do not match the regular expressions in the `RegexesToExclude` field.
+2. The `IsNull` field set to false, and the strings that match the pattern are those that match the regular expression
+   in the `Regex` field and do not match the regular expressions in the `RegexesToExclude` field.
 
-The other fields indicate the frequency of the pattern (`MatchingFraction`), a description in a PROSE specific format (`Description`), and a few examples of the input strings matched by the pattern (`Examples`).
+The other fields indicate the frequency of the pattern (`MatchingFraction`), a description in a PROSE specific format
+(`Description`), and a few examples of the input strings matched by the pattern (`Examples`).
 
 ## Basic usage
 
