@@ -908,8 +908,7 @@ fixes.
 
 ### New Features
 
-- Made more spec methods `protected internal` to enable third-party implementation of
-  [`Spec`](https://prose-docs.azurewebsites.net/html/T_Microsoft_ProgramSynthesis_Specifications_Spec.htm) subclasses.
+- Made more spec methods `protected internal` to enable third-party implementation of `Spec` subclasses.
 - Added new documentation and samples to facilitate third-party DSL development. Fixes
   [\#10](https://github.com/Microsoft/prose/issues/10).
 - More flexibility in time ranges in `Transformation.Text`.
