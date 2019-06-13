@@ -365,6 +365,12 @@ a.reversefootnote {
     border-top: 1px solid #444;
 }
 
+@media (max-width: 1170px) {
+    #menu:not(.active) a {
+        display: none;
+    }
+}
+
 /* Team page */
 
 .about-row {
@@ -475,12 +481,12 @@ a.skip-main:focus, a.skip-main:active {
     top: auto;
     width: 20%;
     height: auto;
-    right: 0; 
-    overflow:auto;    
+    right: 0;
+    overflow:auto;
     padding:24px;
     position: fixed;
     border:4px dashed black;
-    text-align:center;    
+    text-align:center;
     text-decoration: underline;
     outline: none;
     z-index:999;
