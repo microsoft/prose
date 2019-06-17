@@ -1,0 +1,169 @@
+WEBVTT
+
+00:01.000 --> 00:05.000
+Hi everyone. I'm Titus Barik, a researcher in the PROSE team.
+
+00:06.000 --> 00:10.500
+In this demo, we'll look at how PROSE technology can enhance productivity 
+
+00:10.500 --> 00:17.000
+and offer users intelligent tool experiences through the use of programming by example.
+
+00:18.000 --> 00:23.000
+Along the way, we'll highlight these capabilities in PROSE through five examples,
+
+00:23.000 --> 00:25.000
+across diverse application domains,
+
+00:25.000 --> 00:28.000
+including data preparation, 
+
+00:28.000 --> 00:30.000
+code transformations in an IDE, 
+
+00:30.000 --> 00:31.500
+interacting with chatbots, 
+
+00:31.500 --> 00:35.000
+clustering in order to filter in spreadsheets, 
+
+00:35.000 --> 00:40.000
+and extracting tabular data from intricate data sources.
+
+00:41.000 --> 00:47.000
+Let's start with data preparation, a task commonly performed by data scientists to organize and analyze data.
+
+00:48.000 --> 00:56.000
+Consider a dataset that we've just imported, in which, instead of the raw temperature, we want to bracket temperatures between certain intervals.
+
+00:56.500 --> 01:06.000
+For example, we want to express the intent that the value 0.293 is within the interval between 0.290 and 0.295.
+
+01:07.000 --> 01:16.000
+Rather than writing a complex script, we use the derive column by example capability of PROSE and provide it a simple example.
+
+01:16.000 --> 01:22.000
+From this example, PROSE has learned the user's intent, and automatically completes the remaining rows.
+
+01:24.000 --> 01:27.500
+This may remind you of the FlashFill feature in Excel, 
+
+01:27.500 --> 01:31.000
+but since that time, we've made several significant improvements, 
+
+01:31.000 --> 01:36.000
+and added powerful new derivations that add superpowers to this capability.
+
+01:37.000 --> 01:44.000
+Cool. Let's now look at how PROSE can help us accelerate our coding experiences in the IDE. 
+
+01:45.000 --> 01:54.000
+In this example, the developer has inserted a SQL query that uses different conventions for naming a column, or aliasing, than the one they prefer.
+
+01:55.000 --> 01:59.000
+For example, consider the alias ExpectedShipDate.
+
+02:00.000 --> 02:07.000
+Here, the column aliasing is performed using equals, but the developer wants to use "as" instead.
+
+02:10.000 --> 02:18.000
+Fortunately, the developer has installed the PROSE extension in their IDE and can leverage SQL transformation tools.
+
+02:19.000 --> 02:27.000
+The developer needs to give only a single example of the SQL transformation that they want to perform, and then let PROSE take care of the rest.
+
+02:35.000 --> 02:36.000
+We're all set.
+
+02:36.000 --> 02:44.000
+PROSE interprets the developer's intentions, and correctly transforms all of the column aliases from "equals" to "as".
+
+02:45.000 --> 02:52.000
+In addition, PROSE has inferred that the developer wants to remove brackets from column references, when it's possible to do so.
+
+02:55.000 --> 03:00.000
+Chatbots are emerging as an experience for users to interact with their systems. 
+
+03:00.000 --> 03:02.000
+How can PROSE help with this?
+
+03:03.000 --> 03:08.000
+In this example, the developer wants to avoid writing code to transform a string. 
+
+03:08.000 --> 03:12.000
+Instead, they want to give an example to a chatbot. 
+
+03:14.000 --> 03:23.000
+The developer specifies their name in the form of first name and last name as input, with the output format of last name, comma, first initial. 
+
+03:25.000 --> 03:33.000
+Sure enough, the chatbot uses PROSE to generate lots of different programs and figures out which program would best fit the example. 
+
+03:33.000 --> 03:34.500
+Here we've emitted pseudocode,
+
+03:34.500 --> 03:38.000
+but we could have just as easily emitted Python or Java.
+
+03:38.000 --> 03:42.000
+Of course, PROSE isn't just for professional scientists and engineers, 
+
+03:42.000 --> 03:48.000
+so let's look at how PROSE can help everyday users, for example, with spreadsheets.
+
+03:49.000 --> 03:53.000
+In this example, a user has just obtained some data about people and their lifespans.
+
+03:54.000 --> 04:00.000
+They reasonably attempt to use the existing filter capability to understand what type of data is in this column.
+
+04:01.000 --> 04:09.000
+Unfortunately, although they can see that not all data is in the same format, it's difficult to get a sense of how that data varies.
+
+04:10.000 --> 04:19.000
+Let's extend this capability with PROSE by giving the column as an example to column clustering and augmenting the filter feature in Excel.
+
+04:20.000 --> 04:25.000
+Wow! Instead of simply listing all of the distinct values, 
+
+04:25.000 --> 04:32.000
+the filter capability now clearly shows the user that there are three clusters of date formats within this column.
+
+04:33.000 --> 04:41.000
+To drill into the data, the user then chooses to filter on the first cluster, which specifies the year of birth and death.
+
+04:41.000 --> 04:45.000
+Great job, PROSE! Looks like it worked.
+
+04:45.000 --> 04:48.000
+PROSE isn't just limited to text. 
+
+04:48.000 --> 04:54.000
+It can take as examples a variety of input formats, including image data and PDFs.
+
+04:54.000 --> 04:58.000
+Let's look at how, through a table extraction problem.
+
+04:58.000 --> 05:03.000
+In this example, the user has a PDF document containing a table within it.
+
+05:03.000 --> 05:07.000
+But it's rendered as an image, ugh!
+
+05:07.000 --> 05:16.000
+Fortunately, PROSE supports a variety of sophisticated algorithms, including OCR, to process these types of files seamlessly.
+
+05:16.000 --> 05:23.000
+In this case, the user simply performs a drag-and-drop operation to capture the bounds of the table.
+
+05:23.000 --> 05:32.000
+Without asking the user for additional examples, PROSE uses a technology called predictive synthesis to extract the table. 
+
+05:32.000 --> 05:34.000
+Super useful.
+
+05:34.000 --> 05:44.000
+In short, by adopting PROSE, developers can quickly surface intelligent capabilities into their own products, across a variety of application domains.
+
+05:44.000 --> 05:47.000
+Thanks for watching.
