@@ -35,7 +35,7 @@
             {% unless page.url contains "/documentation/prose/tutorial" %}{% include menu-active.liquid.html url="/documentation/prose" %}{% endunless %}
         {% endcapture %}
         <li class="pure-menu-item pure-menu-has-children {{ prose_selected }}">
-            <a href="#" class="pure-menu-link">PROSE Framework</a>
+            <a href="#" class="pure-menu-link" aria-haspopup="true">PROSE Framework</a>
             <ul class="pure-menu-children">
                 {% include menu-item.liquid.html url="/documentation/prose/syntax" %}
                 {% include menu-item.liquid.html url="/documentation/prose/backpropagation" %}
@@ -46,7 +46,7 @@
         </li>
 
         <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/extraction-text" %}">
-            <a href="#" class="pure-menu-link">Text Extraction</a>
+            <a href="#" class="pure-menu-link" aria-haspopup="true">Text Extraction</a>
             <ul class="pure-menu-children">
                 {% include menu-item.liquid.html url="/documentation/extraction-text/intro" title="Introduction" %}
                 {% include menu-item.liquid.html url="/documentation/extraction-text/usage" title="Usage" %}
@@ -54,7 +54,7 @@
         </li>
 
         <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/extraction-json" %}">
-            <a href="#" class="pure-menu-link">Json Extraction</a>
+            <a href="#" class="pure-menu-link" aria-haspopup="true">Json Extraction</a>
             <ul class="pure-menu-children">
                 {% include menu-item.liquid.html url="/documentation/extraction-json/intro" title="Introduction" %}
                 {% include menu-item.liquid.html url="/documentation/extraction-json/usage" title="Usage" %}
@@ -62,7 +62,7 @@
         </li>
 
         <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/split-text" %}">
-            <a href="#" class="pure-menu-link">Text Splitting</a>
+            <a href="#" class="pure-menu-link" aria-haspopup="true">Text Splitting</a>
             <ul class="pure-menu-children">
                 {% include menu-item.liquid.html url="/documentation/split-text/intro" title="Introduction" %}
                 {% include menu-item.liquid.html url="/documentation/split-text/usage" title="Usage" %}
@@ -70,7 +70,7 @@
         </li>
 
         <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/transformation-text" %}">
-            <a href="#" class="pure-menu-link">Text Transformation</a>
+            <a href="#" class="pure-menu-link" aria-haspopup="true">Text Transformation</a>
             <ul class="pure-menu-children">
                 {% include menu-item.liquid.html url="/documentation/transformation-text/intro" title="Introduction" %}
                 {% include menu-item.liquid.html url="/documentation/transformation-text/usage" title="Usage" %}
@@ -78,7 +78,7 @@
         </li>
 
         <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/matching-text" %}">
-            <a href="#" class="pure-menu-link">Matching Text</a>
+            <a href="#" class="pure-menu-link" aria-haspopup="true">Matching Text</a>
             <ul class="pure-menu-children">
                 {% include menu-item.liquid.html url="/documentation/matching-text/intro" title="Introduction" %}
                 {% include menu-item.liquid.html url="/documentation/matching-text/usage" title="Usage" %}
@@ -86,7 +86,7 @@
         </li>
 
         <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/transformation-json" %}">
-            <a href="#" class="pure-menu-link">Json Transformation</a>
+            <a href="#" class="pure-menu-link" aria-haspopup="true">Json Transformation</a>
             <ul class="pure-menu-children">
                 {% include menu-item.liquid.html url="/documentation/transformation-json/intro" title="Introduction" %}
                 {% include menu-item.liquid.html url="/documentation/transformation-json/usage" title="Usage" %}
