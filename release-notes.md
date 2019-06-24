@@ -3,6 +3,17 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 6.20.1 -- 2019/06/24
+
+### Bug Fixes / Enhancements
+
+- Extraction.Web: 
+    - Remove dependence on href attributes in eWeb learning as this can cause overfitting.
+- Transformation.Tree:
+    - Remove on the fly synthesis.
+- Transformation.Text:
+    - Improved readability of translation of date time parsing programs.
+
 ## Release 6.20.0 -- 2019/05/29
 
 ### New Features
