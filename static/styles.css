@@ -1989,6 +1989,7 @@ a.reversefootnote {
 
 #layout {
     height: 100vh;
+    padding-left: 16em;
 }
 
 #footer {
@@ -2033,7 +2034,7 @@ a.reversefootnote {
     font-weight: 400;
     background: inherit;
     padding: 0.6em 0 0.6em 0.7em;
-    font-size: 1.4em;
+    font-size: 1.2em;
     color: #eeeeee;
 }
 
@@ -2050,6 +2051,7 @@ a.reversefootnote {
     font-size: larger;
     overflow-y: auto;
     overflow-x: hidden;
+    width: 16em;
 }
 
 .menu-item-disabled {
@@ -2094,6 +2096,10 @@ a.reversefootnote {
 @media (max-width: 1170px) {
     #menu:not(.active) a {
         display: none;
+    }
+
+    #menu:not(.active) {
+        left: -16em;
     }
 }
 

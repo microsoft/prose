@@ -1,4 +1,5 @@
 {% capture class_selected %}{% if page.path == "index.liquid.html" %} pure-menu-selected {% else %}{% endif %}{% endcapture %}
+
 <a class="pure-menu-heading {{ class_selected }}" href="{{ site.baseurl }}/">
     <i class="fa fa-bolt" aria-hidden="true"></i> PROSE SDK
 </a>
@@ -8,96 +9,66 @@
     {% include menu-item.liquid.html url="/faq" %}
 </ul>
 
-<section aria-labelledby="demos">
-    <span id="demos" class="pure-menu-heading">Demos</span>
+<ul class="pure-menu-list" aria-labelledby="demos">
+    <li id="demos" class="pure-menu-heading">Demos</li>
+    {% include menu-item.liquid.html absolute=true url="https://prose-splittext.azurewebsites.net" title="Text Splitting" %}
+</ul>
 
-    <ul class="pure-menu-list">
-        {% include menu-item.liquid.html absolute=true url="https://prose-splittext.azurewebsites.net" title="Text Splitting" %}
-    </ul>
-</section>
+<ul class="pure-menu-list" aria-labelledby="videos">
+    <li id="videos" class="pure-menu-heading">Videos</li>
+    {% include menu-item.liquid.html absolute=true url="https://databricks.com/session/programming-by-examples" title="Overview" %}
+    {% include menu-item.liquid.html url="/demo/prose-showcase" title="PROSE Showcase" %}
+    {% include menu-item.liquid.html absolute=true url="https://www.youtube.com/watch?v=w-k9WjRJvIY" title="Flash Fill/Extract" %}
+    {% include menu-item.liquid.html absolute=true url="https://www.youtube.com/watch?v=XWRsxy8SbzY" title="Data Wrangling" %}
+</ul>
 
-<section aria-labelledby="videos">
-    <span id="videos" class="pure-menu-heading">Videos</span>
+<ul class="pure-menu-list" aria-labelledby="proseFramework">
+    <li id="proseFramework" class="pure-menu-heading">Prose Framework</li>
+    {% include menu-item.liquid.html url="/documentation/prose/syntax" %}
+    {% include menu-item.liquid.html url="/documentation/prose/backpropagation" %}
+    {% include menu-item.liquid.html url="/documentation/prose/concepts" %}
+    {% include menu-item.liquid.html url="/documentation/prose/usage" %}
+    {% include menu-item.liquid.html url="/documentation/prose/interactivity" %}
+</ul>
 
-    <ul class="pure-menu-list">
-        {% include menu-item.liquid.html absolute=true url="https://databricks.com/session/programming-by-examples" title="Overview" %}
-        {% include menu-item.liquid.html url="/demo/prose-showcase" title="PROSE Showcase" %}
-        {% include menu-item.liquid.html absolute=true url="https://www.youtube.com/watch?v=w-k9WjRJvIY" title="Flash Fill/Extract" %}
-        {% include menu-item.liquid.html absolute=true url="https://www.youtube.com/watch?v=XWRsxy8SbzY" title="Data Wrangling" %}
-    </ul>
-</section>
+<ul class="pure-menu-list" aria-labelledby="textExtraction">
+    <li id="textExtraction" class="pure-menu-heading">Text Extraction</li>
+    {% include menu-item.liquid.html url="/documentation/extraction-text/intro" title="Introduction" %}
+    {% include menu-item.liquid.html url="/documentation/extraction-text/usage" title="Usage" %}
+</ul>
 
-<section aria-labelledby="documentation">
-    <span id="documentation" class="pure-menu-heading">Documentation</span>
+<ul class="pure-menu-list" aria-labelledby="textSplitting">
+    <li id="textSplitting" class="pure-menu-heading">Text Splitting</li>
+    {% include menu-item.liquid.html url="/documentation/split-text/intro" title="Introduction" %}
+    {% include menu-item.liquid.html url="/documentation/split-text/usage" title="Usage" %}
+</ul>
 
-    <ul class="pure-menu-list">
-        {% capture prose_selected %}
-            {% unless page.url contains "/documentation/prose/tutorial" %}{% include menu-active.liquid.html url="/documentation/prose" %}{% endunless %}
-        {% endcapture %}
-        <li class="pure-menu-item pure-menu-has-children {{ prose_selected }}">
-            <a href="#" id="proseFramework" class="pure-menu-link" aria-haspopup="true">PROSE Framework</a>
-            <ul class="pure-menu-children">
-                {% include menu-item.liquid.html url="/documentation/prose/syntax" %}
-                {% include menu-item.liquid.html url="/documentation/prose/backpropagation" %}
-                {% include menu-item.liquid.html url="/documentation/prose/concepts" %}
-                {% include menu-item.liquid.html url="/documentation/prose/usage" divided=true %}
-                {% include menu-item.liquid.html url="/documentation/prose/interactivity" divided=true %}
-            </ul>
-        </li>
+<ul class="pure-menu-list" aria-labelledby="textTransformation">
+    <li id="textTransformation" class="pure-menu-heading">Text Transformation</li>
+    {% include menu-item.liquid.html url="/documentation/transformation-text/intro" title="Introduction" %}
+    {% include menu-item.liquid.html url="/documentation/transformation-text/usage" title="Usage" %}
+</ul>
 
-        <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/extraction-text" %}">
-            <a href="#" id="textExtraction" class="pure-menu-link" aria-haspopup="true">Text Extraction</a>
-            <ul class="pure-menu-children">
-                {% include menu-item.liquid.html url="/documentation/extraction-text/intro" title="Introduction" %}
-                {% include menu-item.liquid.html url="/documentation/extraction-text/usage" title="Usage" %}
-            </ul>
-        </li>
+<ul class="pure-menu-list" aria-labelledby="matchingText">
+    <li id="matchingText" class="pure-menu-heading">Matching Text</li>
+    {% include menu-item.liquid.html url="/documentation/matching-text/intro" title="Introduction" %}
+    {% include menu-item.liquid.html url="/documentation/matching-text/usage" title="Usage" %}
+</ul>
 
-        <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/split-text" %}">
-            <a href="#" id="textSplitting" class="pure-menu-link" aria-haspopup="true">Text Splitting</a>
-            <ul class="pure-menu-children">
-                {% include menu-item.liquid.html url="/documentation/split-text/intro" title="Introduction" %}
-                {% include menu-item.liquid.html url="/documentation/split-text/usage" title="Usage" %}
-            </ul>
-        </li>
+<ul class="pure-menu-list" aria-labelledby="jsonExtraction">
+    <li id="jsonExtraction" class="pure-menu-heading">Json Extraction</li>
+    {% include menu-item.liquid.html url="/documentation/extraction-json/intro" title="Introduction" %}
+    {% include menu-item.liquid.html url="/documentation/extraction-json/usage" title="Usage" %}
+</ul>
 
-        <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/transformation-text" %}">
-            <a href="#" id="textTransformation" class="pure-menu-link" aria-haspopup="true">Text Transformation</a>
-            <ul class="pure-menu-children">
-                {% include menu-item.liquid.html url="/documentation/transformation-text/intro" title="Introduction" %}
-                {% include menu-item.liquid.html url="/documentation/transformation-text/usage" title="Usage" %}
-            </ul>
-        </li>
-
-        <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/matching-text" %}">
-            <a href="#" id="matchingText" class="pure-menu-link" aria-haspopup="true">Matching Text</a>
-            <ul class="pure-menu-children">
-                {% include menu-item.liquid.html url="/documentation/matching-text/intro" title="Introduction" %}
-                {% include menu-item.liquid.html url="/documentation/matching-text/usage" title="Usage" %}
-            </ul>
-        </li>
-
-        <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/extraction-json" %}">
-            <a href="#" id="jsonExtraction" class="pure-menu-link" aria-haspopup="true">Json Extraction</a>
-            <ul class="pure-menu-children">
-                {% include menu-item.liquid.html url="/documentation/extraction-json/intro" title="Introduction" %}
-                {% include menu-item.liquid.html url="/documentation/extraction-json/usage" title="Usage" %}
-            </ul>
-        </li>
-
-        <li class="pure-menu-item pure-menu-has-children {% include menu-active.liquid.html url="/documentation/transformation-json" %}">
-            <a href="#" id="jsonTransformation" class="pure-menu-link" aria-haspopup="true">Json Transformation</a>
-            <ul class="pure-menu-children">
-                {% include menu-item.liquid.html url="/documentation/transformation-json/intro" title="Introduction" %}
-                {% include menu-item.liquid.html url="/documentation/transformation-json/usage" title="Usage" %}
-            </ul>
-        </li>
-
-        {% include menu-item.liquid.html url="https://github.com/Microsoft/prose" title="Samples" absolute=true %}
-    </ul>
-</section>
+<ul class="pure-menu-list" aria-labelledby="jsonTransformation">
+    <li id="jsonTransformation" class="pure-menu-heading">Json Transformation</li>
+    {% include menu-item.liquid.html url="/documentation/transformation-json/intro" title="Introduction" %}
+    {% include menu-item.liquid.html url="/documentation/transformation-json/usage" title="Usage" %}
+</ul>
 
 <ul class="pure-menu-list">
+    {% include menu-item.liquid.html url="https://github.com/Microsoft/prose" title="Samples" absolute=true %}
     {% include menu-item.liquid.html url="/resources" %}
 	{% include menu-item.liquid.html url="/impact" %}
     {% include menu-item.liquid.html url="/team" %}

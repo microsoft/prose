@@ -3,15 +3,15 @@
 {% capture class_selected %}{% include menu-selected.liquid.html url=include.url %}{% endcapture %}
 {% capture url %}{% if include.absolute %}{{ include.url }}{% else %}{{ site.baseurl }}{{ include.url }}{% endif %}{% endcapture %}
 
-<li class="pure-menu-item {{ class_disabled }} {{ class_divided }} {{ class_selected }}">
+<li class="pure-menu-item {{ class_disabled }} {{ class_divided }} {{ class_selected }}" role="presentation">
     {% if include.disabled %}
         {{ include.title }}
     {% else %}
         {% if include.title %}
-    <a class="pure-menu-link" href="{{ url }}/">{{ include.title }}</a>
+    <a class="pure-menu-link" href="{{ url }}/" role="menuitem">{{ include.title }}</a>
         {% else %}
             {% assign current_page = site.pages | where_exp: "item", "item.url contains include.url" | first %}
-    <a class="pure-menu-link" href="{{ url }}/">{{ current_page.title }}</a>
+    <a class="pure-menu-link" href="{{ url }}/" role="menuitem">{{ current_page.title }}</a>
         {% endif %}
     {% endif %}
 </li>
