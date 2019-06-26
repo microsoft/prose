@@ -242,4 +242,8 @@ small screens.
         position: relative;
         left: 16em;
     }
+
+    #menu:not(.active) a {
+        display: none;
+    }
 }
