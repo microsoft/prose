@@ -263,7 +263,6 @@ a.reversefootnote {
 
 #layout {
     height: 100vh;
-    padding-left: 16em;
 }
 
 #footer {
@@ -325,7 +324,6 @@ a.reversefootnote {
     font-size: larger;
     overflow-y: auto;
     overflow-x: hidden;
-    width: 16em;
 }
 
 .menu-item-disabled {
@@ -365,16 +363,6 @@ a.reversefootnote {
 
 #menu .pure-menu ul, #menu .pure-menu .menu-item-divided {
     border-top: 1px solid #444;
-}
-
-@media (max-width: 1170px) {
-    #menu:not(.active) a {
-        display: none;
-    }
-
-    #menu:not(.active) {
-        left: -16em;
-    }
 }
 
 /* Team page */
