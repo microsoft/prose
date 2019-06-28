@@ -29,20 +29,21 @@ This is the parent `<div>` that contains the menu and the content area.
     padding-left: 0;
 }
     #layout.active #menu {
-        left: 12em;
-        width: 12em;
+        left: 16em;
+        width: 16em;
     }
 
     #layout.active .menu-link {
-        left: 12em;
+        left: 16em;
     }
 /*
 The content `<div>` is where all your content goes.
 */
 .content {
+    margin: 0 auto;
     padding: 0 2em;
-    max-width: 60rem;
-    margin: 0 auto 50px;
+    max-width: 800px;
+    margin-bottom: 50px;
     line-height: 1.6em;
 }
 
@@ -79,15 +80,15 @@ appears on the left side of the page.
 */
 
 #menu {
-    margin-left: -12em; /* "#menu" width */
-    width: 12em;
+    margin-left: -16em; /* "#menu" width */
+    width: 16em;
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     z-index: 1000; /* so the menu or its navicon stays above all content */
     background: #191818;
-    overflow: auto;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
     /*
@@ -128,7 +129,7 @@ appears on the left side of the page.
     */
     #menu .pure-menu-selected,
     #menu .pure-menu-heading {
-        background: #0067b8;
+        background: #1f8dd6;
     }
         /*
         This styles a link within a selected menu item `<li>`.
@@ -203,10 +204,7 @@ small screens.
 
 /* -- Responsive Styles (Media Queries) ------------------------------------- */
 
-/*
-Hides the menu at `1170px`, but modify this based on your app's needs.
-*/
-@media (min-width: 1170px) {
+@media (min-width: 72em) {
 
     .header,
     .content {
@@ -215,25 +213,25 @@ Hides the menu at `1170px`, but modify this based on your app's needs.
     }
 
     #layout {
-        padding-left: 12em; /* left col width "#menu" */
+        padding-left: 16em; /* left col width "#menu" */
         left: 0;
     }
     #menu {
-        left: 12em;
+        left: 16em;
     }
 
     .menu-link {
         position: fixed;
-        left: 12em;
+        left: 16em;
         display: none;
     }
 
     #layout.active .menu-link {
-        left: 12em;
+        left: 16em;
     }
 }
 
-@media (max-width: 1170px) {
+@media (max-width: 72em) {
     /* Only apply this when the window is small. Otherwise, the following
     case results in extra padding on the left:
         * Make the window small.
@@ -242,6 +240,10 @@ Hides the menu at `1170px`, but modify this based on your app's needs.
     */
     #layout.active {
         position: relative;
-        left: 12em;
+        left: 16em;
+    }
+
+    #menu:not(.active) a {
+        display: none;
     }
 }

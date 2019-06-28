@@ -96,8 +96,8 @@ function defer(method: () => void) {
 defer(function () {
     $(() => {
         setupPrism();
-        setupTables();        
-        setupPopups();        
+        setupTables();
+        setupPopups();
     });
 });
 

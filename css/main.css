@@ -307,7 +307,7 @@ a.reversefootnote {
     font-weight: 400;
     background: inherit;
     padding: 0.6em 0 0.6em 0.7em;
-    font-size: 1.4em;
+    font-size: 1.2em;
     color: #eeeeee;
 }
 
@@ -363,12 +363,6 @@ a.reversefootnote {
 
 #menu .pure-menu ul, #menu .pure-menu .menu-item-divided {
     border-top: 1px solid #444;
-}
-
-@media (max-width: 1170px) {
-    #menu:not(.active) a {
-        display: none;
-    }
 }
 
 /* Team page */
