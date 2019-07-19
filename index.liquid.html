@@ -1,26 +1,28 @@
 ---
 permalink: index.html
 ---
-<h1 class="center bold title my1">Microsoft <span class="title-blue">Pro</span>gram <span class="title-blue">S</span>ynthesis
+<h1 class="center bold title my1 mx0 px0">Microsoft <span class="title-blue">Pro</span>gram <span class="title-blue">S</span>ynthesis
     using
     <span class="title-blue">E</span>xamples SDK</h1>
 
 <h2 class="center subtitle">A framework for automatic programming or data wrangling from input-output examples.</h2>
 
-<div class="pure-g py0">
-    <div class="pure-u-5-24 h3">
+<div class="pure-g py1">
+    <div class="center pure-u-12-24 h3">
         Latest version: <strong>6.20.1</strong>
     </div>
-    <div class="center pure-u-5-24 h3">
+    <div class="center pure-u-12-24 h3">
         <a href="{{ site.baseurl }}/release-notes"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Release notes</a>
     </div>
-    <div class="center pure-u-5-24 h3">
+</div>
+<div class="pure-g py0">
+    <div class="pure-u-8-24 h3">
         <a href="https://www.nuget.org/packages/Microsoft.ProgramSynthesis/"><i class="fa fa-cube" aria-hidden="true"></i> NuGet package</a>
     </div>
-    <div class="center pure-u-6-24 h3">
+    <div class="center pure-u-8-24 h3">
         <a href="https://www.npmjs.com/package/generator-prose"><i class="fa fa-magic" aria-hidden="true"></i> Yeoman generator</a>
     </div>
-    <div class="right-align pure-u-3-24 h3">
+    <div class="right-align pure-u-8-24 h3">
         <a href="https://github.com/Microsoft/prose/"><i class="fa fa-github" aria-hidden="true"></i> Samples</a>
     </div>
 </div>
@@ -28,14 +30,14 @@ permalink: index.html
 
 <div class="pure-g pb1">
     <div class="pure-u-1 pure-u-md-9-24">
-        <h2 class="mt0 center">Program Synthesis Framework</h2>
+        <h2 class="mt0 center">Program Synthesis SDK</h2>
         <div>
             <p>
                 Microsoft PROSE SDK is a framework of technologies for <em>programming by examples</em>:
-                automatic generation of programs from input-output examples at runtime.
+                automatic generation of programs from input-output examples.
             </p>
             <p>
-                Given a domain-specific language (DSL) and some input-output examples for the desired program’s behavior,
+                Given a domain-specific language (DSL) and input-output examples for the desired program’s behavior,
                 PROSE synthesizes a ranked set of DSL programs that are consistent with the examples.
             </p>
         </div>
@@ -77,28 +79,26 @@ permalink: index.html
 <div class="pure-g my0">
     <div class="pure-u-3-24"></div>
     <div class="pure-u-18-24">
-        <div class="subtitle mt1 ml2 h3"><span class="semibold">1.</span> Install <a href="https://www.visualstudio.com/vs/">Visual
-                Studio</a> (<i class="fa fa-windows" aria-label="Windows"></i>),
+        <div class="subtitle my1 ml2 h3"><span class="semibold">1.</span> Install <a href="https://www.visualstudio.com/vs/">Visual
+                Studio</a> (<i class="fa fa-windows" aria-label="Windows"></i> <i class="fa fa-apple" aria-label="Mac"></i>) or
             <a href="https://code.visualstudio.com">Visual Studio Code</a>
-            (<i class="fa fa-linux" aria-label="Linux"></i>),
-            or <a href="https://www.visualstudio.com/vs/visual-studio-mac/">Visual Studio for Mac</a>
-            (<i class="fa fa-apple" aria-label="Mac"></i>).</div>
+            (<i class="fa fa-windows" aria-label="Windows"></i> <i class="fa fa-linux" aria-label="Linux"></i> <i class="fa fa-apple" aria-label="Mac"></i>).</div>
     </div>
 </div>
 <div class="pure-g mb2">
     <div class="pure-u-3-24 right"><div class="title bold my2 mx3 flip-vertical h1">&#10549;</div></div>
     <div class="pure-u-18-24">
         <div class="subtitle mt0 ml2 h3"><span class="semibold">2.</span>
-            Ensure that either <a href="https://www.microsoft.com/net/download/framework">.NET Framework</a>
-            or <a href="https://www.microsoft.com/net/core">.NET Core</a> is available on your machine.
+            Install <a href="https://www.microsoft.com/net/download/framework">.NET Framework</a>
+            or <a href="https://www.microsoft.com/net/core">.NET Core</a>.
         </div>
     </div>
     <div class="pure-u-3-24 left"><div class="title bold my2 mx1 h1">&#10549;</div></div>
 </div>
 <div class="pure-g my0 flex items-bottom">
-    <div class="pure-u-10-24">
+    <div class="pure-u-9-24">
         <div class="center subtitle my0 h3">
-            <span class="semibold">3a.</span> Generate a new DSL project via <a href="http://yeoman.io/">Yeoman</a>.
+            <span class="semibold">3a.</span> Generate a new DSL project.
         </div>
         <div class="my0 ml3 h4">(requires <a href="https://nodejs.org/">Node.js</a>)</div>
         <pre class="highlight command-line">
@@ -111,10 +111,10 @@ yo prose
         </pre>
     </div>
     <div class="pure-u-2-24 force-flex items-center justify-center"><div class="h3">or</div></div>
-    <div class="pure-u-12-24">
+    <div class="pure-u-13-24">
         <div class="center subtitle mt0 h3">
-            <span class="semibold">3b.</span> Build on top of the DSLs in our <a
-                href="https://www.nuget.org/packages/Microsoft.ProgramSynthesis/">NuGet package</a>.
+            <span class="semibold">3b.</span> Build on top of our DSLs on <a
+                href="https://www.nuget.org/packages/Microsoft.ProgramSynthesis/">NuGet</a>.
         </div>
         <pre class="highlight command-line" data-prompt="PM&gt;">
             <code class="language-powershell">
