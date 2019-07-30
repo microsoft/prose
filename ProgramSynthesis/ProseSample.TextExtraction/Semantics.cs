@@ -3,7 +3,7 @@ using Microsoft.ProgramSynthesis.DslLibrary;
 
 namespace ProseSample.TextExtraction
 {
-    using ETextSemantics = Microsoft.ProgramSynthesis.Extraction.Text.Semantics.Semantics;
+    using ETextSemantics = Microsoft.ProgramSynthesis.Extraction.Text.Deprecated.Semantics.Semantics;
 
     public static class Semantics
     {

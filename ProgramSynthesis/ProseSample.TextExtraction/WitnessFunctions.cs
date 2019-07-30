@@ -5,7 +5,7 @@ using Microsoft.ProgramSynthesis.DslLibrary;
 using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Rules;
 using Microsoft.ProgramSynthesis.Specifications;
-using static Microsoft.ProgramSynthesis.Extraction.Text.Semantics.Semantics;
+using static Microsoft.ProgramSynthesis.Extraction.Text.Deprecated.Semantics.Semantics;
 
 namespace ProseSample.TextExtraction
 {

@@ -8,7 +8,7 @@ using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.AST;
 using Microsoft.ProgramSynthesis.Compiler;
 using Microsoft.ProgramSynthesis.DslLibrary;
-using Microsoft.ProgramSynthesis.Extraction.Text;
+using Microsoft.ProgramSynthesis.Extraction.Text.Deprecated;
 using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Learning.Logging;
 using Microsoft.ProgramSynthesis.Learning.Strategies;
