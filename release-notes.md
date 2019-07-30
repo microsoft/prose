@@ -3,6 +3,28 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 7.0.0 -- 2019/07/30
+- New Extraction.Text
+  - Existing implementation renamed to Extraction.Text.Deprecated, new implementation returns tables rather than hierarchical results and is designed to support readable translation to both M and Python.
+- Transformation.Text
+  - Improved python translation for datetime programs
+  - Added support for synthesis of programs that perform rounding on years
+- Compound.Split
+  - Added `ColumnNamesCleaning` parameter to `RunClean` methods, used to specify the way column names are cleaned.
+  - Changed delimiter learning so that learned delimiter can be overriden by specifying `DelimiterStrings` (with a single delimiter) together with `SimpleDelimiter` or `SimpleDelimiterOrFixedWidth` constraints.
+- Security fix:
+  - Java dependency (used only for PROSE programs translated to java) Jackson-databind updated to version 2.9.9.1
+- Detect.DataTypes
+  - Improved fail-fast performance.
+- Transformation.Tree
+  - Added method to pretty print programs
+- Matching.Text
+  - Python translations now include outlier examples in the comments
+- Split.Text
+  - Added `ProvidedQuotingConfigurations` to `Witnesses.Options`, which specifies quoting configurations used for learning.
+  - Changed learning so that it returns non-contextual single delimiter programs with `DelimiterStringsConstraints` and `SimpleDelimiter` or `SimpleDelimiterOrFixedWidth` constraints.
+
+
 ## Release 6.20.1 -- 2019/06/24
 
 ### Bug Fixes / Enhancements
