@@ -1573,7 +1573,7 @@ appears on the left side of the page.
     All anchors inside the menu should be styled like this.
     */
     #menu a {
-        color: #999;
+        color: #FFF;
         border: none;
         padding: 0.6em 0 0.6em 0.6em;
     }
@@ -1607,7 +1607,7 @@ appears on the left side of the page.
     */
     #menu .pure-menu-selected,
     #menu .pure-menu-heading {
-        background: #1f8dd6;
+        background: #0067b8;;
     }
         /*
         This styles a link within a selected menu item `<li>`.
