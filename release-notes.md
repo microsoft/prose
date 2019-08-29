@@ -3,6 +3,20 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 7.1.0 -- 2019/08/29
+
+- Transformation.Text
+  - Improved readability of generated Python code based on simplification of used regular expressions.
+  - Fixed an issue with Date/Time programs where the hour value is 24 (which technically isn't a valid time, but could be considered hour 0 of the next day).
+- Extraction.Json
+  - Generated code for pandas and PySpark is now a snippet instead of a function; hence, Get{Pandas,Pyspark}Code methods do not have functionName parameter any more.
+- Extraction.Text
+  - Implemented Python translation.
+  - Generated readable step names for Extraction.Text's PowerQuery M translation.
+  - Added encoding option for M code generation.
+  - Added learning exception.
+- Nuget packages now contain PDB files that match the assemblies.
+
 ## Release 7.0.0 -- 2019/07/30
 - New Extraction.Text
   - Existing implementation renamed to Extraction.Text.Deprecated, new implementation returns tables rather than hierarchical results and is designed to support readable translation to both M and Python.
