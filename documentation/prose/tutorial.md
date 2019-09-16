@@ -217,7 +217,7 @@ class WitnessFunctions : DomainLearningLogic
 {
     public WitnessFunctions(Grammar grammar) : base(grammar) { }  
   
-    [WitnessFunction("Substring", parameterIndex: 1)]
+    [WitnessFunction("Substring", 1)]
     DisjunctiveExamplesSpec WitnessPositionPair(GrammarRule rule, ExampleSpec spec)
     {
         var result = new Dictionary<State, IEnumerable<object>>();
