@@ -73,10 +73,11 @@ A rule learner has the following signature:
 
 ``` csharp
 [RuleLearner("OperatorName")]
-ProgramSet Learn(SynthesisEngine engine, GrammarRule rule, Spec spec, CancellationToken token);
+Optional<ProgramSet> Learn(SynthesisEngine engine, GrammarRule rule, LearningTask<Spec> task, CancellationToken token);
 ```
 
 You can make recursive calls to `engine.LearnSymbol` in your rule learner to solve deductive subproblems.
-The final result should be constructed as a `ProgramSet` out of such subproblem results.
+The final result should be constructed as a `Optional<ProgramSet>` out of such subproblem results.
+The learning task may have a more precise `Spec` type, for example `DisjunctiveExamplesSpec` or `ExampleSpec`.
 
 > **Note:** it is a good .NET practice to check on the given `CancellationToken` regularly and throw a `TaskCancelledException` when you detect a cancellation request.
