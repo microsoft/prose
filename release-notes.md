@@ -3,13 +3,19 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 7.3.0 -- 2019/09/23
+
+No substantial changes since the last public release.
+
 ## Release 7.1.0 -- 2019/08/29
 
 - Transformation.Text
   - Improved readability of generated Python code based on simplification of used regular expressions.
-  - Fixed an issue with Date/Time programs where the hour value is 24 (which technically isn't a valid time, but could be considered hour 0 of the next day).
+  - Fixed an issue with Date/Time programs where the hour value is 24 (which technically isn't a valid time, but could
+    be considered hour 0 of the next day).
 - Extraction.Json
-  - Generated code for pandas and PySpark is now a snippet instead of a function; hence, Get{Pandas,Pyspark}Code methods do not have functionName parameter any more.
+  - Generated code for pandas and PySpark is now a snippet instead of a function; hence, Get{Pandas,Pyspark}Code methods
+    do not have functionName parameter any more.
 - Extraction.Text
   - Implemented Python translation.
   - Generated readable step names for Extraction.Text's PowerQuery M translation.
@@ -19,13 +25,15 @@ title: Release Notes
 
 ## Release 7.0.0 -- 2019/07/30
 - New Extraction.Text
-  - Existing implementation renamed to Extraction.Text.Deprecated, new implementation returns tables rather than hierarchical results and is designed to support readable translation to both M and Python.
+  - Existing implementation renamed to Extraction.Text.Deprecated, new implementation returns tables rather than
+    hierarchical results and is designed to support readable translation to both M and Python.
 - Transformation.Text
   - Improved python translation for datetime programs
   - Added support for synthesis of programs that perform rounding on years
 - Compound.Split
   - Added `ColumnNamesCleaning` parameter to `RunClean` methods, used to specify the way column names are cleaned.
-  - Changed delimiter learning so that learned delimiter can be overriden by specifying `DelimiterStrings` (with a single delimiter) together with `SimpleDelimiter` or `SimpleDelimiterOrFixedWidth` constraints.
+  - Changed delimiter learning so that learned delimiter can be overriden by specifying `DelimiterStrings` (with a
+    single delimiter) together with `SimpleDelimiter` or `SimpleDelimiterOrFixedWidth` constraints.
 - Security fix:
   - Java dependency (used only for PROSE programs translated to java) Jackson-databind updated to version 2.9.9.1
 - Detect.DataTypes
@@ -35,8 +43,10 @@ title: Release Notes
 - Matching.Text
   - Python translations now include outlier examples in the comments
 - Split.Text
-  - Added `ProvidedQuotingConfigurations` to `Witnesses.Options`, which specifies quoting configurations used for learning.
-  - Changed learning so that it returns non-contextual single delimiter programs with `DelimiterStringsConstraints` and `SimpleDelimiter` or `SimpleDelimiterOrFixedWidth` constraints.
+  - Added `ProvidedQuotingConfigurations` to `Witnesses.Options`, which specifies quoting configurations used for
+    learning.
+  - Changed learning so that it returns non-contextual single delimiter programs with `DelimiterStringsConstraints` and
+    `SimpleDelimiter` or `SimpleDelimiterOrFixedWidth` constraints.
 
 
 ## Release 6.20.1 -- 2019/06/24
@@ -54,7 +64,8 @@ title: Release Notes
 
 ### New Features
 
-- Data.Diff is a new package for computing differences in data distributions -- currently supports the 1D numerical case and the simplest categorical case.
+- Data.Diff is a new package for computing differences in data distributions -- currently supports the 1D numerical case
+  and the simplest categorical case.
 
 ### Bug Fixes / Enhancements
 
@@ -64,7 +75,8 @@ title: Release Notes
   - Now depends on the ExcelDataReader NuGet package.
 - Extraction.Web
   - In predictive mode, include columns that are supersets of other columns when both granularities could make sense.
-  - When learning a new selector, prefer previously learned column selectors if they satisfy the global alignment even if the newly learned selectors also satisfy the examples for those columns.
+  - When learning a new selector, prefer previously learned column selectors if they satisfy the global alignment even
+    if the newly learned selectors also satisfy the examples for those columns.
 - Split.Text
   - Added performance optimizations to learning.
 
@@ -85,7 +97,8 @@ title: Release Notes
 ### New Features
 
 - Detection.DataType
-  - Implemented entity validators for e-mail addresses, IPv4 and IPv6 addresses, geographic coordinates (Lat/Lng), US zip codes, and US phone numbers.
+  - Implemented entity validators for e-mail addresses, IPv4 and IPv6 addresses, geographic coordinates (Lat/Lng), US
+    zip codes, and US phone numbers.
 
 ### Bug Fixes / Enhancements
 
@@ -110,7 +123,8 @@ title: Release Notes
 
 -	Along with .NET 4.5 and .NET core binaries, the nuget packages now include binaries for .NET 4.6.
 -	Extraction.Web
-    - Multicolumn task learning now falls back to predictive programs and ensures consistency with previous program constraints.
+    - Multicolumn task learning now falls back to predictive programs and ensures consistency with previous program
+      constraints.
     - Improved ranking of predictive tables by taking into account image nodes.
     - Exclude tables from result that are duplicate or sub-tables of other tables.
     - Ordering of table column and exclude duplication columns.
@@ -119,8 +133,10 @@ title: Release Notes
 - Matching.Text
     - Miscellaneous bug fixes.
 -	Transformation.Text
-    - Python readable translation now supports programs involving datetime parsing with formats that do not map directly to posix.
-    - Python readable translation better handles regex matching when tokens do not overlap and other simplification rules.
+    - Python readable translation now supports programs involving datetime parsing with formats that do not map directly
+      to posix.
+    - Python readable translation better handles regex matching when tokens do not overlap and other simplification
+      rules.
     - Python readable translation is less aggressive about inlining expressions making for much more readable code.
     - Improved performance of the interpreter.
 
@@ -134,11 +150,11 @@ title: Release Notes
 ### Bug Fixes / Enhancements
 
 - Extraction.Web
-    - Support providing predictively learned programs as a constraint to be passed into by-example learn calls to improve
-      performance and prevent needing to re-learn predicatively learned programs.
+    - Support providing predictively learned programs as a constraint to be passed into by-example learn calls to
+      improve performance and prevent needing to re-learn predicatively learned programs.
 - Transformation.Text
-    - Improved Python translator to support ToSimpleTitleCase, EndsWith conditions, further Datetime programs, regex pair matches
-      and number transformations.
+    - Improved Python translator to support ToSimpleTitleCase, EndsWith conditions, further Datetime programs, regex
+      pair matches and number transformations.
 
 ## Release 6.10.0 -- 2018/12/17
 
@@ -187,7 +203,8 @@ title: Release Notes
 ### Bug Fixes / Enhancements
 
 - Detection.DataType 
-    - Better handling of integer columns that look like categorical data, and handling of “NaN” values in string columns.
+    - Better handling of integer columns that look like categorical data, and handling of “NaN” values in string
+      columns.
     - Various bugfixes, including improving datatype detection, including non-separated dates (“20120513”) and numbers
       in parenthesis (“(45,345)”), and other improvements to parsing ambiguous date formats.
     - Enhancements to generated Python code for datatype detection.
@@ -588,8 +605,8 @@ title: Release Notes
   `AllowBackgroundComputations` member has been deleted.
   
 - Session constraints and inputs are now maintained in smart collections rather than having custom Add/Remove methods.
-    - For most consuming code the fix is just to replace calls to `session.AddConstraints` with `session.Constraints.Add`
-      and `session.AddInputs` with `session.Inputs.Add` 
+    - For most consuming code the fix is just to replace calls to `session.AddConstraints` with
+      `session.Constraints.Add` and `session.AddInputs` with `session.Inputs.Add` 
 - The Python and Java translators now all take an OptimizeFor parameter which does NOT have a default value.  Callers
   should specify a value of OptimizeFor.Performance or OptimizeFor.Readability (where readability means that the program
   synthesized should be as easy as possible for humans to read and understand even if that means some reduction in the
@@ -854,8 +871,9 @@ title: Release Notes
 
 ## Release 2.3.0 -- 2017/05/15
 
-*Note: We have had some reports of folks having trouble using the public nuget packages in VS2015 since the 2.0.0 release.
-We are aware of the issues and hope to have a fix soon.  In the meantime, the available packages should work in VS2017.*
+*Note: We have had some reports of folks having trouble using the public nuget packages in VS2015 since the 2.0.0
+release. We are aware of the issues and hope to have a fix soon.  In the meantime, the available packages should work in
+VS2017.*
 
 ### Bug fixes / Enhancements
 
@@ -865,14 +883,14 @@ We are aware of the issues and hope to have a fix soon.  In the meantime, the av
     - Transformation.Text learning performance is improved.      
     - Transformation.Text significant inputs performance is improved.
     - Transformation.Text date/time parsing (both during learning and dat runtime) performance is improved.
-- Fixed bugs in Split.Text related to inconsistent number of occurrences of delimiters (e.g. space delimiter in phrases of
-  different lengths).
-- When a delimiter is specified, Split.Text now ensures that the dominant format selected contains at least one delimiter
-  occurrence.
+- Fixed bugs in Split.Text related to inconsistent number of occurrences of delimiters (e.g. space delimiter in phrases
+  of different lengths).
+- When a delimiter is specified, Split.Text now ensures that the dominant format selected contains at least one
+  delimiter occurrence.
 - Extraction.Json programs now contain metadata information indicating if they extract an object, an array or an object
   which has only a single array property.
-- Fix for a bug when generating programs for MergeColumns constraints with no separators/constants specified if there was
-  a constant string at the end.
+- Fix for a bug when generating programs for MergeColumns constraints with no separators/constants specified if there
+  was a constant string at the end.
 
 ## Release 2.2.0 -- 2017/04/24
 
@@ -918,21 +936,21 @@ Minor bug fix release.
 ## Release 2.0.0 -- 2017/03/16
 
 We have bumped the major number this time around because this release includes a breaking change (and we are doing our
-best to conform to semantic versioning).  The change is to the way `dslc` compiles grammar files.  Previously it produced
-a .Net assembly.  Now it outputs c# source code which can be compiled into your main DSL assembly.  This not only
-reduces the number of assemblies required to deploy your solution but also allows us to generate helper methods for 
+best to conform to semantic versioning).  The change is to the way `dslc` compiles grammar files.  Previously it
+produced a .Net assembly.  Now it outputs c# source code which can be compiled into your main DSL assembly.  This not
+only reduces the number of assemblies required to deploy your solution but also allows us to generate helper methods for
 advanced scenarios involving manually creating program trees for a DSL.
 
 ### New Features
 
 - Grammar files may now have a `using grammar <grammarName> = <class>.<property>` statement to indicate that the grammar
   depends on another grammar.
-- Extraction.Json now supports learning programs from multiple input json documents.  This makes it possible to have a 
-  scenario like Split.Text where a column of data contains a different json document on each row, and you want to flatten
-  all of those json documents into a set of new columns extracted from the json.
-- Telemetry support.  Users of our DSLs may now pass an implementation of our `ILogger` interface to the `Session` object
-  for the DSL.  If this is done, PROSE will call the `ILogger` with telemetry information such as the time required to
-  learn programs, etc.
+- Extraction.Json now supports learning programs from multiple input json documents.  This makes it possible to have a
+  scenario like Split.Text where a column of data contains a different json document on each row, and you want to
+  flatten all of those json documents into a set of new columns extracted from the json.
+- Telemetry support.  Users of our DSLs may now pass an implementation of our `ILogger` interface to the `Session`
+  object for the DSL.  If this is done, PROSE will call the `ILogger` with telemetry information such as the time
+  required to learn programs, etc.
 
 ### Bug fixes / Enhancements
 
@@ -940,7 +958,8 @@ advanced scenarios involving manually creating program trees for a DSL.
   native libraries for Windows, Mac and Linux) which significantly decreases the time required to determine them.
 - Transformation.Text significant inputs now include ambiguous dates.
 - Extraction.Json now supports extra characters at the end of lines when extracting from new-line delimited json docs.
-- Split.Text now supports contexttual field-based delimiters which improve learning performance and address multiple bugs.
+- Split.Text now supports contexttual field-based delimiters which improve learning performance and address multiple
+  bugs.
 - Translation capabilities have now been merged directly into their main DSL assemblies as part of our long-term effort
   to reduce the number of assemblies per DSL.
 - Matching.Text now uses an improved sampling algorithm for clustering.
@@ -949,9 +968,9 @@ advanced scenarios involving manually creating program trees for a DSL.
 
 ## Release 1.1.0 -- 2017/02/15
 
-With this release we are starting a regular monthly public release rhythm.  The biggest change in this month's release is 
-major improvements to our samples and documentation.  At the same time we have added several small new features and bug
-fixes.
+With this release we are starting a regular monthly public release rhythm.  The biggest change in this month's release
+is major improvements to our samples and documentation.  At the same time we have added several small new features and
+bug fixes.
 
 ### New Features
 
