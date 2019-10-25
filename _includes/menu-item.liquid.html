@@ -3,7 +3,7 @@
 {% capture class_selected %}{% include menu-selected.liquid.html url=include.url %}{% endcapture %}
 {% capture url %}{% if include.absolute %}{{ include.url }}{% else %}{{ site.baseurl }}{{ include.url }}{% endif %}{% endcapture %}
 
-<li class="pure-menu-item {{ class_disabled }} {{ class_divided }} {{ class_selected }}" role="presentation">
+<li class="pure-menu-item {{ class_disabled }} {{ class_divided }} {{ class_selected }}">
     {% if include.disabled %}
         {{ include.title }}
     {% else %}
