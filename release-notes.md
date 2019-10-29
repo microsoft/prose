@@ -3,6 +3,18 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 7.4.0 -- 2019/10/28
+
+- General
+  - The PDBs included in our nuget packages are now "Full" PDBs for net45 and net46 but still "Portable" PDBs for CoreClr.
+- Extraction.Text
+  - Implemented branch and bound ranking.
+- Transformation.Tree
+  - Improved ranking of synthesized programs.
+- Extraction.Web
+  - Improved and more expressive row selector inference.
+  - Simpler HTML table selectors with shorter path expressions/fewer disjuncts.
+
 ## Release 7.3.0 -- 2019/09/23
 
 No substantial changes since the last public release.
