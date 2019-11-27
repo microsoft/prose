@@ -3,6 +3,16 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 7.5.1 -- 2019/11/26
+
+- General
+  - Fixed bug that made PROSE not work on .NET Core 3.x.   
+- Extraction.Text
+  - Allowed implicit/nullable examples.
+  - Supported customized columns in table example.
+- Extraction.Spreadsheet
+  - Implemented first version of ranking algorithm, so the top suggested table is the desired one in most cases.
+  
 ## Release 7.4.0 -- 2019/10/28
 
 - General
