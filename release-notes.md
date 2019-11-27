@@ -10,8 +10,6 @@ title: Release Notes
 - Extraction.Text
   - Allowed implicit/nullable examples.
   - Supported customized columns in table example.
-- Extraction.Spreadsheet
-  - Implemented first version of ranking algorithm, so the top suggested table is the desired one in most cases.
   
 ## Release 7.4.0 -- 2019/10/28
 
