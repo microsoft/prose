@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.Common" Version="7.5.1" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.DslcTargets" Version="7.5.1" />
-    <DotNetCliToolReference Include="Microsoft.ProgramSynthesis.Dslc" Version="7.5.1" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Common" Version="7.6.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.DslcTargets" Version="7.6.0" />
+    <DotNetCliToolReference Include="Microsoft.ProgramSynthesis.Dslc" Version="7.6.0" />
   </ItemGroup>
 
 </Project>

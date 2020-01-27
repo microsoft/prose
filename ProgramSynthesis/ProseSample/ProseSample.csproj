@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   
   <ItemGroup>
@@ -14,7 +14,7 @@
     <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
     <ProjectReference Include="..\ProseSample.Substrings\ProseSample.Substrings.csproj" />
     <ProjectReference Include="..\ProseSample.TextExtraction\ProseSample.TextExtraction.csproj" />
-    <PackageReference Include="Microsoft.ProgramSynthesis" Version="7.5.1" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="7.6.0" />
   </ItemGroup>
 
 </Project>
