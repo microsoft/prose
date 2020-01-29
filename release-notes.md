@@ -3,6 +3,19 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 7.6.1 - 2020/01/28
+
+- General
+  - The `Properties` field of `Wrangling.Tree.Node` has been removed.
+- Extraction.Web
+  - Supports learning from additional input webpages to improve learning accuracy across multiple pages.
+  - Support input-output examples over multiple webpages for web table extraction.
+- Extraction.Text 
+  - Normalized new lines using `\n` instead of `\r\n` during code generation.
+- Extraction.Json
+  - Returned explicit errors that are repairable.
+  - Added PowerQuery M translation.
+
 ## Release 7.5.1 -- 2019/11/26
 
 - General
