@@ -3,10 +3,30 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 7.8.0 - 2020/03/25
+
+- DSL Compiler
+  - Added new diagnostic for invalid symbol names.
+- Extraction.Text
+  - Handled empty columns due to deleting all given examples.
+  - Added an operator to group every k elements.
+- Read.FlatFile 
+  - Newly added DSL which replaces compound.split for reading delimited and fixed-width files.  It is faster and works
+    on larger and messier files.
+- Transformation.Tree
+  - Improved expressivity of the DSL.
+
 ## Release 7.7.0 - 2020/02/28
 
+- Detect.DataTypes
+  - Improved detection of datetime objects.
+- Extraction.Json
+  - Added JSON lines support in Power Query M translation.
 - Extraction.Text 
   - Added a step to enable datatype detection during M codegen.
+  - Now handles ambiguous examples in the prefix.
+- Transformation.Tree
+  - Improved the expressiveness of the Transformation.Tree language.
   
 ## Release 7.6.1 - 2020/01/28
 
