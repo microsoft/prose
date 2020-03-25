@@ -7,6 +7,8 @@ title: Release Notes
 
 - DSL Compiler
   - Added new diagnostic for invalid symbol names.
+- Extraction.Json
+  - Enabled auto type detection in M translation.
 - Extraction.Text
   - Handled empty columns due to deleting all given examples.
   - Added an operator to group every k elements.
