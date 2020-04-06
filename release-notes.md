@@ -3,7 +3,7 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
-## Release 7.9.0 - 2020/04/06
+## Release 7.9.1 - 2020/04/06
 
 -	Detection
   - Added the ability to specify a subset of file types to use in detection.
