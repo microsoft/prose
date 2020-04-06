@@ -5,14 +5,14 @@ title: Release Notes
 
 ## Release 7.9.1 - 2020/04/06
 
--	Detection
+- Detection
   - Added the ability to specify a subset of file types to use in detection.
   - Added the ability to specify whether to perform encoding detection as part of file type detection.
   - Improved perf in the file type detection.
 - Extraction.Text
   - Ignored last record because the input file may be trimmed
   - Updated ranking to prefer shorter extract delimiters
--	Transformation.Tree
+- Transformation.Tree
   - Improved expressivity of the language.
 
 ## Release 7.8.0 - 2020/03/25
