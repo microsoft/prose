@@ -3,6 +3,17 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 7.10.0 - 2020/04/29
+
+- General
+  - Removed unnecessary usage of Newtonsoft.Json during learns.
+- Extraction.Text 
+  - Removed automatic type detection step in Power Query M code generation.
+- Suggestions.Code
+  - Added a cancellation token to stop the suggestion engine.
+- Transformation.Tree 
+  - Improved ranking.
+
 ## Release 7.9.1 - 2020/04/06
 
 - Detection
