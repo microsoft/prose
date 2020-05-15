@@ -3,6 +3,20 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 7.11.1 - 2020/05/15
+
+- General
+  - Exposed some Grammar and Symbol methods to enable manual construction of grammar.
+  - Improved error feedback when dslc is unable to start.
+- Samples
+  - Added Dockerfile to samples to make getting started easier.
+  - Fixed ProseSample sample project not working when run using dotnet run.
+- Detection
+  - Added support for 24:00 time in Detection.RichDataTypes and changed API.
+- Read.FlatFile
+  - Changed CSV semantics on splitting a column with too many columns to match pandas & PySpark
+  - Fixed a small bug (related to noisy files and delimiter override)
+
 ## Release 7.10.0 - 2020/04/29
 
 - General
