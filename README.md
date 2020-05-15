@@ -15,6 +15,18 @@ The samples are split into three categories:
 
 Find guides for these sample projects here: [https://microsoft.github.io/prose/](https://microsoft.github.io/prose/)
 
+Optionally, you can get started quickly using [Docker](https://www.docker.com/get-started):
+```sh
+git clone https://github.com/microsoft/prose.git
+cd prose
+docker build -t prose-samples .
+docker run -it --rm --mount src="$(pwd)",target=/opt/prose-samples,type=bind prose-samples
+# Inside the Docker container
+cd /opt/prose-samples
+cd ProgramSynthesis/ProseSample  # ... or the directory for any other sample
+dotnet run  # run the sample in the current directory
+```
+
 ---
 This project has adopted the [Microsoft Open Source Code of
 Conduct](https://opensource.microsoft.com/codeofconduct/).

@@ -19,8 +19,6 @@ namespace Transformation.Json
             // Demonstrate Table To Json Transformation
             Console.WriteLine("Table to JSON Transformation By Example\n");
             TableToJsonSample();
-
-            Console.ReadKey();
         }
     }
 }

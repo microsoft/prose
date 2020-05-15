@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.AST;
@@ -20,10 +19,16 @@ namespace ProseSample
 {
     internal static class Utils
     {
+        public static string ResolveFilename(string filename) {
+            return File.Exists(filename)
+                ? filename
+                : Path.Combine(Path.GetDirectoryName(typeof(Utils).Assembly.Location), filename);
+        }
+
         public static Grammar LoadGrammar(string grammarFile, IReadOnlyList<CompilerReference> assemblyReferences)
         {
             var compilationResult = DSLCompiler.Compile(new CompilerOptions() {
-                InputGrammarText = File.ReadAllText(grammarFile),
+                InputGrammarText = File.ReadAllText(ResolveFilename(grammarFile)),
                 References = assemblyReferences
             });
             if (compilationResult.HasErrors)
@@ -87,7 +92,7 @@ namespace ProseSample
 
         public static List<StringRegion> LoadBenchmark(string filename, out StringRegion document)
         {
-            string content = File.ReadAllText(filename);
+            string content = File.ReadAllText(ResolveFilename(filename));
             Match[] examples = ExampleRegex.Matches(content).Cast<Match>().ToArray();
             document = RegionSession.CreateStringRegion(content.Replace("}", "").Replace("{", ""));
             var result = new List<StringRegion>();

@@ -41,7 +41,7 @@ namespace ProseSample
 
         private static void TestFlashFillBenchmark(Grammar grammar, string benchmark, int exampleCount = 2)
         {
-            string[] lines = File.ReadAllLines($"benchmarks/{benchmark}.tsv");
+            string[] lines = File.ReadAllLines(ResolveFilename($"benchmarks/{benchmark}.tsv"));
             Record<string, string>[] data = lines.Select(l =>
             {
                 var parts = l.Split(new[] { "\t" }, StringSplitOptions.RemoveEmptyEntries);
