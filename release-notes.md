@@ -3,6 +3,20 @@ title: Release Notes
 ---
 {% include toc.liquid.md %}
 
+## Release 7.13.1 - 2020/06/25
+- General
+  - Improved error feedback when dslc is unable to start.
+  - Exposed some Grammar and Symbol methods to enable manual construction of grammar.
+  - Java Translations are no longer supported.
+- Transformation.Tree
+  - Fixed bugs that lead to incorrect delete transformations.
+  - Improved the ranking of programs.
+- Extraction.Web
+  - Added explicit dependency on System.Net.Http version 4.3.4 when targeting .Net Core to fix a security issue.
+- Extraction.Text
+  - Last implicit examples are now ignored.
+  - Limited the number of search branches for performance reasons.
+  
 ## Release 7.11.1 - 2020/05/15
 
 - General
