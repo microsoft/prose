@@ -8,4 +8,4 @@ RUN apt-get update && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y dotnet-sdk-2.1
 
-ENTRYPOINT ["/usr/bin/bash"]
+ENTRYPOINT ["/usr/bin/bash", "-c"]

@@ -20,9 +20,8 @@ Optionally, you can get started quickly using [Docker](https://www.docker.com/ge
 git clone https://github.com/microsoft/prose.git
 cd prose
 docker build -t prose-samples .
-docker run -it --rm --mount src="$(pwd)",target=/opt/prose-samples,type=bind prose-samples
+docker run -it --rm -v "$(pwd):/opt/prose-samples" -w "/opt/prose-samples" prose-samples bash
 # Inside the Docker container
-cd /opt/prose-samples
 cd ProgramSynthesis/ProseSample  # ... or the directory for any other sample
 dotnet run  # run the sample in the current directory
 ```
