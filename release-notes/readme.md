@@ -1,5 +1,9 @@
 # Release Notes for PROSE SDK
 
+This Github repository contains supporting information for the closed-source PROSE SDK.  The PROSE SDK is available on
+nuget.org with a non-commercial use only license.  This repo does NOT have the source for the PROSE SDK, but it does
+have samples showing how to use the SDK as well as release notes for the SDK (which are below).
+
 |                                |                          | 
 |--------------------------------|--------------------------|
 | [Versions 7.x](7-x.md)         | 2019/07/30 and newer     |
