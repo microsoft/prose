@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BenchmarkDriver", "Benchmar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Read.FlatFile", "Read.FlatFile\Read.FlatFile.csproj", "{C1B7ECDF-C339-4E86-96BF-EBF652B78419}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matching.Text", "Matching.Text\Matching.Text.csproj", "{EB1CE740-39E2-42A7-9379-03ED5E6836FC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,12 +74,6 @@ Global
 		{C1B7ECDF-C339-4E86-96BF-EBF652B78419}.RecompileAndRelease|Any CPU.Build.0 = Release|Any CPU
 		{C1B7ECDF-C339-4E86-96BF-EBF652B78419}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1B7ECDF-C339-4E86-96BF-EBF652B78419}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB1CE740-39E2-42A7-9379-03ED5E6836FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB1CE740-39E2-42A7-9379-03ED5E6836FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB1CE740-39E2-42A7-9379-03ED5E6836FC}.RecompileAndRelease|Any CPU.ActiveCfg = Release|Any CPU
-		{EB1CE740-39E2-42A7-9379-03ED5E6836FC}.RecompileAndRelease|Any CPU.Build.0 = Release|Any CPU
-		{EB1CE740-39E2-42A7-9379-03ED5E6836FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB1CE740-39E2-42A7-9379-03ED5E6836FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
