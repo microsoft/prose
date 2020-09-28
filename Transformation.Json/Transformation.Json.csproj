@@ -6,6 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis" Version="7.17.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="7.20.0" />
   </ItemGroup>
 </Project>
