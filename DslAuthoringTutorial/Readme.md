@@ -1,4 +1,4 @@
-In this tutorial, we will learn how to synthesize programs for learning string transformations.
+﻿In this tutorial, we will learn how to synthesize programs for learning string transformations.
 
 ## Set up (Windows).
 
@@ -46,9 +46,9 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
     +   Open VS Code
 
-    +   Choose “Open Folder” and select the “part1a” folder.
+    +   Choose â€œOpen Folderâ€ and select the â€œpart1aâ€ folder.
 
-    +   VS Code may show a warning at the top of the screen about missing dependences. Click on “yes” to install them.
+    +   VS Code may show a warning at the top of the screen about missing dependences. Click on â€œyesâ€ to install them.
 
 1.  Building the project:
 
@@ -188,9 +188,9 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
 1. Go to the folder "part1c".
 
-2. The AbsPos operator refers to the 𝑘𝑡ℎ index in a given string from the left side (See Semantics.cs).
+2. The AbsPos operator refers to the ð‘˜ð‘¡â„Ž index in a given string from the left side (See Semantics.cs).
 
-    + Edit the semantics of this operator in the Semantics.cs file to make it also refer to the 𝑘𝑡ℎ index in a given string from the right side if the integer constant 𝑘 is negative.
+    + Edit the semantics of this operator in the Semantics.cs file to make it also refer to the ð‘˜ð‘¡â„Ž index in a given string from the right side if the integer constant ð‘˜ is negative.
 
     + Update the witness functions to reflect this change.
 
