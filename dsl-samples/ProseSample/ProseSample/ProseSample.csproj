@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="..\benchmarks\*" Link="benchmarks\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\ProseSample.Substrings\ProseSample.Substrings.grammar" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
+    <ProjectReference Include="..\ProseSample.Substrings\ProseSample.Substrings.csproj" />
+    <ProjectReference Include="..\ProseSample.TextExtraction\ProseSample.TextExtraction.csproj" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="7.27.0" />
+  </ItemGroup>
+
+</Project>

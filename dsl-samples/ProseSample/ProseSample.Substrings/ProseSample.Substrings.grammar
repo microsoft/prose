@@ -1,0 +1,21 @@
+﻿using System.Text.RegularExpressions;
+using Microsoft.ProgramSynthesis.DslLibrary;
+using Microsoft.ProgramSynthesis.Utils;
+using ProseSample.Substrings;
+
+using semantics ProseSample.Substrings.Semantics;
+using learners ProseSample.Substrings.WitnessFunctions;
+
+language ProseSample.Substrings;
+
+@complete feature double Score = RankingScore;
+
+@start StringRegion sub := SubStr(v, posPair);
+Record<uint?, uint?>? posPair := PosPair(pos, pos) = Pair(pos, pos);
+uint? pos := AbsPos(v, k) | RegPos(v, rr, k);
+
+Record<RegularExpression, RegularExpression>? rr := BoundaryPair(r, r) = Pair(r, r);
+RegularExpression r;
+
+@input StringRegion v;
+int k;

@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="ProseSample.TextExtraction.grammar" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
+    <ProjectReference Include="..\ProseSample.Substrings\ProseSample.Substrings.csproj" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="7.27.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Compiler" Version="7.27.0" />
+  </ItemGroup>
+</Project>
+
