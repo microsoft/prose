@@ -89,7 +89,6 @@ namespace MergeConflictsResolution
             foreach (string pathValue in path)
             {
                 Attributes.Attribute attr = new Attributes.Attribute(Path, pathValue);
-                Attributes.SetKnownSoftAttributes(new[] { "", "" });
                 Node node = StructNode.Create("node1", new Attributes(attr));
                 list.Add(node);
             }

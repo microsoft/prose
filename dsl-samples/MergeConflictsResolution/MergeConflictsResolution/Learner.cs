@@ -32,7 +32,7 @@ namespace MergeConflictsResolution
             int? numRandomProgramsToInclude,
             ProgramSamplingStrategy samplingStrategy,
             IEnumerable<MergeConflict> additionalInputs = null,
-            CancellationToken? cancel = null,
+            CancellationToken cancel = default,
             Guid? guid = null)
         {
             var result = LearnImpl(constraints, feature, k, numRandomProgramsToInclude, samplingStrategy, cancel);
@@ -50,7 +50,7 @@ namespace MergeConflictsResolution
                                                     int? k,
                                                     int? numRandomProgramsToInclude,
                                                     ProgramSamplingStrategy samplingStrategy,
-                                                    CancellationToken? cancel = null)
+                                                    CancellationToken cancel = default)
         {
             Grammar grammar = LanguageGrammar.Instance.Grammar;
             Dictionary<State, object> examples =
@@ -86,7 +86,7 @@ namespace MergeConflictsResolution
 
         public override ProgramSet LearnAll(IEnumerable<Constraint<MergeConflict, IReadOnlyList<Node>>> constraints,
                                             IEnumerable<MergeConflict> additionalInputs = null,
-                                            CancellationToken? cancel = null)
+                                            CancellationToken cancel = default)
             => LearnImpl(constraints, ScoreFeature, null, null, default, cancel);
     }
 }

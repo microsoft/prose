@@ -6,6 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis.Transformation.Text" Version="7.28.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Transformation.Text" Version="7.30.0" />
   </ItemGroup>
 </Project>
