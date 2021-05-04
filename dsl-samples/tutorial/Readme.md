@@ -31,18 +31,18 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
 1.  Download and install VS Code (https://code.visualstudio.com/Download)
 
-1.  Install .NET Core SDK (https://www.microsoft.com/net/download/linux)
+2.  Install .NET Core SDK (https://www.microsoft.com/net/download/linux)
 
-1.  Install VS Code extension for C#. (https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+3.  Install VS Code extension for C#. (https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 
-1.  Clone this repository:
+4.  Clone this repository:
 
     ```
     git clone https://github.com/Microsoft/prose.git
     cd prose/DslAuthoringTutorial/part1a
     ```
 
-1.  Open this folder in VS Code:
+5.  Open this folder in VS Code:
 
     +   Open VS Code
 
@@ -50,7 +50,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
     +   VS Code may show a warning at the top of the screen about missing dependences. Click on “yes” to install them.
 
-2.  Building the project:
+6.  Building the project:
 
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
@@ -66,7 +66,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
             0 Error(s)
         ```
 
-3.  Running the tests:
+7.  Running the tests:
 
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
@@ -87,7 +87,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
         System.IO.FileNotFoundException: Unable to find tests for .../prose/DslAuthoringTutorial/part1a/ProseTutorial/bin/Debug/netcoreapp2.1/ProseTutorial.dll. Make sure test project has a nuget reference of package "Microsoft.NET.Test.Sdk" and framework version settings are appropriate. Rerun with /diag option to diagnose further.
         ```
 
-4.  Running the console application
+8.  Running the console application
 
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
