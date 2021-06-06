@@ -1,0 +1,6 @@
+dotnetcore2>=2.1.8
+Jinja2==2.10.1
+pandas>=0.24.2
+protobuf>=3.8.0
+regex>=2017.7.28
+scipy>=1.2.1

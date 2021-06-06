@@ -1,0 +1,30 @@
+Metadata-Version: 1.1
+Name: prose-datainsights
+Version: 1.0.0.dev0
+Summary: UNKNOWN
+Home-page: https://microsoft.github.io/prose
+Author: Microsoft Corporation
+Author-email: prose-contact@microsoft.com
+License: LICENSE.txt
+Description: # PROSE Data Insights
+        
+        A package which provides insights into data to facilitate data science tasks.
+        
+        prose-contact@microsoft.com
+        https://microsoft.github.io/prose/
+Keywords: data,analysis
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Software Development
+Classifier: Private :: Do Not Upload
