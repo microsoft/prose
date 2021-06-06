@@ -32,8 +32,8 @@ unzip -o Datasets/har -d Datasets/uncompressed/
 ```
 
 This should set up everything you need to execute the ipython 
-notebooks, which will reproduce the experimental results 
+notebooks, which will reproduce some of the experimental results 
 reported in the paper. Use the command `jupyter lab` to get 
-started and view/execute the notebooks. Select the kernel 
+started and then view/execute the notebooks. Select the kernel 
 `venv` from the notebook, which is the virtual environment you 
 just set up.
