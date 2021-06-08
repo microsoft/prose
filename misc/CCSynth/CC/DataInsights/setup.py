@@ -45,7 +45,7 @@ if __name__ == "__main__":
         namespace_packages=["prose"],
         include_package_data=True,
         install_requires=[
-            "Jinja2==2.10.1",
+            "Jinja2==2.11.3",
             "pandas >= 0.24.2",
             "protobuf >= 3.8.0",
             "regex >= 2017.7.28",
