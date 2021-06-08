@@ -5,7 +5,7 @@ virtual environment and ipython kernel.
 
 ```
 python -m venv venv
-source ./venv/Scripts/activate # or source ./venv/bin/activate for Unix
+source ./venv/Scripts/activate (or source ./venv/bin/activate for Unix)
 pip install ipykernel
 python -m ipykernel install --name=venv
 ```
