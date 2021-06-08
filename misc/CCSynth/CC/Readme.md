@@ -28,7 +28,6 @@ Download the datasets as zip file from [here](https://drive.google.com/drive/fol
 mkdir Datasets/uncompressed
 unzip -o Datasets/2008_14col -d Datasets/uncompressed/
 unzip -o Datasets/EVL -d Datasets/uncompressed/
-unzip -o Datasets/har -d Datasets/uncompressed/
 ```
 
 This should set up everything you need to execute the ipython 
