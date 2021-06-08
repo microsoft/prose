@@ -5,7 +5,7 @@ virtual environment and ipython kernel.
 
 ```
 python -m venv venv
-source ./venv/Scripts/activate
+source ./venv/Scripts/activate # or source ./venv/bin/activate for Unix
 pip install ipykernel
 python -m ipykernel install --name=venv
 ```
@@ -15,7 +15,6 @@ python -m ipykernel install --name=venv
 pip install matplotlib
 pip install scikit-learn
 pip install jupyterlab
-pip install runipy
 pip install pdfkit
 pip install -e DataInsights
 ```
