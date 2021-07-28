@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.ProgramSynthesis.Transformation.Text;
+using Microsoft.ProgramSynthesis.Wrangling;
 using Newtonsoft.Json;
 using TTextProgram = Microsoft.ProgramSynthesis.Transformation.Text.Program;
 
@@ -77,7 +78,7 @@ namespace BenchmarkDriver
             {
                 return new SpecFileExampleFormat()
                 {
-                    Input = (example.Input as InputRow)?.InputStrings,
+                    Input = (example.Input as InputRow)?.Values().OfType<string>().ToArray(),
                     Output = example.Output as string
                 };
             }

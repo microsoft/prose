@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.ProgramSynthesis.Transformation.Text;
-using Microsoft.ProgramSynthesis.Transformation.Text.Semantics;
+using Microsoft.ProgramSynthesis.Wrangling;
 using Microsoft.ProgramSynthesis.Wrangling.Constraints;
 
 namespace Transformation.Text
