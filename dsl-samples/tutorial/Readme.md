@@ -2,13 +2,13 @@
 
 ## Set up (Windows).
 
-If you get stuck at any of the steps in this section, please send an email to Gustavo Soares at gsoares@microsoft.com and Sumit Gulwani at sumitg@microsoft.com.
+If you get stuck at any of the steps in this section, please contact us at prose-contact@microsoft.com.
 
 1. Get Visual Studio.
 
-+ Option 1: Download Visual Studio 2017 Community: https://www.visualstudio.com/downloads/ (Be sure to select the ".Net Desktop Development" box in the installation wizard).
++ Option 1: Download Visual Studio Community: https://www.visualstudio.com/downloads/ (Be sure to select the ".Net Desktop Development" box in the installation wizard).
 
-+ Option 2: Install the windows VM from this Official Microsoft link: https://developer.microsoft.com/en-us/windows/downloads/virtual-machines. This VM comes with VS installed. When you open VS 2017, it may say that your subscription is expired. Just sign in with your account (or sign up for free).
++ Option 2: Install the windows VM from this Official Microsoft link: https://developer.microsoft.com/en-us/windows/downloads/virtual-machines. This VM comes with VS installed. When you open Visual Studio, it may say that your subscription is expired. Just sign in with your account (or sign up for free).
 
 + Option 3: Install Visual Studio Code (See instructions in the Linux and Mac section)
 
@@ -27,7 +27,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
 ## Set up (Linux and Mac).
 
-If you get stuck at any of the steps in this section, please send an email to Gustavo Soares at gsoares@microsoft.com and Sumit Gulwani at sumitg@microsoft.com.
+If you get stuck at any of the steps in this section, please contact us at prose-contact@microsoft.com.
 
 1.  Download and install VS Code (https://code.visualstudio.com/Download)
 
