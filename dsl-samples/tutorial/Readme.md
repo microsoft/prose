@@ -18,7 +18,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
     ```
     git clone https://github.com/Microsoft/prose.git
-    cd prose\DslAuthoringTutorial\part1a
+    cd prose\dsl-samples\tutorial\part1a
     ```
 
 4. Open the project solution (prose.sln) in Visual Studio.
@@ -39,7 +39,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
     ```
     git clone https://github.com/Microsoft/prose.git
-    cd prose/DslAuthoringTutorial/part1a
+    cd prose/dsl-samples/tutorial/part1a
     ```
 
 1.  Open this folder in VS Code:
@@ -84,7 +84,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
         In case you get the following error message, just ignore it:
 
         ```
-        System.IO.FileNotFoundException: Unable to find tests for .../prose/DslAuthoringTutorial/part1a/ProseTutorial/bin/Debug/netcoreapp2.1/ProseTutorial.dll. Make sure test project has a nuget reference of package "Microsoft.NET.Test.Sdk" and framework version settings are appropriate. Rerun with /diag option to diagnose further.
+        System.IO.FileNotFoundException: Unable to find tests for .../prose/dsl-samples/tutorial/part1a/ProseTutorial/bin/Debug/netcoreapp2.1/ProseTutorial.dll. Make sure test project has a nuget reference of package "Microsoft.NET.Test.Sdk" and framework version settings are appropriate. Rerun with /diag option to diagnose further.
         ```
 
 1.  Running the console application
