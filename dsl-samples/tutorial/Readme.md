@@ -31,26 +31,26 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
 1.  Download and install VS Code (https://code.visualstudio.com/Download)
 
-1.  Install .NET Core SDK (https://www.microsoft.com/net/download/linux)
+2.  Install .NET Core SDK (https://www.microsoft.com/net/download/linux)
 
-1.  Install VS Code extension for C#. (https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+3.  Install VS Code extension for C#. (https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 
-1.  Clone this repository:
+4.  Clone this repository:
 
     ```
     git clone https://github.com/Microsoft/prose.git
     cd prose/DslAuthoringTutorial/part1a
     ```
 
-1.  Open this folder in VS Code:
+5.  Open this folder in VS Code:
 
     +   Open VS Code
 
-    +   Choose â€œOpen Folderâ€ and select the â€œpart1aâ€ folder.
+    +   Choose “Open Folder” and select the “part1a” folder.
 
-    +   VS Code may show a warning at the top of the screen about missing dependences. Click on â€œyesâ€ to install them.
+    +   VS Code may show a warning at the top of the screen about missing dependences. Click on “yes” to install them.
 
-1.  Building the project:
+6.  Building the project:
 
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
@@ -66,7 +66,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
             0 Error(s)
         ```
 
-1.  Running the tests:
+7.  Running the tests:
 
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
@@ -87,7 +87,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
         System.IO.FileNotFoundException: Unable to find tests for .../prose/DslAuthoringTutorial/part1a/ProseTutorial/bin/Debug/netcoreapp2.1/ProseTutorial.dll. Make sure test project has a nuget reference of package "Microsoft.NET.Test.Sdk" and framework version settings are appropriate. Rerun with /diag option to diagnose further.
         ```
 
-1.  Running the console application
+8.  Running the console application
 
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
@@ -188,9 +188,9 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
 1. Go to the folder "part1c".
 
-2. The AbsPos operator refers to the ð‘˜ð‘¡â„Ž index in a given string from the left side (See Semantics.cs).
+2. The AbsPos operator refers to the 𝑘𝑡ℎ index in a given string from the left side (See Semantics.cs).
 
-    + Edit the semantics of this operator in the Semantics.cs file to make it also refer to the ð‘˜ð‘¡â„Ž index in a given string from the right side if the integer constant ð‘˜ is negative.
+    + Edit the semantics of this operator in the Semantics.cs file to make it also refer to the 𝑘𝑡ℎ index in a given string from the right side if the integer constant 𝑘 is negative.
 
     + Update the witness functions to reflect this change.
 
@@ -240,5 +240,3 @@ If you get stuck at any of the steps in this section, please contact us at prose
     + Make sure the test case "TestLearnSubstringOneExample" passes.
 
 2. The completed code for this part of the tutorial can be found in the folder "part2b-complete".
-
-

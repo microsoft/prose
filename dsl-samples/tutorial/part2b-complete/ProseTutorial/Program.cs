@@ -69,6 +69,8 @@ namespace ProseTutorial
                 case 2:
                     RunOnNewInput();
                     break;
+                case 3:
+                    break;
                 default:
                     Console.Out.WriteLine("Invalid option. Try again.");
                     break;
