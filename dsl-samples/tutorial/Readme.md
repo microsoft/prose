@@ -2,13 +2,13 @@
 
 ## Set up (Windows).
 
-If you get stuck at any of the steps in this section, please contact us at prose-contact@microsoft.com.
+If you get stuck at any of the steps in this section, please send an email to Gustavo Soares at gsoares@microsoft.com and Sumit Gulwani at sumitg@microsoft.com.
 
 1. Get Visual Studio.
 
-+ Option 1: Download Visual Studio Community: https://www.visualstudio.com/downloads/ (Be sure to select the ".Net Desktop Development" box in the installation wizard).
++ Option 1: Download Visual Studio 2017 Community: https://www.visualstudio.com/downloads/ (Be sure to select the ".Net Desktop Development" box in the installation wizard).
 
-+ Option 2: Install the windows VM from this Official Microsoft link: https://developer.microsoft.com/en-us/windows/downloads/virtual-machines. This VM comes with VS installed. When you open Visual Studio, it may say that your subscription is expired. Just sign in with your account (or sign up for free).
++ Option 2: Install the windows VM from this Official Microsoft link: https://developer.microsoft.com/en-us/windows/downloads/virtual-machines. This VM comes with VS installed. When you open VS 2017, it may say that your subscription is expired. Just sign in with your account (or sign up for free).
 
 + Option 3: Install Visual Studio Code (See instructions in the Linux and Mac section)
 
@@ -18,7 +18,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
     ```
     git clone https://github.com/Microsoft/prose.git
-    cd prose\dsl-samples\tutorial\part1a
+    cd prose\DslAuthoringTutorial\part1a
     ```
 
 4. Open the project solution (prose.sln) in Visual Studio.
@@ -27,30 +27,30 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
 ## Set up (Linux and Mac).
 
-If you get stuck at any of the steps in this section, please contact us at prose-contact@microsoft.com.
+If you get stuck at any of the steps in this section, please send an email to Gustavo Soares at gsoares@microsoft.com and Sumit Gulwani at sumitg@microsoft.com.
 
 1.  Download and install VS Code (https://code.visualstudio.com/Download)
 
-2.  Install .NET Core SDK (https://www.microsoft.com/net/download/linux)
+1.  Install .NET Core SDK (https://www.microsoft.com/net/download/linux)
 
-3.  Install VS Code extension for C#. (https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+1.  Install VS Code extension for C#. (https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 
-4.  Clone this repository:
+1.  Clone this repository:
 
     ```
     git clone https://github.com/Microsoft/prose.git
-    cd prose/dsl-samples/tutorial/part1a
+    cd prose/DslAuthoringTutorial/part1a
     ```
 
-5.  Open this folder in VS Code:
+1.  Open this folder in VS Code:
 
     +   Open VS Code
 
-    +   Choose “Open Folder” and select the “part1a” folder.
+    +   Choose â€œOpen Folderâ€ and select the â€œpart1aâ€ folder.
 
-    +   VS Code may show a warning at the top of the screen about missing dependences. Click on “yes” to install them.
+    +   VS Code may show a warning at the top of the screen about missing dependences. Click on â€œyesâ€ to install them.
 
-6.  Building the project:
+1.  Building the project:
 
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
@@ -66,7 +66,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
             0 Error(s)
         ```
 
-7.  Running the tests:
+1.  Running the tests:
 
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
@@ -84,10 +84,10 @@ If you get stuck at any of the steps in this section, please contact us at prose
         In case you get the following error message, just ignore it:
 
         ```
-        System.IO.FileNotFoundException: Unable to find tests for .../prose/dsl-samples/tutorial/part1a/ProseTutorial/bin/Debug/netcoreapp2.1/ProseTutorial.dll. Make sure test project has a nuget reference of package "Microsoft.NET.Test.Sdk" and framework version settings are appropriate. Rerun with /diag option to diagnose further.
+        System.IO.FileNotFoundException: Unable to find tests for .../prose/DslAuthoringTutorial/part1a/ProseTutorial/bin/Debug/netcoreapp2.1/ProseTutorial.dll. Make sure test project has a nuget reference of package "Microsoft.NET.Test.Sdk" and framework version settings are appropriate. Rerun with /diag option to diagnose further.
         ```
 
-8.  Running the console application
+1.  Running the console application
 
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
@@ -188,9 +188,9 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
 1. Go to the folder "part1c".
 
-2. The AbsPos operator refers to the 𝑘𝑡ℎ index in a given string from the left side (See Semantics.cs).
+2. The AbsPos operator refers to the ð‘˜ð‘¡â„Ž index in a given string from the left side (See Semantics.cs).
 
-    + Edit the semantics of this operator in the Semantics.cs file to make it also refer to the 𝑘𝑡ℎ index in a given string from the right side if the integer constant 𝑘 is negative.
+    + Edit the semantics of this operator in the Semantics.cs file to make it also refer to the ð‘˜ð‘¡â„Ž index in a given string from the right side if the integer constant ð‘˜ is negative.
 
     + Update the witness functions to reflect this change.
 
@@ -240,3 +240,5 @@ If you get stuck at any of the steps in this section, please contact us at prose
     + Make sure the test case "TestLearnSubstringOneExample" passes.
 
 2. The completed code for this part of the tutorial can be found in the folder "part2b-complete".
+
+
