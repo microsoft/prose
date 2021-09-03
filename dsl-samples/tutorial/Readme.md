@@ -18,7 +18,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
     ```
     git clone https://github.com/Microsoft/prose.git
-    cd prose\DslAuthoringTutorial\part1a
+    cd prose\dsl-samples\tutorial\part1a
     ```
 
 4. Open the project solution (prose.sln) in Visual Studio.
@@ -39,7 +39,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
     ```
     git clone https://github.com/Microsoft/prose.git
-    cd prose/DslAuthoringTutorial/part1a
+    prose/dsl-samples/tutorial/part1a
     ```
 
 1.  Open this folder in VS Code:
@@ -92,7 +92,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
         ```
-        cd ProseTutorial
+        cd dsl-samples/tutorial
         dotnet run
         ```
 
