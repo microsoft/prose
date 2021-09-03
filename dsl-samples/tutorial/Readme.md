@@ -92,7 +92,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
         ```
-        cd dsl-samples/tutorial
+        cd ProseTutorial
         dotnet run
         ```
 
