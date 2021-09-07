@@ -18,7 +18,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
     ```
     git clone https://github.com/Microsoft/prose.git
-    cd prose\DslAuthoringTutorial\part1a
+    cd prose\dsl-samples\tutorial\part1a
     ```
 
 4. Open the project solution (prose.sln) in Visual Studio.
@@ -39,16 +39,16 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
     ```
     git clone https://github.com/Microsoft/prose.git
-    cd prose/DslAuthoringTutorial/part1a
+    prose/dsl-samples/tutorial/part1a
     ```
 
 1.  Open this folder in VS Code:
 
     +   Open VS Code
 
-    +   Choose â€œOpen Folderâ€ and select the â€œpart1aâ€ folder.
+    +   Choose "Open Folder" and select the "part1a" folder.
 
-    +   VS Code may show a warning at the top of the screen about missing dependences. Click on â€œyesâ€ to install them.
+    +   VS Code may show a warning at the top of the screen about missing dependences. Click on "yes" to install them.
 
 1.  Building the project:
 
