@@ -2,13 +2,13 @@
 
 ## Set up (Windows).
 
-If you get stuck at any of the steps in this section, please send an email to Gustavo Soares at gsoares@microsoft.com and Sumit Gulwani at sumitg@microsoft.com.
+If you get stuck at any of the steps in this section, please contact us at prose-contact@microsoft.com.
 
 1. Get Visual Studio.
 
-+ Option 1: Download Visual Studio 2017 Community: https://www.visualstudio.com/downloads/ (Be sure to select the ".Net Desktop Development" box in the installation wizard).
++ Option 1: Download Visual Studio Community: https://www.visualstudio.com/downloads/ (Be sure to select the ".Net Desktop Development" box in the installation wizard).
 
-+ Option 2: Install the windows VM from this Official Microsoft link: https://developer.microsoft.com/en-us/windows/downloads/virtual-machines. This VM comes with VS installed. When you open VS 2017, it may say that your subscription is expired. Just sign in with your account (or sign up for free).
++ Option 2: Install the windows VM from this Official Microsoft link: https://developer.microsoft.com/en-us/windows/downloads/virtual-machines. This VM comes with VS installed. When you open Visual Studio, it may say that your subscription is expired. Just sign in with your account (or sign up for free).
 
 + Option 3: Install Visual Studio Code (See instructions in the Linux and Mac section)
 
@@ -27,7 +27,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
 ## Set up (Linux and Mac).
 
-If you get stuck at any of the steps in this section, please send an email to Gustavo Soares at gsoares@microsoft.com and Sumit Gulwani at sumitg@microsoft.com.
+If you get stuck at any of the steps in this section, please contact us at prose-contact@microsoft.com.
 
 1.  Download and install VS Code (https://code.visualstudio.com/Download)
 
@@ -84,7 +84,7 @@ If you get stuck at any of the steps in this section, please send an email to Gu
         In case you get the following error message, just ignore it:
 
         ```
-        System.IO.FileNotFoundException: Unable to find tests for .../prose/DslAuthoringTutorial/part1a/ProseTutorial/bin/Debug/netcoreapp2.1/ProseTutorial.dll. Make sure test project has a nuget reference of package "Microsoft.NET.Test.Sdk" and framework version settings are appropriate. Rerun with /diag option to diagnose further.
+        System.IO.FileNotFoundException: Unable to find tests for .../prose/dsl-samples/tutorial/part1a/ProseTutorial/bin/Debug/netcoreapp2.1/ProseTutorial.dll. Make sure test project has a nuget reference of package "Microsoft.NET.Test.Sdk" and framework version settings are appropriate. Rerun with /diag option to diagnose further.
         ```
 
 1.  Running the console application
@@ -188,9 +188,9 @@ If you get stuck at any of the steps in this section, please send an email to Gu
 
 1. Go to the folder "part1c".
 
-2. The AbsPos operator refers to the ð‘˜ð‘¡â„Ž index in a given string from the left side (See Semantics.cs).
+2. The AbsPos operator refers to the 𝑘𝑡ℎ index in a given string from the left side (See Semantics.cs).
 
-    + Edit the semantics of this operator in the Semantics.cs file to make it also refer to the ð‘˜ð‘¡â„Ž index in a given string from the right side if the integer constant ð‘˜ is negative.
+    + Edit the semantics of this operator in the Semantics.cs file to make it also refer to the 𝑘𝑡ℎ index in a given string from the right side if the integer constant 𝑘 is negative.
 
     + Update the witness functions to reflect this change.
 
