@@ -28,9 +28,14 @@ cd dsl-samples/ProseSample/ProseSample  # ... or the directory for any other sam
 dotnet run  # run the sample in the current directory
 ```
 
+## Contributing
+
+The source of truth for all the information in this repository is actually an internal Microsoft repository, and any
+changes made here are at risk of being overwritten by future public releases from the PROSE team.  If you detect issues
+with any of the samples or other things in this repo, please [open an issue](https://github.com/microsoft/prose/issues),
+and someone from the PROSE team will work with you to see that the problem is addressed.
+
 ---
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact
 [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-Test Addition of Content -- plus more from Danny

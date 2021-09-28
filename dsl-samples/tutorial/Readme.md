@@ -1,6 +1,6 @@
 ﻿In this tutorial, we will learn how to synthesize programs for learning string transformations.
 
-## Set up (Windows).
+## Set up (Windows)
 
 If you get stuck at any of the steps in this section, please contact us at prose-contact@microsoft.com.
 
@@ -8,7 +8,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
 + Option 1: Download Visual Studio Community: https://www.visualstudio.com/downloads/ (Be sure to select the ".Net Desktop Development" box in the installation wizard).
 
-+ Option 2: Install the windows VM from this Official Microsoft link: https://developer.microsoft.com/en-us/windows/downloads/virtual-machines. This VM comes with VS installed. When you open Visual Studio, it may say that your subscription is expired. Just sign in with your account (or sign up for free).
++ Option 2: Install the windows VM from this Official Microsoft link: https://developer.microsoft.com/en-us/windows/downloads/virtual-machines. This VM comes with Visual Studio installed. When you open Visual Studio, it may say that your subscription is expired. Just sign in with your account (or sign up for free).
 
 + Option 3: Install Visual Studio Code (See instructions in the Linux and Mac section)
 
@@ -25,32 +25,32 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
 5. Build the project: Solution Explorer -> Right-Click on Solution 'ProseTutorial' -> Build
 
-## Set up (Linux and Mac).
+## Set up (Linux and Mac)
 
 If you get stuck at any of the steps in this section, please contact us at prose-contact@microsoft.com.
 
 1.  Download and install VS Code (https://code.visualstudio.com/Download)
 
-1.  Install .NET Core SDK (https://www.microsoft.com/net/download/linux)
+2.  Install .NET Core SDK (https://www.microsoft.com/net/download/linux)
 
-1.  Install VS Code extension for C#. (https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+3.  Install VS Code extension for C#. (https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 
-1.  Clone this repository:
+4.  Clone this repository:
 
     ```
     git clone https://github.com/Microsoft/prose.git
-    prose/dsl-samples/tutorial/part1a
+    cd prose/dsl-samples/tutorial/part1a
     ```
 
-1.  Open this folder in VS Code:
+5.  Open this folder in VS Code:
 
     +   Open VS Code
 
     +   Choose "Open Folder" and select the "part1a" folder.
 
-    +   VS Code may show a warning at the top of the screen about missing dependences. Click on "yes" to install them.
+    +   VS Code may show a warning at the top of the screen about missing dependencies. Click on "yes" to install them.
 
-1.  Building the project:
+6.  Building the project:
 
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
@@ -66,7 +66,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
             0 Error(s)
         ```
 
-1.  Running the tests:
+7.  Running the tests:
 
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
@@ -87,7 +87,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
         System.IO.FileNotFoundException: Unable to find tests for .../prose/dsl-samples/tutorial/part1a/ProseTutorial/bin/Debug/netcoreapp2.1/ProseTutorial.dll. Make sure test project has a nuget reference of package "Microsoft.NET.Test.Sdk" and framework version settings are appropriate. Rerun with /diag option to diagnose further.
         ```
 
-1.  Running the console application
+8.  Running the console application
 
     +   Open the VS Code terminal: View -> Integrated Terminal (or Ctrl+\`)
 
@@ -96,25 +96,8 @@ If you get stuck at any of the steps in this section, please contact us at prose
         dotnet run
         ```
 
-## Set up (Ubuntu Virtual Machine)
 
-+ Download this [VirtualBox Ubuntu VM]
-
-+ Open VirtualBox and import the VM file.
-
-+ VM username: prose
-
-+ VM password: PROSEtutorial
-
-+ Open Visual Studio Code by clicking on its icon in the left bar
-
-+ Open the folder /home/prose/git/prose in VS Code
-
-+ Follow the steps 4-6 of the previous section to build, test, and run the solution.
-
-+ see this video [tutorial] showing how to work on this virtual machine.
-
-## Part 1a: Writing your first witness function.
+## Part 1a: Writing your first witness function
 
 
 1. Go to the folder "part1a".
@@ -158,7 +141,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
     5. The completed code for this part of the tutorial can be found in the folder "part1a-complete".
 
-## Part 1b: Disjunctive conditional specification.
+## Part 1b: Disjunctive conditional specification
 
 1. Go to the folder "part1b-attempt1".
 
@@ -184,13 +167,13 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
 7. The completed code for this part of the tutorial can be found in the folder "part1b-attempt2-complete".
 
-## Part 1c: Supporting negative positions and ranking.
+## Part 1c: Supporting negative positions and ranking
 
 1. Go to the folder "part1c".
 
-2. The AbsPos operator refers to the 𝑘𝑡ℎ index in a given string from the left side (See Semantics.cs).
+2. The AbsPos operator refers to the k-th index in a given string from the left side (See Semantics.cs).
 
-    + Edit the semantics of this operator in the Semantics.cs file to make it also refer to the 𝑘𝑡ℎ index in a given string from the right side if the integer constant 𝑘 is negative.
+    + Edit the semantics of this operator in the Semantics.cs file to make it also refer to the k-th index in a given string from the right side if the integer constant k is negative.
 
     + Update the witness functions to reflect this change.
 
@@ -205,7 +188,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
 4. The completed code for this part of the tutorial can be found in the folder "part1c-complete".
 
-## Part 1d: Ranking.
+## Part 1d: Ranking
 
 1. Go to the folder "part1d".
 
@@ -219,7 +202,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
 2. The completed code for this part of the tutorial can be found in the folder "part1d-complete".
 
-## Part 2a: Supporting regular expressions.
+## Part 2a: Supporting regular expressions
 
 1. Go to the folder "part2a". The new version of our DSL contains the operator RelPos, which uses regular expressions to find positions in the input string.
 
@@ -231,7 +214,7 @@ If you get stuck at any of the steps in this section, please contact us at prose
 
 2. The completed code for this part of the tutorial can be found in the folder "part2a-complete".
 
-## Part 2b: Ranking for regular expressions.
+## Part 2b: Ranking for regular expressions
 
 1. Go to the folder "part2b".
 
