@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extraction.Web", "Extractio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Read.FlatFile", "Read.FlatFile\Read.FlatFile.csproj", "{C1B7ECDF-C339-4E86-96BF-EBF652B78419}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matching.Text", "Matching.Text\Matching.Text.csproj", "{3CD85485-3460-4BAA-A58A-822CBFF49288}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,12 @@ Global
 		{C1B7ECDF-C339-4E86-96BF-EBF652B78419}.RecompileAndRelease|Any CPU.Build.0 = Release|Any CPU
 		{C1B7ECDF-C339-4E86-96BF-EBF652B78419}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1B7ECDF-C339-4E86-96BF-EBF652B78419}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CD85485-3460-4BAA-A58A-822CBFF49288}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CD85485-3460-4BAA-A58A-822CBFF49288}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CD85485-3460-4BAA-A58A-822CBFF49288}.RecompileAndRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CD85485-3460-4BAA-A58A-822CBFF49288}.RecompileAndRelease|Any CPU.Build.0 = Debug|Any CPU
+		{3CD85485-3460-4BAA-A58A-822CBFF49288}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CD85485-3460-4BAA-A58A-822CBFF49288}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

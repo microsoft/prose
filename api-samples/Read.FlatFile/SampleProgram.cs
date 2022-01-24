@@ -134,10 +134,13 @@ col1 col2 col3
 
         private static void PrintProgramProperties(Program program)
         {
-            // Print common properties
-            Console.WriteLine($"Skip: {program.Skip}");
-            Console.WriteLine($"Column names: {string.Join(", ", program.ColumnNames)}");
-            Console.WriteLine($"New-line strings: {string.Join(", ", program.NewLineStrings.ToLiteral())}");
+            if (program is SimpleProgram simple)
+            {
+                // Print common properties
+                Console.WriteLine($"Skip: {simple.Skip}");
+                Console.WriteLine($"Column names: {string.Join(", ", simple.ColumnNames)}");
+                Console.WriteLine($"New-line strings: {string.Join(", ", simple.NewLineStrings.ToLiteral())}");
+            }
 
             // Print program-secific properties
             program.Switch(
@@ -153,6 +156,11 @@ col1 col2 col3
                     string FwPosToString(Record<int, int?> pos) => $"({pos.Item1}, {pos.Item2})";
                     Console.WriteLine(
                         $"Field positions: {string.Join(", ", fwProgram.FieldPositions.Select(FwPosToString))}");
+                },
+                etextProgram =>
+                {
+                    Console.WriteLine(
+                        $"Program: {etextProgram.WrappedProgram}");
                 });
         }
 
