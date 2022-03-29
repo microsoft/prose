@@ -21,7 +21,7 @@ namespace MergeConflictsResolution
             string[] path = resolution.SplitLines();
             foreach (string pathValue in path)
             {
-                Attributes.Attribute attr = new Attributes.Attribute(Path, pathValue.NormalizeInclude()); ;
+                Attributes.Attribute attr = Attributes.Attribute.Create(Path, pathValue.NormalizeInclude()); ;
                 Node node = StructNode.Create("node1", new Attributes(attr));
                 list.Add(node);
             }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.ProgramSynthesis.DslLibrary;
 using Microsoft.ProgramSynthesis.Split.Text;
+using Microsoft.ProgramSynthesis.Split.Text.Semantics;
 using Microsoft.ProgramSynthesis.Utils;
 using Newtonsoft.Json;
 
@@ -47,6 +48,7 @@ namespace BenchmarkDriver
             if (fixedWidth) session.Constraints.Add(new FixedWidthConstraint());
             var stringRegions = LinesAsStringRegions(InputFilePath);
             session.Inputs.Add(stringRegions);
+            session.Constraints.Add(new FillStrategyConstraint(FillStrategy.Null));
             Program = session.Learn();
 
             if (Program == null)

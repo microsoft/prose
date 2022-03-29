@@ -88,7 +88,7 @@ namespace MergeConflictsResolution
             List<Node> list = new List<Node>();
             foreach (string pathValue in path)
             {
-                Attributes.Attribute attr = new Attributes.Attribute(Path, pathValue);
+                Attributes.Attribute attr = Attributes.Attribute.Create(Path, pathValue);
                 Node node = StructNode.Create("node1", new Attributes(attr));
                 list.Add(node);
             }
