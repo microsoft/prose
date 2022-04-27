@@ -47,6 +47,15 @@ col1 col2 col3
 4,5;6
 7,8;9";
 
+        private static readonly string ETextSampleInput = @"
+SEVERE [MBT Director for SESS_0.8396720957269632] TCP should be ready, begin recreate IO Socket
+INFO [MBT Director for SESS_0.8396720957269632] SendTCPMessage: Sending - performGeneralAction`StartApplication`calc``
+INFO [MBT Director for SESS_0.8396720957269632] SendTCPMessage: Received - -1
+SEVERE [MBT Director for SESS_0.8396720957269632] performGeneralAction(): return code is ERROR - unknown. An exception may have occurred.
+INFO [vUser-3-thread-1] SendTCPMessage: Sending - findElement`Clear`true`name`button`1`false`0`true
+INFO [vUser-3-thread-1] SendTCPMessage: Received - 1
+INFO [vUser-3-thread-1] findElement(): return code is FAILED";
+
         private static void SimpleApi()
         {
             // The pattern of the simple API is:
@@ -130,6 +139,16 @@ col1 col2 col3
             Program prog3 = session.Learn();
             PrintProgramProperties(prog3);
             PrintProgramOutput(prog3, CsvOverrideSampleInput);
+
+            // IV. Learn EText program
+            session.Inputs.Clear();
+            session.Constraints.Clear();
+            session.AddInput(ETextSampleInput);
+            // EText learning is disabled by default while we work to improve its quality.
+            session.Constraints.Add(EnableExtractionTextLearning.Instance);
+            Program prog4 = session.Learn();
+            PrintProgramProperties(prog4);
+            PrintProgramOutput(prog4, ETextSampleInput);
         }
 
         private static void PrintProgramProperties(Program program)

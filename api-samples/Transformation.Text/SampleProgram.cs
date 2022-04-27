@@ -25,8 +25,6 @@ namespace Transformation.Text
             LearnTop10ExtractName();
             // Learning with additional inputs:
             LearnNormalizeDate();
-            // Learning with learning session API:
-            LearnWithSession();
             // Convert program to string and back:
             SerializeProgram();
 
@@ -39,13 +37,14 @@ namespace Transformation.Text
         /// </summary>
         private static void LearnFormatName()
         {
+            var session = new Session();
+
             // Examples are given as an Example object which takes an input and output.
-            IEnumerable<Constraint<IRow, object>> constraints = new[]
-            {
+            session.Constraints.Add(
                 new Example(new InputRow("Kettil Hansson"), "Hansson, K.")
-            };
+            );
             // Given just the examples, the best program is returned
-            Program topRankedProgram = Learner.Instance.Learn(constraints);
+            Program topRankedProgram = session.Learn();
 
             if (topRankedProgram == null)
             {
@@ -68,14 +67,15 @@ namespace Transformation.Text
         /// </summary>
         private static void LearnNormalizePhoneNumber()
         {
+            var session = new Session();
+
             // Some programs may require multiple examples.
             // More examples ensures the proper program is learned and may speed up learning.
-            IEnumerable<Constraint<IRow, object>> constraints = new[]
-            {
+            session.Constraints.Add(
                 new Example(new InputRow("425-829-5512"), "425-829-5512"),
                 new Example(new InputRow("(425) 829 5512"), "425-829-5512")
-            };
-            Program topRankedProgram = Learner.Instance.Learn(constraints);
+            );
+            Program topRankedProgram = session.Learn();
 
             if (topRankedProgram == null)
             {
@@ -97,17 +97,17 @@ namespace Transformation.Text
         /// </summary>
         private static void LearnMergeNames()
         {
+            var session = new Session();
+
             // Inputs may be made up of multiple strings. If so, all inputs must contain the same number of strings.
-            IEnumerable<Constraint<IRow, object>> constraints = new[]
-            {
+            session.Constraints.Add(
                 new Example(new InputRow("Kettil", "Hansson"), "Hansson, Kettil")
-            };
+            );
             // Inputs for which the corresponding output is not known. May be used for improving ranking.
-            InputRow[] additionalInputs =
-            {
+            session.Inputs.Add(
                 new InputRow("Greta", "Hermansson")
-            };
-            Program topRankedProgram = Learner.Instance.Learn(constraints, additionalInputs);
+            );
+            Program topRankedProgram = session.Learn();
 
             if (topRankedProgram == null)
             {
@@ -133,14 +133,15 @@ namespace Transformation.Text
         /// <seealso cref="LearnTop10FormatName" />
         private static void LearnTop10NormalizePhoneNumber()
         {
-            IEnumerable<Constraint<IRow, object>> constraints = new[]
-            {
+            var session = new Session();
+
+            session.Constraints.Add(
                 new Example(new InputRow("(425) 829 5512"), "425-829-5512")
-            };
+            );
             // Request is for number of distinct rankings, not number of programs,
             //  so more programs will be generated if there are ties.
             int numRankingsToGenerate = 10;
-            IList<Program> programs = Learner.Instance.LearnTopK(constraints, k: numRankingsToGenerate).ToList();
+            IReadOnlyList<Program> programs = session.LearnTopK(k: numRankingsToGenerate);
 
             if (!programs.Any())
             {
@@ -171,8 +172,10 @@ namespace Transformation.Text
         /// <seealso cref="LearnTop10NormalizePhoneNumber" />
         private static void LearnTop10ExtractName()
         {
-            var constraints = new[] { new Example(new InputRow("Greta Hermansson"), "Hermansson") };
-            IEnumerable<Program> programs = Learner.Instance.LearnTopK(constraints, k: 10);
+            var session = new Session();
+
+            session.Constraints.Add(new Example(new InputRow("Greta Hermansson"), "Hermansson"));
+            IReadOnlyList<Program> programs = session.LearnTopK(k: 10);
 
             // This attempts running the top 10 programs on an input not directly similar to the example
             // to see different behaviours.
@@ -194,17 +197,17 @@ namespace Transformation.Text
         /// </summary>
         private static void LearnNormalizeDate()
         {
-            IEnumerable<Constraint<IRow, object>> constraints = new[]
-            {
+            var session = new Session();
+
+            session.Constraints.Add(
                 new Example(new InputRow("02/04/1953"), "1953-04-02")
-            };
+            );
             // Inputs for which the corresponding output is not known. May be used for improving ranking.
-            IEnumerable<IRow> additionalInputs = new[]
-            {
+            session.Inputs.Add(
                 new InputRow("04/02/1962"),
-                new InputRow("27/08/1998"),
-            };
-            Program topRankedProgram = Learner.Instance.Learn(constraints, additionalInputs);
+                new InputRow("27/08/1998")
+            );
+            Program topRankedProgram = session.Learn();
 
             if (topRankedProgram == null)
             {
@@ -226,11 +229,12 @@ namespace Transformation.Text
         /// </summary>
         private static void SerializeProgram()
         {
-            IEnumerable<Constraint<IRow, object>> constraints = new[]
-            {
+            var session = new Session();
+
+            session.Constraints.Add(
                 new Example(new InputRow("Kettil Hansson"), "Hansson, K.")
-            };
-            Program topRankedProgram = Learner.Instance.Learn(constraints);
+            );
+            Program topRankedProgram = session.Learn();
 
             if (topRankedProgram == null)
             {
@@ -246,28 +250,6 @@ namespace Transformation.Text
                 {
                     string formatted = parsedProgram.Run(new InputRow(name)) as string;
                     Console.WriteLine("\"{0}\" => \"{1}\"", name, formatted);
-                }
-            }
-        }
-
-        private static void LearnWithSession()
-        {
-            Session session = new Session();
-
-            session.Inputs.Add(new InputRow("02/04/1953"), new InputRow("04/02/1962"), new InputRow("27/08/1998"));
-            session.Constraints.Add(new Example(new InputRow("02/04/1953"), "1953-04-02"));
-            Program topRankedProgram = session.Learn();
-
-            if (topRankedProgram == null)
-            {
-                Console.Error.WriteLine("Error: failed to learn normalize date program.");
-            }
-            else
-            {
-                foreach (var date in session.Inputs)
-                {
-                    string normalized = topRankedProgram.Run(date) as string;
-                    Console.WriteLine("\"{0}\" => \"{1}\"", date, normalized);
                 }
             }
         }
