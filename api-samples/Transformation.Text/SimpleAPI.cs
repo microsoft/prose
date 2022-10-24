@@ -8,7 +8,6 @@ using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Learning.Strategies;
 using Microsoft.ProgramSynthesis.Specifications;
 using Microsoft.ProgramSynthesis.Transformation.Text;
-using Microsoft.ProgramSynthesis.Transformation.Text.Features;
 using Microsoft.ProgramSynthesis.Transformation.Text.Semantics;
 using Microsoft.ProgramSynthesis.Wrangling;
 
