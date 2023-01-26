@@ -1,4 +1,4 @@
-﻿In this tutorial, we will learn how to synthesize programs for learning string transformations.
+In this tutorial, we will learn how to synthesize programs for learning string transformations.
 
 ## Set up (Windows)
 

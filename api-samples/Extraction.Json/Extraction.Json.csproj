@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis" Version="8.17.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="PROSE_20230125.001" />
   </ItemGroup>
   
 </Project>

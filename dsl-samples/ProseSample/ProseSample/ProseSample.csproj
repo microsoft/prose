@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -14,7 +14,7 @@
     <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
     <ProjectReference Include="..\ProseSample.Substrings\ProseSample.Substrings.csproj" />
     <ProjectReference Include="..\ProseSample.TextExtraction\ProseSample.TextExtraction.csproj" />
-    <PackageReference Include="Microsoft.ProgramSynthesis" Version="8.17.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="PROSE_20230125.001" />
   </ItemGroup>
 
 </Project>

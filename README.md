@@ -6,7 +6,8 @@ the Microsoft PROSE SDK.
 
 The samples are split into two categories:
 
-- Samples for using existing PROSE DSL APIs to accomplish tasks in [api-samples/api-samples.sln](api-samples/api-samples.sln). 
+- Samples for using existing PROSE DSL APIs to accomplish tasks in
+  [api-samples/api-samples.sln](api-samples/api-samples.sln). 
 - Samples for creating program synthesis solutions using the PROSE SDK by authoring a DSL in the
   [dsl-samples](dsl-samples) directory:
   - [DSL authoring tutorial](dsl-samples/tutorial)
