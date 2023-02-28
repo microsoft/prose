@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis" Version="PROSE_20230125.001" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.Compiler" Version="PROSE_20230125.001" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="Publish-To-Github_20230228.001" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Compiler" Version="Publish-To-Github_20230228.001" />
   </ItemGroup>
   <ItemGroup>
     <None Update="synthesis\grammar\substring.grammar">

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -6,9 +6,9 @@
   
   <ItemGroup>
     <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.Common" Version="PROSE_20230125.001" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.DslcTargets" Version="PROSE_20230125.001" />
-    <DotNetCliToolReference Include="Microsoft.ProgramSynthesis.Dslc" Version="PROSE_20230125.001" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Common" Version="Publish-To-Github_20230228.001" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.DslcTargets" Version="Publish-To-Github_20230228.001" />
+    <DotNetCliToolReference Include="Microsoft.ProgramSynthesis.Dslc" Version="Publish-To-Github_20230228.001" />
   </ItemGroup>
 
 </Project>

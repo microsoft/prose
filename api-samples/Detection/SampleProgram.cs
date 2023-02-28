@@ -41,6 +41,11 @@ namespace DetectionSample
             result = richDataTypeDetector.Detect(samples);
             // Type of 22.15, 22, -9.0 is: Numeric
             Console.WriteLine($"Type of {String.Join(", ", samples)} is: {Enum.GetName(typeof(DataKind), result.Kind)}");
+            // You can also try to cast result into a 'RichNumericType' and then get more information
+            if (result is RichNumericType numericType) {
+                NativeNumericType nativeType = numericType.NativeType;
+                Console.WriteLine($"Type of {String.Join(", ", samples)} is: {Enum.GetName(typeof(NativeNumericType), nativeType)}");
+            }
 
             // An example of Boolean
             richDataTypeDetector = new RichDataTypeDetector(

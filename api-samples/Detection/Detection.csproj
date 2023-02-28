@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,6 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis.Detection" Version="PROSE_20230125.001" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Detection" Version="Publish-To-Github_20230228.001" />
   </ItemGroup>
 </Project>

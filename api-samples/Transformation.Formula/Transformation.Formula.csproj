@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis.Transformation.Formula" Version="PROSE_20230125.001" />
-    <PackageReference Include="Microsoft.ProgramSynthesis" Version="PROSE_20230125.001" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Transformation.Formula" Version="Publish-To-Github_20230228.001" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="Publish-To-Github_20230228.001" />
   </ItemGroup>
 </Project>
