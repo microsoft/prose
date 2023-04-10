@@ -4,8 +4,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis" Version="Publish-To-Github_20230331.001" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.Compiler" Version="Publish-To-Github_20230331.001" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="8.20.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Compiler" Version="8.20.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="synthesis\grammar\substring.grammar">
