@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis" Version="8.20.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Split.Text" Version="8.21.0" />
   </ItemGroup>
 
 </Project>

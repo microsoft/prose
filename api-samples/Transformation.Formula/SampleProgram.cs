@@ -188,7 +188,7 @@ namespace Transformation.Formula
             Program topRankedProgram = null;
             try {
                 topRankedProgram = session.Learn(cancel: token);
-            } catch (TaskCanceledException) {
+            } catch (OperationCanceledException) {
             } finally {
                 cancellationTokenSource.Dispose();
             }
@@ -206,7 +206,7 @@ namespace Transformation.Formula
             cancellationTokenSource.CancelAfter(2000); // Cancel after 2 seconds
             try {
                 topRankedProgram = session.Learn(cancel: cancellationTokenSource.Token);
-            } catch (TaskCanceledException) {
+            } catch (OperationCanceledException) {
             } finally {
                 cancellationTokenSource.Dispose();
             }
@@ -220,7 +220,7 @@ namespace Transformation.Formula
             cancellationTokenSource.CancelAfter(2000); // Cancel after 2 seconds
             try {
                 translation = session.Translate(TargetLanguage.Pandas, topRankedProgram, cancellationTokenSource.Token);
-            } catch (TaskCanceledException) {
+            } catch (OperationCanceledException) {
             } finally {
                 cancellationTokenSource.Dispose();
             }
