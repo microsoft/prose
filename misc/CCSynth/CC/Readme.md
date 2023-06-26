@@ -20,7 +20,7 @@ pip install -e DataInsights
 ```
 
 # Download datasets
-Download the datasets as zip file from [here](https://drive.google.com/drive/folders/1gBZuhV42VHhrwsiKpEA4dLYVdiiXbUGp?usp=sharing). We will assume that you have downloaded the datasets under the directory `CC/Datasets`.
+Download the datasets as zip file from [here](https://github.com/afariha/ConformanceConstraintsReproducibility). We will assume that you have downloaded the datasets under the directory `CC/Datasets`.
 
 # Extract datasets
 ```
