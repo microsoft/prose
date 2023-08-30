@@ -14,7 +14,7 @@
     <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
     <ProjectReference Include="..\ProseSample.Substrings\ProseSample.Substrings.csproj" />
     <ProjectReference Include="..\ProseSample.TextExtraction\ProseSample.TextExtraction.csproj" />
-    <PackageReference Include="Microsoft.ProgramSynthesis" Version="8.25.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="8.26.0" />
   </ItemGroup>
 
 </Project>
