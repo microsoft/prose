@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-     <PackageReference Include="Microsoft.ProgramSynthesis.Extraction.Text" Version="8.27.0" />
+     <PackageReference Include="Microsoft.ProgramSynthesis.Extraction.Text" Version="8.28.0" />
   </ItemGroup>
 
 </Project>
