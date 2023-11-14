@@ -1,0 +1,12 @@
+pandas
+numpy
+scipy
+torch
+openai
+transformers
+jsonlines
+tabulate
+matplotlib
+scikit-learn
+plotly
+statsmodels
