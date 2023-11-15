@@ -1,0 +1,119 @@
+ArbitraryColumnNames
+
+|    | a       |   G8DkqkuE | b8T         | H   |
+|---:|:--------|-----------:|:------------|:----|
+|  0 | Alice   |         25 | New York    | F   |
+|  1 | Bob     |         30 | Los Angeles | M   |
+|  2 | Charlie |         22 | Chicago     | M   |
+
+
+ShuffleRows
+
+|    | Name    |   Age | City        | Sex   |
+|---:|:--------|------:|:------------|:------|
+|  0 | Alice   |    25 | New York    | F     |
+|  1 | Bob     |    30 | Los Angeles | M     |
+|  2 | Charlie |    22 | Chicago     | M     |
+
+
+TransposeTable
+
+|      | 0        | 1           | 2       |
+|:-----|:---------|:------------|:--------|
+| Name | Alice    | Bob         | Charlie |
+| Age  | 25       | 30          | 22      |
+| City | New York | Los Angeles | Chicago |
+| Sex  | F        | M           | M       |
+
+
+ColumnCluster
+
+|    | Name-----Age   | City-----Sex      |
+|---:|:---------------|:------------------|
+|  0 | Alice-----25   | New York-----F    |
+|  1 | Bob-----30     | Los Angeles-----M |
+|  2 | Charlie-----22 | Chicago-----M     |
+
+
+SerializeTable
+
+Name:Alice,Age:25,City:New York,Sex:F
+Name:Bob,Age:30,City:Los Angeles,Sex:M
+Name:Charlie,Age:22,City:Chicago,Sex:M
+
+
+ShuffleColumns
+
+|    |   Age | Sex   | Name    | City        |
+|---:|------:|:------|:--------|:------------|
+|  0 |    25 | F     | Alice   | New York    |
+|  1 |    30 | M     | Bob     | Los Angeles |
+|  2 |    22 | M     | Charlie | Chicago     |
+
+
+ShuffleColumnNames
+
+|    | Age     |   Sex | Name        | City   |
+|---:|:--------|------:|:------------|:-------|
+|  0 | Alice   |    25 | New York    | F      |
+|  1 | Bob     |    30 | Los Angeles | M      |
+|  2 | Charlie |    22 | Chicago     | M      |
+
+
+OriginalData
+
+|    | Name    |   Age | City        | Sex   |
+|---:|:--------|------:|:------------|:------|
+|  0 | Alice   |    25 | New York    | F     |
+|  1 | Bob     |    30 | Los Angeles | M     |
+|  2 | Charlie |    22 | Chicago     | M     |
+
+
+SequentialColumnNames
+
+|    | col_0   |   col_1 | col_2       | col_3   |
+|---:|:--------|--------:|:------------|:--------|
+|  0 | Alice   |      25 | New York    | F       |
+|  1 | Bob     |      30 | Los Angeles | M       |
+|  2 | Charlie |      22 | Chicago     | M       |
+
+
+|    |                                        |
+|---:|:---------------------------------------|
+|  0 | Name:Alice,Age:25,City:New York,Sex:F  |
+|  1 | Name:Bob,Age:30,City:Los Angeles,Sex:M |
+|  2 | Name:Charlie,Age:22,City:Chicago,Sex:M |
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>City</th>
+      <th>Sex</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alice</td>
+      <td>25</td>
+      <td>New York</td>
+      <td>F</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Bob</td>
+      <td>30</td>
+      <td>Los Angeles</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Charlie</td>
+      <td>22</td>
+      <td>Chicago</td>
+      <td>M</td>
+    </tr>
+  </tbody>
+</table><table border="1" class="dataframe">  <thead> <tr style="text-align: right;"><th></th><th>Name</th><th>Age</th><th>City</th><th>Sex</th> </tr>  </thead>  <tbody> <tr><th>0</th><td>Alice</td><td>25</td><td>New York</td><td>F</td> </tr> <tr><th>1</th><td>Bob</td><td>30</td><td>Los Angeles</td><td>M</td> </tr> <tr><th>2</th><td>Charlie</td><td>22</td><td>Chicago</td><td>M</td> </tr>  </tbody></table>
