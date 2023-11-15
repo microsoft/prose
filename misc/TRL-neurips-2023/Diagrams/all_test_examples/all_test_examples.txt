@@ -1,0 +1,63 @@
+|    | Name      |   Age | City          | Sex   |
+|---:|:----------|------:|:--------------|:------|
+|  0 | Alice     |    25 | New York      | F     |
+|  1 | Bob       |    30 | Los Angeles   | M     |
+|  2 | Charlie   |    22 | Chicago       | M     |
+|  3 | David     |    28 | Boston        | M     |
+|  4 | Emily     |    35 | San Francisco | F     |
+|  5 | Frank     |    29 | Dallas        | M     |
+|  6 | Grace     |    27 | Miami         | F     |
+|  7 | Henry     |    32 | Seattle       | M     |
+|  8 | Ivy       |    24 | Denver        | F     |
+|  9 | Jack      |    33 | Houston       | M     |
+| 10 | Katherine |    26 | Atlanta       | F     |
+| 11 | Liam      |    31 | Phoenix       | M     |
+| 12 | Mia       |    36 | Philadelphia  | F     |
+| 13 | Noah      |    23 | San Diego     | M     |
+| 14 | Olivia    |    29 | Austin        | F     |
+
+NavigationTests
+
+What value is at row 14 and column Name?
+What value is at row 7 and column City?
+What value is at row 4 and column Name?
+
+
+ColumnLookupTests
+
+What column is the Olivia in?
+What column is the Seattle in?
+What column is the Emily in?
+
+
+RowLookupTests
+
+What row is the Olivia in?
+What row is the Seattle in?
+What row is the Emily in?
+
+
+DataTypeLookupTests
+
+What type (using Pandas datatype notation) is column Age?
+What type (using Pandas datatype notation) is column City?
+What type (using Pandas datatype notation) is column Sex?
+
+
+TableColumnReorderTests
+
+Can you reorder the table such that the column are in this new order ['Sex', 'City', 'Age', 'Name']? Make sure to return the complete reordered table.
+Can you reorder the table such that the column are in this new order ['Name', 'Sex', 'City', 'Age']? Make sure to return the complete reordered table.
+Can you reorder the table such that the column are in this new order ['Sex', 'Name', 'Age', 'City']? Make sure to return the complete reordered table.
+
+
+TableReconstructionTests
+
+Can you reconstruct the table by deserializing the table above?
+
+
+TableTransposeTests
+
+Can you transpose the table?
+
+
