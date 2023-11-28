@@ -1,0 +1,7 @@
+{
+        "train": [],
+        "dev": [],
+        "test": [
+                "WaveFunctionCollapse"
+        ]
+}

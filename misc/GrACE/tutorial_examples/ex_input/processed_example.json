@@ -1,0 +1,23 @@
+[
+    {
+        "id": "ex_input",
+        "data": [
+            {
+                "AssociatedEdits": [
+                    {
+                        "prefix": "        var currentExamples = FetchExamples();\n\n        foreach (var ex in currentExamples)\n        {\n            Console.WriteLine(GetText(ex, diff.BeforeFile));",
+                        "before": "            Console.WriteLine(GetText(ex, diff.AfterFile));",
+                        "after": "            Console.WriteLine(GetText(ex.Output, diff.AfterFile));",
+                        "suffix": "        }\n        var expectedOutput = Run(currentExamples.First().Input);\n        AssertEqual(currentExamples.First().Output, expectedOutput);\n    }\n}"
+                    }
+                ],
+                "Current": {
+                    "prefix": "public class Example\n{\n    public static void Main()\n    {\n        var currentExamples = FetchExamples();\n\n        foreach (var ex in currentExamples)\n        {",
+                    "before": "            Console.WriteLine(GetText(ex, diff.BeforeFile));",
+                    "after": "            Console.WriteLine(GetText(ex.Input, diff.BeforeFile));",
+                    "suffix": "            Console.WriteLine(GetText(ex.Output, diff.AfterFile));\n        }\n        var expectedOutput = Run(currentExamples.First().Input);\n        AssertEqual(currentExamples.First().Output, expectedOutput);\n    }\n}"
+                }
+            }
+        ]
+    }
+]

@@ -1,0 +1,23 @@
+[
+    {
+        "id": "http_error_codes_not_found",
+        "data": [
+            {
+                "AssociatedEdits": [
+                    {
+                        "prefix": "        {\n            ts = Library.Utility.Timeparser.ParseTimeSpan(input[\"duration\"].Value);\n        }\n        catch (Exception ex)\n        {",
+                        "before": "            info.ReportClientError(\"Scheme is missing\");",
+                        "after": "            info.ReportClientError(\"Scheme is missing\", System.Net.HttpStatusCode.BadRequest);",
+                        "suffix": "            return;\n        }\n        default:\n            info.ReportClientError(\"No such action\");\n    }"
+                    }
+                ],
+                "Current": {
+                    "prefix": "            ts = Library.Utility.Timeparser.ParseTimeSpan(input[\"duration\"].Value);\n        }\n        catch (Exception ex)\n        {\n            info.ReportClientError(\"Scheme is missing\", System.Net.HttpStatusCode.BadRequest);\n            return;\n        }\n        default:",
+                    "before": "            info.ReportClientError(\"No such action\");",
+                    "after": "            info.ReportClientError(\"No such action\", System.Net.HttpStatusCode.NotFound);",
+                    "suffix": "    }\n}"
+                }
+            }
+        ]
+    }
+]
