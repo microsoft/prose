@@ -6,6 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis.Transformation.Json" Version="8.28.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Transformation.Json" Version="8.29.0" />
   </ItemGroup>
 </Project>
