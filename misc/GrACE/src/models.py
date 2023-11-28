@@ -9,7 +9,7 @@ import re
 
 load_dotenv()
 
-# Variable used to store OpenAI API Key in .env
+# Variables used to store OpenAI API Key and other login information in .env
 OPENAI_API_KEY_VAR = "OPENAI_API_KEY"
 AZURE_OPENAI_API_BASE_VAR = "AZURE_OPENAI_API_BASE"
 AZURE_OPENAI_API_VERSION_VAR = "AZURE_OPENAI_API_VERSION"
@@ -43,6 +43,7 @@ class OAIInsertModel:
         # trailing new lines can cause issues with OAI predictions
         data["prompt"] = prefix.strip()
         data["suffix"] = suffix.strip()
+       # Retry every 2 second, if rate limitted
         while True:
             try:
                 completion = openai.Completion.create(**data)
@@ -54,6 +55,7 @@ class OAIInsertModel:
                 time.sleep(2)
                 continue
         return [choice.text for choice in completion.choices]
+
 
 class HFModel:
     def __init__(self, model_name_or_path, max_seq_length=1024, topK=5):
