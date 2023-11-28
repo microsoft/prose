@@ -55,7 +55,7 @@ python evaluate_c3po.py --input_dir <PATH_TO_C3PO_PROCESSED_DATASET_DIR> --outpu
 You can also choose to run OpenAI models that are still available via the OpenAI public API by setting `--api_engine oai` in the commands discussed above.
 
 #### Evaluating finetuned CodeT5 models
-The paper also presents results with finetuned variants of the `CodeT5` model. We open-source two such models under `Models\`.
+The paper also presents results with finetuned variants of the `CodeT5` model. We open-source two such models under `aka.ms/GrACE-Code`.
 ```
 python evaluate_c3po.py --input_dir <PATH_TO_C3PO_PROCESSED_DATASET_DIR> --output_dir <PATH_TO_RESULTS_DIR> --splits splits_50.json --api_engine hf --model_name_or_path <PATH_TO_CODET5_WEIGHTS> --use_ascEdits
 ```
@@ -72,7 +72,7 @@ To train the model with associated edits
 accelerate launch --config_file accelerate.yaml train_t5.py --model_name_or_path "Salesforce/codet5-base" --data_path <data_path> --do_eval --do_test --per_device_train_batch_size 8  --per_device_eval_batch_size 16 --learning_rate 3e-4 --preprocessing_num_workers 96 --num_train_epoch 8 --overwrite_output_dir --pad_to_max_length --max_seq_length 1024 --warmup_steps 500 --logging_steps 10000 --save_steps 10000 --seed 42 --report_to tensorboard --use_fast_tokenizer --with_tracking --do_train --ag_tokenizer 
 ```
 
-The pretrained codet5 models for the c3po configurations can be found in  ```Models/```
+The pretrained codet5 models for the c3po configurations can be found at ``aka.ms/GrACE-Code``
 
 ### Few-shot experiments
 
@@ -123,8 +123,23 @@ You would need python (3 or above) and Jupyter Notebook support for running the 
 pip install -r tutorial_requirements.txt
 ```
 
-Note that the tutorial also uses utilities from the `src` and `tutorial_utils` directories and loads the model weights from the `Models` directory. Moving the `tutorial.ipynb` file to some other location could lead to these utlities and files not being discoverable.
+Note that the tutorial also uses utilities from the `src` and `tutorial_utils` directories and loads the CodeT5 model weights. Moving the `tutorial.ipynb` file to some other location could lead to these utlities and files not being discoverable.
 
 **Running the tutorial:**
 
 After ensuring that the requirements are met, launch the `tutorial.ipynb` file. The tutorial content is presented as a series of markdown cells that describe each step and code cells that let you simulate the step (a step here could be identifying the target edit location, processing associated edits, etc.). The notebook can be run multiple times with different examples and the instructions for the same are included in the notebook.
+
+# Citation
+
+If you find our work useful in your research, please consider citing the paper:
+
+@misc{gupta2023grace,
+      title={GrACE: Generation using Associated Code Edits}, 
+      author={Priyanshu Gupta and Avishree Khare and Yasharth Bajpai and Saikat Chakraborty and Sumit Gulwani and Aditya Kanade and Arjun Radhakrishna and Gustavo Soares and Ashish Tiwari},
+      year={2023},
+      eprint={2305.14129},
+      archivePrefix={arXiv},
+      primaryClass={cs.SE}
+}
+# Contact
+For any questions or issues, please submit repository issues or reach us at `priyansgupta@microsoft.com`

@@ -13,6 +13,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+
+
+# Code modified from https://github.com/huggingface/transformers 
 """
 Pretraining the library models for T5-like span-masked language modeling on C3PO dataset.
 
