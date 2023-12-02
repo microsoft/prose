@@ -1,0 +1,12 @@
+{
+    "v0_v1": {
+        "lineNumber": 13,
+        "editType": "replace",
+        "intent": "The user intends to add HTTP error codes to the logging calls. They start by adding a new error code to line 13."
+    },
+    "v1_v2": {
+        "lineNumber": 17,
+        "editType": "replace",
+        "intent": "The user then moves their cursor to line 17 with an intent to add another error code."
+    }  
+}

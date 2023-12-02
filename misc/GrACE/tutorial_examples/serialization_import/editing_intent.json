@@ -1,0 +1,12 @@
+{
+    "v0_v1": {
+        "lineNumber": 25,
+        "editType": "replace",
+        "intent": "The user intends to add a SerializationException. They start by replacing Exception on line 25 with SerializationException."
+    },
+    "v1_v2": {
+        "lineNumber": 5,
+        "editType": "insert",
+        "intent": "The user then moves their cursor to line 6 with an intent to import the Serialization namespace."
+    }  
+}

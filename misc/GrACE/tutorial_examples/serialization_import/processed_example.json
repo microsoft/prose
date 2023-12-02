@@ -1,0 +1,23 @@
+[
+    {
+        "id": "serialization_import",
+        "data": [
+            {
+                "AssociatedEdits": [
+                    {
+                        "prefix": "                using (Stream stream = File.Open(filePath, FileMode.Open)) {\n                    try {\n                        var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();\n                        return (T) binaryFormatter.Deserialize(stream);\n                    }",
+                        "before": "                    catch(Exception){",
+                        "after": "                    catch(SerializationException){",
+                        "suffix": "                        throw();\n                    }\n                }\n            }\n    }"
+                    }
+                ],
+                "Current": {
+                    "prefix": "using Newtonsoft.Json;\nusing System;\nusing System.Collections.Generic;\nusing System.IO;\nusing System.Linq;",
+                    "before": "",
+                    "after": "using System.Runtime.Serialization;",
+                    "suffix": "using System.Threading.Tasks;\n\nnamespace Example\n{\n    /// <summary>\n    /// Helper API to the OpenAI API.\n    /// </summary>\n    public static class OpenAI"
+                }
+            }
+        ]
+    }
+]

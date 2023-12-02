@@ -1,0 +1,12 @@
+{
+    "v0_v1": {
+        "lineNumber": 12,
+        "editType": "replace",
+        "intent": "The user first replaces ex in line 12 with ex.Output."
+    },
+    "v1_v2": {
+        "lineNumber": 11,
+        "editType": "replace",
+        "intent": "The user then moves their cursor to line 11 with an intent to replace ex with ex.Input."
+    }  
+}

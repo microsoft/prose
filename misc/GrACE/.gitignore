@@ -1,0 +1,4 @@
+Models/
+__pycache__
+*.pyc
+Temp/
