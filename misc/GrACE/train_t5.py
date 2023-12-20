@@ -15,8 +15,7 @@
 # limitations under the License.
 
 
-
-# Code modified from https://github.com/huggingface/transformers 
+# Code modified from https://github.com/huggingface/transformers
 """
 Pretraining the library models for T5-like span-masked language modeling on C3PO dataset.
 
@@ -418,7 +417,7 @@ def TestAndDumpResults(
 
     for k in dataLoaderDict:
         dataLoaderDict[k] = accelerator.prepare(dataLoaderDict[k])
-     
+
         accelerator.wait_for_everyone()
     if accelerator.is_main_process:
         logger.info({k: len(v) for k, v in dataLoaderDict.items()})
@@ -539,7 +538,6 @@ def TestAndDumpResults(
                 logger.info("Raw Top-1 Acc || Raw Top-5 Acc ||")
                 logger.info(
                     f"     {avgPerf['RawAccTop-1']}     ||     {avgPerf['RawAccTop-5']}     ||"
-    
                 )
             logger.info(f"Time Taken: {round(v['time'],2)}s")
             logger.info("=====================================")
@@ -982,12 +980,12 @@ def main():
         best_eval_perplexity = float("inf")
         best_step = 0
         for epoch in range(starting_epoch, training_args.num_train_epochs):
-            
+
             model.train()
             if training_args.with_tracking:
                 total_loss = 0
             for step, batch in enumerate(train_dataloader):
-                
+
                 # We need to skip steps until we reach the resumed step
                 if training_args.resume_from_checkpoint and epoch == starting_epoch:
                     if resume_step is not None and step < resume_step:
@@ -1034,7 +1032,7 @@ def main():
                                 },
                                 step=completed_steps,
                             )
-                     # Best model selection
+                        # Best model selection
                         if best_eval_perplexity > perplexity:
                             logger.info("Found Best perplexity, dumping model weights")
                             dump_model(
@@ -1112,7 +1110,7 @@ def main():
             data_args.max_seq_length,
             os.path.join(training_args.output_dir, "DevEvaluationBeamSearch"),
             5,  # Beam width 5
-            True, # Using Beam search
+            True,  # Using Beam search
         )
 
     if training_args.do_test:

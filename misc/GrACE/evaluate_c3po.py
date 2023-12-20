@@ -138,9 +138,7 @@ def evaluate(args):
             LOGGER.info("=====================================")
             LOGGER.info(f"Evaluation metrics - EP {path.stem}")
             LOGGER.info("=====================================")
-            LOGGER.info(
-                "Raw Top-1 Acc || Raw Top-5 Acc ||"
-            )
+            LOGGER.info("Raw Top-1 Acc || Raw Top-5 Acc ||")
             LOGGER.info(
                 f"     {avgPerf['RawAccTop-1']}     ||     {avgPerf['RawAccTop-5']}     ||"
             )

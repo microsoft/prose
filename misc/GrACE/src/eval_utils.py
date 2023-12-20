@@ -49,7 +49,7 @@ def getAvgPerf(resDict, dumpFV=False):
     keys = [f"RawAccTop-{k}" for k in evalKs]
     if dumpFV:
         keys += [f"FVAccTop-{k}" for k in evalKs]
-    
+
     avgDict = {}
     for key in keys:
         avgDict[key] = 0.0

@@ -1,7 +1,1 @@
-{
-        "train": [],
-        "dev": [],
-        "test": [
-                "WaveFunctionCollapse"
-        ]
-}
+{"train": [], "dev": [], "test": ["WaveFunctionCollapse"]}

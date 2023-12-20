@@ -1,6 +1,6 @@
 # GrACE
 
-This repo provides the code for reproducing the experiments in "GrACE: Language Models Meet Code Edits" (ESEC/FSE 2023). 
+This repo provides the code for reproducing the experiments in "[GrACE: Language Models Meet Code Edits](https://dl.acm.org/doi/10.1145/3611643.3616253)" (ESEC/FSE 2023). 
 
 ## Reproducing C3PO experiments
 
@@ -132,14 +132,24 @@ After ensuring that the requirements are met, launch the `tutorial.ipynb` file. 
 # Citation
 
 If you find our work useful in your research, please consider citing the paper:
-
-@misc{gupta2023grace,
-      title={GrACE: Generation using Associated Code Edits}, 
-      author={Priyanshu Gupta and Avishree Khare and Yasharth Bajpai and Saikat Chakraborty and Sumit Gulwani and Aditya Kanade and Arjun Radhakrishna and Gustavo Soares and Ashish Tiwari},
-      year={2023},
-      eprint={2305.14129},
-      archivePrefix={arXiv},
-      primaryClass={cs.SE}
+```
+@inproceedings{10.1145/3611643.3616253,
+author = {Gupta, Priyanshu and Khare, Avishree and Bajpai, Yasharth and Chakraborty, Saikat and Gulwani, Sumit and Kanade, Aditya and Radhakrishna, Arjun and Soares, Gustavo and Tiwari, Ashish},
+title = {Grace: Language Models Meet Code Edits},
+year = {2023},
+isbn = {9798400703270},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3611643.3616253},
+doi = {10.1145/3611643.3616253},
+abstract = {Developers spend a significant amount of time in editing code for a variety of reasons such as bug fixing or adding new features. Designing effective methods to predict code edits has been an active yet challenging area of research due to the diversity of code edits and the difficulty of capturing the developer intent. In this work, we address these challenges by endowing pre-trained large language models (LLMs) with the knowledge of relevant prior associated edits, which we call the Grace (Generation conditioned on Associated Code Edits) method. The generative capability of the LLMs helps address the diversity in code changes and conditioning code generation on prior edits helps capture the latent developer intent. We evaluate two well-known LLMs, codex and CodeT5, in zero-shot and fine-tuning settings respectively. In our experiments with two datasets, Grace boosts the performance of the LLMs significantly, enabling them to generate 29\% and 54\% more correctly edited code in top-1 suggestions relative to the current state-of-the-art symbolic and neural approaches, respectively.},
+booktitle = {Proceedings of the 31st ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering},
+pages = {1483–1495},
+numpages = {13},
+keywords = {Programming language processing, Pre-trained model, Large language models, Associated edits, Code editing},
+location = {, San Francisco, CA, USA, },
+series = {ESEC/FSE 2023}
 }
+```
 # Contact
 For any questions or issues, please submit repository issues or reach us at `priyansgupta@microsoft.com`

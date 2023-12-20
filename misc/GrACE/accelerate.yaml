@@ -1,7 +1,7 @@
 compute_environment: LOCAL_MACHINE
 deepspeed_config: {}
 distributed_type: MULTI_GPU
-downcast_bf16: 'no'
+downcast_bf16: "no"
 fsdp_config: {}
 machine_rank: 0
 main_process_ip: null

@@ -1,5 +1,6 @@
 {
-	"train": ["corefx",
+    "train": [
+        "corefx",
         "shadowsocks-windows",
         "CodeHub",
         "coreclr",
@@ -36,20 +37,25 @@
         "Nancy",
         "framework",
         "akka.net",
-        "monodevelop"],
-"dev": ["OpenLiveWriter",
+        "monodevelop",
+    ],
+    "dev": [
+        "OpenLiveWriter",
         "FluentValidation",
         "ILSpy",
         "Mvc",
         "Rx.NET",
         "OpenRA",
         "GVFS",
-        "MahApps.Metro"],
-"test": ["JavaScriptServices",
+        "MahApps.Metro",
+    ],
+    "test": [
+        "JavaScriptServices",
         "NLog",
         "duplicati",
         "EntityFrameworkCore",
         "choco",
         "ServiceStack",
-        "CefSharp"]
+        "CefSharp",
+    ],
 }

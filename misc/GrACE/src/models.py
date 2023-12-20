@@ -43,7 +43,7 @@ class OAIInsertModel:
         # trailing new lines can cause issues with OAI predictions
         data["prompt"] = prefix.strip()
         data["suffix"] = suffix.strip()
-       # Retry every 2 second, if rate limitted
+        # Retry every 2 second, if rate limitted
         while True:
             try:
                 completion = openai.Completion.create(**data)
