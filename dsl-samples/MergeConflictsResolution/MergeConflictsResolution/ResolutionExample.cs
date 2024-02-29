@@ -22,7 +22,7 @@ namespace MergeConflictsResolution
             foreach (string pathValue in path)
             {
                 Attributes.Attribute attr = Attributes.Attribute.Create(Path, pathValue.NormalizeInclude()); ;
-                Node node = StructNode.Create("node1", new Attributes(attr));
+                Node node = StructNode.Create("node1", Attributes.CreateSingle(attr));
                 list.Add(node);
             }
 
