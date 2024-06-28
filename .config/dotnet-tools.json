@@ -1,0 +1,12 @@
+﻿{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "microsoft.programsynthesis.dslc": {
+      "version": "9.0.0",
+      "commands": [
+        "dslc"
+      ]
+    }
+  }
+}

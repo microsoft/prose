@@ -17,18 +17,6 @@ The samples are split into two categories:
 You can find guides for some of these sample projects and other information about the PROSE project here:
 [https://microsoft.github.io/prose/](https://microsoft.github.io/prose/)
 
-Optionally, you can get started quickly using [Docker](https://www.docker.com/get-started):
-
-```sh
-git clone https://github.com/microsoft/prose.git
-cd prose
-docker build -t prose-samples .
-docker run -it --rm -v "$(pwd):/opt/prose-samples" -w "/opt/prose-samples" prose-samples bash
-# Inside the Docker container
-cd dsl-samples/ProseSample/ProseSample  # ... or the directory for any other sample project
-dotnet run  # run the sample in the current directory
-```
-
 ## Contributing
 
 The source of truth for all the information in this repository is actually an internal Microsoft repository, and any

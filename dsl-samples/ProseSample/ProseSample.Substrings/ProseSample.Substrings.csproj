@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.Common" Version="8.33.0" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.DslcTargets" Version="8.33.0" />
-    <DotNetCliToolReference Include="Microsoft.ProgramSynthesis.Dslc" Version="8.33.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Common" Version="9.0.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.DslcTargets" Version="9.0.0" />
   </ItemGroup>
 
 </Project>
