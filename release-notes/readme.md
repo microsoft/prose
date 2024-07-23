@@ -6,7 +6,9 @@ have samples showing how to use the SDK as well as release notes for the SDK (wh
 
 |                                |                          | 
 |--------------------------------|--------------------------|
-| [Versions 8.x](8-x.md)         | 2021/07/26 and newer     |
+| [Versions 10.x](10-x.md)       | 2024/06/23 and newer     |
+| [Versions 9.x](9-x.md)         | 2024/06/25 - 2024/07/2   |
+| [Versions 8.x](8-x.md)         | 2021/07/26 - 2024/06/21  |
 | [Versions 7.x](7-x.md)         | 2019/07/30 - 2021/07/19  |
 | [Versions 6.x](6-x.md)         | 2018/03/19 - 2019/06/24  |
 | [Versions 5.x](5-x.md)         | 2018/02/07               |
