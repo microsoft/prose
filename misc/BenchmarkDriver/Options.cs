@@ -5,7 +5,6 @@ namespace BenchmarkDriver
     public enum Command
     {
         All,
-        ExtractionText,
         SplitText,
         TransformationText,
         None
@@ -31,10 +30,6 @@ namespace BenchmarkDriver
 
                 AddCommand(syntax, "all", Command.All, "Run driver against entire benchmark suite");
                 syntax.DefineParameter("benchmarkSuiteDir", ref BenchmarkSuiteDirPath, "Benchmark suite root directory");
-
-                AddCommand(syntax, "etext", Command.ExtractionText,
-                    "Run driver against individual Extraction.Text benchmark");
-                syntax.DefineParameter("benchmarkDir", ref BenchmarkDirPath, "Benchmark directory");
 
                 AddCommand(syntax, "splitText", Command.SplitText,
                     "Run driver against individual Split.Text benchmark");

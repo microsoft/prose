@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis.Split.Text" Version="10.2.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Split.Text" Version="10.3.0" />
   </ItemGroup>
 
 </Project>

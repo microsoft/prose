@@ -22,9 +22,6 @@ namespace BenchmarkDriver
                     var reportDirPath = Path.Combine(benchmarkDirPath, "report");
                     switch (Options.Command)
                     {
-                        case Command.ExtractionText:
-                            runner = new ExtractionTextRunner(benchmarkDirPath, reportDirPath);
-                            break;
                         case Command.SplitText:
                             runner = new SplitTextRunner(benchmarkDirPath, reportDirPath);
                             break;

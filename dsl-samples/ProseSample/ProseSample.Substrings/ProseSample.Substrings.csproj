@@ -6,8 +6,8 @@
   
   <ItemGroup>
     <ProjectReference Include="..\ProseSample.Substrings.Semantics\ProseSample.Substrings.Semantics.csproj" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.Common" Version="10.2.0" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.DslcTargets" Version="10.2.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Common" Version="10.3.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.DslcTargets" Version="10.3.0" />
   </ItemGroup>
 
 </Project>

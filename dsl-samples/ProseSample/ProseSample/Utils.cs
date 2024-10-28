@@ -7,7 +7,6 @@ using Microsoft.ProgramSynthesis;
 using Microsoft.ProgramSynthesis.AST;
 using Microsoft.ProgramSynthesis.Compiler;
 using Microsoft.ProgramSynthesis.DslLibrary;
-using Microsoft.ProgramSynthesis.Extraction.Text.Deprecated;
 using Microsoft.ProgramSynthesis.Learning;
 using Microsoft.ProgramSynthesis.Learning.Logging;
 using Microsoft.ProgramSynthesis.Learning.Strategies;
@@ -94,7 +93,7 @@ namespace ProseSample
         {
             string content = File.ReadAllText(ResolveFilename(filename));
             Match[] examples = ExampleRegex.Matches(content).Cast<Match>().ToArray();
-            document = RegionSession.CreateStringRegion(content.Replace("}", "").Replace("{", ""));
+            document = new StringRegion(content.Replace("}", "").Replace("{", ""), Token.Tokens);
             var result = new List<StringRegion>();
             for (int i = 0, shift = -1; i < examples.Length; i++, shift -= 2)
             {

@@ -3,13 +3,11 @@ using Microsoft.ProgramSynthesis.DslLibrary;
 
 namespace ProseSample.TextExtraction
 {
-    using ETextSemantics = Microsoft.ProgramSynthesis.Extraction.Text.Deprecated.Semantics.Semantics;
-
     public static class Semantics
     {
         public static IEnumerable<StringRegion> SplitLines(StringRegion document)
         {
-            Token lineBreak = ETextSemantics.GetStaticTokenByName(Token.LineSeparatorName);
+            Token lineBreak = document.Cache.GetStaticTokenByName(Token.LineSeparatorName);
             CachedList lineBreakPositions;
             if (!document.Cache.TryGetMatchPositionsFor(lineBreak, out lineBreakPositions))
                 return new[] { document };
