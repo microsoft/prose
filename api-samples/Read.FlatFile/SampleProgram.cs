@@ -180,6 +180,14 @@ INFO [vUser-3-thread-1] findElement(): return code is FAILED";
                 {
                     Console.WriteLine(
                         $"Program: {etextProgram.WrappedProgram}");
+                },
+                splProgram =>
+                {
+                    Console.WriteLine($"Number lines to skip from the start: {splProgram.Skip}");
+                    Console.WriteLine($"Number lines to skip from the end: {splProgram.SkipFooter}");
+                    Console.WriteLine($"Row separators:");
+                    foreach (var rowSep in splProgram.NewLineStrings) Console.WriteLine($"{rowSep.ToLiteral()}");
+                    Console.WriteLine($"Program: {splProgram.WrappedProgram}");
                 });
         }
 
