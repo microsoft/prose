@@ -15,7 +15,7 @@ The samples are split into two categories:
   - [DSL for merge conflict resolution](dsl-samples/MergeConflictsResolution/MergeConflictsResolution.sln)
 
 You can find guides for some of these sample projects and other information about the PROSE project here:
-[https://microsoft.github.io/prose/](https://microsoft.github.io/prose/)
+[https://aka.ms/prose/](https://aka.ms/prose/)
 
 ## Contributing
 
