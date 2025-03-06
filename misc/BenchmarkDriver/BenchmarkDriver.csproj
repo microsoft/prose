@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis" Version="10.7.0" />
-    <PackageReference Include="Microsoft.ProgramSynthesis.CommandLine" Version="10.7.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis" Version="10.8.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.CommandLine" Version="10.8.0" />
   </ItemGroup>
 
 </Project>
