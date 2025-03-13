@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis.Matching.Text" Version="10.8.0" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Matching.Text" Version="10.9.0" />
   </ItemGroup>
 
 </Project>
