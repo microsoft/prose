@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis.Read.FlatFile" Version="10.12.1" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Read.FlatFile" Version="10.13.0" />
   </ItemGroup>
 
 </Project>

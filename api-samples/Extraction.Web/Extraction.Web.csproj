@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProgramSynthesis.Extraction.Web" Version="10.12.1" />
+    <PackageReference Include="Microsoft.ProgramSynthesis.Extraction.Web" Version="10.13.0" />
   </ItemGroup>
 
 </Project>

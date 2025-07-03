@@ -3,7 +3,7 @@
   "isRoot": true,
   "tools": {
     "microsoft.programsynthesis.dslc": {
-      "version": "10.12.1",
+      "version": "10.13.0",
       "commands": [
         "dslc"
       ]
