@@ -1,0 +1,18 @@
+Org/Repo,Repository,#Files,#LoC,#Count,Avg. #Tokens,Avg. #Lines,Avg. #Hunks,Avg. #Files,Test Patch Avg. #Lines,Test Patch Avg. #Hunks,Test Patch Avg. #Files,#Avg. F2P,#Avg. P2P,Unit tests
+App-vNext/Polly,Polly,790,84.8k,14,176.64,98.57,13.64,7.5,123.79,14.21,6.21,1.64,5.36,N/A
+AvaloniaUI/Avalonia,Avalonia,3532,436.5k,41,287.02,147.95,8.8,3.73,63.51,3.54,1.32,2.29,4.1,N/A
+JoshClose/CsvHelper,CsvHelper,461,44.8k,1,192.0,369.0,35.0,22.0,423.0,36.0,30.0,13.0,10.0,N/A
+MessagePack-CSharp/MessagePack-CSharp,MessagePack-CSharp,688,80.8k,18,292.72,41.61,7.11,2.28,117.78,3.39,2.33,1.67,0.56,N/A
+SixLabors/ImageSharp,ImageSharp,1997,248.4k,8,256.38,56.0,4.62,2.62,42.75,4.62,2.38,0.75,6.88,N/A
+StackExchange/StackExchange.Redis,StackExchange.Redis,341,72.8k,3,406.67,50.67,9.67,5.0,104.33,15.33,4.67,2.67,0.0,N/A
+ThreeMammals/Ocelot,Ocelot,735,53.5k,4,146.5,498.75,44.0,24.5,699.5,31.5,17.25,10.25,7.5,N/A
+ardalis/CleanArchitecture,CleanArchitecture,256,5.0k,3,125.33,34.33,4.33,4.33,45.0,6.67,5.67,3.33,0.33,N/A
+autofac/Autofac,Autofac,577,45.8k,6,411.83,134.83,10.67,5.17,83.33,2.0,1.33,3.83,13.33,N/A
+devlooped/moq,moq,242,40.8k,4,287.75,34.25,4.5,3.0,55.5,2.0,1.0,3.0,0.0,N/A
+dotnet/BenchmarkDotNet,BenchmarkDotNet,955,67.0k,8,291.88,54.75,6.0,3.38,71.88,2.12,1.12,3.62,14.0,N/A
+dotnet/efcore,efcore,5468,1479.1k,9,232.78,565.0,20.11,8.22,174.11,11.22,5.89,1.0,14.22,N/A
+gui-cs/Terminal.Gui,Terminal.Gui,938,221.7k,1,113.0,22.0,3.0,2.0,5.0,1.0,1.0,1.0,0.0,N/A
+jellyfin/jellyfin,jellyfin,1943,224.7k,3,679.0,23.0,2.0,2.0,30.33,1.33,1.0,1.0,6.67,N/A
+restsharp/RestSharp,RestSharp,226,15.9k,5,192.0,66.6,11.6,5.2,37.4,4.4,2.4,1.8,2.4,N/A
+serilog/serilog,serilog,214,21.2k,12,257.08,80.5,7.42,3.25,84.25,8.08,4.92,3.25,4.25,N/A
+spectreconsole/spectre.console,spectre.console,729,62.5k,10,172.1,55.6,7.4,4.7,68.2,9.1,6.4,1.2,0.1,N/A

@@ -1,0 +1,8 @@
+# Instances in benchmark but missing from input folder
+# Total missing: 5
+
+dotnet__efcore-27428
+dotnet__efcore-28261
+dotnet__efcore-34052
+dotnet__efcore-34832
+restsharp__restsharp-1676

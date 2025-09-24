@@ -1,0 +1,6 @@
+# Track trajectory files with Git LFS
+*.traj filter=lfs diff=lfs merge=lfs -text
+# Track log files only under experiments/evaluation/ with Git LFS
+experiments/evaluation/**/*.log filter=lfs diff=lfs merge=lfs -text
+# Track other potentially large files
+*.json filter=lfs diff=lfs merge=lfs -text

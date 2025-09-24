@@ -1,0 +1,62 @@
+SWE-Sharp-Bench
+
+This repository includes the following third-party packages:
+
+Package Name         Version      License                                                  Author                                                                                
+================     =======      =======                                                  ======                                                                                
+ GitPython           3.1.45       BSD-3-Clause                                             Sebastian Thiel, Michael Trier                                                        
+ Name                Version      License                                                  Author                                                                                
+ PyYAML              6.0.2        MIT License                                              Kirill Simonov                                                                        
+ Pygments            2.19.2       BSD License                                              Georg Brandl <georg@python.org>                                                       
+ aiohappyeyeballs    2.6.1        Python Software Foundation License                       J. Nick Koston                                                                        
+ aiohttp             3.12.15      Apache-2.0 AND MIT                                       UNKNOWN                                                                               
+ aiosignal           1.4.0        Apache Software License                                  UNKNOWN                                                                               
+ attrs               25.3.0       UNKNOWN                                                  Hynek Schlawack <hs@ox.cx>                                                            
+ beautifulsoup4      4.13.5       MIT License                                              Leonard Richardson <leonardr@segfault.org>                                            
+ certifi             2025.8.3     Mozilla Public License 2.0 (MPL 2.0)                     Kenneth Reitz                                                                         
+ cfgv                3.4.0        MIT License                                              Anthony Sottile                                                                       
+ chardet             5.2.0        GNU Lesser General Public License v2 or later (LGPLv2+)  Mark Pilgrim                                                                          
+ charset-normalizer  3.4.3        MIT                                                      "Ahmed R. TAHRI" <tahri.ahmed@proton.me>                                              
+ datasets            4.1.1        Apache Software License                                  HuggingFace Inc.                                                                      
+ dill                0.4.0        BSD License                                              Mike McKerns                                                                          
+ distlib             0.4.0        Python Software Foundation License                       Vinay Sajip                                                                           
+ docker              7.1.0        Apache Software License                                  UNKNOWN                                                                               
+ fastcore            1.8.11       Apache Software License                                  Jeremy Howard and Sylvain Gugger                                                      
+ filelock            3.19.1       The Unlicense (Unlicense)                                UNKNOWN                                                                               
+ frozenlist          1.7.0        Apache-2.0                                               UNKNOWN                                                                               
+ fsspec              2025.9.0     UNKNOWN                                                  UNKNOWN                                                                               
+ ghapi               1.0.8        Apache Software License                                  Jeremy Howard                                                                         
+ gitdb               4.0.12       BSD License                                              Sebastian Thiel                                                                       
+ hf-xet              1.1.10       Apache Software License                                  UNKNOWN                                                                               
+ huggingface-hub     0.35.0       Apache Software License                                  Hugging Face, Inc.                                                                    
+ identify            2.6.14       MIT                                                      Chris Kuehl                                                                           
+ idna                3.10         BSD License                                              Kim Davies <kim+pypi@gumleaf.org>                                                     
+ markdown-it-py      4.0.0        MIT License                                              Chris Sewell <chrisj_sewell@hotmail.com>                                              
+ mdurl               0.1.2        MIT License                                              Taneli Hukkinen <hukkin@users.noreply.github.com>                                     
+ multidict           6.6.4        Apache License 2.0                                       Andrew Svetlov                                                                        
+ multiprocess        0.70.16      BSD License                                              Mike McKerns                                                                          
+ nodeenv             1.9.1        BSD License                                              Eugene Kalinin                                                                        
+ numpy               2.3.3        BSD License                                              Travis E. Oliphant et al.                                                             
+ packaging           25.0         Apache Software License; BSD License                     Donald Stufft <donald@stufft.io>                                                      
+ pandas              2.3.2        BSD License                                              The Pandas Development Team <pandas-dev@python.org>                                   
+ platformdirs        4.4.0        MIT License                                              UNKNOWN                                                                               
+ pre_commit          4.3.0        MIT                                                      Anthony Sottile                                                                       
+ propcache           0.3.2        Apache Software License                                  Andrew Svetlov                                                                        
+ pyarrow             21.0.0       Apache Software License                                  UNKNOWN                                                                               
+ python-dateutil     2.9.0.post0  Apache Software License; BSD License                     Gustavo Niemeyer                                                                      
+ python-dotenv       1.1.1        BSD License                                              Saurabh Kumar                                                                         
+ pytz                2025.2       MIT License                                              Stuart Bishop                                                                         
+ requests            2.32.5       Apache Software License                                  Kenneth Reitz                                                                         
+ rich                14.1.0       MIT License                                              Will McGugan                                                                          
+ six                 1.17.0       MIT License                                              Benjamin Peterson                                                                     
+ smmap               5.0.2        BSD License                                              Sebastian Thiel                                                                       
+ soupsieve           2.8          MIT License                                              Isaac Muse <Isaac.Muse@gmail.com>                                                     
+ swebench            3.0.0        MIT License                                              John Yang                                                                             
+ tqdm                4.67.1       MIT License; Mozilla Public License 2.0 (MPL 2.0)        UNKNOWN                                                                               
+ typing_extensions   4.15.0       UNKNOWN                                                  "Guido van Rossum, Jukka Lehtosalo, Łukasz Langa, Michael Lee" <levkivskyi@gmail.com> 
+ tzdata              2025.2       Apache Software License                                  Python Software Foundation                                                            
+ unidiff             0.7.5        MIT                                                      Matias Bordese                                                                        
+ urllib3             2.5.0        UNKNOWN                                                  Andrey Petrov <andrey.petrov@shazow.net>                                              
+ virtualenv          20.34.0      MIT License                                              UNKNOWN                                                                               
+ xxhash              3.5.0        BSD License                                              Yue Du                                                                                
+ yarl                1.20.1       Apache Software License                                  Andrew Svetlov                                                                        
