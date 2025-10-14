@@ -4,6 +4,8 @@ This Github repository contains supporting information for the closed-source PRO
 nuget.org with a non-commercial use only license.  This repo does NOT have the source for the PROSE SDK, but it does
 have samples showing how to use the SDK as well as release notes for the SDK (which are below).
 
+**Important**: We are ending support for further releases of the PROSE SDK.
+
 |                                |                          | 
 |--------------------------------|--------------------------|
 | [Versions 10.x](10-x.md)       | 2024/06/23 and newer     |
