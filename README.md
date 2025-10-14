@@ -1,5 +1,7 @@
 # Microsoft Program Synthesis using Examples SDK
 
+**IMPORTANT: As of October 14, 2025, we have stopped releasing new versions of the PROSE SDK.**
+
 The Program Synthesis using Examples (PROSE) SDK includes a set of technologies for the automatic generation of programs
 from input-output examples. This repo includes samples, release notes, and some other miscellaneous projects related to
 the Microsoft PROSE SDK.
