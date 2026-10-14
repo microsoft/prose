@@ -4,7 +4,6 @@ import hashlib
 import requests
 import base64
 import os
-import pickle
 from typing import Any, Union, cast
 from dataclasses import dataclass
 
@@ -29,6 +28,13 @@ from swe_sharp_bench.create_scripts import (
 from swe_sharp_bench.constants import (
     MAP_REPO_VERSION_TO_SPECS,
     MAP_REPO_TO_EXT,
+)
+from swe_sharp_bench.json_cache import (
+    is_dotnet_version_info,
+    is_string,
+    is_string_map,
+    load_json_cache,
+    write_json_cache,
 )
 
 @dataclass
@@ -321,24 +327,13 @@ def get_sln_file_from_github(
     commit: str
 ): 
     
-    # Define cache file path
-    cache_file = ".sln_file_cache.pkl"
+    cache_file = ".sln_file_cache.json"
     cache_key = f"{repo}_{commit}"
-    cache_data = {}
-    
-    # Load cache if it exists
-    if os.path.exists(cache_file):
-        try:
-            with open(cache_file, "rb") as f:
-                cache_data = pickle.load(f)
-            
-            # Return cached data if available
-            if cache_key in cache_data:
-                print(f"Using cached solution files for {repo}@{commit}")
-                return cache_data[cache_key]
-        except Exception as e:
-            print(f"Error loading cache: {e}")
-            # Continue with API call if cache loading fails
+    cache_data = load_json_cache(cache_file, is_string_map)
+
+    if cache_key in cache_data:
+        print(f"Using cached solution files for {repo}@{commit}")
+        return cache_data[cache_key]
     
     api_base = "https://api.github.com/repos"
     sln_files = {}
@@ -386,14 +381,9 @@ def get_sln_file_from_github(
                             sln_files[item["path"]] = file_content
     
     print(f"Found {len(sln_files)} solution files in {repo}@{commit}")
-    # Save to cache
     cache_data[cache_key] = sln_files
-    try:
-        with open(cache_file, "wb") as f:
-            pickle.dump(cache_data, f)
+    if write_json_cache(cache_file, cache_data):
         print(f"Cached solution files for {repo}@{commit}")
-    except Exception as e:
-        print(f"Error saving to cache: {e}")
     
     return sln_files
 
@@ -517,24 +507,13 @@ def find_dotnet_framework(sln_content, repo, commit_id):
     # Function to fetch file content from GitHub
     def fetch_file_from_github(file_path):
         
-        # Define cache file path
-        cache_file = ".github_file_cache.pkl"
+        cache_file = ".github_file_cache.json"
         cache_key = f"{repo_owner}/{repo_name}_{commit_id}_{file_path}"
-        cache_data = {}
-        
-        # Load cache if it exists
-        if os.path.exists(cache_file):
-            try:
-                with open(cache_file, "rb") as f:
-                    cache_data = pickle.load(f)
-                
-                # Return cached data if available
-                if cache_key in cache_data:
-                    print(f"Using cached file content for {file_path}")
-                    return cache_data[cache_key]
-            except Exception as e:
-                print(f"Error loading cache: {e}")
-                # Continue with API call if cache loading fails
+        cache_data = load_json_cache(cache_file, is_string)
+
+        if cache_key in cache_data:
+            print(f"Using cached file content for {file_path}")
+            return cache_data[cache_key]
         
         # Fetch from GitHub if not in cache
         api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{file_path}?ref={commit_id}"
@@ -545,14 +524,9 @@ def find_dotnet_framework(sln_content, repo, commit_id):
             if content.get("encoding") == "base64":
                 file_content = base64.b64decode(content["content"]).decode("utf-8")
                 
-                # Save to cache
                 cache_data[cache_key] = file_content
-                try:
-                    with open(cache_file, "wb") as f:
-                        pickle.dump(cache_data, f)
+                if write_json_cache(cache_file, cache_data):
                     print(f"Cached file content for {file_path}")
-                except Exception as e:
-                    print(f"Error saving to cache: {e}")
                 
                 return file_content
         return None
@@ -722,26 +696,14 @@ def find_dotnet_version(repo, commit_id):
     import json
     import base64
     import os
-    import pickle
     
-    # Define cache file path
-    cache_file = ".dotnet_version_cache.pkl"
+    cache_file = ".dotnet_version_cache.json"
     cache_key = f"{repo}_{commit_id}"
-    cache_data = {}
-    
-    # Load cache if it exists
-    if os.path.exists(cache_file):
-        try:
-            with open(cache_file, "rb") as f:
-                cache_data = pickle.load(f)
-            
-            # Return cached data if available
-            if cache_key in cache_data:
-                print(f"Using cached .NET version info for {repo}@{commit_id}")
-                return cache_data[cache_key]
-        except Exception as e:
-            print(f"Error loading cache: {e}")
-            # Continue with API call if cache loading fails
+    cache_data = load_json_cache(cache_file, is_dotnet_version_info)
+
+    if cache_key in cache_data:
+        print(f"Using cached .NET version info for {repo}@{commit_id}")
+        return cache_data[cache_key]
     
     # Split repo into owner and name
     repo_parts = repo.split('/')
@@ -788,13 +750,8 @@ def find_dotnet_version(repo, commit_id):
             except json.JSONDecodeError:
                 result = {}
     
-    # Save to cache
     cache_data[cache_key] = result
-    try:
-        with open(cache_file, "wb") as f:
-            pickle.dump(cache_data, f)
+    if write_json_cache(cache_file, cache_data):
         print(f"Cached .NET version info for {repo}@{commit_id}")
-    except Exception as e:
-        print(f"Error saving to cache: {e}")
     
     return result
